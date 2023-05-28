@@ -1,110 +1,104 @@
 {
-  "id": "combat-utility-belt",
-  "title": "Combat Utility Belt",
-  "description": "Adds various combat-focused features",
-  "version": "1.10.4",
-  "authors": [
-    {
-      "name": "Evan Clarke",
-      "url": "https://patreon.com/deathsave",
-      "email": "cub@deathsave.dev",
-      "discord": "errational#2007",
-      "twitter": "@death_save_dev",
-      "reddit": "u/etherboy12"
-    }
-  ],
-  "url": "https://github.com/death-save/combat-utility-belt",
-  "bugs": "https://github.com/death-save/combat-utility-belt/issues",
-  "readme": "https://github.com/death-save/combat-utility-belt/wiki",
-  "manifest": "https://github.com/death-save/combat-utility-belt/releases/latest/download/module.json",
-  "download": "https://github.com/death-save/combat-utility-belt/releases/latest/download/module.zip",
-  "scripts": [
-    "library/typewriterjs/core.js"
-  ],
-  "esmodules": [
-    "combat-utility-belt.js"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    },
-    {
-      "lang": "ja",
-      "name": "日本語",
-      "path": "lang/ja.json"
-    },
-    {
-      "lang": "ko",
-      "name": "한국어",
-      "path": "lang/ko.json"
-    },
-    {
-      "lang": "pt-BR",
-      "name": "Português (Brasil)",
-      "path": "lang/pt-BR.json"
-    },
-    {
-      "lang": "es",
-      "name": "Español",
-      "path": "lang/es.json"
-    },
-    {
-      "lang": "cn",
-      "name": "中文",
-      "path": "lang/cn.json"
-    },
-    {
-      "lang": "de",
-      "name": "Deutsch",
-      "path": "lang/de.json"
-    },
-    {
-      "lang": "pl",
-      "name": "Polski",
-      "path": "lang/pl.json"
-    }
-  ],
-  "packs": [
-    {
-      "name": "conditionsdnd5e",
-      "label": "Conditions (D&D5e)",
-      "system": "dnd5e",
-      "path": "packs/conditionsdnd5e.db",
-      "type": "JournalEntry",
-      "private": false
-    },
-    {
-      "name": "conditionsarchmage",
-      "label": "Conditions (13th Age)",
-      "system": "archmage",
-      "path": "packs/conditionsarchmage.db",
-      "type": "JournalEntry",
-      "private": false
-    }
-  ],
-  "styles" : [
-    "styles/combat-utility-belt.css"
-  ],
-  "media": [
-    {
-      "type": "video",
-      "url": "https://www.youtube.com/watch?v=BRlWhbw0mbk"
-    },
-    {
-      "type": "cover",
-      "url": "https://user-images.githubusercontent.com/42503461/88756618-f949b900-d118-11ea-9a64-6599be2f3efa.png"
-    }
-  ],
-  "flags": {
-    "allowBugReporter": true
-  },
-  "socket": true,
-  "compatibility": {
-    "minimum": "10.270",
-    "verified": "10.291"
-  },
-  "name": "combat-utility-belt",
-  "minimumCoreVersion": "10.270"
+	"id": "combat-utility-belt",
+	"title": "Combat Utility Belt",
+	"description": "Adds various combat-focused features",
+	"version": "1.10.4",
+	"authors": [
+		{
+			"name": "Evan Clarke",
+			"url": "https://patreon.com/deathsave",
+			"email": "cub@deathsave.dev",
+			"discord": "errational#2007",
+			"twitter": "@death_save_dev",
+			"reddit": "u/etherboy12"
+		}
+	],
+	"url": "https://github.com/death-save/combat-utility-belt",
+	"bugs": "https://github.com/death-save/combat-utility-belt/issues",
+	"readme": "https://github.com/death-save/combat-utility-belt/wiki",
+	"manifest": "https://github.com/death-save/combat-utility-belt/releases/latest/download/module.json",
+	"download": "https://github.com/death-save/combat-utility-belt/releases/latest/download/module.zip",
+	"scripts": ["library/typewriterjs/core.js"],
+	"esmodules": ["combat-utility-belt.js"],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		},
+		{
+			"lang": "ja",
+			"name": "日本語",
+			"path": "lang/ja.json"
+		},
+		{
+			"lang": "ko",
+			"name": "한국어",
+			"path": "lang/ko.json"
+		},
+		{
+			"lang": "pt-BR",
+			"name": "Português (Brasil)",
+			"path": "lang/pt-BR.json"
+		},
+		{
+			"lang": "es",
+			"name": "Español",
+			"path": "lang/es.json"
+		},
+		{
+			"lang": "cn",
+			"name": "中文",
+			"path": "lang/cn.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "lang/de.json"
+		},
+		{
+			"lang": "pl",
+			"name": "Polski",
+			"path": "lang/pl.json"
+		}
+	],
+	"packs": [
+		{
+			"name": "conditionsdnd5e",
+			"label": "Conditions (D&D5e)",
+			"system": "dnd5e",
+			"path": "packs/conditionsdnd5e.db",
+			"type": "JournalEntry",
+			"private": false
+		},
+		{
+			"name": "conditionsarchmage",
+			"label": "Conditions (13th Age)",
+			"system": "archmage",
+			"path": "packs/conditionsarchmage.db",
+			"type": "JournalEntry",
+			"private": false
+		}
+	],
+	"styles": ["styles/combat-utility-belt.css"],
+	"media": [
+		{
+			"type": "video",
+			"url": "https://www.youtube.com/watch?v=BRlWhbw0mbk"
+		},
+		{
+			"type": "cover",
+			"url": "https://user-images.githubusercontent.com/42503461/88756618-f949b900-d118-11ea-9a64-6599be2f3efa.png"
+		}
+	],
+	"flags": {
+		"allowBugReporter": true
+	},
+	"socket": true,
+	"compatibility": {
+		"minimum": "10.270",
+		"verified": "10.291"
+	},
+	"name": "combat-utility-belt",
+	"minimumCoreVersion": "10.270"
 }

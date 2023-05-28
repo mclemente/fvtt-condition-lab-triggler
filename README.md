@@ -11,55 +11,64 @@
 
 ![https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fdeath-save%2Fcombat-utility-belt%2Fmaster%2Fmodule.json](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fdeath-save%2Fcombat-utility-belt%2Fmaster%2Fmodule.json)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/death-save/combat-utility-belt) 
-[![GitHub downloads (latest)](https://img.shields.io/badge/dynamic/json?label=Downloads@latest&query=assets[?(@.name.includes('zip'))].download_count&url=https://api.github.com/repos/death-save/combat-utility-belt/releases/latest&color=green)](https://github.com/death-save/combat-utility-belt/releases/latest)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/death-save/combat-utility-belt)
+[![GitHub downloads (latest)](<https://img.shields.io/badge/dynamic/json?label=Downloads@latest&query=assets[?(@.name.includes('zip'))].download_count&url=https://api.github.com/repos/death-save/combat-utility-belt/releases/latest&color=green>)](https://github.com/death-save/combat-utility-belt/releases/latest)
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Install%20Base&query=package.installs&suffix=%&url=https://forge-vtt.com/api/bazaar/package/combat-utility-belt&colorB=brightgreen)](https://forge-vtt.com/)
 
-
 # Combat Utility Belt
-*made with ❤ by [DEATH SAVE DEVELOPMENT](https://deathsave.dev)*
 
+_made with ❤ by [DEATH SAVE DEVELOPMENT](https://deathsave.dev)_
 
 ---
-**[📚Wiki/How-To](https://github.com/death-save/combat-utility-belt/wiki)**    
-**[🐛Issues/Bugs](https://github.com/death-save/combat-utility-belt/issues)**    
-**[💬Contact](#death-save-social)**    
-**[📜Changelog](https://github.com/death-save/combat-utility-belt/blob/master/CHANGELOG.md)**    
-**[📦Installation](#installation)**    
-**[🛠 Gadgets](#gadgets)**    
+
+**[📚Wiki/How-To](https://github.com/death-save/combat-utility-belt/wiki)**  
+**[🐛Issues/Bugs](https://github.com/death-save/combat-utility-belt/issues)**  
+**[💬Contact](#death-save-social)**  
+**[📜Changelog](https://github.com/death-save/combat-utility-belt/blob/master/CHANGELOG.md)**  
+**[📦Installation](#installation)**  
+**[🛠 Gadgets](#gadgets)**  
 **[👏Thanks/Attribution](#thanksattribution)**
 
 ---
-> Every ~~hero~~ GM needs gadgets to keep their game safe from dastardly players up to no good! And where better to store those gadget than on your very own Combat Utility Belt!    
-This handy-dandy combat aid comes packed with a bunch of gadgets to ensure you get a TPK every time...
-## Features (Gadgets)
-### Core
-* CUBputer
-* Enhanced Conditions
-* Triggler
-### Additional
-* Hide Names
-* Award XP
-* Pan/Select
-* Reroll Initiative
-* Temporary Combatants
-* Miscellaneous Actor/Token
-### D&D5e specific
-* Concentrator
-* Mighty Summoner
 
+> Every ~~hero~~ GM needs gadgets to keep their game safe from dastardly players up to no good! And where better to store those gadget than on your very own Combat Utility Belt!  
+> This handy-dandy combat aid comes packed with a bunch of gadgets to ensure you get a TPK every time...
+
+## Features (Gadgets)
+
+### Core
+
+-   CUBputer
+-   Enhanced Conditions
+-   Triggler
+
+### Additional
+
+-   Hide Names
+-   Award XP
+-   Pan/Select
+-   Reroll Initiative
+-   Temporary Combatants
+-   Miscellaneous Actor/Token
+
+### D&D5e specific
+
+-   Concentrator
+-   Mighty Summoner
 
 # Installation
+
 ~~Simply wrap the belt around your waist and affix the clasp.~~
 
 1. Navigate to the Foundry Setup screen and click on the Modules tab
 2. Click Install Module and look for Combat Utility Belt
 3. Once the Combat Utility Belt is installed, open your desired world and ~~wreak havoc on your players~~ navigate to the **Settings > Manage Modules** and enable the module then **Settings > Module Settings** and enable the gadget settings you want!
 
-
 # Gadgets
+
 <details>
   <summary>Click to show</summary>
   
@@ -67,22 +76,24 @@ This handy-dandy combat aid comes packed with a bunch of gadgets to ensure you g
 Provides an option to distribute XP to player-characters at the end of combat
 
 ## Concentrator
-*(D&D5e only)*
+
+_(D&D5e only)_
 
 ![concentrator](https://github.com/death-save/media/blob/master/combat-utility-belt/concentrator.gif)
 
 A DM is responsible for all sorts of things, but keeping track those pesky spell casters and their concentration is one more thing that you shouldn't have to worry about!
 
-With this gadget, you can make sure that those *irritating* spellcasters are always checked whenever the concentrating status is applied. Now they'll be careful about getting hit by that goblin sneaking around!
+With this gadget, you can make sure that those _irritating_ spellcasters are always checked whenever the concentrating status is applied. Now they'll be careful about getting hit by that goblin sneaking around!
 
 ## CUBputer
+
 Although it's not technically a gadget, think of the CUBputer as the control room for your ~~evil~~ operation. Provides critical configuration options for CUB's gadgets.
 
 ## Enhanced Conditions
 
 ![enhanced-conditions](https://github.com/death-save/media/blob/master/combat-utility-belt/enhanced-conditions.gif)
 
-It's not enough to *show* your players when their poisoned, you want to really drive it  home by linking the condition so they can wallow in misery as they fail their ability checks.
+It's not enough to _show_ your players when their poisoned, you want to really drive it home by linking the condition so they can wallow in misery as they fail their ability checks.
 
 This gadget creates a dynamo-powered link between status effect icons and reference entries (Journal, Item, or compendium) with further info on that status effect.
 
@@ -90,7 +101,7 @@ This gadget creates a dynamo-powered link between status effect icons and refere
 
 The ideal place to concoct your ~~nefarious~~ heroic combination of status icons and condition names, as well as link Conditions to Active Effects.
 
-*I like the Deadly STD one!*
+_I like the Deadly STD one!_
 
 ## Hide Names
 
@@ -100,23 +111,27 @@ Maybe you forgot that your NPC's name reveals a dark secret about their past, or
 
 Fret no more, for this gadget replaces NPC names with a replacement of your choice. Personally, I'm a fan of Melvin.
 
-
 ## Mighty Summoner
-*(D&D5e only) Druid Circle of the Shepherd class feature support*    
+
+_(D&D5e only) Druid Circle of the Shepherd class feature support_  
 Rolls additional dice for summoned creatures
 
 ## Miscellaneous Actor/Token Enhancements
 
 ### Quick Edit Token Resource from Combat Tracker
+
 Easily edit your tracked token resource directly from the Combat Tracker
 
 ### Roll Hostile HP
+
 Roll token HP when dropping on the scene
 
 ### Token Effect Icon Size
+
 Select from a range of options to set the size of status effect icons on tokens
 
 ## Pan/Select
+
 Pans the camera to and/or selects active combatants during combat
 
 ## Reroll Initiative
@@ -128,24 +143,29 @@ The BBEG rolled a 2 for initiative? Not anymore! This gadget rerolls initiative 
 Glorious chaos!
 
 ## Temporary Combatants
+
 Track lair actions, environmental effects and more as Temporary Combatants that last only as long as the current combat encounter!
 
 ## Triggler
+
 Trigger the addition or removal of Conditions, and/or the execution of Macros based on changes to actor/token properties such as HP
+
 </details>
 
 ---
 
 # Thanks/Attribution
+
 Firstly thank you to all my former Patreon patrons, you helped make module development extra special!
 
-Secondly I want to shout out the awesome contributors for this module (see: [contributors](#contributors-)). Whether it's code, translations, or bugs/suggestions, without your help Combat Utility Belt would not be as awesome as it is! 
+Secondly I want to shout out the awesome contributors for this module (see: [contributors](#contributors-)). Whether it's code, translations, or bugs/suggestions, without your help Combat Utility Belt would not be as awesome as it is!
 
 I would also like to acknowledge that many of the functions found in the Combat Utility Belt are inspired by [Roll20 API scripts](https://github.com/RobinKuiper/Roll20APIScripts) written by @RobinKuiper (namely the Combat Tracker, Death Tracker and StatusInfo ones).
 
 Concentration icon made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flat Icon](www.flaticon.com)
 
 ## Donations/Sponsorship
+
 Any support you can provide is greatly appreciated! Check out the `Sponsor this project` section in the right-hand sidebar.
 
 ## Contributors ✨

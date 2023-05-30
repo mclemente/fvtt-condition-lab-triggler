@@ -1,12 +1,12 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
-import { EnhancedConditions } from "./enhanced-conditions.js";
 import { TrigglerForm } from "../triggler/triggler-form.js";
 import { DraggableList } from "../utils/draggable-list.js";
-import EnhancedEffectConfig from "./enhanced-effect-config.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
-import EnhancedConditionTriggerConfig from "./enhanced-condition-trigger.js";
 import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
+import EnhancedConditionTriggerConfig from "./enhanced-condition-trigger.js";
+import { EnhancedConditions } from "./enhanced-conditions.js";
+import EnhancedEffectConfig from "./enhanced-effect-config.js";
 
 /**
  * Form application for managing mapping of Conditions to Icons and JournalEntries
@@ -14,6 +14,7 @@ import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 export class ConditionLab extends FormApplication {
 	constructor(object, options = {}) {
 		super(object, options);
+		game.cub.conditionLab = this;
 		this.data = (game.cub.conditionLab ? game.cub.conditionLab.data : object) ?? null;
 		this.system = game.system.id;
 		this.initialMapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
@@ -35,7 +36,7 @@ export class ConditionLab extends FormApplication {
 			title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
 			classes: ["sheet"],
-			width: 1025,
+			width: 780,
 			height: 700,
 			resizable: true,
 			closeOnSubmit: false,
@@ -231,11 +232,13 @@ export class ConditionLab extends FormApplication {
 			const id = ids[i] ?? null;
 			const name = conditions[i];
 			const existingCondition = existingMap && id ? existingMap.find((c) => c.id === id) : null;
-			const activeEffect = existingCondition ? existingCondition.activeEffect : null;
-			const applyTrigger = existingCondition ? existingCondition.applyTrigger : null;
-			const removeTrigger = existingCondition ? existingCondition.removeTrigger : null;
-			const macros = existingCondition ? existingCondition.macros : null;
-			const options = existingCondition ? existingCondition.options : {};
+			const {
+				activeEffect = null,
+				applyTrigger = null,
+				removeTrigger = null,
+				macros = null,
+				options = {},
+			} = existingCondition || {};
 
 			const condition = {
 				id,

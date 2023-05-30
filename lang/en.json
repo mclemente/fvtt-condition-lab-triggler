@@ -42,6 +42,7 @@
 				"ApplyHeading": "Apply Macro",
 				"RemoveHeading": "Remove Macro",
 				"Description": "Select a macro to execute when this condition is added to or removed from a token/actor",
+				"NoTriggerSet": "--No Trigger Set--",
 				"SelectNone": "--No Macro--"
 			},
 			"TriggerConfig": {
@@ -76,63 +77,12 @@
 				"ApplyCondition": "applyCondition was replaced with addCondition. Please update your code."
 			}
 		},
-		"CONCENTRATOR": {
-			"MessagePrefix": "Combat Utility Belt - Concentrator",
-			"NoMatchingCondition": "No matching condition found for Concentrator. Please check your Concentrator and Condition Lab",
-			"Prompts": {
-				"Check": {
-					"Title": "Concentration Check",
-					"Content": "<p>Roll a concentration check for <strong>{actorName}</strong>?</p><p>Spell: <strong>{spellName}</strong></p>",
-					"ClosedByOther": "Another user has rolled the concentration check"
-				},
-				"EnableEnhancedConditions": {
-					"Title": "Enable Enhanced Conditions?",
-					"Content": "<p>In order to use Concentrator you must enable Enhanced Conditions.</p><strong>Would you like to enable Enhanced Conditions</strong>"
-				}
-			},
-			"Messages": {
-				"StartConcentration": "<h3>Concentrator</h3><p>{entityName} is now concentrating on <strong>{spellName}</strong>.",
-				"DoubleConcentration": "<h3>Concentrator</h3><p>{entityName} cast <strong>{newSpellName}</strong> while concentrating on <strong>{oldSpellName}</strong>. Concentration on the original spell is lost.",
-				"EndConcentration": "<h3>Concentrator</h3><p>{entityName}'s concentration on <strong>{spellName}</strong> is broken!</p>",
-				"ConcentrationTested": "<h3>Concentrator</h3><strong>{entityName}</strong> took damage and their concentration on <strong>{spellName}</strong> is being tested (<strong>DC{dc}</strong>)!</p>",
-				"Incapacitated": "<h3>Concentrator</h3><strong>{entityName}</strong> is incapacitated and concentration on <strong>{spellName}</strong> is lost!</p>"
-			},
-			"UnknownSpell": "Unknown Spell"
-		},
-		"HIDE_NAMES": {
-			"MessageIcon": {
-				"Title": {
-					"NameNotHidden": "Name not hidden (click to hide)",
-					"NameHiddenPrefix": "Replacement Name:",
-					"NameHiddenSuffix": "(click to reveal)"
-				}
-			},
-			"ActorForm": {
-				"Title": "Hide Actor Name Config"
-			}
-		},
 		"SETTINGS": {
-			"CONCENTRATOR": {
-				"AutoEndConcentrationN": "Automatically End Concentration",
-				"AutoEndConcentrationH": "Determines whether or not Concentration is automatically ended on a failed Concentration check.",
-				"NotifyConcentrationN": "Notify on Concentration Start",
-				"NotifyConcentrationH": "Send a message when a Concentration spell is cast.",
-				"NotifyConcentrationCheckN": "Notify on Concentration Check",
-				"NotifyConcentrationCheckH": "Send a message when a Concentrating actor is forced to make a check.",
-				"NotifyEndN": "Notify on Concentration End",
-				"NotifyEndH": "Send a message when Concentration on a spell ends. (Including when the caster is incapacitated/dies)",
-				"HideNPCConcentrationN": "Hide NPC Concentration",
-				"HideNPCConcentrationH": "Hide non-player-owned actor Concentration messages from players. This applies even if Concentration notifications are set to 'Everyone'"
-			},
 			"ENHANCED_CONDITIONS": {
 				"MigrationVersionN": "Migration Version",
 				"MigrationVersionH": "Version of CUB for which migration was last performed",
 				"ShowSortDirectionDialogN": "Show Condition Lab Sort Direction Save Dialog",
 				"ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction."
-			},
-			"MIGHTY_SUMMONER": {
-				"PromptGMN": "Prompt GM For Mighty Summoner",
-				"PromptGMH": "Specify whether GMs should receive the Mighty Summoner prompt when tokens are placed. Note: due to the way permissions work in Foundry, any actor with the feat will cause the GM to be prompted for every token dropped if this setting is checked."
 			}
 		},
 		"TEMPORARY_COMBATANTS": {

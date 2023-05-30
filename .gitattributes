@@ -1,3 +1,4 @@
 .github export-ignore
 tsconfig.json export-ignore
 refactor-notes.md export-ignore
+packs/** binary

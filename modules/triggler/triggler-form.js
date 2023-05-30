@@ -1,6 +1,6 @@
-import { DEFAULT_CONFIG, PATH, SETTING_KEYS, NAME } from "../butler.js";
-import { Sidekick } from "../sidekick.js";
+import { DEFAULT_CONFIG, NAME, PATH, SETTING_KEYS } from "../butler.js";
 import { ConditionLab } from "../enhanced-conditions/condition-lab.js";
+import { Sidekick } from "../sidekick.js";
 
 export class TrigglerForm extends FormApplication {
 	constructor(object, options = { parent: null }) {
@@ -59,8 +59,8 @@ export class TrigglerForm extends FormApplication {
 		const notZero = this.data.notZero || null;
 		const actorModel = game.system.model?.Actor;
 		const mergedModel = actorModel
-			? Object.keys(actorModel).reduce((a, t, i) => {
-					return foundry.utils.mergeObject(a, actorModel[t]);
+			? Object.keys(actorModel).reduce((accumulator, key, index) => {
+					return foundry.utils.mergeObject(accumulator, actorModel[key]);
 			  }, {})
 			: null;
 		const categories = mergedModel ? Object.keys(mergedModel) : null;
@@ -238,7 +238,7 @@ export class TrigglerForm extends FormApplication {
 
             conditionLab.render(true);
         }
-        
+
         if (parentApp instanceof MacroConfig) {
             const macroConfig = parentApp;
 

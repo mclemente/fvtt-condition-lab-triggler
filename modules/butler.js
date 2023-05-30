@@ -434,6 +434,7 @@ export const SETTING_KEYS = {
 		config: "cubPuterConfig",
 	},
 	enhancedConditions: {
+		menu: "enchantedConditionsMenu",
 		enable: "enableEnhancedConditions",
 		coreIcons: "coreStatusIcons",
 		coreEffects: "coreStatusEffects",
@@ -494,6 +495,7 @@ export const SETTING_KEYS = {
 		effectSize: "effectSize",
 	},
 	triggler: {
+		menu: "trigglerMenu",
 		triggers: "storedTriggers",
 	},
 };

@@ -1,6 +1,6 @@
 import * as BUTLER from "../butler.js";
-import { ConditionLab } from "./condition-lab.js";
 import { Sidekick } from "../sidekick.js";
+import { ConditionLab } from "./condition-lab.js";
 
 /**
  * Builds a mapping between status icons and journal entries that represent conditions
@@ -20,11 +20,6 @@ export class EnhancedConditions {
 	 */
 	static async _onReady() {
 		game.cub.enhancedConditions.supported = false;
-		const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-		// Return early if gadget not enabled
-		if (!enable) return;
-
 		if (CONFIG.statusEffects.length && typeof CONFIG.statusEffects[0] == "string") {
 			console.warn(game.i18n.localize(`ENHANCED_CONDITIONS.SimpleIconsNotSupported`));
 			return;
@@ -77,26 +72,24 @@ export class EnhancedConditions {
 			Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
 		}
 
-		// If the gadget is enabled, update status icons accordingly
-		if (enable) {
-			if (game.user.isGM) {
-				EnhancedConditions._backupCoreEffects();
-				EnhancedConditions._backupCoreSpecialStatusEffects();
-				// If the reminder is not suppressed, advise users to save the Condition Lab
-				const suppressPreventativeSaveReminder = Sidekick.getSetting(
-					BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder
-				);
-				if (!suppressPreventativeSaveReminder) {
-					EnhancedConditions._preventativeSaveReminder();
-				}
-			}
-			const specialStatusEffectMap = Sidekick.getSetting(
-				BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
+		// Update status icons accordingly
+		if (game.user.isGM) {
+			EnhancedConditions._backupCoreEffects();
+			EnhancedConditions._backupCoreSpecialStatusEffects();
+			// If the reminder is not suppressed, advise users to save the Condition Lab
+			const suppressPreventativeSaveReminder = Sidekick.getSetting(
+				BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder
 			);
-			if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
-			if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
-			setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
+			if (!suppressPreventativeSaveReminder) {
+				EnhancedConditions._preventativeSaveReminder();
+			}
 		}
+		const specialStatusEffectMap = Sidekick.getSetting(
+			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
+		);
+		if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
+		if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
+		setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
 
 		// Save the active condition map to a convenience property
 		if (game.cub) {
@@ -134,9 +127,7 @@ export class EnhancedConditions {
 	 * Hooks on token updates. If the update includes effects, calls the journal entry lookup
 	 */
 	static _onUpdateToken(token, update, options, userId) {
-		const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-		if (!enable || !game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
+		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
 			return;
 		}
 
@@ -234,9 +225,7 @@ export class EnhancedConditions {
 	 * @param {*} userId
 	 */
 	static _onCreateActiveEffect(effect, options, userId) {
-		const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-		if (!enable || !game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
+		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
 			return;
 		}
 
@@ -256,9 +245,7 @@ export class EnhancedConditions {
 	 * @param {*} userId
 	 */
 	static _onDeleteActiveEffect(effect, options, userId) {
-		const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-		if (!enable || !game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
+		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
 			return;
 		}
 
@@ -278,7 +265,6 @@ export class EnhancedConditions {
 	 * @param {*} userId
 	 */
 	static _onUpdateCombat(combat, update, options, userId) {
-		const enableEnhancedConditions = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
 		const enableOutputCombat = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputCombat);
 		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 		const combatant = combat.combatant;
@@ -286,7 +272,6 @@ export class EnhancedConditions {
 		if (
 			!hasProperty(update, "turn") ||
 			!combatant ||
-			!enableEnhancedConditions ||
 			!outputChatSetting ||
 			!enableOutputCombat ||
 			!game.user.isGM
@@ -396,10 +381,6 @@ export class EnhancedConditions {
 	 * @param {*} data
 	 */
 	static async _onRenderCombatTracker(app, html, data) {
-		const enabled = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-		if (!enabled) return;
-
 		const effectIcons = html.find("img[class='token-effect']");
 
 		effectIcons.each((index, element) => {
@@ -751,32 +732,6 @@ export class EnhancedConditions {
 	/* -------------------------------------------- */
 
 	/**
-	 * Creates a button for the Condition Lab
-	 * @param {Object} html the html element where the button will be created
-	 */
-	static _createLabButton(html) {
-		if (!game.user.isGM) return;
-
-		const cubDiv = html.find("#combat-utility-belt");
-
-		const labButton = $(
-			`<button id="condition-lab" data-action="condition-lab">
-                    <i class="fas fa-flask"></i> ${BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title}
-                </button>`
-		);
-
-		cubDiv.append(labButton);
-
-		labButton.on("click", (event) => {
-			if (game.cub.enhancedConditions.supported) {
-				return (game.cub.conditionLab = new ConditionLab().render(true));
-			} else {
-				ui.notifications.warn(game.i18n.localize(`ENHANCED_CONDITIONS.GameSystemNotSupported`));
-			}
-		});
-	}
-
-	/**
 	 * Determines whether to display the combat utility belt div in the settings sidebar
 	 * @param {Boolean} display
 	 * @todo: extract to helper in sidekick class?
@@ -803,9 +758,8 @@ export class EnhancedConditions {
 	 * @todo: map to entryId and then rebuild on import
 	 */
 	static async _loadDefaultMaps() {
-		const source = "data";
 		const path = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapsPath;
-		const jsons = await Sidekick.fetchJsons(source, path);
+		const jsons = await Sidekick.fetchJsons("data", path);
 
 		const defaultMaps = jsons
 			.filter((j) => !j.system.includes("example"))
@@ -940,14 +894,6 @@ export class EnhancedConditions {
 	 * @param {*} conditionMap
 	 */
 	static _updateStatusEffects(conditionMap) {
-		const enable = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable);
-
-		if (!enable) {
-			// maybe restore the core icons?
-			return;
-		}
-
-		let entries;
 		const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
 
 		//save the original icons

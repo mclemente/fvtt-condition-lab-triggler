@@ -4,23 +4,6 @@ import * as BUTLER from "./butler.js";
  */
 export class Sidekick {
 	/**
-	 * Creates the CUB div in the Sidebar
-	 * @param {*} html
-	 */
-	static createCUBDiv(html) {
-		if (!game.user.isGM) return;
-
-		const cubDiv = $(
-			`<div id="combat-utility-belt">
-                    <h4>Combat Utility Belt</h4>
-                </div>`
-		);
-
-		const setupButton = html.find("div#settings-game");
-		setupButton.append(cubDiv);
-	}
-
-	/**
 	 * Get a single setting using the provided key
 	 * @param {*} key
 	 * @returns {Object} setting

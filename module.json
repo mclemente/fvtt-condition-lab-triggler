@@ -1,24 +1,21 @@
 {
 	"id": "combat-utility-belt",
+	"name": "combat-utility-belt",
 	"title": "Combat Utility Belt",
 	"description": "Adds various combat-focused features",
 	"version": "1.10.4",
 	"authors": [
 		{
 			"name": "Evan Clarke",
-			"url": "https://patreon.com/deathsave",
-			"email": "cub@deathsave.dev",
-			"discord": "errational#2007",
-			"twitter": "@death_save_dev",
-			"reddit": "u/etherboy12"
+			"url": "https://github.com/mclemente",
+			"discord": "mclemente#5524"
 		}
 	],
-	"url": "https://github.com/death-save/combat-utility-belt",
-	"bugs": "https://github.com/death-save/combat-utility-belt/issues",
-	"readme": "https://github.com/death-save/combat-utility-belt/wiki",
-	"manifest": "https://github.com/death-save/combat-utility-belt/releases/latest/download/module.json",
-	"download": "https://github.com/death-save/combat-utility-belt/releases/latest/download/module.zip",
-	"scripts": ["library/typewriterjs/core.js"],
+	"url": "https://github.com/mclemente/combat-utility-belt",
+	"bugs": "https://github.com/mclemente/combat-utility-belt/issues",
+	"readme": "https://github.com/mclemente/combat-utility-belt/wiki",
+	"manifest": "https://github.com/mclemente/combat-utility-belt/releases/latest/download/module.json",
+	"download": "https://github.com/mclemente/combat-utility-belt/releases/latest/download/module.zip",
 	"esmodules": ["combat-utility-belt.js"],
 	"languages": [
 		{
@@ -64,20 +61,19 @@
 	],
 	"packs": [
 		{
-			"name": "conditionsdnd5e",
-			"label": "Conditions (D&D5e)",
-			"system": "dnd5e",
-			"path": "packs/conditionsdnd5e.db",
-			"type": "JournalEntry",
-			"private": false
-		},
-		{
 			"name": "conditionsarchmage",
-			"label": "Conditions (13th Age)",
+			"label": "Conditions",
 			"system": "archmage",
 			"path": "packs/conditionsarchmage.db",
 			"type": "JournalEntry",
 			"private": false
+		}
+	],
+	"packFolders": [
+		{
+			"name": "Status Effects",
+			"sorting": "a",
+			"packs": ["conditionsarchmage"]
 		}
 	],
 	"styles": ["styles/combat-utility-belt.css"],
@@ -94,11 +90,20 @@
 	"flags": {
 		"allowBugReporter": true
 	},
-	"socket": true,
 	"compatibility": {
-		"minimum": "10.270",
-		"verified": "10.291"
+		"minimum": "11",
+		"verified": "11"
 	},
-	"name": "combat-utility-belt",
-	"minimumCoreVersion": "10.270"
+	"relationships": {
+		"requires": [
+			{
+				"id": "lib-wrapper",
+				"type": "module",
+				"manifest": "https://github.com/ruipin/fvtt-lib-wrapper/releases/latest/download/module.json",
+				"compatibility": {
+					"verified": "1.12.11.0"
+				}
+			}
+		]
+	}
 }

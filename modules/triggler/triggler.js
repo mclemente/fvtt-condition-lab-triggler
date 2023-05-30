@@ -1,30 +1,12 @@
-import { Sidekick } from "../sidekick.js";
-import { SETTING_KEYS, DEFAULT_CONFIG, NAME, PATH } from "../butler.js";
+import { DEFAULT_CONFIG, NAME, PATH, SETTING_KEYS } from "../butler.js";
 import { EnhancedConditions } from "../enhanced-conditions/enhanced-conditions.js";
+import { Sidekick } from "../sidekick.js";
 import { TrigglerForm } from "./triggler-form.js";
 
 /**
  * Handles triggers for other gadgets in the module... or does it?!
  */
 export class Triggler {
-	/**
-	 * Creates a button for the Condition Lab
-	 * @param {Object} html the html element where the button will be created
-	 */
-	static async _createTrigglerButton(html) {
-		if (!game.user.isGM) {
-			return;
-		}
-
-		const cubDiv = html.find("#combat-utility-belt");
-		const trigglerButton = await renderTemplate(DEFAULT_CONFIG.triggler.templatePaths.trigglerButton);
-		const $button = $(trigglerButton);
-
-		cubDiv.append($button);
-
-		$button.on("click", (event) => new TrigglerForm().render(true));
-	}
-
 	/**
 	 * Executes a trigger calling predefined actions
 	 * @param {*} trigger

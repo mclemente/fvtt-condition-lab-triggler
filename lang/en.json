@@ -1,8 +1,5 @@
 {
 	"combat-utility-belt": {
-		"SHORT_NAME": "CUB",
-		"NAME": "Combat Utility Belt",
-		"ID": "combat-utility-belt",
 		"ENHANCED_CONDITIONS": {
 			"OutputChatConfirm": {
 				"Title": "Enable Output to Chat for All Conditions?",
@@ -102,9 +99,6 @@
 	"GADGET_DESCRIPTIONS.EnhancedConditions": "Provides the ability to map Conditions to Status Effect icons",
 	"GADGET_DESCRIPTIONS.Triggler": "A trigger-management system for token/actor attribute changes",
 
-	"APPS.Wiki.Title": "Combat Utility Belt Wiki",
-
-	"ENHANCED_CONDITIONS.GameSystemNotSupported": "CUB Enhanced Conditions does not work with this game system. Please check the CUB Wiki for more info",
 	"ENHANCED_CONDITIONS.SimpleIconsNotSupported": "CUB Enhanced Conditions does not support game systems that use simple status effect icons.",
 	"ENHANCED_CONDITIONS.MapMismatch": "This map does not match your game system and may not work as expected.",
 	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Apply Condition failed. No token provided",
@@ -206,7 +200,6 @@
 	"SETTINGS.Triggler.TriggersN": "Triggler Triggers",
 	"SETTINGS.Triggler.TriggersH": "Stores saved Triggler Triggers",
 
-	"WORDS.IUnderstand": "I Understand",
 	"WORDS.Import": "Import",
 	"WORDS.Export": "Export",
 	"WORDS.Cancel": "Cancel",

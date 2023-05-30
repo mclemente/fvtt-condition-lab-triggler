@@ -1,6 +1,5 @@
 import { DEFAULT_CONFIG, NAME, SETTING_KEYS } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
-import { EnhancedConditions } from "./enhanced-conditions.js";
 
 /**
  * Enhanced Condition Trigger Config Application

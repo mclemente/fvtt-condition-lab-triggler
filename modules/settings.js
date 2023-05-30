@@ -204,7 +204,7 @@ export function registerSettings() {
 	Sidekick.registerMenu(BUTLER.SETTING_KEYS.triggler.menu, {
 		name: "SETTINGS.Triggler.TriggersN",
 		label: "SETTINGS.Triggler.TriggersN",
-		hint: "SETTINGS.Triggler.TriggersH",
+		hint: "GADGET_DESCRIPTIONS.Triggler",
 		icon: "fas fa-exclamation",
 		type: TrigglerForm,
 		restricted: true,

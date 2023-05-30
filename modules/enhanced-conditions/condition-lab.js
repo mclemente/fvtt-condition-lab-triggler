@@ -1,7 +1,6 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { TrigglerForm } from "../triggler/triggler-form.js";
-import { DraggableList } from "../utils/draggable-list.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
 import EnhancedConditionOptionConfig from "./enhanced-condition-option.js";
 import EnhancedConditionTriggerConfig from "./enhanced-condition-trigger.js";

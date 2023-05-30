@@ -1,5 +1,4 @@
 import { DEFAULT_CONFIG, NAME, PATH, SETTING_KEYS } from "../butler.js";
-import { ConditionLab } from "../enhanced-conditions/condition-lab.js";
 import { Sidekick } from "../sidekick.js";
 
 export class TrigglerForm extends FormApplication {

@@ -1,6 +1,5 @@
 import * as BUTLER from "../butler.js";
 import { Sidekick } from "../sidekick.js";
-import { ConditionLab } from "./condition-lab.js";
 
 /**
  * Builds a mapping between status icons and journal entries that represent conditions
@@ -76,13 +75,6 @@ export class EnhancedConditions {
 		if (game.user.isGM) {
 			EnhancedConditions._backupCoreEffects();
 			EnhancedConditions._backupCoreSpecialStatusEffects();
-			// If the reminder is not suppressed, advise users to save the Condition Lab
-			const suppressPreventativeSaveReminder = Sidekick.getSetting(
-				BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder
-			);
-			if (!suppressPreventativeSaveReminder) {
-				EnhancedConditions._preventativeSaveReminder();
-			}
 		}
 		const specialStatusEffectMap = Sidekick.getSetting(
 			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
@@ -1096,36 +1088,6 @@ export class EnhancedConditions {
 		const map = EnhancedConditions._prepareMap(coreEffects);
 
 		return map;
-	}
-
-	/**
-	 * Create a dialog reminding users to Save the Condition Lab as a preventation for issues arising from the transition to Active Effects
-	 */
-	static async _preventativeSaveReminder() {
-		const content = await renderTemplate(`${BUTLER.PATH}/templates/preventative-save-dialog.hbs`);
-
-		const dialog = new Dialog({
-			title: game.i18n.localize("ENHANCED_CONDITIONS.PreventativeSaveReminder.Title"),
-			content,
-			buttons: {
-				ok: {
-					label: game.i18n.localize("WORDS.IUnderstand"),
-					icon: `<i class="fas fa-check"></i>`,
-					callback: (html, event) => {
-						const suppressCheckbox = html.find("input[name='suppress']");
-						const suppress = suppressCheckbox.val();
-						if (suppress) {
-							Sidekick.setSetting(
-								BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder,
-								true
-							);
-						}
-					},
-				},
-			},
-		});
-
-		dialog.render(true);
 	}
 
 	/* -------------------------------------------- */

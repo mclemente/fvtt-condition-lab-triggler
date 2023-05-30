@@ -1,7 +1,6 @@
 import { DEFAULT_CONFIG, NAME, PATH, SETTING_KEYS } from "../butler.js";
 import { EnhancedConditions } from "../enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "../sidekick.js";
-import { TrigglerForm } from "./triggler-form.js";
 
 /**
  * Handles triggers for other gadgets in the module... or does it?!

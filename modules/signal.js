@@ -2,28 +2,18 @@
 /*                    Imports                   */
 /* -------------------------------------------- */
 import * as BUTLER from "./butler.js";
-import { createCUBPuterButton, CUBPuter } from "./cub-puter.js";
 import { registerSettings } from "./settings.js";
 import { Sidekick } from "./sidekick.js";
 
 /* ------------------ Gadgets ----------------- */
 
-import { Concentrator } from "./concentrator.js";
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
-import { GiveXP } from "./give-xp.js";
-import { HideNPCNames } from "./hide-names/hide-npc-names.js";
-import { PanSelect } from "./pan-select.js";
-import { RerollInitiative } from "./reroll-initiative.js";
-import { TemporaryCombatants } from "./temporary-combatants/temporary-combatants.js";
 
 /* ------------------- Utils ------------------ */
 
 import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
 import { Triggler } from "./triggler/triggler.js";
-import { ActorUtility } from "./utils/actor.js";
-import { TrackerUtility } from "./utils/combat-tracker.js";
 import MigrationHelper from "./utils/migration.js";
-import { TokenUtility } from "./utils/token.js";
 
 /* -------------------------------------------- */
 /*                     Class                    */
@@ -157,6 +147,19 @@ export class Signal {
 		/* -------------------------------------------- */
 
 		/* ------------------- Misc ------------------- */
+
+		Hooks.on("renderSettingsConfig", (app, html, data) => {
+			const trigglerMenu = html.find(`button[data-key="combat-utility-belt.trigglerMenu"]`)[0];
+			const exclamationMark = trigglerMenu.children[0];
+			exclamationMark.style.marginRight = "0px";
+			const rightChevron = document.createElement("i");
+			rightChevron.classList.add("fas", "fa-angle-right");
+			rightChevron.style.marginRight = "0px";
+			trigglerMenu.insertBefore(rightChevron, exclamationMark);
+			const leftChevron = document.createElement("i");
+			leftChevron.classList.add("fas", "fa-angle-left");
+			exclamationMark.after(leftChevron);
+		});
 
 		Hooks.on("renderMacroConfig", (app, html, data) => {
 			Triggler._onRenderMacroConfig(app, html, data);

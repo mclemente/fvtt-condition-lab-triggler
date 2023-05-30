@@ -1,6 +1,3 @@
-import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
-import { MightySummoner } from "./mighty-summoner.js";
-
 export const NAME = "combat-utility-belt";
 
 export const TITLE = "Combat Utility Belt";
@@ -12,50 +9,15 @@ export const PATH = "modules/combat-utility-belt";
 export const WIKIPATH = "https://github.com/death-save/combat-utility-belt/wiki";
 
 export const GADGETS = {
-	giveXP: {
-		name: "Award XP",
-		info: "Provides an end of combat prompt to distribute XP from defeated hostile combatants.",
-		wiki: `${WIKIPATH}/award-xp`,
-	},
-	concentrator: {
-		name: "Concentrator",
-		info: "Manages Concentration in the dnd5e game system.",
-		wiki: `${WIKIPATH}/concentrator`,
-	},
 	enhancedConditions: {
 		name: "Enhanced Conditions",
 		info: "Provides the ability to map Conditions to Status Effect icons",
 		wiki: `${WIKIPATH}/enhanced-conditions`,
 	},
-	hideNames: {
-		name: "Hide Names",
-		info: "Replaces Actor names with a new name of your choice",
-		wiki: `${WIKIPATH}/hide-names`,
-	},
-	panSelect: {
-		name: "Pan/Select",
-		info: "Automatic panning and selection of tokens during combat",
-		wiki: `${WIKIPATH}/pan-select`,
-	},
-	rerollInitiative: {
-		name: "Reroll Initiative",
-		info: "Rerolls Initiative on each Combat round change",
-		wiki: `${WIKIPATH}/reroll-initiative`,
-	},
-	tempCombatants: {
-		name: "Temporary Combatants",
-		info: "Allows the creation of temporary combatants to track things like environmental or lair actions",
-		wiki: `${WIKIPATH}/temporary-combatants`,
-	},
 	triggler: {
 		name: "Triggler",
 		info: "A trigger-management system for token/actor attribute changes",
 		wiki: `${WIKIPATH}/triggler`,
-	},
-	actorUtility: {
-		name: "Misc Actor",
-		info: "Miscellaneous Actor enhancements",
-		wiki: `${WIKIPATH}/actor-misc`,
 	},
 	tokenUtility: {
 		name: "Misc Token",
@@ -123,69 +85,7 @@ export const KNOWN_GAME_SYSTEMS = {
 	},
 };
 
-export const HEALTH_STATES = {
-	HEALTHY: "healthy",
-	INJURED: "injured",
-	DEAD: "dead",
-	UNCONSCIOUS: "unconscious",
-};
-
 export const DEFAULT_CONFIG = {
-	aboutApp: {
-		title: "About Combat Utility Belt",
-	},
-	concentrator: {
-		conditionName: "Concentrating",
-		enable: false,
-		outputChat: false,
-		promptRoll: false,
-		autoConcentrate: false,
-		autoEndConcentration: false,
-		notifyConcentration: {
-			none: "No one",
-			gm: "GM & Owner/s",
-			all: "Everyone",
-		},
-		notifyConcentrationCheck: {
-			none: "No one",
-			gm: "GM & Owner/s",
-			all: "Everyone",
-		},
-		notifyDouble: {
-			none: "No one",
-			gm: "GM & Owner/s",
-			all: "Everyone",
-		},
-		notifyEndConcentration: {
-			none: "No one",
-			gm: "GM & Owner/s",
-			all: "Everyone",
-		},
-		icon: "modules/combat-utility-belt/icons/concentrating.svg",
-		alias: "Concentrator",
-		concentrationStatuses: {
-			breaking: "breaking",
-			active: "active",
-			broken: "broken",
-		},
-		messageVisibility: {
-			gmOwner: "GM And Owner",
-			all: "All",
-		},
-	},
-	cubPuter: {
-		id: "cub-puter",
-		title: "CUBPuter",
-		buttonId: "cub-puter-button",
-		config: {
-			crt: true,
-			terminal: false,
-			startup: false,
-			greeting: false,
-			instructions: false,
-			info: true,
-		},
-	},
 	enhancedConditions: {
 		iconPath: `${PATH}/icons/`,
 		conditionMapsPath: `${PATH}/condition-maps`,
@@ -255,72 +155,6 @@ export const DEFAULT_CONFIG = {
 			},
 		},
 	},
-	giveXP: {
-		enable: false,
-		modifier: 1,
-	},
-	hideNames: {
-		enable: false,
-		enableHostile: false,
-		enableNeutral: false,
-		enableFriendly: false,
-		hideFooter: false,
-		hideNameParts: false,
-		hostileNameReplacement: "Unknown Creature",
-		neutralNameReplacement: "Unknown Creature",
-		friendlyNameReplacement: "Unknown Creature",
-		hostileIcon: "far fa-angry",
-		neutralIcon: "far fa-meh",
-		friendlyIcon: "far fa-smile",
-		actorForm: {
-			id: "hide-names-actor",
-			title: "Hide Name",
-		},
-	},
-	injuredDead: {
-		enableInjured: false,
-		enableDead: false,
-		enableUnconscious: false,
-		injuredIcon: "icons/svg/blood.svg",
-		threshold: 50,
-		deadIcon: "icons/svg/skull.svg",
-		markDefeated: false,
-		unconsciousActorType: "",
-		unconsciousIcon: "icons/svg/unconscious.svg",
-	},
-	mightySummoner: {
-		enable: false,
-		featName: "Mighty Summoner",
-		promptGm: false,
-	},
-	panSelect: {
-		enablePan: false,
-		enableSelect: false,
-		panGM: {
-			none: "None",
-			npc: "NPC",
-			all: "All",
-		},
-		panPlayers: {
-			none: "None",
-			owner: "Owner",
-			observer: "Observer",
-			all: "All",
-		},
-		selectGM: false,
-		selectPlayers: false,
-		observerDeselect: false,
-	},
-	rerollInitiative: {
-		enable: false,
-		rerollTempCombatants: false,
-	},
-	tempCombatants: {
-		enable: false,
-	},
-	actorUtility: {
-		initiativeFromSheet: false,
-	},
 	tokenUtility: {
 		autoRollHP: false,
 		hideAutoRoll: false,
@@ -349,9 +183,6 @@ export const DEFAULT_CONFIG = {
 			xLarge: "Extra Large - 2x2",
 		},
 	},
-	trackerUtility: {
-		enableGiveXP: false,
-	},
 	triggler: {
 		form: {
 			title: "Triggler",
@@ -378,61 +209,13 @@ export const DEFAULT_CONFIG = {
 };
 
 export const FLAGS = {
-	concentrator: {
-		chatMessage: "concentratorChatMessageParsed",
-		damageTaken: "damageWasTaken",
-		damageAmount: "damageAmount",
-		isDead: "isDead",
-		updateProcessed: "concentrationUpdateProcessed",
-		concentrationSpell: "concentrationSpell",
-	},
 	enhancedConditions: {
 		conditionId: "conditionId",
 		overlay: "overlay",
 	},
-	giveXP: {
-		deselectByDefault: "deselectByDefault",
-	},
-	mightySummoner: {
-		mightySummoner: "mightySummoner",
-	},
-	temporaryCombatants: {
-		temporaryCombatant: "temporaryCombatant",
-	},
-	hideNames: {
-		enable: "enableHideName",
-		replacementType: "hideNameReplacementType",
-		replacementName: "hideNameReplacement",
-	},
-	panSelect: {
-		shouldPan: "shouldPan",
-		shouldSelect: "shouldSelect",
-	},
 };
 
 export const SETTING_KEYS = {
-	aboutApp: {
-		menu: "aboutApp",
-	},
-	concentrator: {
-		enable: "enableConcentrator",
-		conditionName: "concentratorConditionName",
-		outputChat: "concentratorOutputToChat",
-		autoConcentrate: "autoConcentrate",
-		autoEndConcentration: "autoEndConcentration",
-		concentrationAttribute: "concentrationAttribute",
-		notifyConcentration: "notifyConcentration",
-		notifyConcentrationCheck: "notifyConcentrationCheck",
-		notifyDouble: "notifyDoubleConcentration",
-		notifyEndConcentration: "notifyEndConcentration",
-		healthAttribute: "concentratorHealthAttribute", //validate necessity
-		prompt: "concentratorPromptPlayer",
-		hideNpcConcentration: "hideNPCConcentration",
-	},
-	cubPuter: {
-		menu: "cubPuter",
-		config: "cubPuterConfig",
-	},
 	enhancedConditions: {
 		menu: "enchantedConditionsMenu",
 		enable: "enableEnhancedConditions",
@@ -445,53 +228,12 @@ export const SETTING_KEYS = {
 		removeDefaultEffects: "removeDefaultEffects",
 		outputChat: "conditionsOutputToChat",
 		outputCombat: "conditionsOutputDuringCombat",
-		suppressPreventativeSaveReminder: "conditionsSuppressPreventativeSaveReminder",
 		migrationVersion: "enhancedConditionsMigrationVersion",
 		showSortDirectionDialog: "showSortDirectionDialog",
 		defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
 		specialStatusEffectMapping: "specialStatusEffectMapping",
 	},
-	giveXP: {
-		enable: "enableGiveXP",
-		modifier: "giveXpModifier",
-	},
-	hideNames: {
-		enable: "enableHideNPCNames",
-		enableHostile: "enableHideHostileNames",
-		enableNeutral: "enableHideNeutralNames",
-		enableFriendly: "enableHideFriendlyNames",
-		hostileNameReplacement: "hostileNameReplacement",
-		neutralNameReplacement: "neutralNameReplacement",
-		friendlyNameReplacement: "friendlyNameReplacement",
-		hideFooter: "hideFooter",
-		hideParts: "hideNameParts",
-	},
-	panSelect: {
-		enablePan: "enablePan",
-		panGM: "panGM",
-		panPlayers: "panPlayers",
-		enableSelect: "enableSelect",
-		selectGM: "selectGM",
-		selectPlayers: "selectPlayers",
-		observerDeselect: "observerDeselect",
-	},
-	rerollInitiative: {
-		enable: "enableRerollInitiative",
-		rerollTemp: "rerollTempCombatants",
-	},
-
-	tempCombatants: {
-		enable: "enableTempCombatants",
-	},
-	actorUtility: {
-		initiativeFromSheet: "initiativeFromSheet",
-	},
 	tokenUtility: {
-		mightySummoner: "enableMightySummoner",
-		mightySummonerFeat: "mightySummonerFeatName",
-		mightySummonerPromptGm: "mightySummonerPromptGm",
-		autoRollHP: "autoRollHP",
-		hideAutoRoll: "hideAutoRollHP",
 		effectSize: "effectSize",
 	},
 	triggler: {

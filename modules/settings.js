@@ -1,12 +1,8 @@
-import AboutApp from "./about.mjs";
 import * as BUTLER from "./butler.js";
-import { Concentrator } from "./concentrator.js";
-import { CUBPuter } from "./cub-puter.js";
 import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "./sidekick.js";
-import { Triggler } from "./triggler/triggler.js";
-import { TokenUtility } from "./utils/token.js";
+import { TrigglerForm } from "./triggler/triggler-form.js";
 
 export function registerSettings() {
 	/* -------------------------------------------- */
@@ -161,16 +157,6 @@ export function registerSettings() {
 		},
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.suppressPreventativeSaveReminder, {
-		name: "SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderN",
-		hint: "SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderH",
-		scope: "world",
-		type: Boolean,
-		config: true,
-		default: false,
-		onChange: (s) => {},
-	});
-
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, {
 		name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.MigrationVersionN`,
 		hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.MigrationVersionH`,
@@ -240,8 +226,8 @@ export function registerSettings() {
 		name: "SETTINGS.Triggler.TriggersN",
 		label: "SETTINGS.Triggler.TriggersN",
 		hint: "SETTINGS.Triggler.TriggersH",
-		icon: "fas fa-flask",
-		type: Triggler,
+		icon: "fas fa-exclamation",
+		type: TrigglerForm,
 		restricted: true,
 	});
 

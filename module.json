@@ -3,10 +3,10 @@
 	"name": "combat-utility-belt",
 	"title": "Combat Utility Belt",
 	"description": "Adds various combat-focused features",
-	"version": "1.10.4",
+	"version": "1.0",
 	"authors": [
 		{
-			"name": "Evan Clarke",
+			"name": "Matheus Clemente",
 			"url": "https://github.com/mclemente",
 			"discord": "mclemente#5524"
 		}

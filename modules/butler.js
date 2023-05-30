@@ -218,7 +218,6 @@ export const FLAGS = {
 export const SETTING_KEYS = {
 	enhancedConditions: {
 		menu: "enchantedConditionsMenu",
-		enable: "enableEnhancedConditions",
 		coreIcons: "coreStatusIcons",
 		coreEffects: "coreStatusEffects",
 		system: "activeSystem",

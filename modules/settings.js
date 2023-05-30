@@ -18,27 +18,6 @@ export function registerSettings() {
 		restricted: true,
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable, {
-		name: "SETTINGS.EnhancedConditions.EnableN",
-		hint: "SETTINGS.EnhancedConditions.EnableH",
-		scope: "world",
-		type: Boolean,
-		default: false,
-		config: true,
-		onChange: async (s) => {
-			if (s) {
-				await EnhancedConditions._onReady();
-				if (!game.cub.enhancedConditions.supported) {
-					ui.notifications.warn(game.i18n.localize(`ENHANCED_CONDITIONS.GameSystemNotSupported`));
-					await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.enable, false);
-					if (ui.cub.cubPuter) ui.cub.cubPuter.render();
-				}
-			}
-
-			EnhancedConditions._toggleLabButtonVisibility(s && game.cub.enhancedConditions.supported);
-		},
-	});
-
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreIcons, {
 		name: "SETTINGS.EnhancedConditions.CoreIconsN",
 		hint: "SETTINGS.EnhancedConditions.CoreIconsH",

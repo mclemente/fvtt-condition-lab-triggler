@@ -181,8 +181,6 @@
 	"CUB.TRIGGLER.App.AdvancedTrigger.Name.Placeholder": "(required for advanced triggers)",
 	"CUB.TRIGGLER.App.AdvancedTrigger.Name.Warning": "Name is required for advanced triggers!",
 
-	"SETTINGS.EnhancedConditions.EnableN": "Enable Enhanced Conditions",
-	"SETTINGS.EnhancedConditions.EnableH": "Links conditions to status icons",
 	"SETTINGS.EnhancedConditions.CoreIconsN": "Core Status Icons",
 	"SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
 	"SETTINGS.EnhancedConditions.SystemN": "Game System",

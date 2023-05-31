@@ -1,53 +1,24 @@
-## Modules
-
-<dl>
-<dt><a href="#module_about">about</a></dt>
-<dd><p>AboutApp module</p>
-</dd>
-</dl>
-
 ## Classes
 
 <dl>
-<dt><a href="#Concentrator">Concentrator</a></dt>
-<dd><p>Request a roll or display concentration checks when damage is taken.</p>
-</dd>
-<dt><a href="#ConditionLab">ConditionLab</a></dt>
-<dd><p>Form application for managing mapping of Conditions to Icons and JournalEntries</p>
-</dd>
-<dt><a href="#EnhancedConditionMacroConfig">EnhancedConditionMacroConfig</a></dt>
-<dd><p>Enhanced Condition Macro Config Application</p>
-</dd>
-<dt><a href="#EnhancedConditionTriggerConfig">EnhancedConditionTriggerConfig</a></dt>
-<dd><p>Enhanced Condition Trigger Config Application</p>
-</dd>
-<dt><a href="#EnhancedConditions">EnhancedConditions</a></dt>
-<dd><p>Builds a mapping between status icons and journal entries that represent conditions</p>
-</dd>
-<dt><a href="#PanSelect">PanSelect</a></dt>
-<dd><p>Pan/Select Gadget</p>
-</dd>
-<dt><a href="#RerollInitiative">RerollInitiative</a></dt>
-<dd><p>Rerolls initiative for all combatants</p>
-</dd>
-<dt><a href="#Sidekick">Sidekick</a></dt>
-<dd><p>Provides helper methods for use elsewhere in the module (and has your back in a melee)</p>
-</dd>
-<dt><a href="#Signal">Signal</a></dt>
-<dd><p>Initiates module classes (and shines a light on the dark night sky)</p>
-</dd>
-<dt><a href="#TemporaryCombatantForm">TemporaryCombatantForm</a></dt>
-<dd></dd>
-<dt><a href="#Triggler">Triggler</a></dt>
-<dd><p>Handles triggers for other gadgets in the module... or does it?!</p>
-</dd>
-<dt><a href="#DraggableList">DraggableList</a></dt>
-<dd><p>From Valentin &quot;Moerill&quot; Henkys
-the code is licensed under LGPL v3.
-Original is implemented in his module &quot;Mess&quot;:
-<a href="https://github.com/Moerill/Mess">https://github.com/Moerill/Mess</a>
-LICENSE: <a href="https://github.com/Moerill/Mess/blob/master/LICENSE">https://github.com/Moerill/Mess/blob/master/LICENSE</a></p>
-</dd>
+    <dt><a href="#ConditionLab">ConditionLab</a></dt>
+    <dd><p>Form application for managing mapping of Conditions to Icons and JournalEntries</p>
+    </dd>
+    <dt><a href="#EnhancedConditionMacroConfig">EnhancedConditionMacroConfig</a></dt>
+    <dd><p>Enhanced Condition Macro Config Application</p>
+    </dd>
+    <dt><a href="#EnhancedConditionTriggerConfig">EnhancedConditionTriggerConfig</a></dt>
+    <dd><p>Enhanced Condition Trigger Config Application</p>
+    </dd>
+    <dt><a href="#EnhancedConditions">EnhancedConditions</a></dt>
+    <dd><p>Builds a mapping between status icons and journal entries that represent conditions</p>
+    </dd>
+    <dt><a href="#Sidekick">Sidekick</a></dt>
+    <dd><p>Provides helper methods for use elsewhere in the module (and has your back in a melee)</p>
+    </dd>
+    <dt><a href="#Triggler">Triggler</a></dt>
+    <dd><p>Handles triggers for other gadgets in the module... or does it?!</p>
+    </dd>
 </dl>
 
 ## Constants
@@ -60,10 +31,6 @@ LICENSE: <a href="https://github.com/Moerill/Mess/blob/master/LICENSE">https://g
 
 ## Functions
 
-<dl>
-<dt><a href="#createCUBPuterButton">createCUBPuterButton(html)</a></dt>
-<dd><p>Create the sidebar button</p>
-</dd>
 <dt><a href="#getData">getData(options)</a></dt>
 <dd><p>Get data for template rendering</p>
 </dd>
@@ -71,447 +38,6 @@ LICENSE: <a href="https://github.com/Moerill/Mess/blob/master/LICENSE">https://g
 <dd><p>Override default update object behaviour</p>
 </dd>
 </dl>
-
-<a name="module_about"></a>
-
-## about
-
-AboutApp module
-
--   [about](#module_about)
-    -   [~AboutApp](#module_about..AboutApp) ⇐ <code>FormApplication</code>
-        -   _instance_
-            -   [.getData()](#module_about..AboutApp+getData)
-            -   [.fetchPatrons()](#module_about..AboutApp+fetchPatrons)
-        -   _static_
-            -   [.defaultOptions](#module_about..AboutApp.defaultOptions)
-
-<a name="module_about..AboutApp"></a>
-
-### about~AboutApp ⇐ <code>FormApplication</code>
-
-About this module FormApp
-
-**Kind**: inner class of [<code>about</code>](#module_about)  
-**Extends**: <code>FormApplication</code>
-
--   [~AboutApp](#module_about..AboutApp) ⇐ <code>FormApplication</code>
-    -   _instance_
-        -   [.getData()](#module_about..AboutApp+getData)
-        -   [.fetchPatrons()](#module_about..AboutApp+fetchPatrons)
-    -   _static_
-        -   [.defaultOptions](#module_about..AboutApp.defaultOptions)
-
-<a name="module_about..AboutApp+getData"></a>
-
-#### aboutApp.getData()
-
-Supplies data to the template
-
-**Kind**: instance method of [<code>AboutApp</code>](#module_about..AboutApp)  
-<a name="module_about..AboutApp+fetchPatrons"></a>
-
-#### aboutApp.fetchPatrons()
-
-Fetches a list of Patrons to display on the About page
-
-**Kind**: instance method of [<code>AboutApp</code>](#module_about..AboutApp)  
-<a name="module_about..AboutApp.defaultOptions"></a>
-
-#### AboutApp.defaultOptions
-
-Call app default options
-
-**Kind**: static property of [<code>AboutApp</code>](#module_about..AboutApp)  
-<a name="Concentrator"></a>
-
-## Concentrator
-
-Request a roll or display concentration checks when damage is taken.
-
-**Kind**: global class  
-**Author**: JacobMcAuley  
-**Author**: Evan Clarke  
-**Todo**
-
--   [ ] Supply DC
-
-*   [Concentrator](#Concentrator)
-    -   [.\_onRenderChatMessage(app, html, data)](#Concentrator._onRenderChatMessage)
-    -   [.\_onPreUpdateActor(actor, update, options, userId)](#Concentrator._onPreUpdateActor)
-    -   [.\_onUpdateActor(actor, update, options)](#Concentrator._onUpdateActor)
-    -   [.\_onPreUpdateToken(scene, tokenData, update, options)](#Concentrator._onPreUpdateToken)
-    -   [.\_onUpdateToken(scene, token, update, options, userId)](#Concentrator._onUpdateToken)
-    -   [.\_onDeleteActiveEffect(effect, options, userId)](#Concentrator._onDeleteActiveEffect)
-    -   [.\_onSocket(message)](#Concentrator._onSocket)
-    -   [.\_processDamage(entity, options)](#Concentrator._processDamage) ⇒ [<code>\_processDeath</code>](#Concentrator._processDeath) \| [<code>\_determinePromptedUsers</code>](#Concentrator._determinePromptedUsers)
-    -   [.\_processDeath(entity)](#Concentrator._processDeath)
-    -   [.\_determinePromptedUsers(options)](#Concentrator._determinePromptedUsers)
-    -   [.\_distributePrompts(actorId, users)](#Concentrator._distributePrompts)
-    -   [.\_displayPrompt(actorId, userId)](#Concentrator._displayPrompt)
-    -   [.\_processConcentrationCheck(event, actor, dc)](#Concentrator._processConcentrationCheck)
-    -   [.\_cancelPrompt(userId)](#Concentrator._cancelPrompt)
-    -   [.\_displayChat(entity, damage)](#Concentrator._displayChat)
-    -   [.\_startConcentration(entity, spell, conditionName, options)](#Concentrator._startConcentration) ⇒ <code>Actor.setFlag</code>
-    -   [.\_endConcentration(entity, options)](#Concentrator._endConcentration) ⇒ <code>Actor.unsetFlag</code>
-    -   [.\_promptEnableEnhancedConditions()](#Concentrator._promptEnableEnhancedConditions)
-    -   [.\_createCondition()](#Concentrator._createCondition)
-    -   [.\_wasDamageTaken(newHealth, oldHealth)](#Concentrator._wasDamageTaken) ⇒ <code>Boolean</code>
-    -   [.\_isConcentrating(token)](#Concentrator._isConcentrating) ⇒ <code>Boolean</code>
-    -   [.\_calculateDamage(newHealth, oldHealth)](#Concentrator._calculateDamage) ⇒ <code>Number</code>
-    -   [.\_calculateDC(damage)](#Concentrator._calculateDC) ⇒ <code>Number</code>
-    -   [.getConcentrationSpell(entity)](#Concentrator.getConcentrationSpell) ⇒
-    -   [.getBetterRollsTotal(brInstance)](#Concentrator.getBetterRollsTotal)
-    -   [.\_shouldSendMessage(eventType)](#Concentrator._shouldSendMessage)
-    -   [.\_getWhisperRecipients(entity, desiredVisibility)](#Concentrator._getWhisperRecipients) ⇒ <code>Array</code>
-
-<a name="Concentrator._onRenderChatMessage"></a>
-
-### Concentrator.\_onRenderChatMessage(app, html, data)
-
-Handle render ChatMessage
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param | Type            |
-| ----- | --------------- |
-| app   | <code>\*</code> |
-| html  | <code>\*</code> |
-| data  | <code>\*</code> |
-
-<a name="Concentrator._onPreUpdateActor"></a>
-
-### Concentrator.\_onPreUpdateActor(actor, update, options, userId)
-
-preUpdateActor Handler
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| actor   | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="Concentrator._onUpdateActor"></a>
-
-### Concentrator.\_onUpdateActor(actor, update, options)
-
-Update Actor handler
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| actor   | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-
-<a name="Concentrator._onPreUpdateToken"></a>
-
-### Concentrator.\_onPreUpdateToken(scene, tokenData, update, options)
-
-preUpdateToken handler
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param     | Type            |
-| --------- | --------------- |
-| scene     | <code>\*</code> |
-| tokenData | <code>\*</code> |
-| update    | <code>\*</code> |
-| options   | <code>\*</code> |
-
-<a name="Concentrator._onUpdateToken"></a>
-
-### Concentrator.\_onUpdateToken(scene, token, update, options, userId)
-
-Update Token handler
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| scene   | <code>\*</code> |
-| token   | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="Concentrator._onDeleteActiveEffect"></a>
-
-### Concentrator.\_onDeleteActiveEffect(effect, options, userId)
-
-Delete ActiveEffect handler
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| effect  | <code>\*</code> |
-| options | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="Concentrator._onSocket"></a>
-
-### Concentrator.\_onSocket(message)
-
-Socket message handler
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| message | <code>\*</code> |
-
-<a name="Concentrator._processDamage"></a>
-
-### Concentrator.\_processDamage(entity, options) ⇒ [<code>\_processDeath</code>](#Concentrator._processDeath) \| [<code>\_determinePromptedUsers</code>](#Concentrator._determinePromptedUsers)
-
-Processes a damage event for Concentration purposes
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| entity  | <code>\*</code> |
-| options | <code>\*</code> |
-
-<a name="Concentrator._processDeath"></a>
-
-### Concentrator.\_processDeath(entity)
-
-Processes the steps necessary when the concentrating token is dead
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param  | Type            |
-| ------ | --------------- |
-| entity | <code>\*</code> |
-
-<a name="Concentrator._determinePromptedUsers"></a>
-
-### Concentrator.\_determinePromptedUsers(options)
-
-Determines which users should receive a prompt
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| options | <code>\*</code> |
-
-<a name="Concentrator._distributePrompts"></a>
-
-### Concentrator.\_distributePrompts(actorId, users)
-
-Distribute concentration prompts to affected users
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| actorId | <code>\*</code> |
-| users   | <code>\*</code> |
-
-<a name="Concentrator._displayPrompt"></a>
-
-### Concentrator.\_displayPrompt(actorId, userId)
-
-Displays the prompt to roll a concentration check
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| actorId | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="Concentrator._processConcentrationCheck"></a>
-
-### Concentrator.\_processConcentrationCheck(event, actor, dc)
-
-Processes a Concentration check for the given entity and DC
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param | Type            |
-| ----- | --------------- |
-| event | <code>\*</code> |
-| actor | <code>\*</code> |
-| dc    | <code>\*</code> |
-
-<a name="Concentrator._cancelPrompt"></a>
-
-### Concentrator.\_cancelPrompt(userId)
-
-Cancels any open prompts to roll Concentration checks
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param  | Type            |
-| ------ | --------------- |
-| userId | <code>\*</code> |
-
-<a name="Concentrator._displayChat"></a>
-
-### Concentrator.\_displayChat(entity, damage)
-
-Displays a chat message for concentration checks
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param  | Type            |
-| ------ | --------------- |
-| entity | <code>\*</code> |
-| damage | <code>\*</code> |
-
-<a name="Concentrator._startConcentration"></a>
-
-### Concentrator.\_startConcentration(entity, spell, conditionName, options) ⇒ <code>Actor.setFlag</code>
-
-Processes steps to start Concentration for an entity
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param         | Type            |
-| ------------- | --------------- |
-| entity        | <code>\*</code> |
-| spell         | <code>\*</code> |
-| conditionName | <code>\*</code> |
-| options       | <code>\*</code> |
-
-<a name="Concentrator._endConcentration"></a>
-
-### Concentrator.\_endConcentration(entity, options) ⇒ <code>Actor.unsetFlag</code>
-
-Processes end of Concentration
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param   | Type            |
-| ------- | --------------- |
-| entity  | <code>\*</code> |
-| options | <code>\*</code> |
-
-<a name="Concentrator._promptEnableEnhancedConditions"></a>
-
-### Concentrator.\_promptEnableEnhancedConditions()
-
-Executes when the module setting is enabled
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)  
-<a name="Concentrator._createCondition"></a>
-
-### Concentrator.\_createCondition()
-
-Creates a condition for Concentrating if none exists
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)  
-**Todo**
-
--   [ ] extract to Enhanced Conditions and make it generic
-
-<a name="Concentrator._wasDamageTaken"></a>
-
-### Concentrator.\_wasDamageTaken(newHealth, oldHealth) ⇒ <code>Boolean</code>
-
-Determines if health has been reduced
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param     | Type            |
-| --------- | --------------- |
-| newHealth | <code>\*</code> |
-| oldHealth | <code>\*</code> |
-
-<a name="Concentrator._isConcentrating"></a>
-
-### Concentrator.\_isConcentrating(token) ⇒ <code>Boolean</code>
-
-Checks for the presence of the concentration condition effect
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="Concentrator._calculateDamage"></a>
-
-### Concentrator.\_calculateDamage(newHealth, oldHealth) ⇒ <code>Number</code>
-
-Calculates damage taken based on two health values
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param     | Type            |
-| --------- | --------------- |
-| newHealth | <code>\*</code> |
-| oldHealth | <code>\*</code> |
-
-<a name="Concentrator._calculateDC"></a>
-
-### Concentrator.\_calculateDC(damage) ⇒ <code>Number</code>
-
-Calculates a Concentration DC based on a damage amount
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param  | Type            |
-| ------ | --------------- |
-| damage | <code>\*</code> |
-
-<a name="Concentrator.getConcentrationSpell"></a>
-
-### Concentrator.getConcentrationSpell(entity) ⇒
-
-For a given entity, gets and returns their concentrated spell (if any)
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)  
-**Returns**: Concentration Spell object
-
-| Param  | Type            |
-| ------ | --------------- |
-| entity | <code>\*</code> |
-
-<a name="Concentrator.getBetterRollsTotal"></a>
-
-### Concentrator.getBetterRollsTotal(brInstance)
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param      | Type            |
-| ---------- | --------------- |
-| brInstance | <code>\*</code> |
-
-<a name="Concentrator._shouldSendMessage"></a>
-
-### Concentrator.\_shouldSendMessage(eventType)
-
-Checks setting for a given Concentration event and determines whether a message should be sent
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param     | Type            |
-| --------- | --------------- |
-| eventType | <code>\*</code> |
-
-<a name="Concentrator._getWhisperRecipients"></a>
-
-### Concentrator.\_getWhisperRecipients(entity, desiredVisibility) ⇒ <code>Array</code>
-
-Finds whisper recipients for given entity and desired visibility
-
-**Kind**: static method of [<code>Concentrator</code>](#Concentrator)
-
-| Param             | Type            |
-| ----------------- | --------------- |
-| entity            | <code>\*</code> |
-| desiredVisibility | <code>\*</code> |
-
-<a name="ConditionLab"></a>
 
 ## ConditionLab
 
@@ -564,28 +90,28 @@ Form application for managing mapping of Conditions to Icons and JournalEntries
 
 Get updated map by combining existing in-memory map with current formdata
 
-**Kind**: instance property of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance property of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+prepareData"></a>
 
 ### conditionLab.prepareData()
 
 Prepare data for form rendering
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+getData"></a>
 
 ### conditionLab.getData()
 
 Gets data for the template render
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_buildSubmitData"></a>
 
 ### conditionLab.\_buildSubmitData()
 
 Enriches submit data with existing map to ensure continuity
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_processFormData"></a>
 
 ### conditionLab.\_processFormData(formData)
@@ -604,7 +130,7 @@ Processes the Form Data and builds a usable Condition Map
 
 Restore defaults for a mapping
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_updateObject"></a>
 
 ### conditionLab.\_updateObject(event, formData)
@@ -624,7 +150,7 @@ Take the new map and write it back to settings, overwriting existing
 
 Exports the current map to JSON
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_importFromJSONDialog"></a>
 
 ### conditionLab.\_importFromJSONDialog()
@@ -632,7 +158,7 @@ Exports the current map to JSON
 Initiates an import via a dialog
 Borrowed from foundry.js Entity class
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_processImport"></a>
 
 ### conditionLab.\_processImport(html)
@@ -651,7 +177,7 @@ Process a Condition Map Import
 
 Override the header buttons method
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+activateListeners"></a>
 
 ### conditionLab.activateListeners(html)
@@ -682,14 +208,14 @@ Input change handler
 
 Filter input change handler
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_filterMapByName"></a>
 
 ### conditionLab.\_filterMapByName(map, filter) ⇒
 
 Filter the given map by the name property using the supplied filter value, marking filtered entries as "hidden"
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 **Returns**: filteredMap
 
 | Param  | Type                |
@@ -882,7 +408,7 @@ Trigger Config button click handler
 
 Checks the updatedMap property against the initial map
 
-**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: instance method of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab+_hasPropertyChanged"></a>
 
 ### conditionLab.\_hasPropertyChanged(propertyName, original, comparison) ⇒ <code>Boolean</code>
@@ -903,7 +429,7 @@ Checks a given propertyName on an original and comparison object to see if it ha
 
 Get options for the form
 
-**Kind**: static property of [<code>ConditionLab</code>](#ConditionLab)  
+**Kind**: static property of [<code>ConditionLab</code>](#ConditionLab)
 <a name="ConditionLab._onRender"></a>
 
 ### ConditionLab.\_onRender(app, html, data)
@@ -953,8 +479,8 @@ Enhanced Condition Macro Config Application
 
 Gets data for template rendering
 
-**Kind**: instance method of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)  
-**Returns**: <code>Object</code> - data  
+**Kind**: instance method of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)
+**Returns**: <code>Object</code> - data
 <a name="EnhancedConditionMacroConfig+_updateObject"></a>
 
 ### enhancedConditionMacroConfig.\_updateObject(event, formData)
@@ -974,7 +500,7 @@ Update Object on Form Submission
 
 defaultOptions
 
-**Kind**: static property of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)  
+**Kind**: static property of [<code>EnhancedConditionMacroConfig</code>](#EnhancedConditionMacroConfig)
 <a name="EnhancedConditionTriggerConfig"></a>
 
 ## EnhancedConditionTriggerConfig
@@ -996,8 +522,8 @@ Enhanced Condition Trigger Config Application
 
 Gets data for template rendering
 
-**Kind**: instance method of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)  
-**Returns**: <code>Object</code> - data  
+**Kind**: instance method of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)
+**Returns**: <code>Object</code> - data
 <a name="EnhancedConditionTriggerConfig+_updateObject"></a>
 
 ### enhancedConditionTriggerConfig.\_updateObject(event, formData)
@@ -1017,7 +543,7 @@ Update Object on Form Submission
 
 defaultOptions
 
-**Kind**: static property of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)  
+**Kind**: static property of [<code>EnhancedConditionTriggerConfig</code>](#EnhancedConditionTriggerConfig)
 <a name="EnhancedConditions"></a>
 
 ## EnhancedConditions
@@ -1083,7 +609,7 @@ Steps:
 3. Get Condition Map
 4. Override status effects
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 <a name="EnhancedConditions._onPreUpdateToken"></a>
 
 ### EnhancedConditions.\_onPreUpdateToken(scene, update, options, userId)
@@ -1106,7 +632,7 @@ If the update includes effect data, add an `option` for the update hook handler 
 
 Hooks on token updates. If the update includes effects, calls the journal entry lookup
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 <a name="EnhancedConditions._onCreateActiveEffect"></a>
 
 ### EnhancedConditions.\_onCreateActiveEffect(actor, update, options, userId)
@@ -1158,7 +684,7 @@ Update Combat Handler
 
 Render Chat Message handler
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Todo**
 
 -   [ ] move to chatlog render?
@@ -1227,7 +753,7 @@ Checks statusEffect icons against map and returns matching condition mappings
 
 Output one or more condition entries to chat
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Todo**
 
 -   [ ] refactor to use actor or token
@@ -1289,7 +815,7 @@ Process macros based on given Ids
 
 Update condition added/removed timestamps
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 <a name="EnhancedConditions._createLabButton"></a>
 
 ### EnhancedConditions.\_createLabButton(html)
@@ -1308,7 +834,7 @@ Creates a button for the Condition Lab
 
 Determines whether to display the combat utility belt div in the settings sidebar
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Todo:**: extract to helper in sidekick class?
 
 | Param   | Type                 |
@@ -1321,8 +847,8 @@ Determines whether to display the combat utility belt div in the settings sideba
 
 Returns the default maps supplied with the module
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
-**Todo:**: map to entryId and then rebuild on import  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
+**Todo:**: map to entryId and then rebuild on import
 <a name="EnhancedConditions._prepareMap"></a>
 
 ### EnhancedConditions.\_prepareMap(conditionMap)
@@ -1341,7 +867,7 @@ Parse the provided Condition Map and prepare it for storage, validating and corr
 
 Duplicate the core status icons, freeze the duplicate then store a copy in settings
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 <a name="EnhancedConditions._createJournalEntry"></a>
 
 ### EnhancedConditions.\_createJournalEntry(condition)
@@ -1385,7 +911,7 @@ Updates the CONFIG.statusEffect effects with Condition Map ones
 
 Converts the given Condition Map (one or more Conditions) into a Status Effects array or object
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Returns**: <code>Array</code> - statusEffects
 
 | Param        | Type                                      |
@@ -1410,7 +936,7 @@ Prepares one or more ActiveEffects from Conditions for placement on an actor
 
 Returns just the icon side of the map
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 <a name="EnhancedConditions.getIconsByCondition"></a>
 
 ### EnhancedConditions.getIconsByCondition(condition)
@@ -1465,7 +991,7 @@ Returns the default condition map for a given system
 
 Builds a default map for a given system
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Todo**
 
 -   [ ] #281 update for active effects
@@ -1480,7 +1006,7 @@ Builds a default map for a given system
 
 Create a dialog reminding users to Save the Condition Lab as a preventation for issues arising from the transition to Active Effects
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 <a name="EnhancedConditions.applyCondition"></a>
 
 ### ~~EnhancedConditions.applyCondition(...params)~~
@@ -1489,7 +1015,7 @@ Create a dialog reminding users to Save the Condition Lab as a preventation for 
 
 Apply the named condition to the provided entities (Actors or Tokens)
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **See**: EnhancedConditions#addCondition
 
 | Param     | Type             |
@@ -1553,7 +1079,7 @@ Gets a condition by name from the Condition Map
 
 Retrieves all active conditions for one or more given entities (Actors or Tokens)
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Returns**: <code>Array</code> - entityConditionMap a mapping of conditions for each provided entity
 
 | Param        | Type                                     | Default       | Description                                         |
@@ -1593,7 +1119,7 @@ Gets the Active Effect data (if any) for the given condition
 
 Gets any Active Effect instances present on the entities (Actor/s or Token/s) that are mapped Conditions
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Returns**: <code>Map</code> \| <code>Object</code> - A Map containing the Actor Id and the Condition Active Effect instances if any
 
 | Param    | Type                 | Default       | Description                           |
@@ -1608,7 +1134,7 @@ Gets any Active Effect instances present on the entities (Actor/s or Token/s) th
 
 Checks if the provided Entity (Actor or Token) has the given condition
 
-**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)  
+**Kind**: static method of [<code>EnhancedConditions</code>](#EnhancedConditions)
 **Returns**: <code>Boolean</code> - hasCondition Returns true if one or more of the provided entities has one or more of the provided conditions
 
 | Param          | Type                                                           | Default       | Description                                            |
@@ -1688,180 +1214,6 @@ game.cub.removeAllConditions(game.actors.getName("Bob"));
 game.cub.removeAllConditions();
 ```
 
-<a name="PanSelect"></a>
-
-## PanSelect
-
-Pan/Select Gadget
-
-**Kind**: global class
-
--   [PanSelect](#PanSelect)
-    -   [.\_onPreUpdateCombat(combat, update, options, userId)](#PanSelect._onPreUpdateCombat)
-    -   [.\_onUpdateCombat(combat, update, options, userId)](#PanSelect._onUpdateCombat)
-    -   [.\_updateHandler(combatant)](#PanSelect._updateHandler)
-    -   [.\_checkPlayerPan(token)](#PanSelect._checkPlayerPan)
-    -   [.\_checkGMPan(token)](#PanSelect._checkGMPan)
-    -   [.\_panToToken(token)](#PanSelect._panToToken)
-    -   [.\_checkGMSelect(token)](#PanSelect._checkGMSelect)
-    -   [.\_checkPlayerSelect(token)](#PanSelect._checkPlayerSelect)
-    -   [.\_checkObserverDeselect(token)](#PanSelect._checkObserverDeselect)
-
-<a name="PanSelect._onPreUpdateCombat"></a>
-
-### PanSelect.\_onPreUpdateCombat(combat, update, options, userId)
-
-Pre-update Combat handler
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param   | Type            |
-| ------- | --------------- |
-| combat  | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="PanSelect._onUpdateCombat"></a>
-
-### PanSelect.\_onUpdateCombat(combat, update, options, userId)
-
-Update Combat handler
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param   | Type            |
-| ------- | --------------- |
-| combat  | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="PanSelect._updateHandler"></a>
-
-### PanSelect.\_updateHandler(combatant)
-
-Determines if a pan/select workflow should begin
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param     | Type                   |
-| --------- | ---------------------- |
-| combatant | <code>Combatant</code> |
-
-<a name="PanSelect._checkPlayerPan"></a>
-
-### PanSelect.\_checkPlayerPan(token)
-
-Determine if the player should be panned
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="PanSelect._checkGMPan"></a>
-
-### PanSelect.\_checkGMPan(token)
-
-Determine if the GM should be panned
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="PanSelect._panToToken"></a>
-
-### PanSelect.\_panToToken(token)
-
-Pans user to the token
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="PanSelect._checkGMSelect"></a>
-
-### PanSelect.\_checkGMSelect(token)
-
-Determine if the current combatant token should be selected for the GM
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="PanSelect._checkPlayerSelect"></a>
-
-### PanSelect.\_checkPlayerSelect(token)
-
-Determines if Player can select the current combatant token
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="PanSelect._checkObserverDeselect"></a>
-
-### PanSelect.\_checkObserverDeselect(token)
-
-Determines if tokens should be deselected when a non-owned Combatant has a turn
-
-**Kind**: static method of [<code>PanSelect</code>](#PanSelect)
-
-| Param | Type            |
-| ----- | --------------- |
-| token | <code>\*</code> |
-
-<a name="RerollInitiative"></a>
-
-## RerollInitiative
-
-Rerolls initiative for all combatants
-
-**Kind**: global class
-
--   [RerollInitiative](#RerollInitiative)
-    -   [.\_onPreUpdateCombat(combat, update, options)](#RerollInitiative._onPreUpdateCombat)
-    -   [.\_onUpdateCombat(combat, update, options, userId)](#RerollInitiative._onUpdateCombat)
-
-<a name="RerollInitiative._onPreUpdateCombat"></a>
-
-### RerollInitiative.\_onPreUpdateCombat(combat, update, options)
-
-**Kind**: static method of [<code>RerollInitiative</code>](#RerollInitiative)
-
-| Param   | Type            |
-| ------- | --------------- |
-| combat  | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-
-<a name="RerollInitiative._onUpdateCombat"></a>
-
-### RerollInitiative.\_onUpdateCombat(combat, update, options, userId)
-
-Update Combat handler
-
-**Kind**: static method of [<code>RerollInitiative</code>](#RerollInitiative)
-
-| Param   | Type            |
-| ------- | --------------- |
-| combat  | <code>\*</code> |
-| update  | <code>\*</code> |
-| options | <code>\*</code> |
-| userId  | <code>\*</code> |
-
-<a name="Sidekick"></a>
-
 ## Sidekick
 
 Provides helper methods for use elsewhere in the module (and has your back in a melee)
@@ -1921,7 +1273,7 @@ Creates the CUB div in the Sidebar
 
 Get a single setting using the provided key
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 **Returns**: <code>Object</code> - setting
 
 | Param | Type            |
@@ -1934,8 +1286,8 @@ Get a single setting using the provided key
 
 Get all CUB settings
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
-**Returns**: <code>Array</code> - settings  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
+**Returns**: <code>Array</code> - settings
 <a name="Sidekick.setSetting"></a>
 
 ### Sidekick.setSetting(key, value, awaitResult) ⇒ <code>Promise</code> \| <code>ClientSetting</code>
@@ -1994,7 +1346,7 @@ Register all provided setting data
 
 Gets the default game system names stored in the constants butler class
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 <a name="Sidekick.fetchJsons"></a>
 
 ### Sidekick.fetchJsons(source, path)
@@ -2014,7 +1366,7 @@ Use FilePicker to browse then Fetch one or more JSONs and return them
 
 Fetch a JSON from a given file
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 **Returns**: JSON | null
 
 | Param | Type              |
@@ -2064,22 +1416,22 @@ Retrieves a key using the given value
 
 Inverts the key and value in a map
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
-**Todo:**: rework  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
+**Todo:**: rework
 <a name="Sidekick.handlebarsHelpers"></a>
 
 ### Sidekick.handlebarsHelpers()
 
 Adds additional handlebars helpers
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 <a name="Sidekick.jQueryHelpers"></a>
 
 ### Sidekick.jQueryHelpers()
 
 Adds additional jquery helpers
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 <a name="Sidekick.getTerms"></a>
 
 ### Sidekick.getTerms(arr)
@@ -2098,7 +1450,7 @@ Takes an array of terms (eg. name parts) and returns groups of neighbouring term
 
 Escapes regex special chars
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 **Returns**: <code>String</code> - escapedString
 
 | Param  | Type                |
@@ -2111,7 +1463,7 @@ Escapes regex special chars
 
 Attempts to coerce a target value into the exemplar's type
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 **Returns**: <code>\*</code> - coercedValue
 
 | Param  | Type            |
@@ -2213,15 +1565,15 @@ For a given file path, find the filename and then apply title case
 
 Gets the first GM user
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
-**Returns**: <code>GM</code> \| <code>null</code> - a GM object or null if none found  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
+**Returns**: <code>GM</code> \| <code>null</code> - a GM object or null if none found
 <a name="Sidekick.isFirstGM"></a>
 
 ### Sidekick.isFirstGM() ⇒ <code>Boolean</code>
 
 Checks if the current user is the first active GM
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 <a name="Sidekick.getActorFromUuid"></a>
 
 ### Sidekick.getActorFromUuid(uuid)
@@ -2266,7 +1618,7 @@ Returns true for each array element that is a duplicate based on the property sp
 
 Loads templates for partials
 
-**Kind**: static method of [<code>Sidekick</code>](#Sidekick)  
+**Kind**: static method of [<code>Sidekick</code>](#Sidekick)
 <a name="Sidekick.getDocumentOwners"></a>
 
 ### Sidekick.getDocumentOwners(document) ⇒ <code>Array</code>
@@ -2278,54 +1630,6 @@ Retrieves all the owners of a given document
 | Param    | Type            |
 | -------- | --------------- |
 | document | <code>\*</code> |
-
-<a name="Signal"></a>
-
-## Signal
-
-Initiates module classes (and shines a light on the dark night sky)
-
-**Kind**: global class
-
--   [Signal](#Signal)
-    -   [.lightUp()](#Signal.lightUp)
-    -   [.\_onSocket(message)](#Signal._onSocket)
-
-<a name="Signal.lightUp"></a>
-
-### Signal.lightUp()
-
-Registers hooks
-
-**Kind**: static method of [<code>Signal</code>](#Signal)  
-<a name="Signal._onSocket"></a>
-
-### Signal.\_onSocket(message)
-
-Socket dispatcher
-
-**Kind**: static method of [<code>Signal</code>](#Signal)
-
-| Param   | Type            |
-| ------- | --------------- |
-| message | <code>\*</code> |
-
-<a name="TemporaryCombatantForm"></a>
-
-## TemporaryCombatantForm
-
-**Kind**: global class  
-<a name="TemporaryCombatantForm+activateListeners"></a>
-
-### temporaryCombatantForm.activateListeners(html)
-
-Activate listeners for the form
-
-**Kind**: instance method of [<code>TemporaryCombatantForm</code>](#TemporaryCombatantForm)
-
-| Param | Type            |
-| ----- | --------------- |
-| html  | <code>\*</code> |
 
 <a name="Triggler"></a>
 
@@ -2425,37 +1729,11 @@ Update token handler
 | html  | <code>\*</code> |
 | data  | <code>\*</code> |
 
-<a name="DraggableList"></a>
-
-## DraggableList
-
-From Valentin "Moerill" Henkys
-the code is licensed under LGPL v3.
-Original is implemented in his module "Mess":
-https://github.com/Moerill/Mess
-LICENSE: https://github.com/Moerill/Mess/blob/master/LICENSE
-
-**Kind**: global class  
-<a name="KNOWN_GAME_SYSTEMS"></a>
-
 ## KNOWN_GAME_SYSTEMS
 
 Stores information about well known game systems. All other systems will resolve to "other"
 
-**Kind**: global constant  
-<a name="createCUBPuterButton"></a>
-
-## createCUBPuterButton(html)
-
-Create the sidebar button
-
-**Kind**: global function
-
-| Param | Type            |
-| ----- | --------------- |
-| html  | <code>\*</code> |
-
-<a name="getData"></a>
+**Kind**: global constant
 
 ## getData(options)
 

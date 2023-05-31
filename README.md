@@ -7,7 +7,7 @@
 [![GitHub downloads (latest)](<https://img.shields.io/badge/dynamic/json?label=Downloads@latest&query=assets[?(@.name.includes('zip'))].download_count&url=https://api.github.com/repos/mclemente/fvtt-condition-lab-triggler/releases/latest&color=green>)](https://github.com/mclemente/fvtt-condition-lab-triggler/releases/latest)
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Install%20Base&query=package.installs&suffix=%&url=https://forge-vtt.com/api/bazaar/package/condition-lab-triggler&colorB=brightgreen)](https://forge-vtt.com/)
 
-# Combat Utility Belt
+# Condition Lab & Triggler
 
 ---
 
@@ -20,8 +20,7 @@
 
 ---
 
-> Every ~~hero~~ GM needs gadgets to keep their game safe from dastardly players up to no good! And where better to store those gadget than on your very own Combat Utility Belt!
-> This handy-dandy combat aid comes packed with a bunch of gadgets to ensure you get a TPK every time...
+> Enhance your game's conditions. Make them be applied automatically via a set of triggers, run a macro when they are applied/removed and other goodies.
 
 # Features
 
@@ -32,7 +31,7 @@
 
 ![enhanced-conditions](https://github.com/death-save/media/blob/master/combat-utility-belt/enhanced-conditions.gif)
 
-It's not enough to _show_ your players when their poisoned, you want to really drive it home by linking the condition so they can wallow in misery as they fail their ability checks.
+It's not enough to _show_ your players when they're poisoned, you want to really drive it home by linking the condition so they can wallow in misery as they fail their ability checks.
 
 This gadget creates a dynamo-powered link between status effect icons and reference entries (Journal, Item, or compendium) with further info on that status effect.
 

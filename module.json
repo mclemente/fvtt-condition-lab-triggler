@@ -1,7 +1,7 @@
 {
-	"id": "combat-utility-belt",
-	"name": "combat-utility-belt",
-	"title": "Combat Utility Belt",
+	"id": "condition-lab-triggler",
+	"name": "condition-lab-triggler",
+	"title": "Condition Lab & Triggler",
 	"description": "Adds various combat-focused features",
 	"version": "1.0",
 	"authors": [
@@ -11,12 +11,12 @@
 			"discord": "mclemente#5524"
 		}
 	],
-	"url": "https://github.com/mclemente/combat-utility-belt",
-	"bugs": "https://github.com/mclemente/combat-utility-belt/issues",
-	"readme": "https://github.com/mclemente/combat-utility-belt/wiki",
-	"manifest": "https://github.com/mclemente/combat-utility-belt/releases/latest/download/module.json",
-	"download": "https://github.com/mclemente/combat-utility-belt/releases/latest/download/module.zip",
-	"esmodules": ["combat-utility-belt.js"],
+	"url": "https://github.com/mclemente/condition-lab-triggler",
+	"bugs": "https://github.com/mclemente/condition-lab-triggler/issues",
+	"readme": "https://github.com/mclemente/condition-lab-triggler/wiki",
+	"manifest": "https://github.com/mclemente/condition-lab-triggler/releases/latest/download/module.json",
+	"download": "https://github.com/mclemente/condition-lab-triggler/releases/latest/download/module.zip",
+	"esmodules": ["condition-lab-triggler.js"],
 	"languages": [
 		{
 			"lang": "en",
@@ -66,17 +66,20 @@
 			"system": "archmage",
 			"path": "packs/conditionsarchmage.db",
 			"type": "JournalEntry",
-			"private": false
+			"ownership": {
+				"PLAYER": "LIMITED",
+				"GAMEMASTER": "OWNER"
+			}
 		}
 	],
 	"packFolders": [
 		{
-			"name": "Status Effects",
+			"name": "Condition Lab & Triggler",
 			"sorting": "a",
 			"packs": ["conditionsarchmage"]
 		}
 	],
-	"styles": ["styles/combat-utility-belt.css"],
+	"styles": ["styles/condition-lab-triggler.css"],
 	"media": [
 		{
 			"type": "video",
@@ -103,6 +106,18 @@
 				"compatibility": {
 					"verified": "1.12.11.0"
 				}
+			}
+		],
+		"conflicts": [
+			{
+				"id": "pf2e",
+				"type": "system",
+				"manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json"
+			},
+			{
+				"id": "succ",
+				"type": "module",
+				"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json"
 			}
 		]
 	}

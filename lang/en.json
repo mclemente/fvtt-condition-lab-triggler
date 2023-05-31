@@ -1,5 +1,5 @@
 {
-	"combat-utility-belt": {
+	"CLT": {
 		"ENHANCED_CONDITIONS": {
 			"OutputChatConfirm": {
 				"Title": "Enable Output to Chat for All Conditions?",
@@ -9,9 +9,11 @@
 				"NoReference": "--No Reference Entry-- (Drag a Journal, Item, Actor, etc. into this field to set)",
 				"FilterInputTitle": "Filter by Name",
 				"FilterButtonTitle": "Apply Filter",
-				"SortAnchorTitle": "Sort by Name - unsorted (click to change)",
-				"SortAnchorTitle_asc": "Sort by Name - A to Z (click to change)",
-				"SortAnchorTitle_desc": "Sort by Name - Z to A (click to change)",
+				"SortAnchorTitle": {
+					"asc": "A to Z",
+					"desc": "Z to A",
+					"unsorted": "Unsorted"
+				},
 				"SortDirectionSave": {
 					"Title": "Save Mapping with Sort Direction?",
 					"Content": "<p>Click 'Yes' to save the Condition Lab map with the current sort direction. Click 'No' to cancel Saving.</p>",
@@ -72,150 +74,178 @@
 			},
 			"Warnings": {
 				"ApplyCondition": "applyCondition was replaced with addCondition. Please update your code."
-			}
+			},
+
+			"SimpleIconsNotSupported": "CUB Enhanced Conditions does not support game systems that use simple status effect icons.",
+			"MapMismatch": "This map does not match your game system and may not work as expected.",
+			"ApplyCondition.Failed.NoToken": "Apply Condition failed. No token provided",
+			"ApplyCondition.Failed.NoCondition": "Apply Condition failed. Could not find condition:",
+			"ApplyCondition.Failed.NoIcon": "Apply Condition failed. Could not find icon.",
+			"ApplyCondition.Failed.AlreadyActive": "is already active. Apply Condition failed",
+
+			"GetConditions.Failed.NoToken": "Get Conditions failed. No entity provided and none could be found automatically",
+			"GetConditions.Failed.NoCondition": "Get Conditions failed. No Condition Map found",
+			"GetConditions.Failed.NoResults": "Get Conditions failed. No Conditions found on Actor/Token",
+
+			"RemoveCondition.Failed.NoToken": "Remove Condition failed. No token provided",
+			"RemoveCondition.Failed.NoCondition": "Remove Condition failed. Could not find condition with name:",
+			"RemoveCondition.Failed.NoIcon": "Remove Condition failed. Could not find icon",
+			"RemoveCondition.Failed.NotActive": "is not active on token. Remove Condition failed.",
+
+			"RemoveAllConditions.Failed.NoToken": "Remove Conditions failed. No token/s provided",
+			"RemoveAllConditions.Failed.NoCondition": "Remove Conditions failed. There is no active Condition Map",
+
+			"Lab.Title": "Condition Lab",
+			"Lab.Hint": "Provides the ability to map Conditions to Status Effect icons",
+			"Lab.MappingType.Label": "Mapping Type",
+			"Lab.MappingType.Unsaved": "(unsaved changes)",
+			"Lab.ActiveEffects.Title": "Active Effect Config",
+			"Lab.ActiveEffects.TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
+			"Lab.ActiveEffects.TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)",
+			"LAB.Import.NoFile": "You did not upload a data file!",
+			"Lab.ConfirmDeleteTitle": "Confirm Row Deletion",
+			"Lab.ConfirmDeleteContent": "Are you sure you want to delete this row?",
+			"Lab.RestoreDefaultsTitle": "Restore Defaults?",
+			"Lab.RestoreDefaultsContent": "<p>Are you sure you want to restore this mapping to defaults?</p><strong>If you save, this change will be permanent.</strong>",
+			"Lab.ResetFormTitle": "Reset Form?",
+			"Lab.ResetFormContent": "<p>Are you sure you want to reset the form?</p><p><strong>You will lose any unsaved changes.</strong></p>",
+			"Lab.SaveFailed": "Condition Lab failed to Save and Close",
+			"Lab.SaveSuccess": "Condition Lab mapping saved!",
+			"Lab.ImportTitle": "Import Condition Map",
+			"Lab.ExportTitle": "Export Condition Map",
+			"Lab.Options.Title": "Options:",
+			"Lab.Options.Overlay.Label": "Overlay",
+			"Lab.Options.RemoveOthers.Label": "Remove Others",
+			"Lab.Options.OutputChat.Label": "Output to Chat",
+			"Lab.Options.MarkDefeated.Label": "Mark Defeated",
+			"Lab.Options.Overlay.Title": "Condition is an overlay",
+			"Lab.Options.RemoveOthers.Title": "Remove other conditions when this one is applied",
+			"Lab.Options.MarkDefeated.Title": "Mark matching combatants defeated when this condition is applied",
+			"Lab.Options.OutputChat.Title": "Output this condition to chat when added/removed",
+
+			"ChatCard.Title.Active": "Active Conditions",
+			"ChatCard.Title.Added": "Added Conditions",
+			"ChatCard.Title.Removed": "Removed Conditions",
+
+			"ChatCard.Buttons.Undo": "Undo Remove Condition",
+			"ChatCard.Buttons.Remove": "Remove Condition"
 		},
 		"SETTINGS": {
-			"ENHANCED_CONDITIONS": {
+			"EnhancedConditions": {
+				"CoreIconsN": "Core Status Icons",
+				"CoreIconsH": "A copy of the core status icons",
+				"SystemN": "Game System",
+				"SystemH": "A reference to the game system. Defaults to other if not known to the module",
+				"OutputChatN": "Output to Chat",
+				"OutputChatH": "Output matched conditions to chat",
+				"OutputCombatN": "Output During Combat",
+				"OutputCombatH": "On each round of Combat, output any conditions for the current combatant to chat",
+				"DefaultMapsN": "Default Condition Maps",
+				"DefaultMapsH": "Module-provided maps of conditions to icons",
+				"RemoveDefaultEffectsN": "Remove Default Status Effects",
+				"RemoveDefaultEffectsH": "Remove existing status effect icons from token HUD",
+				"MapTypeN": "Active Condition Map Type",
+				"MapTypeH": "Condition map type currently in use -- default, custom or other",
+				"ActiveConditionMapN": "Active Condition Map",
+				"ActiveConditionMapH": "Stores the active condition map",
+				"SuppressPreventativeSaveReminderN": "Suppress Preventative Save Reminder",
+				"SuppressPreventativeSaveReminderH": "Suppress the reminder to save the Condition Lab to prevent issues (eg. if user has already done so)",
 				"MigrationVersionN": "Migration Version",
 				"MigrationVersionH": "Version of CUB for which migration was last performed",
 				"ShowSortDirectionDialogN": "Show Condition Lab Sort Direction Save Dialog",
 				"ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction."
+			},
+			"TokenUtility": {
+				"TokenEffectSizeN": "Token Effect Icon Size",
+				"TokenEffectSizeH": "Sets the size for token effect icons on the token. Numbers represent the amount of effect icons to show (X * Y). Default: Small - 5x5"
+			},
+			"Triggler": {
+				"TriggersN": "Triggler Triggers",
+				"TriggersH": "A trigger-management system for token/actor attribute changes"
 			}
 		},
 		"TRIGGLER": {
-			"ButtonTitle": "Open Triggler"
+			"App": {
+				"AdvancedTrigger": {
+					"Actor": {
+						"Note": "Set the property path to use for Actor updates--the path is relative to the update object passed to the updateActor hook.",
+						"Note2": "Optionally set a second property to compare the first one against--this path is relative to the Actor object itself"
+					},
+					"ActorProperty": {
+						"Label": "Actor Update Property",
+						"Placeholder": "eg. data.attributes.hp.value (required if Token Update Property is not set)"
+					},
+					"ActorProperty2": {
+						"Label": "Actor Comparison Property",
+						"Placeholder": "eg. data.data.attributes.hp.max (optional)"
+					},
+					"Token": {
+						"Note": "Set the property path to use for Token updates--the path is relative to the update object passed to the updateToken hook.",
+						"Note2": "Optionally set a second property to compare the first one against--this path is relative to the Token object itself"
+					},
+					"TokenProperty": {
+						"Label": "Token Update Property",
+						"Placeholder": "eg. actorData.attributes.hp.value (required if Actor Update Property is not set)"
+					},
+					"TokenProperty2": {
+						"Label": "Token Comparison Property",
+						"Placeholder": "eg. actor.data.attributes.hp.max (optional)"
+					},
+					"Property": {
+						"Hint": "The path to the updated property to listen for. The Actor and Token Entry Point values tell Triggler where to look for each entity type"
+					},
+					"OperatorValue": {
+						"Heading": "Operator/Value",
+						"Note": "Always required. The operator and value apply to both Actor and Token Properties set above"
+					},
+					"Name": {
+						"Label": "Trigger Name",
+						"Placeholder": "(required for advanced triggers)",
+						"Warning": "Name is required for advanced triggers!"
+					}
+				},
+				"TriggerType": {
+					"Simple": {
+						"Label": "Simple Trigger"
+					},
+					"Advanced": {
+						"Label": "Advanced Trigger"
+					}
+				},
+				"Options": {
+					"Title": "Options"
+				},
+				"SaveSuccessful": "Trigger successfully saved!"
+			}
 		},
 		"WORDS": {
 			"Icon": "Icon",
 			"Macro": "Macro",
 			"Name": "Name",
 			"Reference": "Reference",
-			"Save": "Save"
+			"Save": "Save",
+			"Import": "Import",
+			"Export": "Export",
+			"Cancel": "Cancel",
+			"Yes": "Yes",
+			"No": "No",
+			"None": "None",
+			"GMOnly": "GM Only",
+			"Everyone": "Everyone",
+			"About": "About",
+			"OK": "OK",
+			"Reset": "Reset",
+			"Actor": "Actor",
+			"Token": "Token",
+			"Configuration": "Configuration"
 		},
 		"PHRASES": {
 			"SaveAndClose": "Save and Close"
 		}
 	},
-	"GADGET_DESCRIPTIONS.EnhancedConditions": "Provides the ability to map Conditions to Status Effect icons",
-	"GADGET_DESCRIPTIONS.Triggler": "A trigger-management system for token/actor attribute changes",
-
-	"ENHANCED_CONDITIONS.SimpleIconsNotSupported": "CUB Enhanced Conditions does not support game systems that use simple status effect icons.",
-	"ENHANCED_CONDITIONS.MapMismatch": "This map does not match your game system and may not work as expected.",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken": "Apply Condition failed. No token provided",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition": "Apply Condition failed. Could not find condition:",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.NoIcon": "Apply Condition failed. Could not find icon.",
-	"ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive": "is already active. Apply Condition failed",
-
-	"ENHANCED_CONDITIONS.GetConditions.Failed.NoToken": "Get Conditions failed. No entity provided and none could be found automatically",
-	"ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition": "Get Conditions failed. No Condition Map found",
-	"ENHANCED_CONDITIONS.GetConditions.Failed.NoResults": "Get Conditions failed. No Conditions found on Actor/Token",
-
-	"ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken": "Remove Condition failed. No token provided",
-	"ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition": "Remove Condition failed. Could not find condition with name:",
-	"ENHANCED_CONDITIONS.RemoveCondition.Failed.NoIcon": "Remove Condition failed. Could not find icon",
-	"ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive": "is not active on token. Remove Condition failed.",
-
-	"ENHANCED_CONDITIONS.RemoveAllConditions.Failed.NoToken": "Remove Conditions failed. No token/s provided",
-	"ENHANCED_CONDITIONS.RemoveAllConditions.Failed.NoCondition": "Remove Conditions failed. There is no active Condition Map",
-
-	"ENHANCED_CONDITIONS.Lab.Title": "Condition Lab",
-	"ENHANCED_CONDITIONS.Lab.MappingType.Label": "Mapping Type",
-	"ENHANCED_CONDITIONS.Lab.MappingType.Unsaved": "(unsaved changes)",
-	"ENHANCED_CONDITIONS.Lab.ActiveEffects.Title": "Active Effect Config",
-	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
-	"ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)",
-	"ENHANCED_CONDITIONS.LAB.Import.NoFile": "You did not upload a data file!",
-	"ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle": "Confirm Row Deletion",
-	"ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent": "Are you sure you want to delete this row?",
-	"ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle": "Restore Defaults?",
-	"ENHANCED_CONDITIONS.Lab.RestoreDefaultsContent": "<p>Are you sure you want to restore this mapping to defaults?</p><strong>If you save, this change will be permanent.</strong>",
-	"ENHANCED_CONDITIONS.Lab.ResetFormTitle": "Reset Form?",
-	"ENHANCED_CONDITIONS.Lab.ResetFormContent": "<p>Are you sure you want to reset the form?</p><p><strong>You will lose any unsaved changes.</strong></p>",
-	"ENHANCED_CONDITIONS.Lab.SaveFailed": "Condition Lab failed to Save and Close",
-	"ENHANCED_CONDITIONS.Lab.SaveSuccess": "Condition Lab mapping saved!",
-	"ENHANCED_CONDITIONS.Lab.ImportTitle": "Import Condition Map",
-	"ENHANCED_CONDITIONS.Lab.ExportTitle": "Export Condition Map",
-	"ENHANCED_CONDITIONS.Lab.Options.Title": "Options:",
-	"ENHANCED_CONDITIONS.Lab.Options.Overlay.Label": "Overlay",
-	"ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Label": "Remove Others",
-	"ENHANCED_CONDITIONS.Lab.Options.OutputChat.Label": "Output to Chat",
-	"ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Label": "Mark Defeated",
-	"ENHANCED_CONDITIONS.Lab.Options.Overlay.Title": "Condition is an overlay",
-	"ENHANCED_CONDITIONS.Lab.Options.RemoveOthers.Title": "Remove other conditions when this one is applied",
-	"ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Title": "Mark matching combatants defeated when this condition is applied",
-	"ENHANCED_CONDITIONS.Lab.Options.OutputChat.Title": "Output this condition to chat when added/removed",
-
-	"ENHANCED_CONDITIONS.ChatCard.Title.Active": "Active Conditions",
-	"ENHANCED_CONDITIONS.ChatCard.Title.Added": "Added Conditions",
-	"ENHANCED_CONDITIONS.ChatCard.Title.Removed": "Removed Conditions",
-
-	"ENHANCED_CONDITIONS.ChatCard.Buttons.Undo": "Undo Remove Condition",
-	"ENHANCED_CONDITIONS.ChatCard.Buttons.Remove": "Remove Condition",
-
-	"CUB.TRIGGLER.App.AdvancedTrigger.Actor.Note": "Set the property path to use for Actor updates--the path is relative to the update object passed to the updateActor hook.",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Actor.Note2": "Optionally set a second property to compare the first one against--this path is relative to the Actor object itself",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Token.Note": "Set the property path to use for Token updates--the path is relative to the update object passed to the updateToken hook.",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Token.Note2": "Optionally set a second property to compare the first one against--this path is relative to the Token object itself",
-	"CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty.Label": "Actor Update Property",
-	"CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty.Placeholder": "eg. data.attributes.hp.value (required if Token Update Property is not set)",
-	"CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Label": "Actor Comparison Property",
-	"CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Placeholder": "eg. data.data.attributes.hp.max (optional)",
-	"CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty.Label": "Token Update Property",
-	"CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty.Placeholder": "eg. actorData.attributes.hp.value (required if Actor Update Property is not set)",
-	"CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Label": "Token Comparison Property",
-	"CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Placeholder": "eg. actor.data.attributes.hp.max (optional)",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Property.Hint": "The path to the updated property to listen for. The Actor and Token Entry Point values tell Triggler where to look for each entity type",
-	"CUB.TRIGGLER.App.TriggerType.Simple.Label": "Simple Trigger",
-	"CUB.TRIGGLER.App.TriggerType.Advanced.Label": "Advanced Trigger",
-	"CUB.TRIGGLER.App.Options.Title": "Options",
-	"CUB.TRIGGLER.App.SaveSuccessful": "Trigger successfully saved!",
-	"CUB.TRIGGLER.App.AdvancedTrigger.OperatorValue.Heading": "Operator/Value",
-	"CUB.TRIGGLER.App.AdvancedTrigger.OperatorValue.Note": "Always required. The operator and value apply to both Actor and Token Properties set above",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Name.Label": "Trigger Name",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Name.Placeholder": "(required for advanced triggers)",
-	"CUB.TRIGGLER.App.AdvancedTrigger.Name.Warning": "Name is required for advanced triggers!",
-
-	"SETTINGS.EnhancedConditions.CoreIconsN": "Core Status Icons",
-	"SETTINGS.EnhancedConditions.CoreIconsH": "A copy of the core status icons",
-	"SETTINGS.EnhancedConditions.SystemN": "Game System",
-	"SETTINGS.EnhancedConditions.SystemH": "A reference to the game system. Defaults to other if not known to the module",
-	"SETTINGS.EnhancedConditions.OutputChatN": "Output to Chat",
-	"SETTINGS.EnhancedConditions.OutputChatH": "Output matched conditions to chat",
-	"SETTINGS.EnhancedConditions.OutputCombatN": "Output During Combat",
-	"SETTINGS.EnhancedConditions.OutputCombatH": "On each round of Combat, output any conditions for the current combatant to chat",
-	"SETTINGS.EnhancedConditions.DefaultMapsN": "Default Condition Maps",
-	"SETTINGS.EnhancedConditions.DefaultMapsH": "Module-provided maps of conditions to icons",
-	"SETTINGS.EnhancedConditions.RemoveDefaultEffectsN": "Remove Default Status Effects",
-	"SETTINGS.EnhancedConditions.RemoveDefaultEffectsH": "Remove existing status effect icons from token HUD",
-	"SETTINGS.EnhancedConditions.MapTypeN": "Active Condition Map Type",
-	"SETTINGS.EnhancedConditions.MapTypeH": "Condition map type currently in use -- default, custom or other",
-	"SETTINGS.EnhancedConditions.ActiveConditionMapN": "Active Condition Map",
-	"SETTINGS.EnhancedConditions.ActiveConditionMapH": "Stores the active condition map",
-	"SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderN": "Suppress Preventative Save Reminder",
-	"SETTINGS.EnhancedConditions.SuppressPreventativeSaveReminderH": "Suppress the reminder to save the Condition Lab to prevent issues (eg. if user has already done so)",
-
-	"SETTINGS.TokenUtility.TokenEffectSizeN": "Token Effect Icon Size",
-	"SETTINGS.TokenUtility.TokenEffectSizeH": "Sets the size for token effect icons on the token. Numbers represent the amount of effect icons to show (X * Y). Default: Small - 5x5",
-
-	"SETTINGS.Triggler.TriggersN": "Triggler Triggers",
-	"SETTINGS.Triggler.TriggersH": "Stores saved Triggler Triggers",
-
-	"WORDS.Import": "Import",
-	"WORDS.Export": "Export",
-	"WORDS.Cancel": "Cancel",
-	"WORDS._Yes": " Yes",
-	"WORDS._No": " No",
-	"WORDS.Yes": "Yes",
-	"WORDS.No": "No",
-	"WORDS.None": "None",
-	"WORDS.GMOnly": "GM Only",
-	"WORDS.Everyone": "Everyone",
-	"WORDS.About": "About",
-	"WORDS.OK": "OK",
-	"CUB.WORDS.Save": "Save",
-	"CUB.WORDS.Cancel": "Cancel",
-	"CUB.WORDS.Reset": "Reset",
-	"CUB.WORDS.Actor": "Actor",
-	"CUB.WORDS.Token": "Token",
-	"WORDS.Configuration": "Configuration"
+	"condition-lab-triggler": {
+		"SETTINGS": {
+			"ENHANCED_CONDITIONS": "MOVIDO PARA CLT.SETTINGS.EnhancedConditions"
+		}
+	}
 }

@@ -1,5 +1,5 @@
 <form onsubmit="event.preventDefault()" autocomplete="off">
-    <h2>{{> "modules/combat-utility-belt/templates/partials/triggler-icon.hbs"}} Triggler</h2>
+    <h2>{{> "modules/condition-lab-triggler/templates/partials/triggler-icon.hbs"}} Triggler</h2>
     <div class="form-group triggler">
         <label>Existing Triggers</label>
         <select name="triggers">
@@ -18,7 +18,7 @@
     <div class="simple-trigger">
         <div class="type-select">
             <input id="triggler-trigger-type-simple" type="radio" name="triggerType" value="simple" {{checked isSimpleTrigger}}>
-            <label for="triggler-trigger-type-simple"><strong>{{localize "CUB.TRIGGLER.App.TriggerType.Simple.Label"}}</strong></label>
+            <label for="triggler-trigger-type-simple"><strong>{{localize "CLT.TRIGGLER.App.TriggerType.Simple.Label"}}</strong></label>
         </div>
         <div class="flexrow">
             <span>Category</span>
@@ -76,38 +76,38 @@
     <div class="advanced-trigger">
         <div class="type-select">
             <input id="triggler-trigger-type-advanced" type="radio" name="triggerType" value="advanced" {{checked isAdvancedTrigger}}>
-            <label for="triggler-trigger-type-advanced"><strong>{{localize "CUB.TRIGGLER.App.TriggerType.Advanced.Label"}}</strong></label>
+            <label for="triggler-trigger-type-advanced"><strong>{{localize "CLT.TRIGGLER.App.TriggerType.Advanced.Label"}}</strong></label>
         </div>
         <div class="form-group">
-            <label for="triggler-advanced-name">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.Name.Label"}}</label>
-            <input id="triggler-advanced-name" name="advancedName" type="text" value="{{advancedName}}" placeholder="{{localize "CUB.TRIGGLER.App.AdvancedTrigger.Name.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
+            <label for="triggler-advanced-name">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Name.Label"}}</label>
+            <input id="triggler-advanced-name" name="advancedName" type="text" value="{{advancedName}}" placeholder="{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Name.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
         </div>
-        <h3>{{localize "CUB.WORDS.Actor"}}</h3>
+        <h3>{{localize "CLT.WORDS.Actor"}}</h3>
         <div class="form-group">
-            <label for="triggler-advanced-actor-property">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty.Label"}}</label>
-            <input id="triggler-advanced-actor-property" name="advancedActorProperty" type="text" value="{{advancedActorProperty}}" placeholder="{{localize "CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
-            <p class="notes">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.Actor.Note"}}</p>
+            <label for="triggler-advanced-actor-property">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.ActorProperty.Label"}}</label>
+            <input id="triggler-advanced-actor-property" name="advancedActorProperty" type="text" value="{{advancedActorProperty}}" placeholder="{{localize "CLT.TRIGGLER.App.AdvancedTrigger.ActorProperty.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
+            <p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Actor.Note"}}</p>
         </div>
         <div class="form-group">
-            <label for="triggler-advanced-actor-property2">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Label"}}</label>
-            <input id="triggler-advanced-actor-property2" name="advancedActorProperty2" type="text" value="{{advancedActorProperty2}}" placeholder="{{localize "CUB.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
-            <p class="notes">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.Actor.Note2"}}</p>
+            <label for="triggler-advanced-actor-property2">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Label"}}</label>
+            <input id="triggler-advanced-actor-property2" name="advancedActorProperty2" type="text" value="{{advancedActorProperty2}}" placeholder="{{localize "CLT.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
+            <p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Actor.Note2"}}</p>
         </div>
         <br>
-        <h3>{{localize "CUB.WORDS.Token"}}</h3>
+        <h3>{{localize "CLT.WORDS.Token"}}</h3>
         <div class="form-group">
-            <label for="triggler-advanced-token-property">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty.Label"}}</label>
-            <input id="triggler-advanced-token-property" name="advancedTokenProperty" type="text" value="{{advancedTokenProperty}}" placeholder="{{localize "CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
-            <p class="notes">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.Token.Note"}}</p>
+            <label for="triggler-advanced-token-property">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty.Label"}}</label>
+            <input id="triggler-advanced-token-property" name="advancedTokenProperty" type="text" value="{{advancedTokenProperty}}" placeholder="{{localize "CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
+            <p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Token.Note"}}</p>
         </div>
         <div class="form-group">
-            <label for="triggler-advanced-token-property2">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Label"}}</label>
-            <input id="triggler-advanced-token-property2" name="advancedTokenProperty2" type="text" value="{{advancedTokenProperty2}}" placeholder="{{localize "CUB.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
-            <p class="notes">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.Token.Note2"}}</p>
+            <label for="triggler-advanced-token-property2">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Label"}}</label>
+            <input id="triggler-advanced-token-property2" name="advancedTokenProperty2" type="text" value="{{advancedTokenProperty2}}" placeholder="{{localize "CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Placeholder"}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
+            <p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Token.Note2"}}</p>
         </div>
         <br>
-        <h3>{{localize "CUB.TRIGGLER.App.AdvancedTrigger.OperatorValue.Heading"}}</h3>
-        <p class="notes">{{localize "CUB.TRIGGLER.App.AdvancedTrigger.OperatorValue.Note"}}</p>
+        <h3>{{localize "CLT.TRIGGLER.App.AdvancedTrigger.OperatorValue.Heading"}}</h3>
+        <p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.OperatorValue.Note"}}</p>
         <div class="flexrow">
             <select name="advancedOperator" class="advanced-trigger-operator" {{#unless isAdvancedTrigger}}disabled{{/unless}}>
                 {{#select advancedOperator}}
@@ -117,12 +117,12 @@
                 {{/each}}
                 {{/select}}
             </select>
-            <input type="text" name="advancedValue" class="advanced-trigger-value" placeholder="--Value--" value="{{advancedValue}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}/>   
+            <input type="text" name="advancedValue" class="advanced-trigger-value" placeholder="--Value--" value="{{advancedValue}}" {{#unless isAdvancedTrigger}}disabled{{/unless}}/>
         </div>
     </div>
     <hr>
-    <h3>{{localize "CUB.TRIGGLER.App.Options.Title"}}</h3>
-    
+    <h3>{{localize "CLT.TRIGGLER.App.Options.Title"}}</h3>
+
     <div class="flexrow triggler">
         <div class="form-group options" title="Trigger for player-owned Actors only">
             <input type="checkbox" name="pcOnly" {{checked pcOnly}}>
@@ -138,7 +138,7 @@
         </div>
     </div>
     <footer class="flexrow">
-        <button type="submit" name="save"><i class="fas fa-save"></i> {{localize "CUB.WORDS.Save"}}</button>
-        <button type="reset" name="reset"><i class="fas fa-undo"></i> {{localize "CUB.WORDS.Reset"}}</button>
+        <button type="submit" name="save"><i class="fas fa-save"></i> {{localize "CLT.WORDS.Save"}}</button>
+        <button type="reset" name="reset"><i class="fas fa-undo"></i> {{localize "CLT.WORDS.Reset"}}</button>
     </footer>
 </form>

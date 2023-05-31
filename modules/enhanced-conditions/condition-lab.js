@@ -60,9 +60,9 @@ export class ConditionLab extends FormApplication {
 	async prepareData() {
 		const sortDirection = this.sortDirection;
 		const sortTitle = game.i18n.localize(
-			`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle${sortDirection ? `_${sortDirection}` : ""}`
+			`CLT.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle.${sortDirection ? sortDirection : "unsorted"}`
 		);
-		const filterTitle = game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle`);
+		const filterTitle = game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle`);
 		const filterValue = this.filterValue;
 
 		const defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
@@ -293,10 +293,8 @@ export class ConditionLab extends FormApplication {
 
 		if (this.sortDirection && showDialogSetting) {
 			await Dialog.confirm({
-				title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`),
-				content: game.i18n.localize(
-					`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Content`
-				),
+				title: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`),
+				content: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Content`),
 				yes: ($html) => {
 					const checkbox = $html[0].querySelector("input[name='dont-show-again']");
 					if (checkbox.checked) {
@@ -359,7 +357,7 @@ export class ConditionLab extends FormApplication {
 		this.unsaved = false;
 		this.sortDirection = "";
 
-		ui.notifications.info(game.i18n.localize("ENHANCED_CONDITIONS.Lab.SaveSuccess"));
+		ui.notifications.info(game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.SaveSuccess"));
 		this.render(true);
 	}
 
@@ -384,19 +382,19 @@ export class ConditionLab extends FormApplication {
 	 */
 	async _importFromJSONDialog() {
 		new Dialog({
-			title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ImportTitle"),
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ImportTitle"),
 			content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
 			buttons: {
 				import: {
 					icon: '<i class="fas fa-file-import"></i>',
-					label: game.i18n.localize("WORDS.Import"),
+					label: game.i18n.localize("CLT.WORDS.Import"),
 					callback: (html) => {
 						this._processImport(html);
 					},
 				},
 				no: {
 					icon: '<i class="fas fa-times"></i>',
-					label: game.i18n.localize("WORDS.Cancel"),
+					label: game.i18n.localize("CLT.WORDS.Cancel"),
 				},
 			},
 			default: "import",
@@ -411,7 +409,7 @@ export class ConditionLab extends FormApplication {
 		const form = html.find("form")[0];
 
 		if (!form.data.files.length) {
-			return ui.notifications.error(game.i18n.localize("ENHANCED_CONDITIONS.Import.NoFile"));
+			return ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSImport.NoFile"));
 		}
 
 		const jsonFile = await readTextFromFile(form.data.files[0]);
@@ -438,7 +436,7 @@ export class ConditionLab extends FormApplication {
 
 		buttons.unshift(
 			{
-				label: game.i18n.localize("WORDS.Import"),
+				label: game.i18n.localize("CLT.WORDS.Import"),
 				class: "import",
 				icon: "fas fa-file-import",
 				onclick: async (ev) => {
@@ -446,7 +444,7 @@ export class ConditionLab extends FormApplication {
 				},
 			},
 			{
-				label: game.i18n.localize("WORDS.Export"),
+				label: game.i18n.localize("CLT.WORDS.Export"),
 				class: "export",
 				icon: "fas fa-file-export",
 				onclick: async (ev) => {
@@ -481,7 +479,7 @@ export class ConditionLab extends FormApplication {
 	static async _onRenderSaveDialog(app, html, data) {
 		const contentDiv = html[0].querySelector("div.dialog-content");
 		const checkbox = `<div class="form-group"><label class="dont-show-again-checkbox">${game.i18n.localize(
-			`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText`
+			`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText`
 		)}<input type="checkbox" name="dont-show-again"></label></div>`;
 		contentDiv.insertAdjacentHTML("beforeend", checkbox);
 		await app.setPosition({ height: app.position.height + 25 });
@@ -506,7 +504,7 @@ export class ConditionLab extends FormApplication {
 
 		const contentDiv = html[0].querySelector("div.dialog-content");
 		const checkbox = `<div class="form-group"><label class="clear-cache-checkbox">${game.i18n.localize(
-			`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText`
+			`CLT.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText`
 		)}<input type="checkbox" name="clear-cache"></label></div>`;
 		contentDiv.insertAdjacentHTML("beforeend", checkbox);
 		await app.setPosition({ height: app.position.height + 25 });
@@ -800,12 +798,12 @@ export class ConditionLab extends FormApplication {
 		const row = event.currentTarget.name.match(/\d+$/)[0];
 
 		const dialog = new Dialog({
-			title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle"),
-			content: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent"),
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ConfirmDeleteTitle"),
+			content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent"),
 			buttons: {
 				yes: {
 					icon: `<i class="fa fa-check"></i>`,
-					label: game.i18n.localize("WORDS._Yes"),
+					label: game.i18n.localize("CLT.WORDS.Yes"),
 					callback: async (event) => {
 						const newMap = duplicate(this.map);
 						newMap.splice(row, 1);
@@ -815,7 +813,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: `<i class="fa fa-times"></i>`,
-					label: game.i18n.localize("WORDS._No"),
+					label: game.i18n.localize("CLT.WORDS.No"),
 					callback: (event) => {},
 				},
 			},
@@ -906,15 +904,15 @@ export class ConditionLab extends FormApplication {
 	 */
 	_onRestoreDefaults(event) {
 		event.preventDefault();
-		const content = game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaultsContent");
+		const content = game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.RestoreDefaultsContent");
 
 		const confirmationDialog = new Dialog({
-			title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle"),
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle"),
 			content,
 			buttons: {
 				yes: {
 					icon: `<i class="fas fa-check"></i>`,
-					label: game.i18n.localize("WORDS.Yes"),
+					label: game.i18n.localize("CLT.WORDS.Yes"),
 					callback: ($html) => {
 						const checkbox = $html[0].querySelector("input[name='clear-cache']");
 						const clearCache = checkbox?.checked;
@@ -923,7 +921,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: `<i class="fas fa-times"></i>`,
-					label: game.i18n.localize("WORDS.No"),
+					label: game.i18n.localize("CLT.WORDS.No"),
 					callback: () => {},
 				},
 			},
@@ -940,12 +938,12 @@ export class ConditionLab extends FormApplication {
 	 */
 	_onResetForm(event) {
 		const dialog = new Dialog({
-			title: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ResetFormTitle"),
-			content: game.i18n.localize("ENHANCED_CONDITIONS.Lab.ResetFormContent"),
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ResetFormTitle"),
+			content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ResetFormContent"),
 			buttons: {
 				yes: {
 					icon: `<i class="fa fa-check"></i>`,
-					label: game.i18n.localize("WORDS._Yes"),
+					label: game.i18n.localize("CLT.WORDS.Yes"),
 					callback: (event) => {
 						this.map = this.initialMap;
 						this.render();
@@ -953,7 +951,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: `<i class="fa fa-times"></i>`,
-					label: game.i18n.localize("WORDS._No"),
+					label: game.i18n.localize("CLT.WORDS.No"),
 					callback: (event) => {},
 				},
 			},
@@ -972,7 +970,7 @@ export class ConditionLab extends FormApplication {
 				this.close();
 			})
 			.catch((reject) => {
-				ui.notifications.warn(game.i18n.localize("ENHANCED_CONDITIONS.Lab.SaveFailed"));
+				ui.notifications.warn(game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.SaveFailed"));
 			});
 	}
 

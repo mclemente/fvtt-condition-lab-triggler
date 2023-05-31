@@ -181,7 +181,7 @@ export class TrigglerForm extends FormApplication {
 		const triggerType = formData?.triggerType;
 
 		if (triggerType === "advanced" && !formData.advancedName.length) {
-			ui.notifications.warn(game.i18n.localize("CUB.TRIGGLER.App.AdvancedTrigger.Name.Warning"));
+			ui.notifications.warn(game.i18n.localize("CLT.TRIGGLER.App.AdvancedTrigger.Name.Warning"));
 			return false;
 		}
 
@@ -217,7 +217,7 @@ export class TrigglerForm extends FormApplication {
 		}
 
 		const setting = await Sidekick.setSetting(SETTING_KEYS.triggler.triggers, updatedTriggers);
-		if (!!setting) ui.notifications.info(game.i18n.localize("CUB.TRIGGLER.App.SaveSuccessful"));
+		if (!!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
 
 		this.render();
 

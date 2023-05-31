@@ -1,8 +1,8 @@
 <div class="form-group">
 	<label>Trigger</label>
-	<select name="flags.combat-utility-belt.macroTrigger" title="Trigger to execute Macro">
+	<select name="flags.condition-lab-triggler.macroTrigger" title="Trigger to execute Macro">
 		{{#select flag}}
-		<option value="">{{localize "combat-utility-belt.ENHANCED_CONDITIONS.MacroConfig.NoTriggerSet"}}</option>
+		<option value="">{{localize "CLT.ENHANCED_CONDITIONS.MacroConfig.NoTriggerSet"}}</option>
 		{{#each triggers}}
 		<option value="{{this.id}}">{{this.text}}</option>
 		{{/each}} {{/select}}

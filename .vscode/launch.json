@@ -11,7 +11,7 @@
             "url": "http://localhost:49999",
             "webRoot": "http://localhost:49999",
             "pathMapping": {
-                "/modules/combat-utility-belt/": "${workspaceFolder}"
+                "/modules/condition-lab-triggler/": "${workspaceFolder}"
             }
         }
     ]

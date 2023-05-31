@@ -388,36 +388,36 @@ a.add-temporary {
 	flex: 0;
 }
 
-#settings div#combat-utility-belt {
+#settings div#condition-lab-triggler {
 	margin: 0;
 }
 
 /* ABOUT */
-#combat-utility-belt-about img {
+#condition-lab-triggler-about img {
 	border: none;
 }
 
-#combat-utility-belt-about .logo {
+#condition-lab-triggler-about .logo {
 	width: 600px;
 }
 
-#combat-utility-belt-about .version {
+#condition-lab-triggler-about .version {
 	flex-grow: 0;
 }
 
-#combat-utility-belt-about .readme {
+#condition-lab-triggler-about .readme {
 	text-align: center;
 }
 
-#combat-utility-belt-about a {
+#condition-lab-triggler-about a {
 	text-shadow: 1px 1px black;
 }
 
-#combat-utility-belt-about div.patrons {
+#condition-lab-triggler-about div.patrons {
 	width: 100%;
 }
 
-#combat-utility-belt-about .patrons ol {
+#condition-lab-triggler-about .patrons ol {
 	height: 175px;
 	border: 1px inset white;
 	list-style: none;
@@ -426,27 +426,27 @@ a.add-temporary {
 	padding: 2px;
 }
 
-#combat-utility-belt-about .patrons li:nth-child(odd) {
+#condition-lab-triggler-about .patrons li:nth-child(odd) {
 	background: rgba(0, 0, 0, 0.2);
 }
 
-#combat-utility-belt-about .patrons li {
+#condition-lab-triggler-about .patrons li {
 	font-size: x-large;
 }
 
-#combat-utility-belt-about footer div {
+#condition-lab-triggler-about footer div {
 	justify-content: center;
 	text-align: center;
 }
 
-#combat-utility-belt-about .death-save {
+#condition-lab-triggler-about .death-save {
 	flex: 0 0 120px;
 }
 
-#combat-utility-belt-about .heart {
+#condition-lab-triggler-about .heart {
 	color: tomato;
 }
 
-#combat-utility-belt-about .patreon img {
+#condition-lab-triggler-about .patreon img {
 	flex: 0 0 100px;
 }

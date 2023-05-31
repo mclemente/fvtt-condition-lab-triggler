@@ -1,12 +1,12 @@
-export const NAME = "combat-utility-belt";
+/** Flags */
+export const NAME = "condition-lab-triggler";
 
-export const TITLE = "Combat Utility Belt";
+/** Message output */
+export const TITLE = "Condition Lab & Triggler";
 
-export const SHORTNAME = "cub";
+export const PATH = "modules/condition-lab-triggler";
 
-export const PATH = "modules/combat-utility-belt";
-
-export const WIKIPATH = "https://github.com/death-save/combat-utility-belt/wiki";
+export const WIKIPATH = "https://github.com/mclemente/condition-lab-triggler/wiki";
 
 export const GADGETS = {
 	enhancedConditions: {
@@ -203,7 +203,6 @@ export const DEFAULT_CONFIG = {
 		},
 		templatePaths: {
 			macroTriggerSelect: `${PATH}/templates/trigger-select.html`,
-			trigglerButton: `${PATH}/templates/triggler-button.hbs`,
 		},
 	},
 };

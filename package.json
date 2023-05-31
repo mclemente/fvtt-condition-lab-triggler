@@ -1,8 +1,8 @@
 {
-	"name": "combat-utility-belt",
+	"name": "condition-lab-triggler",
 	"version": "1.10.4",
 	"description": "Combat-focused module for Foundry vtt",
-	"main": "combat-utility-belt.js",
+	"main": "condition-lab-triggler.js",
 	"devDependencies": {
 		"@pixi/jsdoc-template": "^2.6.0",
 		"gitignore": "^0.6.0",
@@ -14,12 +14,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/death-save/combat-utility-belt.git"
+		"url": "git+https://github.com/mclemente/condition-lab-triggler.git"
 	},
 	"author": "Evan Clarke",
 	"license": "SEE LICENSE IN LICENSE",
 	"bugs": {
-		"url": "https://github.com/death-save/combat-utility-belt/issues"
+		"url": "https://github.com/mclemente/condition-lab-triggler/issues"
 	},
-	"homepage": "https://github.com/death-save/combat-utility-belt#readme"
+	"homepage": "https://github.com/mclemente/condition-lab-triggler#readme"
 }

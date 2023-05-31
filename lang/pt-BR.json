@@ -181,8 +181,8 @@
 	"SETTINGS.TokenUtility.TokenEffectSizeN": "Tamanho do ícone de efeito de token",
 	"SETTINGS.TokenUtility.TokenEffectSizeH": "Define o tamanho dos ícones de efeito do token. Padrão: Pequeno",
 
-	"SETTINGS.Triggler.TriggersN": "Gatilhos Engatilhados",
-	"SETTINGS.Triggler.TriggersH": "Armazena os Gatilhos Engatilhados salvos",
+	"SETTINGS.Triggler.TriggersN": "Triggler",
+	"SETTINGS.Triggler.TriggersH": "Armazena os gatilhos do Triggler",
 
 	"WORDS.Import": "Importar",
 	"WORDS.Export": "Exportar",

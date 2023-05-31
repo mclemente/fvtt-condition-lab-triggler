@@ -48,7 +48,7 @@ export class Signal {
 			game.cub.enhancedConditions = new EnhancedConditions();
 			// Wrappers
 			libWrapper.register(
-				"combat-utility-belt",
+				"condition-lab-triggler",
 				"Token.prototype._refreshEffects",
 				function () {
 					const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
@@ -149,7 +149,7 @@ export class Signal {
 		/* ------------------- Misc ------------------- */
 
 		Hooks.on("renderSettingsConfig", (app, html, data) => {
-			const trigglerMenu = html.find(`button[data-key="combat-utility-belt.trigglerMenu"]`)[0];
+			const trigglerMenu = html.find(`button[data-key="condition-lab-triggler.trigglerMenu"]`)[0];
 			const exclamationMark = trigglerMenu.children[0];
 			exclamationMark.style.marginRight = "0px";
 			const rightChevron = document.createElement("i");
@@ -177,11 +177,11 @@ export class Signal {
 
 		Hooks.on("renderDialog", (app, html, data) => {
 			switch (app.title) {
-				case game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`):
+				case game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`):
 					ConditionLab._onRenderSaveDialog(app, html, data);
 					break;
 
-				case game.i18n.localize(`ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle`):
+				case game.i18n.localize(`CLT.ENHANCED_CONDITIONSLab.RestoreDefaultsTitle`):
 					ConditionLab._onRenderRestoreDefaultsDialog(app, html, data);
 					break;
 

@@ -6,93 +6,12 @@ import { TrigglerForm } from "./triggler/triggler-form.js";
 
 export function registerSettings() {
 	/* -------------------------------------------- */
-	/*              EnhancedConditions              */
+	/*            Setting Configuration             */
 	/* -------------------------------------------- */
 
-	Sidekick.registerMenu(BUTLER.SETTING_KEYS.enhancedConditions.menu, {
-		name: "ENHANCED_CONDITIONS.Lab.Title",
-		label: "ENHANCED_CONDITIONS.Lab.Title",
-		hint: "GADGET_DESCRIPTIONS.EnhancedConditions",
-		icon: "fas fa-flask",
-		type: ConditionLab,
-		restricted: true,
-	});
-
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreIcons, {
-		name: "SETTINGS.EnhancedConditions.CoreIconsN",
-		hint: "SETTINGS.EnhancedConditions.CoreIconsH",
-		scope: "world",
-		type: Object,
-		default: [],
-		config: false,
-		onChange: (s) => {},
-	});
-
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
-		name: "SETTINGS.EnhancedConditions.CoreEffectsN",
-		hint: "SETTINGS.EnhancedConditions.CoreEffectsH",
-		scope: "world",
-		type: Object,
-		default: [],
-		config: false,
-		onChange: (s) => {},
-	});
-
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.system, {
-		name: "SETTINGS.EnhancedConditions.SystemN",
-		hint: "SETTINGS.EnhancedConditions.SystemH",
-		scope: "world",
-		type: String,
-		default: !!BUTLER.KNOWN_GAME_SYSTEMS[game.system.id]
-			? BUTLER.KNOWN_GAME_SYSTEMS[game.system.id].id
-			: BUTLER.KNOWN_GAME_SYSTEMS.other.id,
-		choices: Sidekick.getSystemChoices(),
-		config: false,
-		apiOnly: true,
-		onChange: (s) => {},
-	});
-
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
-		name: "SETTINGS.EnhancedConditions.MapTypeN",
-		hint: "SETTINGS.EnhancedConditions.MapTypeH",
-		scope: "world",
-		type: String,
-		//default: BUTLER.KNOWN_GAME_SYSTEMS[game.system.id] !== null ? "default" : "other",
-		default: "",
-		choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-		config: false,
-		apiOnly: true,
-		onChange: (s) => {},
-	});
-
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, {
-		name: "SETTINGS.EnhancedConditions.DefaultMapsN",
-		hint: "SETTINGS.EnhancedConditions.DefaultMapsH",
-		scope: "world",
-		type: Object,
-		default: {},
-		onChange: (s) => {},
-	});
-
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {
-		name: "SETTINGS.EnhancedConditions.ActiveConditionMapN",
-		hint: "SETTINGS.EnhancedConditions.ActiveConditionMapH",
-		scope: "world",
-		type: Object,
-		default: [],
-		onChange: async (conditionMap) => {
-			await EnhancedConditions._updateStatusEffects(conditionMap);
-
-			// Save the active condition map to a convenience property
-			if (game.cub) {
-				game.cub.conditions = conditionMap;
-			}
-		},
-	});
-
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat, {
-		name: "SETTINGS.EnhancedConditions.OutputChatN",
-		hint: "SETTINGS.EnhancedConditions.OutputChatH",
+		name: "CLT.SETTINGS.EnhancedConditions.OutputChatN",
+		hint: "CLT.SETTINGS.EnhancedConditions.OutputChatH",
 		scope: "world",
 		type: Boolean,
 		config: true,
@@ -100,8 +19,8 @@ export function registerSettings() {
 		onChange: (s) => {
 			if (s === true) {
 				const dialog = Dialog.confirm({
-					title: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
-					content: game.i18n.localize(`${BUTLER.NAME}.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
+					title: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
+					content: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
 					yes: () => {
 						const newMap = deepClone(game.cub.conditions);
 						if (!newMap.length) return;
@@ -115,8 +34,8 @@ export function registerSettings() {
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputCombat, {
-		name: "SETTINGS.EnhancedConditions.OutputCombatN",
-		hint: "SETTINGS.EnhancedConditions.OutputCombatH",
+		name: "CLT.SETTINGS.EnhancedConditions.OutputCombatN",
+		hint: "CLT.SETTINGS.EnhancedConditions.OutputCombatH",
 		scope: "world",
 		type: Boolean,
 		config: true,
@@ -125,8 +44,8 @@ export function registerSettings() {
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects, {
-		name: "SETTINGS.EnhancedConditions.RemoveDefaultEffectsN",
-		hint: "SETTINGS.EnhancedConditions.RemoveDefaultEffectsH",
+		name: "CLT.SETTINGS.EnhancedConditions.RemoveDefaultEffectsN",
+		hint: "CLT.SETTINGS.EnhancedConditions.RemoveDefaultEffectsH",
 		scope: "world",
 		type: Boolean,
 		config: true,
@@ -137,8 +56,8 @@ export function registerSettings() {
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, {
-		name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.MigrationVersionN`,
-		hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.MigrationVersionH`,
+		name: `CLT.SETTINGS.EnhancedConditions.MigrationVersionN`,
+		hint: `CLT.SETTINGS.EnhancedConditions.MigrationVersionH`,
 		scope: "world",
 		type: String,
 		config: false,
@@ -148,8 +67,8 @@ export function registerSettings() {
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, {
-		name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.ShowSortDirectionDialogN`,
-		hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.ShowSortDirectionDialogH`,
+		name: `CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogN`,
+		hint: `CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogH`,
 		scope: "world",
 		type: Boolean,
 		config: true,
@@ -158,8 +77,8 @@ export function registerSettings() {
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects, {
-		name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.DefaultSpecialStatusEffectsN`,
-		hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.DefaultSpecialStatusEffectsH`,
+		name: `CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsN`,
+		hint: `CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsH`,
 		scope: "world",
 		type: Object,
 		default: {},
@@ -168,8 +87,8 @@ export function registerSettings() {
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, {
-		name: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.SpecialStatusEffectMappingN`,
-		hint: `${BUTLER.NAME}.SETTINGS.ENHANCED_CONDITIONS.SpecialStatusEffectMappingH`,
+		name: `CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingN`,
+		hint: `CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingH`,
 		scope: "world",
 		type: Object,
 		default: {},
@@ -178,12 +97,97 @@ export function registerSettings() {
 	});
 
 	/* -------------------------------------------- */
+	/*              EnhancedConditions              */
+	/* -------------------------------------------- */
+
+	Sidekick.registerMenu(BUTLER.SETTING_KEYS.enhancedConditions.menu, {
+		name: "CLT.ENHANCED_CONDITIONS.Lab.Title",
+		label: "CLT.ENHANCED_CONDITIONS.Lab.Title",
+		hint: "CLT.ENHANCED_CONDITIONS.Lab.Hint",
+		icon: "fas fa-flask",
+		type: ConditionLab,
+		restricted: true,
+	});
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreIcons, {
+		name: "CLT.SETTINGS.EnhancedConditions.CoreIconsN",
+		hint: "CLT.SETTINGS.EnhancedConditions.CoreIconsH",
+		scope: "world",
+		type: Object,
+		default: [],
+		config: false,
+		onChange: (s) => {},
+	});
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
+		name: "CLT.SETTINGS.EnhancedConditions.CoreEffectsN",
+		hint: "CLT.SETTINGS.EnhancedConditions.CoreEffectsH",
+		scope: "world",
+		type: Object,
+		default: [],
+		config: false,
+		onChange: (s) => {},
+	});
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.system, {
+		name: "CLT.SETTINGS.EnhancedConditions.SystemN",
+		hint: "CLT.SETTINGS.EnhancedConditions.SystemH",
+		scope: "world",
+		type: String,
+		default: !!BUTLER.KNOWN_GAME_SYSTEMS[game.system.id]
+			? BUTLER.KNOWN_GAME_SYSTEMS[game.system.id].id
+			: BUTLER.KNOWN_GAME_SYSTEMS.other.id,
+		choices: Sidekick.getSystemChoices(),
+		config: false,
+		apiOnly: true,
+		onChange: (s) => {},
+	});
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
+		name: "CLT.SETTINGS.EnhancedConditions.MapTypeN",
+		hint: "CLT.SETTINGS.EnhancedConditions.MapTypeH",
+		scope: "world",
+		type: String,
+		//default: BUTLER.KNOWN_GAME_SYSTEMS[game.system.id] !== null ? "default" : "other",
+		default: "",
+		choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
+		config: false,
+		apiOnly: true,
+		onChange: (s) => {},
+	});
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, {
+		name: "CLT.SETTINGS.EnhancedConditions.DefaultMapsN",
+		hint: "CLT.SETTINGS.EnhancedConditions.DefaultMapsH",
+		scope: "world",
+		type: Object,
+		default: {},
+		onChange: (s) => {},
+	});
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {
+		name: "CLT.SETTINGS.EnhancedConditions.ActiveConditionMapN",
+		hint: "CLT.SETTINGS.EnhancedConditions.ActiveConditionMapH",
+		scope: "world",
+		type: Object,
+		default: [],
+		onChange: async (conditionMap) => {
+			await EnhancedConditions._updateStatusEffects(conditionMap);
+
+			// Save the active condition map to a convenience property
+			if (game.cub) {
+				game.cub.conditions = conditionMap;
+			}
+		},
+	});
+
+	/* -------------------------------------------- */
 	/*                 TokenUtility                 */
 	/* -------------------------------------------- */
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
-		name: "SETTINGS.TokenUtility.TokenEffectSizeN",
-		hint: "SETTINGS.TokenUtility.TokenEffectSizeH",
+		name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
+		hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",
 		default: Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
 			BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices.small
@@ -202,17 +206,17 @@ export function registerSettings() {
 	/* -------------------------------------------- */
 
 	Sidekick.registerMenu(BUTLER.SETTING_KEYS.triggler.menu, {
-		name: "SETTINGS.Triggler.TriggersN",
-		label: "SETTINGS.Triggler.TriggersN",
-		hint: "GADGET_DESCRIPTIONS.Triggler",
+		name: "CLT.SETTINGS.Triggler.TriggersN",
+		label: "CLT.SETTINGS.Triggler.TriggersN",
+		hint: "CLT.SETTINGS.Triggler.TriggersH",
 		icon: "fas fa-exclamation",
 		type: TrigglerForm,
 		restricted: true,
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.triggler.triggers, {
-		name: "SETTINGS.Triggler.TriggersN",
-		hint: "SETTINGS.Triggler.TriggersH",
+		name: "CLT.SETTINGS.Triggler.TriggersN",
+		hint: "CLT.SETTINGS.Triggler.TriggersH",
 		scope: "world",
 		type: Object,
 		default: [],

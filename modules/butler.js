@@ -215,6 +215,9 @@ export const FLAGS = {
 };
 
 export const SETTING_KEYS = {
+	migration: {
+		hasRunMigration: "hasRunMigration",
+	},
 	enhancedConditions: {
 		menu: "enchantedConditionsMenu",
 		coreIcons: "coreStatusIcons",

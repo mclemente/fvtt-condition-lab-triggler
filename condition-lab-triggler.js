@@ -82,108 +82,180 @@ Hooks.on("init", () => {
 	game.cub.addCondition = EnhancedConditions.addCondition;
 	game.cub.removeCondition = EnhancedConditions.removeCondition;
 	game.cub.removeAllConditions = EnhancedConditions.removeAllConditions;
+	postInit();
 });
 
-Hooks.on("ready", () => {
-	EnhancedConditions._onReady();
-	MigrationHelper._onReady();
-});
+function postInit() {
+	Hooks.on("ready", () => {
+		importFromCUB();
+		EnhancedConditions._onReady();
+		MigrationHelper._onReady();
+	});
 
-/* -------------------------------------------- */
-/*                    Entity                    */
-/* -------------------------------------------- */
+	/* -------------------------------------------- */
+	/*                    Entity                    */
+	/* -------------------------------------------- */
 
-/* ------------------- Actor ------------------ */
+	/* ------------------- Actor ------------------ */
 
-Hooks.on("updateActor", (actor, updateData, options, userId) => {
-	// Workaround for actor array returned in hook for non triggering clients
-	if (actor instanceof Collection) {
-		actor = actor.contents.find((a) => a.id === update.id);
+	Hooks.on("updateActor", (actor, updateData, options, userId) => {
+		// Workaround for actor array returned in hook for non triggering clients
+		if (actor instanceof Collection) {
+			actor = actor.contents.find((a) => a.id === update.id);
+		}
+		Triggler._onUpdateActor(actor, updateData, options, userId);
+	});
+
+	Hooks.on("createActiveEffect", (effect, options, userId) => {
+		EnhancedConditions._onCreateActiveEffect(effect, options, userId);
+	});
+
+	Hooks.on("deleteActiveEffect", (effect, options, userId) => {
+		EnhancedConditions._onDeleteActiveEffect(effect, options, userId);
+	});
+
+	/* ------------------- Token ------------------ */
+
+	Hooks.on("preUpdateToken", (tokenDocument, updateData, options, userId) => {
+		EnhancedConditions._onPreUpdateToken(tokenDocument, updateData, options, userId);
+	});
+
+	Hooks.on("updateToken", (tokenDocument, updateData, options, userId) => {
+		EnhancedConditions._onUpdateToken(tokenDocument, updateData, options, userId);
+		Triggler._onUpdateToken(tokenDocument, updateData, options, userId);
+	});
+
+	/* ------------------ Combat ------------------ */
+
+	Hooks.on("updateCombat", (combat, updateData, options, userId) => {
+		EnhancedConditions._onUpdateCombat(combat, updateData, options, userId);
+	});
+
+	/* -------------------------------------------- */
+	/*                    Render                    */
+	/* -------------------------------------------- */
+
+	/* ------------------- Misc ------------------- */
+
+	Hooks.on("renderSettingsConfig", (app, html, data) => {
+		const trigglerMenu = html.find(`button[data-key="condition-lab-triggler.trigglerMenu"]`)[0];
+		const exclamationMark = trigglerMenu.children[0];
+		exclamationMark.style.marginRight = "0px";
+		const rightChevron = document.createElement("i");
+		rightChevron.classList.add("fas", "fa-angle-right");
+		rightChevron.style.marginRight = "0px";
+		trigglerMenu.insertBefore(rightChevron, exclamationMark);
+		const leftChevron = document.createElement("i");
+		leftChevron.classList.add("fas", "fa-angle-left");
+		exclamationMark.after(leftChevron);
+	});
+
+	Hooks.on("renderMacroConfig", (app, html, data) => {
+		Triggler._onRenderMacroConfig(app, html, data);
+	});
+
+	/* ------------------- Chat ------------------- */
+
+	Hooks.on("renderChatLog", (app, html, data) => {
+		EnhancedConditions._onRenderChatLog(app, html, data);
+	});
+
+	Hooks.on("renderChatMessage", (app, html, data) => {
+		EnhancedConditions._onRenderChatMessage(app, html, data);
+	});
+
+	Hooks.on("renderDialog", (app, html, data) => {
+		switch (app.title) {
+			case game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`):
+				ConditionLab._onRenderSaveDialog(app, html, data);
+				break;
+
+			case game.i18n.localize(`CLT.ENHANCED_CONDITIONSLab.RestoreDefaultsTitle`):
+				ConditionLab._onRenderRestoreDefaultsDialog(app, html, data);
+				break;
+
+			default:
+				break;
+		}
+	});
+
+	/* -------------- Combat Tracker -------------- */
+
+	Hooks.on("renderCombatTracker", (app, html, data) => {
+		EnhancedConditions._onRenderCombatTracker(app, html, data);
+	});
+
+	/* ---------------- Custom Apps --------------- */
+
+	Hooks.on("renderConditionLab", (app, html, data) => {
+		ConditionLab._onRender(app, html, data);
+	});
+}
+
+function importFromCUB() {
+	if (
+		game.user.isGM &&
+		!Sidekick.getSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration) &&
+		(game.modules.has("combat-utility-belt") ||
+			game.settings.storage.get("world").find((setting) => setting.key.includes("combat-utility-belt")))
+	) {
+		Dialog.confirm({
+			title: game.i18n.localize(`CLT.MIGRATION.Title`),
+			content: game.i18n.localize(`CLT.MIGRATION.Content`),
+			yes: () => {
+				const CUB_SETTINGS = {};
+				game.settings.storage
+					.get("world")
+					.filter((setting) => setting.key.includes("combat-utility-belt"))
+					.forEach((setting) => {
+						CUB_SETTINGS[setting.key.replace("combat-utility-belt.", "")] = setting.value;
+					});
+				if (CUB_SETTINGS["activeConditionMap"]) {
+					CUB_SETTINGS["activeConditionMap"].forEach((status) => {
+						if (status.icon.includes("/combat-utility-belt/")) {
+							status.icon = status.icon.replace("/combat-utility-belt/", `/${BUTLER.NAME}/`);
+						}
+					});
+				}
+				if (CUB_SETTINGS["defaultConditionMaps"]) {
+					Object.keys(CUB_SETTINGS["defaultConditionMaps"]).forEach((map) => {
+						CUB_SETTINGS["defaultConditionMaps"][map].forEach((status) => {
+							if (status.icon.includes("/combat-utility-belt/")) {
+								status.icon = status.icon.replace("/combat-utility-belt/", `/${BUTLER.NAME}/`);
+							}
+							if (status.referenceId.includes("combat-utility-belt")) {
+								status.referenceId = status.referenceId.replace(
+									"combat-utility-belt",
+									`${BUTLER.NAME}`
+								);
+							}
+						});
+					});
+				}
+				const listOfSettings = [
+					"activeConditionMap",
+					"activeSystem",
+					"conditionMapType",
+					"conditionsOutputDuringCombat",
+					"conditionsOutputToChat",
+					"coreStatusEffects",
+					"coreStatusIcons",
+					"defaultConditionMaps",
+					"defaultSpecialStatusEffects",
+					"effectSize",
+					"removeDefaultEffects",
+					"showSortDirectionDialog",
+					"specialStatusEffectMapping",
+					"storedTriggers",
+				];
+				listOfSettings.forEach((setting) => {
+					if (CUB_SETTINGS[setting]) Sidekick.setSetting(setting, CUB_SETTINGS[setting]);
+				});
+				Sidekick.setSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, true);
+			},
+			no: () => {
+				Sidekick.setSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, true);
+			},
+		});
 	}
-	Triggler._onUpdateActor(actor, updateData, options, userId);
-});
-
-Hooks.on("createActiveEffect", (effect, options, userId) => {
-	EnhancedConditions._onCreateActiveEffect(effect, options, userId);
-});
-
-Hooks.on("deleteActiveEffect", (effect, options, userId) => {
-	EnhancedConditions._onDeleteActiveEffect(effect, options, userId);
-});
-
-/* ------------------- Token ------------------ */
-
-Hooks.on("preUpdateToken", (tokenDocument, updateData, options, userId) => {
-	EnhancedConditions._onPreUpdateToken(tokenDocument, updateData, options, userId);
-});
-
-Hooks.on("updateToken", (tokenDocument, updateData, options, userId) => {
-	EnhancedConditions._onUpdateToken(tokenDocument, updateData, options, userId);
-	Triggler._onUpdateToken(tokenDocument, updateData, options, userId);
-});
-
-/* ------------------ Combat ------------------ */
-
-Hooks.on("updateCombat", (combat, updateData, options, userId) => {
-	EnhancedConditions._onUpdateCombat(combat, updateData, options, userId);
-});
-
-/* -------------------------------------------- */
-/*                    Render                    */
-/* -------------------------------------------- */
-
-/* ------------------- Misc ------------------- */
-
-Hooks.on("renderSettingsConfig", (app, html, data) => {
-	const trigglerMenu = html.find(`button[data-key="condition-lab-triggler.trigglerMenu"]`)[0];
-	const exclamationMark = trigglerMenu.children[0];
-	exclamationMark.style.marginRight = "0px";
-	const rightChevron = document.createElement("i");
-	rightChevron.classList.add("fas", "fa-angle-right");
-	rightChevron.style.marginRight = "0px";
-	trigglerMenu.insertBefore(rightChevron, exclamationMark);
-	const leftChevron = document.createElement("i");
-	leftChevron.classList.add("fas", "fa-angle-left");
-	exclamationMark.after(leftChevron);
-});
-
-Hooks.on("renderMacroConfig", (app, html, data) => {
-	Triggler._onRenderMacroConfig(app, html, data);
-});
-
-/* ------------------- Chat ------------------- */
-
-Hooks.on("renderChatLog", (app, html, data) => {
-	EnhancedConditions._onRenderChatLog(app, html, data);
-});
-
-Hooks.on("renderChatMessage", (app, html, data) => {
-	EnhancedConditions._onRenderChatMessage(app, html, data);
-});
-
-Hooks.on("renderDialog", (app, html, data) => {
-	switch (app.title) {
-		case game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`):
-			ConditionLab._onRenderSaveDialog(app, html, data);
-			break;
-
-		case game.i18n.localize(`CLT.ENHANCED_CONDITIONSLab.RestoreDefaultsTitle`):
-			ConditionLab._onRenderRestoreDefaultsDialog(app, html, data);
-			break;
-
-		default:
-			break;
-	}
-});
-
-/* -------------- Combat Tracker -------------- */
-
-Hooks.on("renderCombatTracker", (app, html, data) => {
-	EnhancedConditions._onRenderCombatTracker(app, html, data);
-});
-
-/* ---------------- Custom Apps --------------- */
-
-Hooks.on("renderConditionLab", (app, html, data) => {
-	ConditionLab._onRender(app, html, data);
-});
+}

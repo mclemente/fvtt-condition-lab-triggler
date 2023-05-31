@@ -222,4 +222,9 @@ export function registerSettings() {
 		default: [],
 		onChange: (s) => {},
 	});
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, {
+		scope: "world",
+		type: Boolean,
+		default: false,
+	});
 }

@@ -130,6 +130,13 @@
 			"ChatCard.Buttons.Undo": "Undo Remove Condition",
 			"ChatCard.Buttons.Remove": "Remove Condition"
 		},
+		"MIGRATION": {
+			"Title": "Condition Lab & Triggler: CUB Settings Migration",
+			"Content": "CUB settings have been detected, would you like to import these settings? This choice will overwrite CLT's settings. Your CUB settings won't be affected."
+		},
+		"PHRASES": {
+			"SaveAndClose": "Save and Close"
+		},
 		"SETTINGS": {
 			"EnhancedConditions": {
 				"CoreIconsN": "Core Status Icons",
@@ -238,14 +245,6 @@
 			"Actor": "Actor",
 			"Token": "Token",
 			"Configuration": "Configuration"
-		},
-		"PHRASES": {
-			"SaveAndClose": "Save and Close"
-		}
-	},
-	"condition-lab-triggler": {
-		"SETTINGS": {
-			"ENHANCED_CONDITIONS": "MOVIDO PARA CLT.SETTINGS.EnhancedConditions"
 		}
 	}
 }

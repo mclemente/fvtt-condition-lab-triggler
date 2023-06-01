@@ -20,7 +20,7 @@ export class EnhancedConditions {
 	static async _onReady() {
 		game.cub.enhancedConditions.supported = false;
 		if (CONFIG.statusEffects.length && typeof CONFIG.statusEffects[0] == "string") {
-			console.warn(game.i18n.localize(`CLT.ENHANCED_CONDITIONSSimpleIconsNotSupported`));
+			console.warn(game.i18n.localize(`CLT.ENHANCED_CONDITIONS.SimpleIconsNotSupported`));
 			return;
 		}
 
@@ -1048,7 +1048,7 @@ export class EnhancedConditions {
 	 */
 	static mapFromJson(json) {
 		if (json.system !== game.system.id) {
-			ui.notifications.warn(game.i18n.localize("CLT.ENHANCED_CONDITIONSMapMismatch"));
+			ui.notifications.warn(game.i18n.localize("CLT.ENHANCED_CONDITIONS.MapMismatch"));
 		}
 
 		const map = json.map ? EnhancedConditions._prepareMap(json.map) : [];
@@ -1133,10 +1133,10 @@ export class EnhancedConditions {
 		}
 
 		if (!entities) {
-			ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSApplyCondition.Failed.NoToken"));
+			ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSApplyCondition.Failed.NoToken"
+					"CLT.ENHANCED_CONDITIONS.ApplyCondition.Failed.NoToken"
 				)}`
 			);
 			return;
@@ -1146,11 +1146,11 @@ export class EnhancedConditions {
 
 		if (!conditions) {
 			ui.notifications.error(
-				`${game.i18n.localize("CLT.ENHANCED_CONDITIONSApplyCondition.Failed.NoCondition")} ${conditionName}`
+				`${game.i18n.localize("CLT.ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition")} ${conditionName}`
 			);
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSApplyCondition.Failed.NoCondition"
+					"CLT.ENHANCED_CONDITIONS.ApplyCondition.Failed.NoCondition"
 				)}`,
 				conditionName
 			);
@@ -1203,8 +1203,8 @@ export class EnhancedConditions {
 				// @todo #348 determine the best way to raise warnings in this scenario
 				/*
                 if (warn) {
-                    ui.notifications.warn(`${entity.name}: ${conditionName} ${game.i18n.localize("CLT.ENHANCED_CONDITIONSApplyCondition.Failed.AlreadyActive")}`);
-                    console.log(`Combat Utility Belt - Enhanced Conditions | ${entity.name}: ${conditionName} ${game.i18n.localize("CLT.ENHANCED_CONDITIONSApplyCondition.Failed.AlreadyActive")}`);
+                    ui.notifications.warn(`${entity.name}: ${conditionName} ${game.i18n.localize("CLT.ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
+                    console.log(`Combat Utility Belt - Enhanced Conditions | ${entity.name}: ${conditionName} ${game.i18n.localize("CLT.ENHANCED_CONDITIONS.ApplyCondition.Failed.AlreadyActive")}`);
                 }
                 */
 
@@ -1267,7 +1267,7 @@ export class EnhancedConditions {
 	static getCondition(conditionName, map = null, { warn = false } = {}) {
 		if (!conditionName) {
 			if (warn)
-				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSGetCondition.Failed.NoCondition"));
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
 		}
 
 		if (!map) map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
@@ -1296,10 +1296,11 @@ export class EnhancedConditions {
 		}
 
 		if (!entities) {
-			if (warn) ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSGetConditions.Failed.NoToken"));
+			if (warn)
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoToken"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSGetConditions.Failed.NoToken"
+					"CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoToken"
 				)}`
 			);
 			return;
@@ -1309,10 +1310,10 @@ export class EnhancedConditions {
 
 		if (!map || !map.length) {
 			if (warn)
-				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSGetConditions.Failed.NoCondition"));
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSGetConditions.Failed.NoCondition"
+					"CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition"
 				)}`
 			);
 			return;
@@ -1353,10 +1354,10 @@ export class EnhancedConditions {
 
 		if (!results.length) {
 			if (warn)
-				ui.notifications.notify(game.i18n.localize("CLT.ENHANCED_CONDITIONSGetConditions.Failed.NoResults"));
+				ui.notifications.notify(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoResults"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSGetConditions.Failed.NoResults"
+					"CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoResults"
 				)}`
 			);
 			return null;
@@ -1390,11 +1391,11 @@ export class EnhancedConditions {
 		if (!entities) {
 			if (warn)
 				ui.notifications.error(
-					game.i18n.localize("CLT.ENHANCED_CONDITIONSGetConditionEffects.Failed.NoEntity")
+					game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetConditionEffects.Failed.NoEntity")
 				);
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoToken"
+					"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"
 				)}`
 			);
 			return;
@@ -1448,10 +1449,10 @@ export class EnhancedConditions {
 	static hasCondition(conditionName, entities = null, { warn = true } = {}) {
 		if (!conditionName) {
 			if (warn)
-				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSHasCondition.Failed.NoCondition"));
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSHasCondition.Failed.NoCondition"
+					"CLT.ENHANCED_CONDITIONS.HasCondition.Failed.NoCondition"
 				)}`
 			);
 			return false;
@@ -1465,10 +1466,10 @@ export class EnhancedConditions {
 		}
 
 		if (!entities) {
-			if (warn) ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSHasCondition.Failed.NoToken"));
+			if (warn) ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.HasCondition.Failed.NoToken"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSHasCondition.Failed.NoToken"
+					"CLT.ENHANCED_CONDITIONS.HasCondition.Failed.NoToken"
 				)}`
 			);
 			return false;
@@ -1480,10 +1481,10 @@ export class EnhancedConditions {
 
 		if (!conditions) {
 			if (warn)
-				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSHasCondition.Failed.NoMapping"));
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.HasCondition.Failed.NoMapping"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoMapping"
+					"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoMapping"
 				)}`
 			);
 			return false;
@@ -1539,10 +1540,10 @@ export class EnhancedConditions {
 
 		if (!entities) {
 			if (warn)
-				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoToken"));
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoToken"
+					"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"
 				)}`
 			);
 			return;
@@ -1556,12 +1557,12 @@ export class EnhancedConditions {
 			if (warn)
 				ui.notifications.error(
 					`${game.i18n.localize(
-						"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoCondition"
+						"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition"
 					)} ${conditionName}`
 				);
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoCondition"
+					"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoCondition"
 				)}`,
 				conditionName
 			);
@@ -1602,12 +1603,12 @@ export class EnhancedConditions {
 				if (warn)
 					ui.notifications.warn(
 						`${conditionName} ${game.i18n.localize(
-							"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NotActive"
+							"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive"
 						)}`
 					);
 				console.log(
 					`Combat Utility Belt - Enhanced Conditions | ${conditionName} ${game.i18n.localize(
-						"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NotActive"
+						"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive"
 					)}")`
 				);
 				return;
@@ -1639,10 +1640,10 @@ export class EnhancedConditions {
 
 		if (!entities) {
 			if (warn)
-				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoToken"));
+				ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"));
 			console.log(
 				`Combat Utility Belt - Enhanced Conditions | ${game.i18n.localize(
-					"CLT.ENHANCED_CONDITIONSRemoveCondition.Failed.NoToken"
+					"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NoToken"
 				)}`
 			);
 			return;

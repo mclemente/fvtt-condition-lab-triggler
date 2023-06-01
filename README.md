@@ -24,7 +24,7 @@
 
 # Features
 
-## Enhanced Conditions
+## Condition Lab
 
 <details>
   <summary>Click to show</summary>
@@ -33,7 +33,7 @@
 
 It's not enough to _show_ your players when they're poisoned, you want to really drive it home by linking the condition so they can wallow in misery as they fail their ability checks.
 
-This gadget creates a dynamo-powered link between status effect icons and reference entries (Journal, Item, or compendium) with further info on that status effect.
+This feature allows you to create your own status effects and link them to reference entries (Journal, Item, or compendium) with further info on that status effect.
 
 </details>
 

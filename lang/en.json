@@ -183,6 +183,7 @@
 				"MapTypeH": "Condition map type currently in use -- default, custom or other",
 				"MapType": {
 					"Choices": {
+						"inferred": "System - Inferred",
 						"default": "System - Default",
 						"custom": "System - Custom",
 						"other": "Other/Imported"

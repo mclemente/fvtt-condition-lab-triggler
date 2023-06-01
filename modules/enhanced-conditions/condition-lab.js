@@ -72,7 +72,7 @@ export class ConditionLab extends FormApplication {
 		// If there's no default map for this system don't provide the "default" choice
 		if (!mappedSystems.includes(game.system.id)) {
 			if (this.initialMap) {
-				mapTypeChoices.default = "System - Inferred";
+				mapTypeChoices.default = game.i18n.localize("CLT.SETTING.EnhancedConditions.MapType.Choices.inferred");
 			} else {
 				delete mapTypeChoices.default;
 			}
@@ -99,7 +99,6 @@ export class ConditionLab extends FormApplication {
 			// Set the Output to Chat checkbox
 			entry.options = entry.options ?? {};
 			entry.options.outputChat = entry?.options?.outputChat;
-			// @TODO #711
 			entry.enrichedReference = entry.referenceId
 				? await TextEditor.enrichHTML(entry.referenceId, { async: true, documents: true })
 				: "";

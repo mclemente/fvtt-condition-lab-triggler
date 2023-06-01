@@ -129,20 +129,6 @@ export function registerSettings() {
 		onChange: (s) => {},
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.system, {
-		name: "CLT.SETTINGS.EnhancedConditions.SystemN",
-		hint: "CLT.SETTINGS.EnhancedConditions.SystemH",
-		scope: "world",
-		type: String,
-		default: !!BUTLER.KNOWN_GAME_SYSTEMS[game.system.id]
-			? BUTLER.KNOWN_GAME_SYSTEMS[game.system.id].id
-			: game.i18n.localize("CLT.GAME_SYSTEMS.other"),
-		choices: Sidekick.getSystemChoices(),
-		config: false,
-		apiOnly: true,
-		onChange: (s) => {},
-	});
-
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
 		name: "CLT.SETTINGS.EnhancedConditions.MapTypeN",
 		hint: "CLT.SETTINGS.EnhancedConditions.MapTypeH",

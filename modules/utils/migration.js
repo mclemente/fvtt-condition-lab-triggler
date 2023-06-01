@@ -51,7 +51,6 @@ export default class MigrationHelper {
 					}
 					const listOfSettings = [
 						"activeConditionMap",
-						"activeSystem",
 						"conditionMapType",
 						"conditionsOutputDuringCombat",
 						"conditionsOutputToChat",

@@ -8,68 +8,6 @@ export class Butler {
 
 	static PATH = "modules/condition-lab-triggler";
 
-	/**
-	 * Stores information about well known game systems. All other systems will resolve to "other"
-	 * Keys must match id
-	 */
-	static get KNOWN_GAME_SYSTEMS() {
-		return {
-			dnd5e: {
-				id: "dnd5e",
-				name: "Dungeons & Dragons 5th Edition",
-				concentrationAttribute: "con",
-				healthAttribute: "attributes.hp",
-				initiative: "attributes.initiative",
-			},
-			pf1: {
-				id: "pf1",
-				name: "Pathfinder",
-				concentrationAttribute: "",
-				healthAttribute: "attributes.hp",
-				initiative: "attributes.init.total",
-			},
-			pf2e: {
-				id: "pf2e",
-				name: "Pathfinder 2nd Edition",
-				concentrationAttribute: "",
-				healthAttribute: "attributes.hp",
-				initiative: "attributes.perception",
-			},
-			wfrp4e: {
-				id: "wfrp4e",
-				name: "Warhammer Fantasy Roleplaying Game 4th Edition",
-				concentrationAttribute: "",
-				healthAttribute: "status.wounds",
-				initiative: "characteristics.i",
-			},
-			archmage: {
-				id: "archmage",
-				name: "13th Age",
-				concentrationAttribute: "",
-				healthAttribute: "attributes.hp",
-				initiative: "attributes.init.mod",
-			},
-			ironclaw2e: {
-				id: "ironclaw2e",
-				name: "Ironclaw Second Edition",
-				concentrationAttribute: "",
-				healthAttribute: "",
-				initiative: "",
-			},
-			"cyberpunk-red-core": {
-				id: "cyberpunk-red-core",
-				name: "Cyberpunk Red Core",
-			},
-			other: {
-				id: game.i18n.localize("CLT.GAME_SYSTEMS.other"),
-				name: game.i18n.localize("CLT.GAME_SYSTEMS.custom"),
-				concentrationAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-				healthAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-				initiative: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-			},
-		};
-	}
-
 	static get DEFAULT_CONFIG() {
 		return {
 			enhancedConditions: {
@@ -206,7 +144,6 @@ export class Butler {
 			menu: "enchantedConditionsMenu",
 			coreIcons: "coreStatusIcons",
 			coreEffects: "coreStatusEffects",
-			system: "activeSystem",
 			map: "activeConditionMap",
 			defaultMaps: "defaultConditionMaps",
 			mapType: "conditionMapType",

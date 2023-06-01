@@ -27,7 +27,6 @@ export class EnhancedConditions {
 		let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
 		let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
-		const system = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.system);
 		const mapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
 		const defaultMapType = Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
@@ -37,8 +36,8 @@ export class EnhancedConditions {
 		// If there's no defaultMaps or defaultMaps doesn't include game system, check storage then set appropriately
 		if (
 			!defaultMaps ||
-			(defaultMaps instanceof Object && Object.keys(defaultMaps).length === 0) ||
-			(defaultMaps instanceof Object && !Object.keys(defaultMaps).includes(system))
+			Object.keys(defaultMaps).length === 0 ||
+			!Object.keys(defaultMaps).includes(game.system.id)
 		) {
 			if (game.user.isGM) {
 				defaultMaps = await EnhancedConditions._loadDefaultMaps();
@@ -54,7 +53,7 @@ export class EnhancedConditions {
 		// If there's no condition map, get the default one
 		if (!conditionMap.length) {
 			// Pass over defaultMaps since the storage version is still empty
-			conditionMap = EnhancedConditions.getDefaultMap(system, defaultMaps);
+			conditionMap = EnhancedConditions.getDefaultMap(defaultMaps);
 
 			if (game.user.isGM) {
 				const preparedMap = EnhancedConditions._prepareMap(conditionMap);
@@ -1059,9 +1058,10 @@ export class EnhancedConditions {
 
 	/**
 	 * Returns the default condition map for a given system
-	 * @param {*} system
+	 * @returns {{Object}}
 	 */
-	static getDefaultMap(system, defaultMaps = null) {
+	static getDefaultMap(defaultMaps = null) {
+		const system = game.system.id;
 		defaultMaps =
 			defaultMaps instanceof Object
 				? defaultMaps
@@ -1069,7 +1069,7 @@ export class EnhancedConditions {
 		let defaultMap = defaultMaps[system] || [];
 
 		if (!defaultMap.length) {
-			defaultMap = EnhancedConditions.buildDefaultMap(system);
+			defaultMap = EnhancedConditions.buildDefaultMap();
 		}
 
 		return defaultMap;
@@ -1077,10 +1077,9 @@ export class EnhancedConditions {
 
 	/**
 	 * Builds a default map for a given system
-	 * @param {*} system
 	 * @todo #281 update for active effects
 	 */
-	static buildDefaultMap(system) {
+	static buildDefaultMap() {
 		const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
 		const coreEffects = coreEffectsSetting && coreEffectsSetting.length ? coreEffectsSetting : CONFIG.statusEffects;
 		const map = EnhancedConditions._prepareMap(coreEffects);

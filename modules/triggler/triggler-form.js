@@ -1,5 +1,6 @@
 import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
+import { Triggler } from "./triggler.js";
 
 export class TrigglerForm extends FormApplication {
 	constructor(object, options = { parent: null }) {
@@ -31,7 +32,9 @@ export class TrigglerForm extends FormApplication {
 		const id = this.data.id;
 		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 
-		if (id && triggers) {
+		if (this.noMerge) {
+			this.noMerge = false;
+		} else if (id && triggers) {
 			const trigger = triggers.find((t) => t.id === id);
 			mergeObject(this.data, trigger);
 		}
@@ -56,6 +59,7 @@ export class TrigglerForm extends FormApplication {
 			notZero = null,
 		} = this.data || {};
 		const isSimpleTrigger = triggerType === "simple";
+		const isAdvancedTrigger = triggerType === "advanced";
 		const actorModel = game.system.model?.Actor;
 		const mergedModel = actorModel
 			? Object.keys(actorModel).reduce((accumulator, key, index) => {
@@ -115,14 +119,20 @@ export class TrigglerForm extends FormApplication {
 		const attributeSelect = html.find("select[name='attribute']");
 		const property1Select = html.find("select[name='property1']");
 		const operatorSelect = html.find("select[name='operator']");
-		const optionSelect = html.find("select[name='option']");
+		const valueInput = html.find("input[name='value']");
 		const property2Select = html.find("select[name='property2']");
 		const triggerTypeRadio = html.find("input[name='triggerType']");
+		const pcOnlyCheckbox = html.find("input[name='pcOnly']");
+		const npcsOnlyCheckbox = html.find("input[name='npcOnly']");
+		const notZeroCheckbox = html.find("input[name='notZero']");
 		const cancelButton = html.find("button[name='cancel']");
+
+		this.noMerge = true;
 
 		triggerSelect.on("change", (event) => {
 			this.data = {};
 			this.data.id = event.target.value;
+			this.noMerge = false;
 			this.render();
 		});
 
@@ -146,6 +156,8 @@ export class TrigglerForm extends FormApplication {
 			this.data.attribute = null;
 			this.data.property1 = null;
 			this.data.property2 = null;
+			this.data.operator = null;
+			this.data.value = null;
 
 			this.render();
 		});
@@ -154,12 +166,46 @@ export class TrigglerForm extends FormApplication {
 			this.data.attribute = event.target.value;
 			this.data.property1 = null;
 			this.data.property2 = null;
+			this.data.operator = null;
+			this.data.value = null;
 
+			this.render();
+		});
+		property1Select.on("change", (event) => {
+			this.data.property1 = event.target.value;
+			this.render();
+		});
+
+		property2Select.on("change", (event) => {
+			this.data.value = null;
+			this.data.property2 = event.target.value;
+			this.render();
+		});
+		operatorSelect.on("change", (event) => {
+			this.data.operator = event.target.value;
+			this.render();
+		});
+		valueInput.on("change", (event) => {
+			this.data.value = event.target.value;
+			this.data.property2 = null;
 			this.render();
 		});
 
 		triggerTypeRadio.on("change", (event) => {
 			this.data.triggerType = event.currentTarget.value;
+			this.render();
+		});
+
+		pcOnlyCheckbox.on("click", (event) => {
+			this.data.pcOnly = event.target.checked;
+			this.render();
+		});
+		npcsOnlyCheckbox.on("click", (event) => {
+			this.data.npcOnly = event.target.checked;
+			this.render();
+		});
+		notZeroCheckbox.on("click", (event) => {
+			this.data.notZero = event.target.checked;
 			this.render();
 		});
 
@@ -187,7 +233,7 @@ export class TrigglerForm extends FormApplication {
 
 		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 		const existingIds = triggers ? triggers.map((t) => t.id) : null;
-		const text = triggerType === "simple" ? this._constructString(formData) : formData.advancedName;
+		const text = triggerType === "simple" ? Triggler._constructString(formData) : formData.advancedName;
 
 		if (!text) return false;
 
@@ -204,9 +250,7 @@ export class TrigglerForm extends FormApplication {
 			updatedTrigger.text = text;
 			updatedTriggers[triggers.indexOf(existingTrigger)] = updatedTrigger;
 			this.data = updatedTrigger;
-		}
-
-		if (isNew) {
+		} else {
 			const newTrigger = {
 				id: Sidekick.createId(existingIds),
 				...newData,
@@ -220,64 +264,98 @@ export class TrigglerForm extends FormApplication {
 		if (!!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
 
 		this.render();
-
-		// Determine if ConditionLab is open and push the value back
-		//const conditionLab = Object.values(ui.windows).find(v => v.id === "cub-condition-lab";
-
-		/* WIP
-        const parentApp = this.parent;
-
-        if (!parentApp) {
-            return;
-        }
-        if (parentApp instanceof ConditionLab) {
-            const conditionLab = parentApp;
-            const row = this.data.conditionLabRow;
-            id ? conditionLab.map[row].trigger = updatedTrigger.id : conditionLab.map[row].trigger = newTrigger.id;
-
-            conditionLab.render(true);
-        }
-
-        if (parentApp instanceof MacroConfig) {
-            const macroConfig = parentApp;
-
-            macroConfig.setFlag(BUTLER.PATH, BUTLER.DEFAULT_CONFIG.triggler.flags.macro, id);
-            macroConfig.render();
-        }
-        */
 	}
 
 	/**
-	 * Construct a string based on trigger parts
-	 * @param {*} parts
+	 * Exports the current map to JSON
 	 */
-	_constructString(parts) {
-		const triggerType = parts.triggerType;
-		const operatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.operator];
-		const advancedOperatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
-		let string = null;
+	_exportToJSON() {
+		const triggers = duplicate(Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers));
+		const data = {
+			system: game.system.id,
+			triggers,
+		};
 
-		switch (triggerType) {
-			case "simple":
-				string = `${parts.category}.${parts.attribute}.${parts.property1} ${operatorText} ${parts.value}${
-					parts.property2 ? ` ${parts.category}.${parts.attribute}.${parts.property2}` : ""
-				}${parts.pcOnly ? ` (PCs Only)` : ""}${parts.npcOnly ? ` (NPCs Only)` : ""}${
-					parts.notZero ? ` (Not 0)` : ""
-				}`;
-				break;
+		// Trigger file save procedure
+		const filename = `cub-${game.world.id}-triggers.json`;
+		saveDataToFile(JSON.stringify(data, null, 2), "text/json", filename);
+	}
 
-			case "advanced":
-				string = `${parts.advancedProperty} ${advancedOperatorText} ${parts.advancedValue}${
-					parts.advancedProperty2 ? ` ${parts.advancedProperty2}` : ""
-				}${parts.pcOnly ? ` (PCs Only)` : ""}${parts.npcOnly ? ` (NPCs Only)` : ""}${
-					parts.notZero ? ` (Not 0)` : ""
-				}`;
-				break;
+	/**
+	 * Initiates an import via a dialog
+	 * Borrowed from foundry.js Entity class
+	 */
+	async _importFromJSONDialog() {
+		new Dialog({
+			title: game.i18n.localize("CLT.TRIGGLER.ImportTitle"),
+			//TODO change
+			content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
+			buttons: {
+				import: {
+					icon: '<i class="fas fa-file-import"></i>',
+					label: game.i18n.localize("CLT.WORDS.Import"),
+					callback: (html) => {
+						this._processImport(html);
+					},
+				},
+				no: {
+					icon: '<i class="fas fa-times"></i>',
+					label: game.i18n.localize("CLT.WORDS.Cancel"),
+				},
+			},
+			default: "import",
+		}).render(true);
+	}
 
-			default:
-				break;
+	/**
+	 * Process a Condition Map Import
+	 * @param {*} html
+	 */
+	async _processImport(html) {
+		const form = html.find("form")[0];
+
+		if (!form.data.files.length) {
+			return ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.Import.NoFile"));
 		}
 
-		return string;
+		const jsonFile = await readTextFromFile(form.data.files[0]);
+		const json = JSON.parse(jsonFile);
+		const triggers = Triggler.triggersFromJson(json);
+
+		if (!triggers || !triggers?.length) {
+			return;
+		}
+
+		const originalTriggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, originalTriggers.concat(triggers));
+		this.render();
+	}
+
+	/**
+	 * Override the header buttons method
+	 */
+	_getHeaderButtons() {
+		let buttons = super._getHeaderButtons();
+
+		buttons.unshift(
+			{
+				label: game.i18n.localize("CLT.WORDS.Import"),
+				class: "import",
+				icon: "fas fa-file-import",
+				onclick: async (ev) => {
+					await this._importFromJSONDialog();
+				},
+			},
+			{
+				label: game.i18n.localize("CLT.WORDS.Export"),
+				class: "export",
+				icon: "fas fa-file-export",
+				onclick: async (ev) => {
+					this._exportToJSON();
+				},
+			}
+		);
+
+		return buttons;
 	}
 }

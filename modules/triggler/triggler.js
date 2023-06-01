@@ -9,6 +9,97 @@ export class Triggler {
 	constructor() {
 		game.cub.triggler = this;
 	}
+
+	/**
+	 * Parses triggers JSON and returns triggers
+	 * @param {*} json
+	 * @returns {[{Object}]}
+	 */
+	static triggersFromJson(json) {
+		if (json.system !== game.system.id) {
+			ui.notifications.warn(game.i18n.localize("CLT.ENHANCED_CONDITIONS.MapMismatch"));
+		}
+		const triggers = [];
+		if (json.triggers) {
+			for (const trigger of json.triggers) {
+				const processedTrigger = Triggler._prepareTrigger(trigger);
+				if (processedTrigger) {
+					triggers.push(processedTrigger);
+				}
+			}
+			return triggers;
+		}
+		return [];
+	}
+
+	/**
+	 * Parse the provided Condition Map and prepare it for storage, validating and correcting bad or missing data where possible
+	 * @param {*} trigger
+	 */
+	static _prepareTrigger(trigger) {
+		const {
+			attribute = null,
+			category = null,
+			notZero = false,
+			npcOnly = false,
+			operator = null,
+			pcOnly = false,
+			property1 = null,
+			property2 = null,
+			triggerType = "simple",
+			id = null,
+			value = null,
+		} = trigger;
+
+		// const triggerType = formData?.triggerType;
+
+		if (triggerType === "advanced" && !trigger.advancedName.length) {
+			console.warn(
+				`Condition Lab & Triggler | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
+			);
+			return false;
+		}
+
+		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const existingIds = triggers ? triggers.map((t) => t.id) : null;
+		const text = triggerType === "simple" ? Triggler._constructString(trigger) : trigger.advancedName;
+
+		if (!text) return false;
+
+		const existingTrigger = triggers.find((t) => t.id === id);
+		if (existingTrigger) {
+			console.warn(`Condition Lab & Triggler | Trigger with ID "${id} already exists.`);
+			return false;
+		}
+		return {
+			id,
+			...duplicate(trigger),
+			text,
+		};
+	}
+
+	/**
+	 * Construct a string based on trigger parts
+	 * @param {*} parts
+	 */
+	static _constructString(parts) {
+		const triggerType = parts.triggerType;
+		const operatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.operator];
+		const advancedOperatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
+
+		const pcOnly = parts.pcOnly ? ` (PCs Only)` : "";
+		const npcOnly = parts.npcOnly ? ` (NPCs Only)` : "";
+		const notZero = parts.notZero ? ` (Not 0)` : "";
+		if (triggerType === "simple") {
+			const property2 = parts.property2 ? ` ${parts.category}.${parts.attribute}.${parts.property2}` : "";
+			return `${parts.category}.${parts.attribute}.${parts.property1} ${operatorText} ${parts.value}${property2}${pcOnly}${npcOnly}${notZero}`;
+		} else if (triggerType === "advanced") {
+			const advancedProperty2 = parts.advancedProperty2 ? ` ${parts.advancedProperty2}` : "";
+			return `${parts.advancedProperty} ${advancedOperatorText} ${parts.advancedValue}${advancedProperty2}${pcOnly}${npcOnly}${notZero}`;
+		}
+		return null;
+	}
+
 	/**
 	 * Executes a trigger calling predefined actions
 	 * @param {*} trigger

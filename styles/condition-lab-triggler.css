@@ -131,6 +131,7 @@ a.add-temporary {
 	background: url("/ui/parchment.jpg");
 	border-radius: 5px;
 	margin: 5px;
+	min-height: 100px;
 }
 
 .condition-lab .flexcol {

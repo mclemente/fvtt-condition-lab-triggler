@@ -36,26 +36,26 @@ export class TrigglerForm extends FormApplication {
 			mergeObject(this.data, trigger);
 		}
 
-		// rework this section -- use the this.data first, then the data payload
-		const triggerType = this.data.triggerType || "simple";
-		const isSimpleTrigger = triggerType == "simple";
-		const isAdvancedTrigger = triggerType == "advanced";
-		const category = this.data.category || null;
-		const attribute = this.data.attribute || null;
-		const property1 = this.data.property1 || null;
-		const operator = this.data.operator || null;
-		const value = this.data.value || null;
-		const property2 = this.data.property2 || null;
-		const advancedName = this.data.advancedName || null;
-		const advancedActorProperty = this.data.advancedActorProperty || null;
-		const advancedActorProperty2 = this.data.advancedActorProperty2 || null;
-		const advancedTokenProperty = this.data.advancedTokenProperty || null;
-		const advancedTokenProperty2 = this.data.advancedTokenProperty2 || null;
-		const advancedOperator = this.data.advancedOperator || null;
-		const advancedValue = this.data.advancedValue || null;
-		const pcOnly = this.data.pcOnly || null;
-		const npcOnly = this.data.npcOnly || null;
-		const notZero = this.data.notZero || null;
+		const {
+			triggerType = "simple",
+			category = null,
+			attribute = null,
+			property1 = null,
+			operator = null,
+			value = null,
+			property2 = null,
+			advancedName = null,
+			advancedActorProperty = null,
+			advancedActorProperty2 = null,
+			advancedTokenProperty = null,
+			advancedTokenProperty2 = null,
+			advancedOperator = null,
+			advancedValue = null,
+			pcOnly = null,
+			npcOnly = null,
+			notZero = null,
+		} = this.data || {};
+		const isSimpleTrigger = triggerType === "simple";
 		const actorModel = game.system.model?.Actor;
 		const mergedModel = actorModel
 			? Object.keys(actorModel).reduce((accumulator, key, index) => {

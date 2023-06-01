@@ -76,13 +76,13 @@ export const KNOWN_GAME_SYSTEMS = {
 		id: "cyberpunk-red-core",
 		name: "Cyberpunk Red Core",
 	},
-	other: {
-		id: game.i18n.localize("CLT.GAME_SYSTEMS.other"),
-		name: game.i18n.localize("CLT.GAME_SYSTEMS.custom"),
-		concentrationAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-		healthAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-		initiative: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-	},
+	// other: {
+	// 	id: game.i18n.localize("CLT.GAME_SYSTEMS.other"),
+	// 	name: game.i18n.localize("CLT.GAME_SYSTEMS.custom"),
+	// 	concentrationAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
+	// 	healthAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
+	// 	initiative: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
+	// },
 };
 
 export const DEFAULT_CONFIG = {
@@ -177,10 +177,10 @@ export const DEFAULT_CONFIG = {
 			},
 		},
 		effectSizeChoices: {
-			small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
-			medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
-			large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
-			xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge"),
+			// small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
+			// medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
+			// large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
+			// xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge"),
 		},
 	},
 	triggler: {

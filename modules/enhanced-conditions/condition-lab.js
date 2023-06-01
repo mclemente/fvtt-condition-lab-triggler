@@ -409,7 +409,7 @@ export class ConditionLab extends FormApplication {
 		const form = html.find("form")[0];
 
 		if (!form.data.files.length) {
-			return ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONSImport.NoFile"));
+			return ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.Import.NoFile"));
 		}
 
 		const jsonFile = await readTextFromFile(form.data.files[0]);

@@ -31,9 +31,13 @@
 				"Heading": "Enhanced Condition Changes",
 				"HeadingActive": "Active Enhanced Conditions",
 				"Title": {
-					"Added": "Added",
-					"Removed": "Removed",
-					"Active": "Active"
+					"Active": "Active Conditions",
+					"Added": "Added Conditions",
+					"Removed": "Removed Conditions"
+				},
+				"Buttons": {
+					"Undo": "Undo Remove Condition",
+					"Remove": "Remove Condition"
 				}
 			},
 			"MacroConfig": {
@@ -78,57 +82,73 @@
 
 			"SimpleIconsNotSupported": "CUB Enhanced Conditions does not support game systems that use simple status effect icons.",
 			"MapMismatch": "This map does not match your game system and may not work as expected.",
-			"ApplyCondition.Failed.NoToken": "Apply Condition failed. No token provided",
-			"ApplyCondition.Failed.NoCondition": "Apply Condition failed. Could not find condition:",
-			"ApplyCondition.Failed.NoIcon": "Apply Condition failed. Could not find icon.",
-			"ApplyCondition.Failed.AlreadyActive": "is already active. Apply Condition failed",
+			"ApplyCondition": {
+				"Failed": {
+					"NoToken": "Apply Condition failed. No token provided",
+					"NoCondition": "Apply Condition failed. Could not find condition:",
+					"NoIcon": "Apply Condition failed. Could not find icon.",
+					"AlreadyActive": "is already active. Apply Condition failed"
+				}
+			},
+			"GetConditions": {
+				"Failed": {
+					"NoToken": "Get Conditions failed. No entity provided and none could be found automatically",
+					"NoCondition": "Get Conditions failed. No Condition Map found",
+					"NoResults": "Get Conditions failed. No Conditions found on Actor/Token"
+				}
+			},
+			"RemoveCondition": {
+				"Failed": {
+					"NoToken": "Remove Condition failed. No token provided",
+					"NoCondition": "Remove Condition failed. Could not find condition with name:",
+					"NoIcon": "Remove Condition failed. Could not find icon",
+					"NotActive": "is not active on token. Remove Condition failed."
+				}
+			},
+			"RemoveAllConditions": {
+				"Failed": {
+					"NoToken": "Remove Conditions failed. No token/s provided",
+					"NoCondition": "Remove Conditions failed. There is no active Condition Map"
+				}
+			},
 
-			"GetConditions.Failed.NoToken": "Get Conditions failed. No entity provided and none could be found automatically",
-			"GetConditions.Failed.NoCondition": "Get Conditions failed. No Condition Map found",
-			"GetConditions.Failed.NoResults": "Get Conditions failed. No Conditions found on Actor/Token",
-
-			"RemoveCondition.Failed.NoToken": "Remove Condition failed. No token provided",
-			"RemoveCondition.Failed.NoCondition": "Remove Condition failed. Could not find condition with name:",
-			"RemoveCondition.Failed.NoIcon": "Remove Condition failed. Could not find icon",
-			"RemoveCondition.Failed.NotActive": "is not active on token. Remove Condition failed.",
-
-			"RemoveAllConditions.Failed.NoToken": "Remove Conditions failed. No token/s provided",
-			"RemoveAllConditions.Failed.NoCondition": "Remove Conditions failed. There is no active Condition Map",
-
-			"Lab.Title": "Condition Lab",
-			"Lab.Hint": "Provides the ability to map Conditions to Status Effect icons",
-			"Lab.MappingType.Label": "Mapping Type",
-			"Lab.MappingType.Unsaved": "(unsaved changes)",
-			"Lab.ActiveEffects.Title": "Active Effect Config",
-			"Lab.ActiveEffects.TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
-			"Lab.ActiveEffects.TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)",
-			"LAB.Import.NoFile": "You did not upload a data file!",
-			"Lab.ConfirmDeleteTitle": "Confirm Row Deletion",
-			"Lab.ConfirmDeleteContent": "Are you sure you want to delete this row?",
-			"Lab.RestoreDefaultsTitle": "Restore Defaults?",
-			"Lab.RestoreDefaultsContent": "<p>Are you sure you want to restore this mapping to defaults?</p><strong>If you save, this change will be permanent.</strong>",
-			"Lab.ResetFormTitle": "Reset Form?",
-			"Lab.ResetFormContent": "<p>Are you sure you want to reset the form?</p><p><strong>You will lose any unsaved changes.</strong></p>",
-			"Lab.SaveFailed": "Condition Lab failed to Save and Close",
-			"Lab.SaveSuccess": "Condition Lab mapping saved!",
-			"Lab.ImportTitle": "Import Condition Map",
-			"Lab.ExportTitle": "Export Condition Map",
-			"Lab.Options.Title": "Options:",
-			"Lab.Options.Overlay.Label": "Overlay",
-			"Lab.Options.RemoveOthers.Label": "Remove Others",
-			"Lab.Options.OutputChat.Label": "Output to Chat",
-			"Lab.Options.MarkDefeated.Label": "Mark Defeated",
-			"Lab.Options.Overlay.Title": "Condition is an overlay",
-			"Lab.Options.RemoveOthers.Title": "Remove other conditions when this one is applied",
-			"Lab.Options.MarkDefeated.Title": "Mark matching combatants defeated when this condition is applied",
-			"Lab.Options.OutputChat.Title": "Output this condition to chat when added/removed",
-
-			"ChatCard.Title.Active": "Active Conditions",
-			"ChatCard.Title.Added": "Added Conditions",
-			"ChatCard.Title.Removed": "Removed Conditions",
-
-			"ChatCard.Buttons.Undo": "Undo Remove Condition",
-			"ChatCard.Buttons.Remove": "Remove Condition"
+			"Lab": {
+				"Title": "Condition Lab",
+				"Hint": "Provides the ability to map Conditions to Status Effect icons",
+				"MappingType": {
+					"Label": "Mapping Type",
+					"Unsaved": "(unsaved changes)"
+				},
+				"ActiveEffects": {
+					"Title": "Active Effect Config",
+					"TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
+					"TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)"
+				},
+				"Import": {
+					"NoFile": "You did not upload a data file!"
+				},
+				"ConfirmDeleteTitle": "Confirm Row Deletion",
+				"ConfirmDeleteContent": "Are you sure you want to delete this row?",
+				"RestoreDefaultsTitle": "Restore Defaults?",
+				"RestoreDefaultsContent": "<p>Are you sure you want to restore this mapping to defaults?</p><strong>If you save, this change will be permanent.</strong>",
+				"ResetFormTitle": "Reset Form?",
+				"ResetFormContent": "<p>Are you sure you want to reset the form?</p><p><strong>You will lose any unsaved changes.</strong></p>",
+				"SaveFailed": "Condition Lab failed to Save and Close",
+				"SaveSuccess": "Condition Lab mapping saved!",
+				"ImportTitle": "Import Condition Map",
+				"ExportTitle": "Export Condition Map",
+				"Options": {
+					"Title": "Options:",
+					"Overlay.Label": "Overlay",
+					"RemoveOthers.Label": "Remove Others",
+					"OutputChat.Label": "Output to Chat",
+					"MarkDefeated.Label": "Mark Defeated",
+					"Overlay.Title": "Condition is an overlay",
+					"RemoveOthers.Title": "Remove other conditions when this one is applied",
+					"MarkDefeated.Title": "Mark matching combatants defeated when this condition is applied",
+					"OutputChat.Title": "Output this condition to chat when added/removed"
+				}
+			}
 		},
 		"GAME_SYSTEMS": {
 			"other": "Other",

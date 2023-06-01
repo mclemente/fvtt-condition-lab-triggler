@@ -76,20 +76,7 @@ export class Sidekick {
 	 * Gets the default game system names stored in the constants butler class
 	 */
 	static getSystemChoices() {
-		const systemIds = Object.getOwnPropertyNames(
-			mergeObject(
-				{
-					other: {
-						id: game.i18n.localize("CLT.GAME_SYSTEMS.other"),
-						name: game.i18n.localize("CLT.GAME_SYSTEMS.custom"),
-						concentrationAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-						healthAttribute: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-						initiative: game.i18n.localize("CLT.GAME_SYSTEMS.unknown"),
-					},
-				},
-				BUTLER.KNOWN_GAME_SYSTEMS
-			)
-		);
+		const systemIds = Object.getOwnPropertyNames(BUTLER.KNOWN_GAME_SYSTEMS);
 		const result = {};
 
 		for (let i of systemIds) {

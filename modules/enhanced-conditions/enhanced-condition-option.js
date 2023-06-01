@@ -144,10 +144,12 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 					if (existingMapping) {
 						const existingId = existingMapping.replace(`${NAME}.`, "");
 						const existingConditionIndex = newMap.findIndex((c) => c.id === existingId);
-						const existingCondition = newMap[existingConditionIndex];
-						const options = existingCondition?.options;
-						options[propertyName] = false;
-						newMap[existingConditionIndex] = existingCondition;
+						if (existingConditionIndex !== -1) {
+							const existingCondition = newMap[existingConditionIndex];
+							const options = existingCondition?.options;
+							options[propertyName] = false;
+							newMap[existingConditionIndex] = existingCondition;
+						}
 					}
 				}
 			}

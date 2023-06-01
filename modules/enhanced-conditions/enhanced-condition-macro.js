@@ -36,9 +36,11 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 		const applyMacroId = conditionMacros.find((m) => m.type === "apply")?.id;
 		const removeMacroId = conditionMacros.find((m) => m.type === "remove")?.id;
 
-		const macroChoices = game.macros?.contents?.map((m) => {
-			return { id: m.id, name: m.name };
-		});
+		const macroChoices = game.macros?.contents
+			?.map((m) => {
+				return { id: m.id, name: m.name };
+			})
+			.sort((a, b) => a.name.localeCompare(b.name));
 
 		return {
 			condition: this.object,

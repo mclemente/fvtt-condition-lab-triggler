@@ -18,7 +18,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
-			id: BUTLER.DEFAULT_CONFIG.enhancedConditions.optionConfig.id,
+			id: "cub-enhanced-condition-option-config",
 			title: game.i18n.localize("CLT.CONFIG.OptionConfig.Title"),
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.optionConfig,
 			classes: ["sheet"],

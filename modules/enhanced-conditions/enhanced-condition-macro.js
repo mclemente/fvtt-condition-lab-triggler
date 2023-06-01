@@ -69,7 +69,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);
 		newMap[conditionIndex] = this.object;
-		Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
-		this.render();
+		await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
+		this.close();
 	}
 }

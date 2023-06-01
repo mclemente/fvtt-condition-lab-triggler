@@ -96,11 +96,11 @@ export class Butler {
 				},
 				operators: {
 					eq: "=",
+					ne: "≠",
 					lt: "<",
-					ne: "!=",
-					lteq: "<=",
+					lteq: "≤",
 					gt: ">",
-					gteq: ">=",
+					gteq: "≥",
 				},
 				options: {
 					percent: "%",

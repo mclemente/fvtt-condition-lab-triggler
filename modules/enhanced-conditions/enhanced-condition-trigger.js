@@ -59,6 +59,6 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);
 		newMap[conditionIndex] = this.object;
 		Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
-		this.render();
+		this.close();
 	}
 }

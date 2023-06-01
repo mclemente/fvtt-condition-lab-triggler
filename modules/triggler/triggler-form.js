@@ -115,15 +115,28 @@ export class TrigglerForm extends FormApplication {
 
 		const triggerSelect = html.find("select[name='triggers']");
 		const deleteTrigger = html.find("a.delete");
+
+		// Simple
 		const categorySelect = html.find("select[name='category']");
 		const attributeSelect = html.find("select[name='attribute']");
 		const property1Select = html.find("select[name='property1']");
 		const operatorSelect = html.find("select[name='operator']");
 		const valueInput = html.find("input[name='value']");
 		const property2Select = html.find("select[name='property2']");
+
+		// Simple/Advanced Toggle
 		const triggerTypeRadio = html.find("input[name='triggerType']");
+
+		// Advanced
+		const advancedNameInput = html.find("input[name='advancedName']");
+		const advancedActorPropertyInput = html.find("input[name='advancedActorProperty']");
+		const advancedActorProperty2Input = html.find("input[name='advancedActorProperty2']");
+		const advancedTokenPropertyInput = html.find("input[name='advancedTokenProperty']");
+		const advancedTokenProperty2Input = html.find("input[name='advancedTokenProperty2']");
 		const advancedOperatorSelect = html.find("select[name='advancedOperator']");
 		const advancedValueInput = html.find("input[name='advancedValue']");
+
+		// Options
 		const pcOnlyCheckbox = html.find("input[name='pcOnly']");
 		const npcsOnlyCheckbox = html.find("input[name='npcOnly']");
 		const notZeroCheckbox = html.find("input[name='notZero']");
@@ -137,7 +150,6 @@ export class TrigglerForm extends FormApplication {
 			this.noMerge = false;
 			this.render();
 		});
-
 		deleteTrigger.on("click", async (event) => {
 			const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 			const triggerIndex = triggers.findIndex((t) => t.id === this.data.id);
@@ -153,6 +165,7 @@ export class TrigglerForm extends FormApplication {
 			this.render();
 		});
 
+		// Simple
 		categorySelect.on("change", (event) => {
 			this.data.category = event.target.value;
 			this.data.attribute = null;
@@ -163,7 +176,6 @@ export class TrigglerForm extends FormApplication {
 
 			this.render();
 		});
-
 		attributeSelect.on("change", (event) => {
 			this.data.attribute = event.target.value;
 			this.data.property1 = null;
@@ -177,7 +189,6 @@ export class TrigglerForm extends FormApplication {
 			this.data.property1 = event.target.value;
 			this.render();
 		});
-
 		property2Select.on("change", (event) => {
 			this.data.value = null;
 			this.data.property2 = event.target.value;
@@ -193,11 +204,33 @@ export class TrigglerForm extends FormApplication {
 			this.render();
 		});
 
+		// Simple/Advanced Toggle
 		triggerTypeRadio.on("change", (event) => {
 			this.data.triggerType = event.currentTarget.value;
 			this.render();
 		});
 
+		// Advanced
+		advancedNameInput.on("change", (event) => {
+			this.data.advancedName = event.target.value;
+			this.render();
+		});
+		advancedActorPropertyInput.on("change", (event) => {
+			this.data.advancedActorProperty = event.target.value;
+			this.render();
+		});
+		advancedActorProperty2Input.on("change", (event) => {
+			this.data.advancedActorProperty2 = event.target.value;
+			this.render();
+		});
+		advancedTokenPropertyInput.on("change", (event) => {
+			this.data.advancedTokenProperty = event.target.value;
+			this.render();
+		});
+		advancedTokenProperty2Input.on("change", (event) => {
+			this.data.advancedTokenProperty2 = event.target.value;
+			this.render();
+		});
 		advancedOperatorSelect.on("change", (event) => {
 			this.data.advancedOperator = event.target.value;
 			this.render();
@@ -207,6 +240,7 @@ export class TrigglerForm extends FormApplication {
 			this.render();
 		});
 
+		// Options
 		pcOnlyCheckbox.on("click", (event) => {
 			this.data.pcOnly = event.target.checked;
 			this.render();

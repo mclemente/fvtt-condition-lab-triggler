@@ -219,12 +219,6 @@ export class EnhancedConditions {
 		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
 			return;
 		}
-
-		const actor = effect.parent;
-
-		// Handled in Token Update handler
-		if (actor?.isToken) return;
-
 		EnhancedConditions._processActiveEffectChange(effect, "create");
 	}
 
@@ -239,12 +233,6 @@ export class EnhancedConditions {
 		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
 			return;
 		}
-
-		const actor = effect.parent;
-
-		// Handled in Token Update handler
-		if (actor?.isToken) return;
-
 		EnhancedConditions._processActiveEffectChange(effect, "delete");
 	}
 
@@ -933,20 +921,21 @@ export class EnhancedConditions {
 
 			const effect = {
 				id: longId,
-				flags: {
-					...c.activeEffect?.flags,
-					core: {
-						statusId: longId,
-					},
-					[BUTLER.NAME]: {
-						[BUTLER.FLAGS.enhancedConditions.conditionId]: id,
-						[BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false,
-					},
-				},
+				statuses: [longId],
 				label: c.name,
 				icon: c.icon,
 				changes: c.activeEffect?.changes || [],
 				duration: c.duration || c.activeEffect?.duration || {},
+				flags: {
+					...c.activeEffect?.flags,
+					core: {
+						statusId: longId,
+						[BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false,
+					},
+					[BUTLER.NAME]: {
+						[BUTLER.FLAGS.enhancedConditions.conditionId]: id,
+					},
+				},
 			};
 
 			statusEffects.push(effect);
@@ -963,7 +952,7 @@ export class EnhancedConditions {
 		if (!effects) return;
 
 		for (const effect of effects) {
-			const overlay = getProperty(effect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.overlay}`);
+			const overlay = getProperty(effect, `flags.${BUTLER.NAME}.core.overlay`);
 			// If the parent Condition for the ActiveEffect defines it as an overlay, mark the ActiveEffect as an overlay
 			if (overlay) {
 				effect.flags.core.overlay = overlay;
@@ -1164,11 +1153,11 @@ export class EnhancedConditions {
 
 		if (!effects) {
 			ui.notifications.error(
-				`${game.i18n.localize("ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")} ${conditions}`
+				`${game.i18n.localize("CLT.ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect")} ${conditions}`
 			);
 			console.log(
-				`Combat Utility Belt - Enhanced Condition | ${game.i18n.localize(
-					"ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect"
+				`Condition Lab & Triggler | ${game.i18n.localize(
+					"CLT.ENHANCED_CONDTIONS.ApplyCondition.Failed.NoEffect"
 				)}`,
 				conditions
 			);

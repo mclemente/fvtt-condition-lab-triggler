@@ -14,7 +14,7 @@ export class TrigglerForm extends FormApplication {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
-			title: DEFAULT_CONFIG.triggler.form.title,
+			title: "Triggler",
 			template: `${PATH}/templates/triggler-form.html`,
 			classes: ["sheet"],
 			width: "auto",

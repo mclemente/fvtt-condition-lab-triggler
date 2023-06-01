@@ -130,6 +130,11 @@
 			"ChatCard.Buttons.Undo": "Undo Remove Condition",
 			"ChatCard.Buttons.Remove": "Remove Condition"
 		},
+		"GAME_SYSTEMS": {
+			"other": "Other",
+			"custom": "Custom/Other",
+			"unknown": "--Unknown--"
+		},
 		"MIGRATION": {
 			"Title": "Condition Lab & Triggler: CUB Settings Migration",
 			"Content": "CUB settings have been detected, would you like to import these settings? This choice will overwrite CLT's settings. Your CUB settings won't be affected."
@@ -164,7 +169,15 @@
 			},
 			"TokenUtility": {
 				"TokenEffectSizeN": "Token Effect Icon Size",
-				"TokenEffectSizeH": "Sets the size for token effect icons on the token. Numbers represent the amount of effect icons to show (X * Y). Default: Small - 5x5"
+				"TokenEffectSizeH": "Sets the size for token effect icons on the token. Numbers represent the amount of effect icons to show (X * Y). Default: Small - 5x5",
+				"TokenEffectSize": {
+					"choices": {
+						"small": "Small (Default) - 5x5",
+						"medium": "Medium - 4x4",
+						"large": "Large - 3x3",
+						"xLarge": "Extra Large - 2x2"
+					}
+				}
 			},
 			"Triggler": {
 				"TriggersN": "Triggler Triggers",

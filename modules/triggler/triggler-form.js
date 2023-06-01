@@ -222,7 +222,7 @@ export class TrigglerForm extends FormApplication {
 		this.render();
 
 		// Determine if ConditionLab is open and push the value back
-		//const conditionLab = Object.values(ui.windows).find(v => v.id === BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id);
+		//const conditionLab = Object.values(ui.windows).find(v => v.id === "cub-condition-lab";
 
 		/* WIP
         const parentApp = this.parent;

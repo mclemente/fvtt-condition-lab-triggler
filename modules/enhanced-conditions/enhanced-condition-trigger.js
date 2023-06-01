@@ -18,8 +18,8 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
-			id: BUTLER.DEFAULT_CONFIG.enhancedConditions.triggerConfig.id,
-			title: BUTLER.DEFAULT_CONFIG.enhancedConditions.triggerConfig.title,
+			id: "cub-enhanced-condition-trigger-config",
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.TriggerConfig.Title"),
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.triggerConfig,
 			classes: ["sheet"],
 			closeOnSubmit: false,

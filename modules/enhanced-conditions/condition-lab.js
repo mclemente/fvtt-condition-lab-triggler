@@ -31,8 +31,8 @@ export class ConditionLab extends FormApplication {
 	 */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			id: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id,
-			title: BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.title,
+			id: "cub-condition-lab",
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.Title"),
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
 			classes: ["sheet"],
 			width: 780,
@@ -85,12 +85,7 @@ export class ConditionLab extends FormApplication {
 			return [t.id, t.text];
 		});
 
-		const isDefault =
-			this.mapType ===
-			Sidekick.getKeyByValue(
-				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
-			);
+		const isDefault = this.mapType === "default";
 		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
 		const disableChatOutput = isDefault || !outputChatSetting;
 

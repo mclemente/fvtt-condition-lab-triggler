@@ -41,6 +41,7 @@
 				}
 			},
 			"MacroConfig": {
+				"Title": "Macro Configuration",
 				"Heading": "Macros to Execute",
 				"ApplyHeading": "Apply Macro",
 				"RemoveHeading": "Remove Macro",
@@ -49,6 +50,7 @@
 				"SelectNone": "--No Macro--"
 			},
 			"TriggerConfig": {
+				"Title": "Trigger Configuration",
 				"Heading": "Triggers",
 				"ApplyHeading": "Apply Trigger",
 				"RemoveHeading": "Remove Trigger",
@@ -56,6 +58,7 @@
 				"SelectNone": "--No Trigger--"
 			},
 			"OptionConfig": {
+				"Title": "Option Configuration",
 				"Heading": "Options",
 				"Description": "General options for this Condition",
 				"SpecialStatusEffects": {
@@ -178,6 +181,13 @@
 				"RemoveDefaultEffectsH": "Remove existing status effect icons from token HUD",
 				"MapTypeN": "Active Condition Map Type",
 				"MapTypeH": "Condition map type currently in use -- default, custom or other",
+				"MapType": {
+					"Choices": {
+						"default": "System - Default",
+						"custom": "System - Custom",
+						"other": "Other/Imported"
+					}
+				},
 				"ActiveConditionMapN": "Active Condition Map",
 				"ActiveConditionMapH": "Stores the active condition map",
 				"SuppressPreventativeSaveReminderN": "Suppress Preventative Save Reminder",

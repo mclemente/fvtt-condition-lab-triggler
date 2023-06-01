@@ -16,27 +16,10 @@ export class Butler {
 				outputChat: false,
 				outputCombat: false,
 				removeDefaultEffects: false,
-				conditionLab: {
-					id: "cub-condition-lab",
-					title: "Condition Lab",
-				},
-				macroConfig: {
-					id: "cub-enhanced-condition-macro-config",
-					title: "CUB Enhanced Condition - Macro Config",
-				},
-				triggerConfig: {
-					id: "cub-enhanced-condition-trigger-config",
-					title: "CUB Enhanced Condition - Trigger Config",
-				},
-				optionConfig: {
-					id: "cub-enhanced-condition-option-config",
-					title: "CUB Enhanced Condition - Option Config",
-				},
-				title: "Enhanced Conditions",
 				mapTypes: {
-					default: "System - Default",
-					custom: "System - Custom",
-					other: "Other/Imported",
+					default: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.default"),
+					custom: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom"),
+					other: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.other"),
 				},
 				referenceTypes: [
 					{

@@ -173,7 +173,7 @@ export function registerSettings() {
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
 		name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
 		hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",
-		default: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices.small,
+		default: "small",
 		scope: "client",
 		type: String,
 		choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,

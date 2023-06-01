@@ -39,8 +39,8 @@ Hooks.on("init", () => {
 		function () {
 			const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
 			// Use the default values if no setting found
-			const multiplier = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize].multiplier : 2;
-			const divisor = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize].divisor : 5;
+			const multiplier = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize]?.multiplier : 2;
+			const divisor = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize]?.divisor : 5;
 
 			let i = 0;
 			const w = Math.round(canvas.dimensions.size / 2 / 5) * multiplier;

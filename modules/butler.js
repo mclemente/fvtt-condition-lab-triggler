@@ -6,7 +6,7 @@ export const TITLE = "Condition Lab & Triggler";
 
 export const PATH = "modules/condition-lab-triggler";
 
-export const WIKIPATH = "https://github.com/mclemente/condition-lab-triggler/wiki";
+export const WIKIPATH = "https://github.com/mclemente/fvtt-condition-lab-triggler/wiki";
 
 export const GADGETS = {
 	enhancedConditions: {

@@ -14,12 +14,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/mclemente/condition-lab-triggler.git"
+		"url": "git+https://github.com/fvtt-mclemente/condition-lab-triggler.git"
 	},
 	"author": "Evan Clarke",
 	"license": "SEE LICENSE IN LICENSE",
 	"bugs": {
-		"url": "https://github.com/mclemente/condition-lab-triggler/issues"
+		"url": "https://github.com/fvtt-mclemente/condition-lab-triggler/issues"
 	},
-	"homepage": "https://github.com/mclemente/condition-lab-triggler#readme"
+	"homepage": "https://github.com/fvtt-mclemente/condition-lab-triggler#readme"
 }

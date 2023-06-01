@@ -158,7 +158,7 @@ function postInit() {
 				ConditionLab._onRenderSaveDialog(app, html, data);
 				break;
 
-			case game.i18n.localize(`CLT.ENHANCED_CONDITIONSLab.RestoreDefaultsTitle`):
+			case game.i18n.localize(`CLT.ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle`):
 				ConditionLab._onRenderRestoreDefaultsDialog(app, html, data);
 				break;
 

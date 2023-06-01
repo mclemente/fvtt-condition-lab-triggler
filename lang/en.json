@@ -124,8 +124,8 @@
 				},
 				"ActiveEffects": {
 					"Title": "Active Effect Config",
-					"TitleDisabledNew": "Active Effect Config (Disabled - Save Mapping First)",
-					"TitleDisabledDefault": "Active Effect Config (Disabled - Cannot Edit Default Mapping)"
+					"TitleDisabledNew": "Disabled - Save Mapping First",
+					"TitleDisabledDefault": "Disabled - Cannot Edit Default Mapping"
 				},
 				"Import": {
 					"NoFile": "You did not upload a data file!"
@@ -216,18 +216,26 @@
 			}
 		},
 		"TRIGGLER": {
+			"ImportTitle": "Import Triggers",
+			"TriggerMismatch": "These triggers do not match your game system and may not work as expected.",
 			"App": {
+				"Labels": {
+					"Triggers": "Existing Triggers",
+					"Category": "Category",
+					"Attribute": "Attribute",
+					"Property": "Property {number}",
+					"Operator": "Operator",
+					"Value": "Value"
+				},
 				"AdvancedTrigger": {
-					"Actor": {
-						"Note": "Set the property path to use for Actor updates--the path is relative to the update object passed to the updateActor hook.",
-						"Note2": "Optionally set a second property to compare the first one against--this path is relative to the Actor object itself"
-					},
 					"ActorProperty": {
 						"Label": "Actor Update Property",
+						"Note": "Set the property path to use for Actor updates. The path is relative to the update object passed to the updateActor hook.",
 						"Placeholder": "eg. data.attributes.hp.value (required if Token Update Property is not set)"
 					},
 					"ActorProperty2": {
 						"Label": "Actor Comparison Property",
+						"Note": "Optionally set a second property to compare the first one against--this path is relative to the Actor object itself",
 						"Placeholder": "eg. data.data.attributes.hp.max (optional)"
 					},
 					"Token": {
@@ -251,7 +259,6 @@
 					},
 					"Name": {
 						"Label": "Trigger Name",
-						"Placeholder": "(required for advanced triggers)",
 						"Warning": "Name is required for advanced triggers!"
 					}
 				},

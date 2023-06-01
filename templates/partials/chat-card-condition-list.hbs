@@ -2,7 +2,7 @@
     {{#if type.active}}
     {{else}}
     <div class="add-remove">
-        <span class="add-remove-icon" title="{{type.title}} {{timeSince timestamp}}">
+        <span class="add-remove-icon" data-tooltip="{{type.title}} {{timeSince timestamp}}">
             {{#if type.removed}}<i class="fas fa-minus"></i>
             {{else if type.added}}<span class="added"><i class="fas fa-plus"></i>
             {{/if}}
@@ -10,7 +10,7 @@
     </div>
     {{/if}}
     <div class="condition-icon">
-        <img src="{{condition.icon}}" class="condition-icon chat-message" title="{{condition.name}}">
+        <img src="{{condition.icon}}" class="condition-icon chat-message" data-tooltip="{{condition.name}}">
     </div>
     {{#if condition.hasReference}}
     <div class="condition-reference">
@@ -23,11 +23,11 @@
     {{/if}}
     {{#if type.removed}}
     <div class="undo-remove">
-        <a name="undo-remove" title="{{localize "CLT.ENHANCED_CONDITIONSChatCard.Buttons.Undo"}}"><i class="fas fa-undo"></i></a>
+        <a name="undo-remove" data-tooltip="{{localize "CLT.ENHANCED_CONDITIONSChatCard.Buttons.Undo"}}"><i class="fas fa-undo"></i></a>
     </div>
     {{else}}
     <div class="remove-row">
-        <a name="remove-row" title="{{localize "CLT.ENHANCED_CONDITIONSChatCard.Buttons.Remove"}}"><i class="fas fa-times"></i></a>
+        <a name="remove-row" data-tooltip="{{localize "CLT.ENHANCED_CONDITIONSChatCard.Buttons.Remove"}}"><i class="fas fa-times"></i></a>
     </div>
     {{/if}}
 </li>

@@ -1,4 +1,4 @@
-import * as BUTLER from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 
 /**
@@ -1099,7 +1099,7 @@ export class EnhancedConditions {
 	 * @see EnhancedConditions#addCondition
 	 */
 	static async applyCondition(...params) {
-		Sidekick.consoleMessage("warn", BUTLER.GADGETS.enhancedConditions.name, {
+		Sidekick.consoleMessage("warn", "Enhanced Conditions", {
 			message: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.Warnings.ApplyCondition`),
 		});
 		return EnhancedConditions.addCondition(...params);

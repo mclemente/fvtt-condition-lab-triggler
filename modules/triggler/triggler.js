@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, NAME, PATH, SETTING_KEYS } from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 import { EnhancedConditions } from "../enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "../sidekick.js";
 
@@ -6,6 +6,9 @@ import { Sidekick } from "../sidekick.js";
  * Handles triggers for other gadgets in the module... or does it?!
  */
 export class Triggler {
+	constructor() {
+		game.cub.triggler = this;
+	}
 	/**
 	 * Executes a trigger calling predefined actions
 	 * @param {*} trigger
@@ -19,11 +22,11 @@ export class Triggler {
 				? target.actor
 				: null;
 		const token = target instanceof TokenDocument ? target : target instanceof Token ? target.document : null;
-		const conditionMap = Sidekick.getSetting(SETTING_KEYS.enhancedConditions.map);
+		const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 		const matchedApplyConditions = conditionMap.filter((m) => m.applyTrigger === trigger.id);
 		const matchedRemoveConditions = conditionMap.filter((m) => m.removeTrigger === trigger.id);
 		const matchedMacros = game.macros.contents.filter(
-			(m) => m.getFlag(NAME, DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
+			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
 		);
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);
@@ -52,7 +55,7 @@ export class Triggler {
 		//     return;
 		// }
 
-		const triggers = Sidekick.getSetting(SETTING_KEYS.triggler.triggers);
+		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 		const entityType =
 			entity instanceof Actor
 				? "Actor"
@@ -133,7 +136,7 @@ export class Triggler {
 			const updateValueType = typeof updateValue;
 
 			// example: "="
-			const operator = DEFAULT_CONFIG.triggler.operators[trigger.operator];
+			const operator = BUTLER.DEFAULT_CONFIG.triggler.operators[trigger.operator];
 
 			// percent requires whole different handling
 			const isPercent = trigger.value.endsWith("%");
@@ -151,7 +154,7 @@ export class Triggler {
 			 * @todo bulkify refactor this to add matched triggers to an array then execut the array at the end
 			 */
 			switch (operator) {
-				case DEFAULT_CONFIG.triggler.operators.eq:
+				case BUTLER.DEFAULT_CONFIG.triggler.operators.eq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -167,7 +170,7 @@ export class Triggler {
 					}
 					break;
 
-				case DEFAULT_CONFIG.triggler.operators.gt:
+				case BUTLER.DEFAULT_CONFIG.triggler.operators.gt:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -182,7 +185,7 @@ export class Triggler {
 					}
 					break;
 
-				case DEFAULT_CONFIG.triggler.operators.gteq:
+				case BUTLER.DEFAULT_CONFIG.triggler.operators.gteq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -197,7 +200,7 @@ export class Triggler {
 					}
 					break;
 
-				case DEFAULT_CONFIG.triggler.operators.lt:
+				case BUTLER.DEFAULT_CONFIG.triggler.operators.lt:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -212,7 +215,7 @@ export class Triggler {
 					}
 					break;
 
-				case DEFAULT_CONFIG.triggler.operators.lteq:
+				case BUTLER.DEFAULT_CONFIG.triggler.operators.lteq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -227,7 +230,7 @@ export class Triggler {
 					}
 					break;
 
-				case DEFAULT_CONFIG.triggler.operators.ne:
+				case BUTLER.DEFAULT_CONFIG.triggler.operators.ne:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -297,10 +300,10 @@ export class Triggler {
 	static async _onRenderMacroConfig(app, html, data) {
 		const typeSelect = html.find("select[name='type']");
 		const typeSelectDiv = typeSelect.closest("div");
-		const flag = app.object.getFlag(NAME, DEFAULT_CONFIG.triggler.flags.macro);
-		const triggers = Sidekick.getSetting(SETTING_KEYS.triggler.triggers);
+		const flag = app.object.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro);
+		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 
-		const triggerSelectTemplate = DEFAULT_CONFIG.triggler.templatePaths.macroTriggerSelect;
+		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templatePaths.macroTriggerSelect;
 		const triggerData = {
 			flag,
 			triggers,

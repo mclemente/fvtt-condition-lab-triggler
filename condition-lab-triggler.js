@@ -1,7 +1,7 @@
 /* -------------------------------------------- */
 /*                    Imports                   */
 /* -------------------------------------------- */
-import * as BUTLER from "./modules/butler.js";
+import { Butler as BUTLER } from "./modules/butler.js";
 import { registerSettings } from "./modules/settings.js";
 import { Sidekick } from "./modules/sidekick.js";
 
@@ -23,7 +23,7 @@ import MigrationHelper from "./modules/utils/migration.js";
 
 Hooks.on("init", () => {
 	// Assign the namespace Object if it already exists or instantiate it as an object if not
-	game.cub = game.cub ?? {};
+	game.cub = new BUTLER();
 	ui.cub = ui.cub ?? {};
 
 	// Execute housekeeping
@@ -32,8 +32,6 @@ Hooks.on("init", () => {
 	Sidekick.loadTemplates();
 	registerSettings();
 
-	// Instantiate gadget classes
-	game.cub.enhancedConditions = new EnhancedConditions();
 	// Wrappers
 	libWrapper.register(
 		"condition-lab-triggler",
@@ -72,16 +70,6 @@ Hooks.on("init", () => {
 		},
 		"OVERRIDE"
 	);
-
-	// Expose API methods
-	game.cub.getCondition = EnhancedConditions.getCondition;
-	game.cub.getConditions = EnhancedConditions.getConditions;
-	game.cub.getConditionEffects = EnhancedConditions.getConditionEffects;
-	game.cub.hasCondition = EnhancedConditions.hasCondition;
-	game.cub.applyCondition = EnhancedConditions.applyCondition;
-	game.cub.addCondition = EnhancedConditions.addCondition;
-	game.cub.removeCondition = EnhancedConditions.removeCondition;
-	game.cub.removeAllConditions = EnhancedConditions.removeAllConditions;
 	postInit();
 });
 

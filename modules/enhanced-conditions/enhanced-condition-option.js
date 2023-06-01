@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, NAME, SETTING_KEYS } from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 
 /**
@@ -18,9 +18,9 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
-			id: DEFAULT_CONFIG.enhancedConditions.optionConfig.id,
-			title: DEFAULT_CONFIG.enhancedConditions.optionConfig.title,
-			template: DEFAULT_CONFIG.enhancedConditions.templates.optionConfig,
+			id: BUTLER.DEFAULT_CONFIG.enhancedConditions.optionConfig.id,
+			title: BUTLER.DEFAULT_CONFIG.enhancedConditions.optionConfig.title,
+			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.optionConfig,
 			classes: ["sheet"],
 			closeOnSubmit: false,
 			width: 500,
@@ -63,9 +63,9 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		if (!event.target?.checked) return;
 		const targetName = event.target?.name;
 		const propertyName = Sidekick.toCamelCase(targetName, "-");
-		const specialStatusEffectsProps = Object.values(DEFAULT_CONFIG.enhancedConditions.specialStatusEffects).map(
-			(k) => k.optionProperty
-		);
+		const specialStatusEffectsProps = Object.values(
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects
+		).map((k) => k.optionProperty);
 
 		if (!propertyName || !specialStatusEffectsProps) return;
 
@@ -95,10 +95,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 			event.preventDefault();
 			// raise a dialog asking for override
 			const title = game.i18n.localize(
-				`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`
+				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`
 			);
 			const content = game.i18n.format(
-				`${NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`,
+				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`,
 				{
 					existingCondition: existingCondition.name,
 					statusEffect: event.detail.statusLabel ?? event.detail.statusName,
@@ -123,7 +123,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	async _updateObject(event, formData) {
 		this.object.options = {};
 		const specialStatusEffectMapping = Sidekick.getSetting(
-			SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
+			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
 		);
 		const map = game.cub.conditionLab.map;
 		const newMap = foundry.utils.deepClone(map);
@@ -137,12 +137,12 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 			if (specialStatusEffect) {
 				const existingMapping = foundry.utils.getProperty(specialStatusEffectMapping, specialStatusEffect);
-				if (existingMapping === `${NAME}.${this.object.id}` && value === false) {
+				if (existingMapping === `${BUTLER.NAME}.${this.object.id}` && value === false) {
 					this.setSpecialStatusEffectMapping(specialStatusEffect);
-				} else if (existingMapping !== `${NAME}.${this.object.id}` && value === true) {
+				} else if (existingMapping !== `${BUTLER.NAME}.${this.object.id}` && value === true) {
 					this.setSpecialStatusEffectMapping(specialStatusEffect, this.object.id);
 					if (existingMapping) {
-						const existingId = existingMapping.replace(`${NAME}.`, "");
+						const existingId = existingMapping.replace(`${BUTLER.NAME}.`, "");
 						const existingConditionIndex = newMap.findIndex((c) => c.id === existingId);
 						if (existingConditionIndex !== -1) {
 							const existingCondition = newMap[existingConditionIndex];
@@ -188,7 +188,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	setSpecialStatusEffectMapping(effect, conditionId = null) {
 		if (!CONFIG.specialStatusEffects.hasOwnProperty(effect)) return;
 
-		CONFIG.specialStatusEffects[effect] = conditionId ? `${NAME}.${conditionId}` : "";
-		Sidekick.setSetting(SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, CONFIG.specialStatusEffects);
+		CONFIG.specialStatusEffects[effect] = conditionId ? `${BUTLER.NAME}.${conditionId}` : "";
+		Sidekick.setSetting(
+			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
+			CONFIG.specialStatusEffects
+		);
 	}
 }

@@ -1,4 +1,4 @@
-import * as BUTLER from "./butler.js";
+import { Butler as BUTLER } from "./butler.js";
 /**
  * Provides helper methods for use elsewhere in the module (and has your back in a melee)
  */

@@ -1,4 +1,4 @@
-import { FLAGS, NAME } from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 
 export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	/**
@@ -28,7 +28,10 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	 * @override
 	 */
 	async _updateObject(event, formData) {
-		const conditionIdFlag = getProperty(this.object.flags, `${NAME}.${FLAGS.enhancedConditions.conditionId}`);
+		const conditionIdFlag = getProperty(
+			this.object.flags,
+			`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`
+		);
 		if (!conditionIdFlag) return;
 
 		// find the matching condition row
@@ -36,7 +39,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
 		if (!map && !map.length) return;
 
-		const conditionId = conditionIdFlag.replace(`${NAME}.`, "");
+		const conditionId = conditionIdFlag.replace(`${BUTLER.NAME}.`, "");
 		const condition = map.find((c) => c.id === conditionId);
 
 		if (!condition) return;

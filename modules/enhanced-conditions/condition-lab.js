@@ -1,4 +1,4 @@
-import * as BUTLER from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { TrigglerForm } from "../triggler/triggler-form.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";

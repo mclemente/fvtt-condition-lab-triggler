@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, SETTING_KEYS } from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 
 /**
@@ -19,9 +19,9 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
-			id: DEFAULT_CONFIG.enhancedConditions.macroConfig.id,
-			title: DEFAULT_CONFIG.enhancedConditions.macroConfig.title,
-			template: DEFAULT_CONFIG.enhancedConditions.templates.macroConfig,
+			id: BUTLER.DEFAULT_CONFIG.enhancedConditions.macroConfig.id,
+			title: BUTLER.DEFAULT_CONFIG.enhancedConditions.macroConfig.title,
+			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.macroConfig,
 			classes: ["sheet"],
 			closeOnSubmit: false,
 		});
@@ -69,7 +69,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);
 		newMap[conditionIndex] = this.object;
-		Sidekick.setSetting(SETTING_KEYS.enhancedConditions.map, newMap);
+		Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
 		this.render();
 	}
 }

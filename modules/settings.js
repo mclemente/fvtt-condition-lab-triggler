@@ -1,4 +1,4 @@
-import * as BUTLER from "./butler.js";
+import { Butler as BUTLER } from "./butler.js";
 import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "./sidekick.js";
@@ -137,16 +137,7 @@ export function registerSettings() {
 		default: !!BUTLER.KNOWN_GAME_SYSTEMS[game.system.id]
 			? BUTLER.KNOWN_GAME_SYSTEMS[game.system.id].id
 			: game.i18n.localize("CLT.GAME_SYSTEMS.other"),
-		choices: {
-			dnd5e: "Dungeons & Dragons 5th Edition",
-			pf1: "Pathfinder",
-			pf2e: "Pathfinder 2nd Edition",
-			wfrp4e: "Warhammer Fantasy Roleplaying Game 4th Edition",
-			archmage: "13th Age",
-			ironclaw2e: "Ironclaw Second Edition",
-			"cyberpunk-red-core": "Cyberpunk Red Core",
-			other: game.i18n.localize("CLT.GAME_SYSTEMS.custom"),
-		},
+		choices: Sidekick.getSystemChoices(),
 		config: false,
 		apiOnly: true,
 		onChange: (s) => {},
@@ -196,15 +187,10 @@ export function registerSettings() {
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
 		name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
 		hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",
-		default: "small",
+		default: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices.small,
 		scope: "client",
 		type: String,
-		choices: {
-			small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
-			medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
-			large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
-			xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge"),
-		},
+		choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
 		config: true,
 		onChange: (s) => {
 			canvas.draw();

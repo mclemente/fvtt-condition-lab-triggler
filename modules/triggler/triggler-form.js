@@ -1,4 +1,4 @@
-import { DEFAULT_CONFIG, NAME, PATH, SETTING_KEYS } from "../butler.js";
+import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 
 export class TrigglerForm extends FormApplication {
@@ -15,7 +15,7 @@ export class TrigglerForm extends FormApplication {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
 			title: "Triggler",
-			template: `${PATH}/templates/triggler-form.html`,
+			template: `${BUTLER.PATH}/templates/triggler-form.html`,
 			classes: ["sheet"],
 			width: "auto",
 			height: "auto",
@@ -29,7 +29,7 @@ export class TrigglerForm extends FormApplication {
 	 */
 	getData() {
 		const id = this.data.id;
-		const triggers = Sidekick.getSetting(SETTING_KEYS.triggler.triggers);
+		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 
 		if (id && triggers) {
 			const trigger = triggers.find((t) => t.id === id);
@@ -65,7 +65,7 @@ export class TrigglerForm extends FormApplication {
 		const categories = mergedModel ? Object.keys(mergedModel) : null;
 		const attributes = category ? Object.keys(mergedModel[category]) : null;
 		const properties = category && attribute ? Object.keys(mergedModel[category][attribute]) : null;
-		const operators = DEFAULT_CONFIG.triggler.operators;
+		const operators = BUTLER.DEFAULT_CONFIG.triggler.operators;
 
 		const triggerSelected = id && triggers ? true : false;
 
@@ -127,7 +127,7 @@ export class TrigglerForm extends FormApplication {
 		});
 
 		deleteTrigger.on("click", async (event) => {
-			const triggers = Sidekick.getSetting(SETTING_KEYS.triggler.triggers);
+			const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 			const triggerIndex = triggers.findIndex((t) => t.id === this.data.id);
 			if (triggerIndex === undefined) {
 				return;
@@ -136,7 +136,7 @@ export class TrigglerForm extends FormApplication {
 
 			updatedTriggers.splice(triggerIndex, 1);
 
-			await Sidekick.setSetting(SETTING_KEYS.triggler.triggers, updatedTriggers);
+			await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
 			this.data = {};
 			this.render();
 		});
@@ -185,7 +185,7 @@ export class TrigglerForm extends FormApplication {
 			return false;
 		}
 
-		const triggers = Sidekick.getSetting(SETTING_KEYS.triggler.triggers);
+		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 		const existingIds = triggers ? triggers.map((t) => t.id) : null;
 		const text = triggerType === "simple" ? this._constructString(formData) : formData.advancedName;
 
@@ -216,13 +216,13 @@ export class TrigglerForm extends FormApplication {
 			this.data = newTrigger;
 		}
 
-		const setting = await Sidekick.setSetting(SETTING_KEYS.triggler.triggers, updatedTriggers);
+		const setting = await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
 		if (!!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
 
 		this.render();
 
 		// Determine if ConditionLab is open and push the value back
-		//const conditionLab = Object.values(ui.windows).find(v => v.id === DEFAULT_CONFIG.enhancedConditions.conditionLab.id);
+		//const conditionLab = Object.values(ui.windows).find(v => v.id === BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionLab.id);
 
 		/* WIP
         const parentApp = this.parent;
@@ -241,7 +241,7 @@ export class TrigglerForm extends FormApplication {
         if (parentApp instanceof MacroConfig) {
             const macroConfig = parentApp;
 
-            macroConfig.setFlag(NAME, DEFAULT_CONFIG.triggler.flags.macro, id);
+            macroConfig.setFlag(BUTLER.PATH, BUTLER.DEFAULT_CONFIG.triggler.flags.macro, id);
             macroConfig.render();
         }
         */
@@ -253,8 +253,8 @@ export class TrigglerForm extends FormApplication {
 	 */
 	_constructString(parts) {
 		const triggerType = parts.triggerType;
-		const operatorText = DEFAULT_CONFIG.triggler.operators[parts.operator];
-		const advancedOperatorText = DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
+		const operatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.operator];
+		const advancedOperatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
 		let string = null;
 
 		switch (triggerType) {

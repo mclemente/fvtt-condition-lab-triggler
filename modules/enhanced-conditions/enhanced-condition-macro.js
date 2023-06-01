@@ -20,7 +20,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-macro-config",
-			title: game.i18n.localize("CLT.CONFIG.MacroConfig.Title"),
+			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.MacroConfig.Title"),
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.macroConfig,
 			classes: ["sheet"],
 			closeOnSubmit: false,

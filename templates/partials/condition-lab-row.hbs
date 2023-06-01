@@ -8,7 +8,7 @@
                 <div class="flexrow">
                     <!--row 1 col 1 icon-->
                     <div class="flexcol icon">
-                        <img name="icon-{{@index}}" src="{{condition.icon}}" data-tooltip="Status Icon" class="icon" />
+                        <img name="icon-{{@index}}" src="{{condition.icon}}" class="icon" />
                     </div>
                     <!--row 1 col 2 text-entry-->
                     <div class="flexcol text-entry">
@@ -16,14 +16,14 @@
                             <div class="condition">
                                 <div class="wrapper-rel">
                                     <label for="condition-{{@index}}" class="inset-label">{{localize "CLT.WORDS.Name"}}</label>
-                                    <input type="text" name="condition-{{@index}}" data-tooltip="Condition" value="{{condition.name}}" class="condition condition-text-input" placeholder="Condition Name" data-dtype="String" {{disabled isDefault}}>
+                                    <input type="text" name="condition-{{@index}}" data-tooltip="Condition" value="{{condition.name}}" class="condition condition-text-input" data-dtype="String" {{disabled isDefault}}>
                                 </div>
                             </div>
                         </div>
                         <div class="flexrow condition-lab text-entry reference">
                             <div class="wrapper-rel">
                                 <label for="reference-item-{{@index}}" class="inset-label">{{localize "CLT.WORDS.Reference"}}</label>
-                                <input type="text" name="reference-item-{{@index}}" value="{{condition.referenceId}}" data-tooltip="Condition Reference" placeholder="{{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.NoReference"}}" {{disabled isDefault}}>
+                                <input type="text" name="reference-item-{{@index}}" value="{{condition.referenceId}}" placeholder="{{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.NoReference"}}" {{disabled isDefault}}>
                             </div>
                             <div class="enriched-link">{{{condition.enrichedReference}}}</div>
                         </div>
@@ -33,9 +33,9 @@
                 <div class="flexrow path">
                     <div class="wrapper-rel">
                         <label for="icon-path-{{@index}}" class="inset-label">{{localize "CLT.WORDS.Icon"}}</label>
-                        <input type="text" name="icon-path-{{@index}}" data-tooltip="Status Icon Path" class="icon-path condition-text-input" value="{{condition.icon}}" placeholder="/icons/example.svg" data-dtype="String" {{disabled isDefault}}>
+                        <input type="text" name="icon-path-{{@index}}" class="icon-path condition-text-input" value="{{condition.icon}}" placeholder="/icons/example.svg" data-dtype="String" {{disabled isDefault}}>
                     </div>
-                    <button type="button" name="file-picker-{{@index}}" class="file-picker" data-type="image" data-target="icon-path-{{@index}}" data-tooltip="Browse Files" tabindex="-1" {{hidden isDefault}}>
+                    <button type="button" name="file-picker-{{@index}}" class="file-picker" data-type="image" data-target="icon-path-{{@index}}" tabindex="-1" {{hidden isDefault}}>
                             <i class="fas fa-file-import fa-fw"></i>
                         </button>
                 </div>

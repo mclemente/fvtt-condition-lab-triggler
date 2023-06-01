@@ -1,5 +1,4 @@
 <form onsubmit="event.preventDefault()" autocomplete="off">
-	<h2>{{> "modules/condition-lab-triggler/templates/partials/triggler-icon.hbs"}} Triggler</h2>
 	<div class="form-group triggler">
 		<label>{{localize "CLT.TRIGGLER.App.Labels.Triggers"}}</label>
 		<select name="triggers">
@@ -75,7 +74,6 @@
 			</select>
 		</div>
 	</div>
-	<br />
 	<div class="advanced-trigger">
 		<div class="type-select">
 			<input
@@ -121,7 +119,6 @@
 			"CLT.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Placeholder"}}" {{disabled (not isAdvancedTrigger)}}>
 			<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.ActorProperty2.Note"}}</p>
 		</div>
-		<br />
 		<h3>{{localize "CLT.WORDS.Token"}}</h3>
 		<div class="form-group">
 			<label for="triggler-advanced-token-property"
@@ -130,7 +127,7 @@
 			<input id="triggler-advanced-token-property" name="advancedTokenProperty" type="text"
 			value="{{advancedTokenProperty}}" placeholder="{{localize
 			"CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty.Placeholder"}}" {{disabled (not isAdvancedTrigger)}}>
-			<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Token.Note"}}</p>
+			<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty.Note"}}</p>
 		</div>
 		<div class="form-group">
 			<label for="triggler-advanced-token-property2"
@@ -139,15 +136,14 @@
 			<input id="triggler-advanced-token-property2" name="advancedTokenProperty2" type="text"
 			value="{{advancedTokenProperty2}}" placeholder="{{localize
 			"CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Placeholder"}}" {{disabled (not isAdvancedTrigger)}}>
-			<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.Token.Note2"}}</p>
+			<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.TokenProperty2.Note"}}</p>
 		</div>
-		<br />
 		<h3>{{localize "CLT.TRIGGLER.App.AdvancedTrigger.OperatorValue.Heading"}}</h3>
 		<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.OperatorValue.Note"}}</p>
 		<div class="flexrow">
 			<select name="advancedOperator" class="advanced-trigger-operator" {{disabled (not isAdvancedTrigger)}}>
 				{{#select advancedOperator}}
-				<option value="">--Operator--</option>
+				<option value=""></option>
 				{{#each operators as |name key|}}
 				<option value="{{key}}">{{name}}</option>
 				{{/each}} {{/select}}
@@ -156,7 +152,6 @@
 				type="text"
 				name="advancedValue"
 				class="advanced-trigger-value"
-				placeholder="--Value--"
 				value="{{advancedValue}}"
 				{{disabled
 				(not

@@ -18,8 +18,8 @@ export class TrigglerForm extends FormApplication {
 			title: "Triggler",
 			template: `${BUTLER.PATH}/templates/triggler-form.html`,
 			classes: ["sheet"],
-			width: "auto",
-			height: "auto",
+			width: 780,
+			height: 685,
 			resizable: true,
 			closeOnSubmit: false,
 		});
@@ -122,6 +122,8 @@ export class TrigglerForm extends FormApplication {
 		const valueInput = html.find("input[name='value']");
 		const property2Select = html.find("select[name='property2']");
 		const triggerTypeRadio = html.find("input[name='triggerType']");
+		const advancedOperatorSelect = html.find("select[name='advancedOperator']");
+		const advancedValueInput = html.find("input[name='advancedValue']");
 		const pcOnlyCheckbox = html.find("input[name='pcOnly']");
 		const npcsOnlyCheckbox = html.find("input[name='npcOnly']");
 		const notZeroCheckbox = html.find("input[name='notZero']");
@@ -193,6 +195,15 @@ export class TrigglerForm extends FormApplication {
 
 		triggerTypeRadio.on("change", (event) => {
 			this.data.triggerType = event.currentTarget.value;
+			this.render();
+		});
+
+		advancedOperatorSelect.on("change", (event) => {
+			this.data.advancedOperator = event.target.value;
+			this.render();
+		});
+		advancedValueInput.on("change", (event) => {
+			this.data.advancedValue = event.target.value;
 			this.render();
 		});
 

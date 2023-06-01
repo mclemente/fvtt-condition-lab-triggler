@@ -21,6 +21,13 @@ import MigrationHelper from "./modules/utils/migration.js";
 
 /* ---------------- Init/Ready ---------------- */
 
+// Register all handlebars helpers
+Handlebars.registerHelper({
+	hidden(value) {
+		return Boolean(value) ? "hidden" : "";
+	},
+});
+
 Hooks.on("init", () => {
 	// Assign the namespace Object if it already exists or instantiate it as an object if not
 	game.cub = new BUTLER();

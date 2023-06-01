@@ -36,7 +36,7 @@ export class ConditionLab extends FormApplication {
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
 			classes: ["sheet"],
 			width: 780,
-			height: 700,
+			height: 680,
 			resizable: true,
 			closeOnSubmit: false,
 			scrollY: ["ol.condition-lab"],

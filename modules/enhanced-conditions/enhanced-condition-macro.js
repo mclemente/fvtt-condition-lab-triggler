@@ -40,14 +40,12 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 			return { id: m.id, name: m.name };
 		});
 
-		const data = {
+		return {
 			condition: this.object,
 			applyMacroId,
 			removeMacroId,
 			macroChoices,
 		};
-
-		return data;
 	}
 
 	/**

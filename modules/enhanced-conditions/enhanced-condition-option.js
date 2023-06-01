@@ -32,14 +32,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	 * @returns {Object} data
 	 */
 	getData() {
-		const optionData = this.object.options;
-
-		const data = {
+		return {
 			condition: this.object,
-			optionData,
+			optionData: this.object.options,
 		};
-
-		return data;
 	}
 
 	/**

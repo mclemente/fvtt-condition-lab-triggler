@@ -32,19 +32,12 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 	 * @returns {Object} data
 	 */
 	getData() {
-		const applyTriggerId = this.object.applyTrigger;
-		const removeTriggerId = this.object.removeTrigger;
-
-		const triggerChoices = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers) ?? [];
-
-		const data = {
+		return {
 			condition: this.object,
-			applyTriggerId,
-			removeTriggerId,
-			triggerChoices,
+			applyTriggerId: this.object.applyTrigger,
+			removeTriggerId: this.object.removeTrigger,
+			triggerChoices: Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers) ?? [],
 		};
-
-		return data;
 	}
 
 	/**

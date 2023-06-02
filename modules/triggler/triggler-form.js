@@ -199,7 +199,6 @@ export class TrigglerForm extends FormApplication {
 		});
 		valueInput.on("change", (event) => {
 			this.data.value = event.target.value;
-			this.data.property2 = null;
 			this.render();
 		});
 

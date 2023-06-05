@@ -41,7 +41,7 @@ Hooks.on("init", () => {
 
 	// Wrappers
 	libWrapper.register(
-		"condition-lab-triggler",
+		BUTLER.NAME,
 		"Token.prototype._refreshEffects",
 		function () {
 			const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
@@ -133,7 +133,7 @@ function postInit() {
 	/* ------------------- Misc ------------------- */
 
 	Hooks.on("renderSettingsConfig", (app, html, data) => {
-		const trigglerMenu = html.find(`button[data-key="condition-lab-triggler.trigglerMenu"]`)[0];
+		const trigglerMenu = html.find(`button[data-key="${BUTLER.NAME}.trigglerMenu"]`)[0];
 		const exclamationMark = trigglerMenu.children[0];
 		exclamationMark.style.marginRight = "0px";
 		const rightChevron = document.createElement("i");

@@ -6,7 +6,7 @@ export class Butler {
 	/** Message output */
 	static TITLE = "Condition Lab & Triggler";
 
-	static PATH = "modules/condition-lab-triggler";
+	static PATH = `modules/${this.NAME}`;
 
 	static get DEFAULT_CONFIG() {
 		return {
@@ -105,7 +105,8 @@ export class Butler {
 				options: {
 					percent: "%",
 				},
-				templatePaths: {
+				templates: {
+					triggerForm: `${this.PATH}/templates/triggler-form.html`,
 					macroTriggerSelect: `${this.PATH}/templates/trigger-select.html`,
 				},
 			},

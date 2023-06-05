@@ -16,7 +16,7 @@ export class TrigglerForm extends FormApplication {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
 			title: "Triggler",
-			template: `${BUTLER.PATH}/templates/triggler-form.html`,
+			template: BUTLER.DEFAULT_CONFIG.triggler.templates.triggerForm,
 			classes: ["sheet"],
 			width: 780,
 			height: 685,

@@ -55,7 +55,7 @@ export class Triggler {
 
 		if (triggerType === "advanced" && !trigger.advancedName.length) {
 			console.warn(
-				`Condition Lab & Triggler | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
+				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
 			);
 			return false;
 		}
@@ -68,7 +68,7 @@ export class Triggler {
 
 		const existingTrigger = triggers.find((t) => t.id === id);
 		if (existingTrigger) {
-			console.warn(`Condition Lab & Triggler | Trigger with ID "${id} already exists.`);
+			console.warn(`${BUTLER.TITLE} | Trigger with ID "${id} already exists.`);
 			return false;
 		}
 		return {
@@ -394,7 +394,7 @@ export class Triggler {
 		const flag = app.object.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro);
 		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 
-		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templatePaths.macroTriggerSelect;
+		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templates.macroTriggerSelect;
 		const triggerData = {
 			flag,
 			triggers,

@@ -343,7 +343,7 @@ export class TrigglerForm extends FormApplication {
 				},
 				no: {
 					icon: '<i class="fas fa-times"></i>',
-					label: game.i18n.localize("CLT.WORDS.Cancel"),
+					label: game.i18n.localize("Cancel"),
 				},
 			},
 			default: "import",

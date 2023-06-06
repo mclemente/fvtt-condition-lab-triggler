@@ -388,7 +388,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: '<i class="fas fa-times"></i>',
-					label: game.i18n.localize("CLT.WORDS.Cancel"),
+					label: game.i18n.localize("Cancel"),
 				},
 			},
 			default: "import",
@@ -797,7 +797,7 @@ export class ConditionLab extends FormApplication {
 			buttons: {
 				yes: {
 					icon: `<i class="fa fa-check"></i>`,
-					label: game.i18n.localize("CLT.WORDS.Yes"),
+					label: game.i18n.localize("Yes"),
 					callback: async (event) => {
 						const newMap = duplicate(this.map);
 						newMap.splice(row, 1);
@@ -807,7 +807,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: `<i class="fa fa-times"></i>`,
-					label: game.i18n.localize("CLT.WORDS.No"),
+					label: game.i18n.localize("No"),
 					callback: (event) => {},
 				},
 			},
@@ -906,7 +906,7 @@ export class ConditionLab extends FormApplication {
 			buttons: {
 				yes: {
 					icon: `<i class="fas fa-check"></i>`,
-					label: game.i18n.localize("CLT.WORDS.Yes"),
+					label: game.i18n.localize("Yes"),
 					callback: ($html) => {
 						const checkbox = $html[0].querySelector("input[name='clear-cache']");
 						const clearCache = checkbox?.checked;
@@ -915,7 +915,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: `<i class="fas fa-times"></i>`,
-					label: game.i18n.localize("CLT.WORDS.No"),
+					label: game.i18n.localize("No"),
 					callback: () => {},
 				},
 			},
@@ -937,7 +937,7 @@ export class ConditionLab extends FormApplication {
 			buttons: {
 				yes: {
 					icon: `<i class="fa fa-check"></i>`,
-					label: game.i18n.localize("CLT.WORDS.Yes"),
+					label: game.i18n.localize("Yes"),
 					callback: (event) => {
 						this.map = this.initialMap;
 						this.render();
@@ -945,7 +945,7 @@ export class ConditionLab extends FormApplication {
 				},
 				no: {
 					icon: `<i class="fa fa-times"></i>`,
-					label: game.i18n.localize("CLT.WORDS.No"),
+					label: game.i18n.localize("No"),
 					callback: (event) => {},
 				},
 			},

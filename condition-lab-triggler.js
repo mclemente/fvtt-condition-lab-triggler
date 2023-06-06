@@ -19,7 +19,7 @@ import MigrationHelper from "./modules/utils/migration.js";
 /*                    System                    */
 /* -------------------------------------------- */
 
-/* ---------------- Init/Ready ---------------- */
+/* ------------------- Init ------------------- */
 
 // Register all handlebars helpers
 Handlebars.registerHelper({
@@ -81,6 +81,11 @@ Hooks.on("init", () => {
 });
 
 function postInit() {
+	/* -------------------------------------------- */
+	/*                    System                    */
+	/* -------------------------------------------- */
+
+	/* ------------------ Ready ------------------- */
 	Hooks.on("ready", () => {
 		MigrationHelper._importFromCUB();
 		EnhancedConditions._onReady();

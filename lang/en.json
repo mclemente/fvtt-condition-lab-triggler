@@ -114,7 +114,6 @@
 					"NoCondition": "Remove Conditions failed. There is no active Condition Map"
 				}
 			},
-
 			"Lab": {
 				"Title": "Condition Lab",
 				"Hint": "Provides the ability to map Conditions to Status Effect icons",
@@ -157,6 +156,14 @@
 			"other": "Other",
 			"custom": "Custom/Other",
 			"unknown": "--Unknown--"
+		},
+		"KEYBINDINGS": {
+			"openConditionLab": {
+				"name": "Open Condition Lab"
+			},
+			"openTriggler": {
+				"name": "Open Triggler"
+			}
 		},
 		"MIGRATION": {
 			"Title": "Condition Lab & Triggler: CUB Settings Migration",

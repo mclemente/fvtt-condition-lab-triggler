@@ -12,6 +12,7 @@ import { EnhancedConditions } from "./modules/enhanced-conditions/enhanced-condi
 /* ------------------- Utils ------------------ */
 
 import { ConditionLab } from "./modules/enhanced-conditions/condition-lab.js";
+import { TrigglerForm } from "./modules/triggler/triggler-form.js";
 import { Triggler } from "./modules/triggler/triggler.js";
 import MigrationHelper from "./modules/utils/migration.js";
 
@@ -77,6 +78,26 @@ Hooks.on("init", () => {
 		},
 		"OVERRIDE"
 	);
+
+	// Keybinds
+	game.keybindings.register(BUTLER.NAME, "openConditionLab", {
+		name: "CLT.KEYBINDINGS.openConditionLab.name",
+		onDown: () => {
+			const app = new ConditionLab();
+			app.render(true);
+		},
+		restricted: false,
+		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+	});
+	game.keybindings.register(BUTLER.NAME, "openTriggler", {
+		name: "CLT.KEYBINDINGS.openTriggler.name",
+		onDown: () => {
+			const app = new TrigglerForm().render(true);
+			app.render(true);
+		},
+		restricted: false,
+		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+	});
 	postInit();
 });
 

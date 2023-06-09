@@ -217,6 +217,10 @@
 			"Triggler": {
 				"TriggersN": "Triggler Triggers",
 				"TriggersH": "A trigger-management system for token/actor attribute changes"
+			},
+			"SceneControls": {
+				"Name": "Scene Controls Shortcuts",
+				"Hint": "Adds two buttons to the Token Controls to open the Condition Lab or Triggler windows. Note that you can also open those by setting keybindings instead of using this setting."
 			}
 		},
 		"TRIGGLER": {

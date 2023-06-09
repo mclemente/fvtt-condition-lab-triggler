@@ -204,9 +204,22 @@ export function registerSettings() {
 		default: [],
 		onChange: (s) => {},
 	});
+
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, {
 		scope: "world",
 		type: Boolean,
 		default: false,
+	});
+
+	/* -------------------------------------------- */
+
+	Sidekick.registerSetting(BUTLER.SETTING_KEYS.sceneControls, {
+		name: "CLT.SETTINGS.SceneControls.Name",
+		hint: "CLT.SETTINGS.SceneControls.Hint",
+		scope: "world",
+		type: Boolean,
+		default: false,
+		config: true,
+		requiresReload: true,
 	});
 }

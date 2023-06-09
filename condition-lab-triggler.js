@@ -83,8 +83,7 @@ Hooks.on("init", () => {
 	game.keybindings.register(BUTLER.NAME, "openConditionLab", {
 		name: "CLT.KEYBINDINGS.openConditionLab.name",
 		onDown: () => {
-			const app = new ConditionLab();
-			app.render(true);
+			new ConditionLab().render(true);
 		},
 		restricted: false,
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
@@ -92,8 +91,7 @@ Hooks.on("init", () => {
 	game.keybindings.register(BUTLER.NAME, "openTriggler", {
 		name: "CLT.KEYBINDINGS.openTriggler.name",
 		onDown: () => {
-			const app = new TrigglerForm().render(true);
-			app.render(true);
+			new TrigglerForm().render(true);
 		},
 		restricted: false,
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
@@ -155,6 +153,47 @@ function postInit() {
 	/* -------------------------------------------- */
 	/*                    Render                    */
 	/* -------------------------------------------- */
+
+	/* -------------- Scene Controls -------------- */
+	Hooks.on("getSceneControlButtons", function (hudButtons) {
+		if (game.user.isGM && game.settings.get(BUTLER.NAME, "sceneControls")) {
+			let hud = hudButtons.find((val) => {
+				return val.name == "token";
+			});
+			if (hud) {
+				hud.tools.push({
+					name: "CLT.ENHANCED_CONDITIONS.Lab.Title",
+					title: "CLT.ENHANCED_CONDITIONS.Lab.Title",
+					icon: "fas fa-flask",
+					button: true,
+					onClick: async () => new ConditionLab().render(true),
+				});
+				hud.tools.push({
+					name: "Triggler",
+					title: "Triggler",
+					icon: "fas fa-exclamation",
+					button: true,
+					onClick: async () => new TrigglerForm().render(true),
+				});
+			}
+		}
+	});
+
+	Hooks.on("renderSceneControls", (app, html, data) => {
+		const trigglerButton = html.find(`li[data-tool="Triggler"]`)[0];
+		if (trigglerButton) {
+			trigglerButton.style.display = "inline-block";
+			const exclamationMark = trigglerButton.children[0];
+			exclamationMark.style.marginRight = "0px";
+			const rightChevron = document.createElement("i");
+			rightChevron.classList.add("fas", "fa-angle-right");
+			rightChevron.style.marginRight = "0px";
+			trigglerButton.insertBefore(rightChevron, exclamationMark);
+			const leftChevron = document.createElement("i");
+			leftChevron.classList.add("fas", "fa-angle-left");
+			exclamationMark.after(leftChevron);
+		}
+	});
 
 	/* ------------------- Misc ------------------- */
 

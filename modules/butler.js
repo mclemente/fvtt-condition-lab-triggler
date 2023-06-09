@@ -146,6 +146,7 @@ export class Butler {
 			menu: "trigglerMenu",
 			triggers: "storedTriggers",
 		},
+		sceneControls: "sceneControls",
 	};
 
 	// Instantiate gadget classes

@@ -199,15 +199,17 @@ function postInit() {
 
 	Hooks.on("renderSettingsConfig", (app, html, data) => {
 		const trigglerMenu = html.find(`button[data-key="${BUTLER.NAME}.trigglerMenu"]`)[0];
-		const exclamationMark = trigglerMenu.children[0];
-		exclamationMark.style.marginRight = "0px";
-		const rightChevron = document.createElement("i");
-		rightChevron.classList.add("fas", "fa-angle-right");
-		rightChevron.style.marginRight = "0px";
-		trigglerMenu.insertBefore(rightChevron, exclamationMark);
-		const leftChevron = document.createElement("i");
-		leftChevron.classList.add("fas", "fa-angle-left");
-		exclamationMark.after(leftChevron);
+		if (trigglerMenu) {
+			const exclamationMark = trigglerMenu.children[0];
+			exclamationMark.style.marginRight = "0px";
+			const rightChevron = document.createElement("i");
+			rightChevron.classList.add("fas", "fa-angle-right");
+			rightChevron.style.marginRight = "0px";
+			trigglerMenu.insertBefore(rightChevron, exclamationMark);
+			const leftChevron = document.createElement("i");
+			leftChevron.classList.add("fas", "fa-angle-left");
+			exclamationMark.after(leftChevron);
+		}
 	});
 
 	Hooks.on("renderMacroConfig", (app, html, data) => {

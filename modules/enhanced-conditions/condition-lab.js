@@ -72,7 +72,7 @@ export class ConditionLab extends FormApplication {
 		// If there's no default map for this system don't provide the "default" choice
 		if (!mappedSystems.includes(game.system.id)) {
 			if (this.initialMap) {
-				mapTypeChoices.default = game.i18n.localize("CLT.SETTING.EnhancedConditions.MapType.Choices.inferred");
+				mapTypeChoices.default = game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.inferred");
 			} else {
 				delete mapTypeChoices.default;
 			}

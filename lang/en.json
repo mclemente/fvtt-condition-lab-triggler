@@ -239,22 +239,22 @@
 					"ActorProperty": {
 						"Label": "Actor Update Property",
 						"Note": "Set the property path to use for Actor updates. The path is relative to the update object passed to the updateActor hook. Note that this is required if Token Update Property is not set.",
-						"Placeholder": "eg. data.attributes.hp.value"
+						"Placeholder": "eg. system.attributes.hp.value"
 					},
 					"ActorProperty2": {
 						"Label": "Actor Comparison Property",
 						"Note": "Optionally set a second property to compare the first one against--this path is relative to the Actor object itself",
-						"Placeholder": "eg. data.data.attributes.hp.max (optional)"
+						"Placeholder": "eg. system.attributes.hp.max (optional)"
 					},
 					"TokenProperty": {
 						"Label": "Token Update Property",
 						"Note": "Set the property path to use for Token updates--the path is relative to the update object passed to the updateToken hook. Note that this is required if Actor Update Property is not set.",
-						"Placeholder": "eg. actorData.attributes.hp.value"
+						"Placeholder": "eg. actor.system.attributes.hp.value"
 					},
 					"TokenProperty2": {
 						"Label": "Token Comparison Property",
 						"Note": "Optionally set a second property to compare the first one against--this path is relative to the Token object itself",
-						"Placeholder": "eg. actor.data.attributes.hp.max (optional)"
+						"Placeholder": "eg. actor.system.attributes.hp.max (optional)"
 					},
 					"Property": {
 						"Hint": "The path to the updated property to listen for. The Actor and Token Entry Point values tell Triggler where to look for each entity type"

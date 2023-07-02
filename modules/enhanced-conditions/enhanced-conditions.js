@@ -46,7 +46,7 @@ export class EnhancedConditions {
 		}
 
 		// If map type is not set and a default map exists for the system, set maptype to default
-		if (!mapType && defaultMaps instanceof Object && Object.keys(defaultMaps).includes(system)) {
+		if (!mapType && defaultMaps instanceof Object && Object.keys(defaultMaps).includes(game.system.id)) {
 			Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
 		}
 

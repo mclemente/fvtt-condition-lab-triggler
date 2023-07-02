@@ -110,11 +110,6 @@
 		],
 		"conflicts": [
 			{
-				"id": "pf2e",
-				"type": "system",
-				"manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json"
-			},
-			{
 				"id": "succ",
 				"type": "module",
 				"manifest": "https://raw.githubusercontent.com/SalieriC/SUCC/main/succ/module.json"

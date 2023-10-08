@@ -1,11 +1,5 @@
-![https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fmclemente%2Ffvtt-condition-lab-triggler%2Fmaster%2Fmodule.json](https://img.shields.io/endpoint?url=https%3A%2F%2Ffoundryshields.com%2Fversion%3Fstyle%3Dflat%26url%3Dhttps%3A%2F%2Fraw.githubusercontent.com%2Fmclemente%2Ffvtt-condition-lab-triggler%2Fmaster%2Fmodule.json)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
-
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/mclemente/fvtt-condition-lab-triggler)
-[![GitHub downloads (latest)](<https://img.shields.io/badge/dynamic/json?label=Downloads@latest&query=assets[?(@.name.includes('zip'))].download_count&url=https://api.github.com/repos/mclemente/fvtt-condition-lab-triggler/releases/latest&color=green>)](https://github.com/mclemente/fvtt-condition-lab-triggler/releases/latest)
-[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Install%20Base&query=package.installs&suffix=%&url=https://forge-vtt.com/api/bazaar/package/condition-lab-triggler&colorB=brightgreen)](https://forge-vtt.com/)
+![GitHub release (latest by SemVer and asset)](https://img.shields.io/github/downloads/mclemente/fvtt-condition-lab-triggler/latest/module.zip)
 
 # Condition Lab & Triggler
 

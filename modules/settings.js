@@ -170,18 +170,20 @@ export function registerSettings() {
 	/*                 TokenUtility                 */
 	/* -------------------------------------------- */
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
-		name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
-		hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",
-		default: "small",
-		scope: "client",
-		type: String,
-		choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
-		config: true,
-		onChange: (s) => {
-			canvas.draw();
-		},
-	});
+	if (!game.modules.get("status-halo")?.active) {
+		Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
+			name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
+			hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",
+			default: "small",
+			scope: "client",
+			type: String,
+			choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
+			config: true,
+			onChange: (s) => {
+				canvas.draw();
+			},
+		});
+	}
 
 	/* -------------------------------------------- */
 	/*                    Triggler                  */

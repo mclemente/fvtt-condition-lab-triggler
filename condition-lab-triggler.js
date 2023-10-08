@@ -41,43 +41,47 @@ Hooks.on("init", () => {
 	registerSettings();
 
 	// Wrappers
-	libWrapper.register(
-		BUTLER.NAME,
-		"Token.prototype._refreshEffects",
-		function () {
-			const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
-			// Use the default values if no setting found
-			const multiplier = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize]?.multiplier : 2;
-			const divisor = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize]?.divisor : 5;
+	if (!game.modules.get("status-halo")?.active) {
+		libWrapper.register(
+			BUTLER.NAME,
+			"Token.prototype._refreshEffects",
+			function () {
+				const effectSize = Sidekick.getSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize);
+				// Use the default values if no setting found
+				const multiplier = effectSize
+					? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize]?.multiplier
+					: 2;
+				const divisor = effectSize ? BUTLER.DEFAULT_CONFIG.tokenUtility.effectSize[effectSize]?.divisor : 5;
 
-			let i = 0;
-			const w = Math.round(canvas.dimensions.size / 2 / 5) * multiplier;
-			const rows = Math.floor(this.document.height * divisor);
+				let i = 0;
+				const w = Math.round(canvas.dimensions.size / 2 / 5) * multiplier;
+				const rows = Math.floor(this.document.height * divisor);
 
-			// Unchanged
-			const bg = this.effects.bg.clear().beginFill(0x000000, 0.4).lineStyle(1.0, 0x000000);
-			for (const effect of this.effects.children) {
-				if (effect === bg) continue;
+				// Unchanged
+				const bg = this.effects.bg.clear().beginFill(0x000000, 0.4).lineStyle(1.0, 0x000000);
+				for (const effect of this.effects.children) {
+					if (effect === bg) continue;
 
-				// Overlay effect
-				if (effect === this.effects.overlay) {
-					const size = Math.min(this.w * 0.6, this.h * 0.6);
-					effect.width = effect.height = size;
-					effect.position.set((this.w - size) / 2, (this.h - size) / 2);
+					// Overlay effect
+					if (effect === this.effects.overlay) {
+						const size = Math.min(this.w * 0.6, this.h * 0.6);
+						effect.width = effect.height = size;
+						effect.position.set((this.w - size) / 2, (this.h - size) / 2);
+					}
+
+					// Status effect
+					else {
+						effect.width = effect.height = w;
+						effect.x = Math.floor(i / rows) * w;
+						effect.y = (i % rows) * w;
+						bg.drawRoundedRect(effect.x + 1, effect.y + 1, w - 2, w - 2, 2);
+						i++;
+					}
 				}
-
-				// Status effect
-				else {
-					effect.width = effect.height = w;
-					effect.x = Math.floor(i / rows) * w;
-					effect.y = (i % rows) * w;
-					bg.drawRoundedRect(effect.x + 1, effect.y + 1, w - 2, w - 2, 2);
-					i++;
-				}
-			}
-		},
-		"OVERRIDE"
-	);
+			},
+			"OVERRIDE"
+		);
+	}
 
 	// Keybinds
 	game.keybindings.register(BUTLER.NAME, "openConditionLab", {

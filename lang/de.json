@@ -1,0 +1,198 @@
+{
+	"CLT": {
+		"ENHANCED_CONDITIONS": {
+			"OutputChatConfirm": {
+				"Title": "Chat-Ausgabe für ALLE Zustände aktivieren??",
+				"Content": "Click 'Yes' to enable 'Output to Chat' on all Conditions"
+			},
+			"ConditionLab": {
+				"NoReference": "--Kein Referenzeintrag-- (Zum Setzen Notiz, Item, Akteur etc. in dieses Feld ziehen)",
+				"FilterInputTitle": "Nach Namen filtern",
+				"FilterButtonTitle": "Filter anwenden",
+				"SortAnchorTitle": {
+					"unsorted": "Sortiere nach Name - unsortiert (Klicken zum Ändern)",
+					"asc": "Sortiere nach Name - A to Z (Klicken zum Ändern)",
+					"desc": "Sortiere nach Name - Z to A (Klicken zum Ändern)"
+				},
+				"SortDirectionSave": {
+					"Title": "Zuordnung mit Sortierreihenfolge speichern?",
+					"Content": "<p>'Ja' klicken, um die Condition Lab-Zuordnungen mit der aktuellen Sortierreihenfolge zu speichern. 'Nein' klicken, um Speichern abzubrechen.</p>",
+					"CheckboxText": "Nicht wieder anzeigen"
+				},
+				"BadReference": "Konnte keinen Link zu abgelegten Inhalt erzeugen (Akteur, Item, Notiz etc.)",
+				"RestoreDefaultClearCache": {
+					"CheckboxText": "Cache löschen und Voreinstellungen aus Modulordner laden?"
+				},
+				"Buttons": {
+					"Options": "Optionen"
+				}
+			},
+			"ChatCard": {
+				"Heading": "Verbesserte Zustände - Änderungen",
+				"HeadingActive": "Aktive Verbesserte Zustände",
+				"Title": {
+					"Added": "Hinzugefügt",
+					"Removed": "Entfernt",
+					"Active": "Aktiv"
+				}
+			},
+			"MacroConfig": {
+				"Heading": "Makros ausführen",
+				"ApplyHeading": "Makro bei Hinzufügen",
+				"RemoveHeading": "Makro bei Entfernen",
+				"Description": "Makro wählen, das ausgeführt werden soll, wenn dieser Zustand zu einer Spielfigur/einem Akteur hinzugefügt oder entfernt wird",
+				"SelectNone": "--Kein Makro--"
+			},
+			"TriggerConfig": {
+				"Heading": "Trigger",
+				"ApplyHeading": "Hinzufügen-Trigger",
+				"RemoveHeading": "Entfernen-Trigger",
+				"Description": "Trigger, die diesen Zustand hinzufügen oder entfernen",
+				"SelectNone": "--Kein Trigger--"
+			},
+			"OptionConfig": {
+				"Heading": "Optionen",
+				"Description": "Generelle Optionen für diesen Zustand",
+				"SpecialStatusEffects": {
+					"Heading": "Spezielle Statuseffekte",
+					"Description": "Spezielle Efekte, die auf Kernfunktionen von Foundry zurückgreifen."
+				},
+				"BlindToken": {
+					"Label": "Spielfigur blenden",
+					"Notes": "Zustand blendet eine Spielfigur, d.h. Umgebung wird ausgeblendet"
+				},
+				"MarkInvisible": {
+					"Label": "Als Unsichtbar markieren",
+					"Notes": "Zustand markiert Spielfigur als Unsichtbar"
+				},
+				"SpecialStatusEffectOverride": {
+					"Title": "Bestehenden Zustand für diesen Statuseffekt überschreiben?",
+					"Content": "Ein anderer Zustand ({existingCondition}) existiert bereits, der diesen speziellen Statuseffekt nutzt: {statusEffect}. <p>Wenn du 'Ja' klickst und diesen Zustand speicherst, wird er die existierende Zuordnung überschreiben.</p>"
+				},
+				"SaveNote": "Hinweis: 'Speichern' wird die Zuordnung für das Condition Lab speichern"
+			},
+
+			"GameSystemNotSupported": "CUB Verbesserte Zustände funktionieren nicht mit diesem Spielsystem. Bitte sieh ins CUB Wiki für weitere Informationen!",
+			"SimpleIconsNotSupported": "CUB Verbesserte Zustände unterstützen keine Spielsysteme, die einfache Statuseffekt-Icons verwenden.",
+			"MapMismatch": "Diese Zuordnung passt nicht zu deinem Spielsystem und funktioniert möglicherweise nicht wie erwartet.",
+			"ApplyCondition.Failed.NoToken": "Zuweisung des Zustandes fehlgeschlagen. Keine Spielfigur",
+			"ApplyCondition.Failed.NoCondition": "Zuweisung des Zustandes fehlgeschlagen. Zustand nicht gefunden:",
+			"ApplyCondition.Failed.NoIcon": "Zuweisung des Zustandes fehlgeschlagen. Icon nicht gefunden.",
+			"ApplyCondition.Failed.AlreadyActive": "ist bereits aktiv. Zuweisung des Zustands fehlgeschlagen",
+			"GetConditions.Failed.NoToken": "Zustände abrufen fehlgeschlagen. Es wurde keine Entität angegeben und es konnte keine automatisch gefunden werden",
+			"GetConditions.Failed.NoCondition": "Zustände abrufen fehlgeschlagen. Keine Zustandszuordnung gefunden",
+			"GetConditions.Failed.NoResults": "Zustände abrufen fehlgeschlagen. Keine Zustände auf Akteur/Spielfigur gefunden",
+			"RemoveCondition.Failed.NoToken": "Zustand entfernen fehlgeschlagen. Keine Spielfigur",
+			"RemoveCondition.Failed.NoCondition": "Zustand entfernen fehlgeschlagen. Konnte Zustand mit Namen nicht finden:",
+			"RemoveCondition.Failed.NoIcon": "Zustand entfernen fehlgeschlagen. Konnte Icon nicht finden",
+			"RemoveCondition.Failed.NotActive": "ist auf Spielfigur nicht aktiv. Zustand entfernen fehlgeschlagen.",
+			"RemoveAllConditions.Failed.NoToken": "Zustände entfernen fehlgeschlagen. Keine Spielfigur(en)",
+			"RemoveAllConditions.Failed.NoCondition": "Zustände entfernen fehlgeschlagen. Es gibt keine aktive Zustandszuordnung.",
+			"Lab.Title": "Condition Lab",
+			"Lab.MappingType.Label": "Zuordnungsart",
+			"Lab.MappingType.Unsaved": "(ungespeicherte Änderungen)",
+			"Lab.ActiveEffects.Title": "Aktive Effekte-Konfiguration",
+			"Lab.ActiveEffects.TitleDisabledNew": "Aktive Effekte-Konfiguration (Deaktiviert - Zuordnung zuerst speichern)",
+			"Lab.ActiveEffects.TitleDisabledDefault": "Aktive Effekte-Konfiguration (Deaktiviert - Kann Standard-Zuordnung nicht bearbeiten)",
+			"LAB.Import.NoFile": "Keine Datendatei hochgeladen!",
+			"Lab.ConfirmDeleteTitle": "Zeilenlöschung bestätigen",
+			"Lab.ConfirmDeleteContent": "Diese Zeile wirklich löschen?",
+			"Lab.RestoreDefaultsTitle": "Voreinstellungen wiederherstellen?",
+			"Lab.RestoreDefaultsContent": "<p>Diese Zuordnung wirklich auf die Voreinstellung zurücksetzen?</p><strong>Nach dem nächsten Speichern ist diese Änderung dauerhaft.</strong>",
+			"Lab.ResetFormTitle": "Formular zurücksetzen?",
+			"Lab.ResetFormContent": "<p>Soll  das Formular wirklich zurückgesetzt werden?</p><p><strong>Nicht gespeicherte Änderungen gehen verloren.</strong></p>",
+			"Lab.SaveFailed": "Condition Lab konnte nicht Speichern und Schließen",
+			"Lab.SaveSuccess": "Condition Lab-Zuordnung gespeichert!",
+			"Lab.ImportTitle": "Zustands-Zuordnung importieren",
+			"Lab.ExportTitle": "Zustands-Zuordnung exmportieren",
+			"Lab.Options.Title": "Optionen:",
+			"Lab.Options.Overlay.Label": "Überlagerung",
+			"Lab.Options.RemoveOthers.Label": "Andere entfernen",
+			"Lab.Options.OutputChat.Label": "Ausgabe im Chat",
+			"Lab.Options.MarkDefeated.Label": "Als Besiegt markieren",
+			"Lab.Options.Overlay.Title": "Zustand ist eine Überlagerung",
+			"Lab.Options.RemoveOthers.Title": "Entferne andere Zustände, wenn dieser hinzugefügt wird",
+			"Lab.Options.MarkDefeated.Title": "Markiere passende Kampfteilnehmer als besiegt, wenn dieser Zustand angewendet wird",
+			"Lab.Options.OutputChat.Title": "Diesen Zustand im Chat ausgeben, wenn er hinzugefügt/entfernt wird",
+			"PreventativeSaveReminder.Title": "CUB - Verbesserte Zustände | Präventive Speichererinnerung",
+			"PreventativeSaveReminder.Content": "<p>Um einige Probleme zu vermeiden, die sich aus der Migration zu <i>Aktiven Effekten</i> ergeben, bitte das <stark>CUB Condition Lab</strong> öffnen und auf die Schaltfläche <stark>Zuordnung speichern</strong> klicken, falls dies seit CUB v1.3.0.</p><p> nicht bereits geschehen ist. Dies stellt sicher, dass die Zustandszuordnung korrekt konvertiert wird.</p>",
+			"PreventativeSaveReminder.Suppress": "Diese Erinnerung nicht mehr zeigen",
+			"ChatCard.Title.Active": "Aktive Zustände",
+			"ChatCard.Title.Added": "Hinzugefügte Zustände",
+			"ChatCard.Title.Removed": "Entfernte Zustände",
+			"ChatCard.Buttons.Undo": "Zustand entfernen rückgängig machen",
+			"ChatCard.Buttons.Remove": "Zustand entfernen"
+		},
+		"SETTINGS": {
+			"EnhancedConditions": {
+				"EnableN": "Erweiterte Zustände aktivieren",
+				"EnableH": "Verknüpft Zustände mit Statusicons",
+				"CoreIconsN": "Kern-Status-Icons",
+				"CoreIconsH": "Eine Kopie der Kernstatus-Icons",
+				"SystemN": "Spielsystem",
+				"SystemH": "Ein Verweis auf das Spielsystem. Steht standardmäßig auf andere, wenn sie dem Modul nicht bekannt sind.",
+				"OutputChatN": "Ausgabe im Chat",
+				"OutputChatH": "Ausgabe abgeglichener Zustände im Chat",
+				"OutputCombatN": "Ausgabe während des Kampfes",
+				"OutputCombatH": "n jeder Kampfrunde alle Zustände für den aktuellen Kämpfer im Chat veröffentlichen",
+				"DefaultMapsN": "Standard-Zustandszuordnung",
+				"DefaultMapsH": "Vom Modul bereitgestellte Zuordnungen von Zuständen zu Icons",
+				"RemoveDefaultEffectsN": "Standard-Zustandseffekte entfernen",
+				"RemoveDefaultEffectsH": "Vorhandene Status-Effekt-Icons aus dem Spielfigur-HUD entfernen",
+				"MapTypeN": "Aktive Zustandszuordnungsart",
+				"MapTypeH": "Derzeit verwendeter Zustandszuordnungsart - Default, Custom oder Other",
+				"ActiveConditionMapN": "Aktive Zustandszuordnung",
+				"ActiveConditionMapH": "Speichert die aktive Zustandszuordnung",
+				"SuppressPreventativeSaveReminderN": "Präventive Speicher-Erinnerung unterdrücken",
+				"SuppressPreventativeSaveReminderH": "Die Erinnerung an das Speichern des Condition Labs zur Vermeidung von Problemen unterdrücken (z.B. wenn der Benutzer dies bereits getan hat)",
+				"MigrationVersionN": "Migrations-Version",
+				"MigrationVersionH": "CUB-Version, für die zuletzt Migration durchgeführt wurde",
+				"ShowSortDirectionDialogN": "Zeige Speicherdialog für Sortierreihenfolge im Condition Lab",
+				"ShowSortDirectionDialogH": "Legt fest, ob der Bestätigungsdialog beim Speichern der Sortierreihenfolge im Condition Lab angezeigt werden soll."
+			},
+			"TokenUtility": {
+				"TokenEffectSizeN": "Icongröße für Spielfigur-Effekte",
+				"TokenEffectSizeH": "Legt die Größe für Effekticons auf Spielfiguren fest. Zahlen geben die Anzahl der anzuzeigenden Effektsymbole an (X * Y). Voreinstellung: Small - 5x5"
+			},
+			"Triggler": {
+				"TriggersN": "Triggler-Trigger",
+				"TriggersH": "Speichert gespeicherte Triggler-Trigger."
+			}
+		},
+		"TRIGGLER": {
+			"App.TriggerType.Simple.Label": "Einfacher Trigger",
+			"App.TriggerType.Advanced.Label": "Erweiterter Trigger",
+			"App.Options.Title": "Optionen",
+			"App.SaveSuccessful": "Trigger erfolgreich gespeichert!",
+			"App.AdvancedTrigger.OperatorValue.Heading": "Operator/Wert",
+			"App.AdvancedTrigger.Name.Label": "Trigger-Name"
+		},
+		"WORDS": {
+			"Icon": "Icon",
+			"Macro": "Makro",
+			"Name": "Name",
+			"Reference": "Referenz",
+			"Save": "Speichern",
+			"IUnderstand": "Ich verstehe",
+			"Import": "Importieren",
+			"Export": "Exportieren",
+			"Cancel": "Abbrechen",
+			"_Yes": " Ja",
+			"_No": " Nein",
+			"Yes": "Ja",
+			"No": "Nein",
+			"None": "Kein",
+			"GMOnly": "Nur GM",
+			"Everyone": "Jeder",
+			"About": "Über",
+			"OK": "OK",
+			"Reset": "Zurücksetzen",
+			"Actor": "Akteur",
+			"Token": "Spielfigur",
+			"Configuration": "Konfiguration"
+		},
+		"PHRASES": {
+			"SaveAndClose": "Speichern und schließen"
+		}
+	}
+}

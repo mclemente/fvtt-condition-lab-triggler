@@ -1,0 +1,133 @@
+{
+	"CLT": {
+		"ENHANCED_CONDITIONS": {
+			"MapMismatch": "该映射与你的游戏系统并不匹配，可能不会按预期工作。",
+			"ApplyCondition.Failed.NoToken": "应用状态失败。没有提供指示物。",
+			"ApplyCondition.Failed.NoCondition": "应用状态失败。没有找到状态：",
+			"ApplyCondition.Failed.NoIcon": "应用状态失败。没有找到图标。",
+			"ApplyCondition.Failed.AlreadyActive": "已经激活。应用状态失败，",
+
+			"GetConditions.Failed.NoToken": "获取状态失败。没有提供条目并且无法自动检索",
+			"GetConditions.Failed.NoCondition": "获取状态失败。没有找到状态映射。",
+			"GetConditions.Failed.NoResults": "获取状态失败。没有在角色/指示物上找到状态",
+
+			"RemoveCondition.Failed.NoToken": "移除状态失败。没有提供指示物",
+			"RemoveCondition.Failed.NoCondition": "移除状态失败。没有找到状态名为：",
+			"RemoveCondition.Failed.NoIcon": "移除状态失败。没有找到图表",
+			"RemoveCondition.Failed.NotActive": "并不在指示物上激活。移除状态失败。",
+
+			"RemoveAllConditions.Failed.NoToken": "移除状态失败。没有提供指示物",
+			"RemoveAllConditions.Failed.NoCondition": "移除状态失败。没有激活的状态映射",
+
+			"Lab.Title": "状态实验室",
+			"Lab.Hint": "提供将状态和指示物上的状态效果图标映射的功能。",
+			"Lab.MappingType.Label": "映射类型",
+			"Lab.MappingType.Unsaved": "(更改未保存)",
+			"Lab.ActiveEffects.Title": "主动效果配置",
+			"Lab.ActiveEffects.TitleDisabled": "主动效果配置(已禁用 - 先保存映射)",
+			"LAB.Import.NoFile": "你没有上传数据文件！",
+			"Lab.ConfirmDeleteTitle": "确认删除行",
+			"Lab.ConfirmDeleteContent": "你确定要删除这一行吗？",
+			"Lab.RestoreDefaultsTitle": "还原默认值？",
+			"Lab.RestoreDefaultsContent": "<p>你确定要还原该映射到默认值吗？</p><strong>如果保存，该改变将永久生效。</strong>",
+			"Lab.ResetFormTitle": "重置表单？",
+			"Lab.ResetFormContent": "<p>你确定要重置该表单吗？</p><p><strong>你将会失去所有没有保存的更改。</strong></p>",
+			"Lab.SaveFailed": "状态实验室保存失败并关闭",
+			"Lab.SaveSuccess": "状态实验室映射已保存！",
+			"Lab.ImportTitle": "导入状态映射",
+			"Lab.ExportTitle": "导出状态映射",
+			"Lab.Options.Title": "选项：",
+			"Lab.Options.Overlay.Label": "覆盖层",
+			"Lab.Options.RemoveOthers.Label": "移除其他",
+			"Lab.Options.OutputChat.Label": "输出到聊天",
+			"Lab.Options.MarkDefeated.Label": "标记战败",
+			"Lab.Options.Overlay.Title": "状态是覆盖层",
+			"Lab.Options.RemoveOthers.Title": "当该项应用时移除其他状态",
+			"Lab.Options.MarkDefeated.Title": "当该状态应用时标记对应的参战者为战败",
+			"Lab.Options.OutputChat.Title": "当该状态添加或移除时输出到聊天中",
+			"PreventativeSaveReminder.Title": "CUB - 状态增强 | 保存预警提醒",
+			"PreventativeSaveReminder.Content": "<p>为避免迁移到<i>主动状态</i>时出现一些问题，请打开<strong>状态实验室</strong>并点击<strong>保存映射</strong>按钮，除非你已经在CUB v1.3.0后如此做过。</p><p>这将保证你的状态映射正确转换。</p>",
+			"PreventativeSaveReminder.Suppress": "不再显示此提醒",
+
+			"ChatCard.Title.Active": "激活状态",
+			"ChatCard.Title.Added": "已添加状态",
+			"ChatCard.Title.Removed": "已移除状态",
+
+			"ChatCard.Buttons.Undo": "撤销移除状态",
+			"ChatCard.Buttons.Remove": "移除状态"
+		},
+		"SETTINGS": {
+			"EnhancedConditions": {
+				"EnableN": "启用状态增强",
+				"EnableH": "链接状态和图标",
+				"CoreIconsN": "核心状态图标",
+				"CoreIconsH": "复制核心状态图标",
+				"SystemN": "游戏系统",
+				"SystemH": "参考游戏系统。如果MOD无法判断默认使用其他值",
+				"OutputChatN": "输出到聊天",
+				"OutputChatH": "输出对应的状态到聊天中",
+				"OutputCombatN": "战斗中输出",
+				"OutputCombatH": "在战斗中的每一轮，输出当前参战者的所有状态到聊天中",
+				"DefaultMapsN": "默认状态映射",
+				"DefaultMapsH": "MOD-提供的状态到图标的映射",
+				"RemoveDefaultEffectsN": "移除默认状态效果",
+				"RemoveDefaultEffectsH": "从指示物的HUD中移除已存在的状态效果图标",
+				"MapTypeN": "激活的状态映射类型",
+				"MapTypeH": "当前使用的状态映射类型 -- 默认值, 自定义或其他",
+				"ActiveConditionMapN": "激活的状态映射",
+				"ActiveConditionMapH": "存储激活的状态映射",
+				"SuppressPreventativeSaveReminderN": "消除保存预警提醒",
+				"SuppressPreventativeSaveReminderH": "消除保存状态实验室以避免问题的提醒 （例如用户已经这么做了）"
+			},
+			"TokenUtility": {
+				"TokenEffectSizeN": "指示物效果图标尺寸",
+				"TokenEffectSizeH": "设置在指示物上的指示物效果图标大小。数字代表可以显示多少效果图标（X * Y）。默认：Small - 5x5"
+			},
+			"Triggler": {
+				"TriggersN": "触发器触发",
+				"TriggersH": "一个触发器管理系统，处理指示物/角色的属性改变"
+			}
+		},
+		"TRIGGLER": {
+			"App.AdvancedTrigger.Actor.Note": "设置用于Actor更新的属性路径——该路径相对于传递给更新角色钩子的更新对象。",
+			"App.AdvancedTrigger.Actor.Note2": "可以选择设置第二个属性来比较第一个属性——此路径相对于角色对象本身",
+			"App.AdvancedTrigger.Token.Note": "设置用于令牌更新的属性路径——该路径相对于传递给更新指示物钩子的更新对象。",
+			"App.AdvancedTrigger.Token.Note2": "可以选择设置第二个属性来比较第一个属性——此路径相对于指示物对象本身",
+			"App.AdvancedTrigger.ActorProperty.Label": "角色更新属性",
+			"App.AdvancedTrigger.ActorProperty.Placeholder": "例如 data.attributes.hp.value (如果未设置角色更新属性，则为必需)",
+			"App.AdvancedTrigger.ActorProperty2.Label": "角色比较属性",
+			"App.AdvancedTrigger.ActorProperty2.Placeholder": "例如 data.data.attributes.hp.max (可选择的)",
+			"App.AdvancedTrigger.TokenProperty.Label": "指示物更新属性",
+			"App.AdvancedTrigger.TokenProperty.Placeholder": "例如 actorData.attributes.hp.value (如果未设置指示物更新属性，则为必需)",
+			"App.AdvancedTrigger.TokenProperty2.Label": "指示物比较属性",
+			"App.AdvancedTrigger.TokenProperty2.Placeholder": "例如 actor.data.attributes.hp.max (可选择的)",
+			"App.AdvancedTrigger.Property.Hint": "要侦听的已更新属性的路径。角色和指示物入口点值告诉触发器在哪里查找每个实体类型",
+			"App.TriggerType.Simple.Label": "简单触发器",
+			"App.TriggerType.Advanced.Label": "高级触发器",
+			"App.Options.Title": "选项",
+			"App.SaveSuccessful": "触发器成功保存！",
+			"App.AdvancedTrigger.OperatorValue.Heading": "Operator/Value",
+			"App.AdvancedTrigger.OperatorValue.Note": "总是必需的。运算符和值应用于上面设置的角色和指示物属性",
+			"App.AdvancedTrigger.Name.Label": "触发器名称",
+			"App.AdvancedTrigger.Name.Placeholder": "(高级触发器需要)",
+			"App.AdvancedTrigger.Name.Warning": "高级触发器需要名称!"
+		},
+		"WORDS": {
+			"IUnderstand": "我已了解",
+			"Import": "导入",
+			"Export": "导出",
+			"Cancel": "取消",
+			"Yes": "是",
+			"No": "否",
+			"None": "None",
+			"GMOnly": "仅限GM",
+			"Everyone": "所有人",
+			"About": "关于",
+			"OK": "OK",
+			"Save": "保存",
+			"Reset": "重置",
+			"Actor": "角色",
+			"Token": "指示物"
+		}
+	}
+}

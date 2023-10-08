@@ -92,7 +92,7 @@ export class ConditionLab extends FormApplication {
 			const entry = conditionMap[i];
 			// Check if the row exists in the saved map
 			const existingEntry = this.initialMap.find((e) => e.id === entry.id) ?? null;
-			entry.name = game.i18n.localize(entry.name);
+			entry.label = game.i18n.localize(entry.name);
 			entry.isNew = !existingEntry;
 			entry.isChanged = this._hasEntryChanged(entry, existingEntry, i);
 
@@ -604,7 +604,7 @@ export class ConditionLab extends FormApplication {
 	 * @returns filteredMap
 	 */
 	_filterMapByName(map, filter) {
-		return map.map((c) => ({ ...c, hidden: !c.name.toLowerCase().includes(filter.toLowerCase()) }));
+		return map.map((c) => ({ ...c, hidden: !c.label.toLowerCase().includes(filter.toLowerCase()) }));
 	}
 
 	/**

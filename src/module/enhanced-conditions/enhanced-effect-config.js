@@ -43,7 +43,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	async _updateObject(event, formData) {
 		const conditionIdFlag = getProperty(
 			this.object.flags,
-			`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`
+			`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`,
 		);
 		if (!conditionIdFlag) return;
 

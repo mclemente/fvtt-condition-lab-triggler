@@ -1,20 +1,20 @@
 /* -------------------------------------------- */
 /*                    Imports                   */
 /* -------------------------------------------- */
-import { Butler as BUTLER } from "./modules/butler.js";
-import { registerSettings } from "./modules/settings.js";
-import { Sidekick } from "./modules/sidekick.js";
+import { Butler as BUTLER } from "./butler.js";
+import { registerSettings } from "./settings.js";
+import { Sidekick } from "./sidekick.js";
 
 /* ------------------ Gadgets ----------------- */
 
-import { EnhancedConditions } from "./modules/enhanced-conditions/enhanced-conditions.js";
+import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
 
 /* ------------------- Utils ------------------ */
 
-import { ConditionLab } from "./modules/enhanced-conditions/condition-lab.js";
-import { TrigglerForm } from "./modules/triggler/triggler-form.js";
-import { Triggler } from "./modules/triggler/triggler.js";
-import MigrationHelper from "./modules/utils/migration.js";
+import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
+import { TrigglerForm } from "./triggler/triggler-form.js";
+import { Triggler } from "./triggler/triggler.js";
+import MigrationHelper from "./utils/migration.js";
 
 /* -------------------------------------------- */
 /*                    System                    */
@@ -25,7 +25,7 @@ import MigrationHelper from "./modules/utils/migration.js";
 // Register all handlebars helpers
 Handlebars.registerHelper({
 	hidden(value) {
-		return Boolean(value) ? "hidden" : "";
+		return value ? "hidden" : "";
 	},
 });
 
@@ -79,7 +79,7 @@ Hooks.on("init", () => {
 					}
 				}
 			},
-			"OVERRIDE"
+			"OVERRIDE",
 		);
 	}
 
@@ -124,7 +124,7 @@ function postInit() {
 	Hooks.on("updateActor", (actor, updateData, options, userId) => {
 		// Workaround for actor array returned in hook for non triggering clients
 		if (actor instanceof Collection) {
-			actor = actor.contents.find((a) => a.id === update.id);
+			actor = actor.contents.find((a) => a.id === updateData.id);
 		}
 		Triggler._onUpdateActor(actor, updateData, options, userId);
 	});

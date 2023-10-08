@@ -95,7 +95,7 @@ export class Sidekick {
 		try {
 			const jsonFile = await fetch(file);
 			const json = await jsonFile.json();
-			if (!json instanceof Object) throw new Error("Not a valid JSON!");
+			if (!(json instanceof Object)) throw new Error("Not a valid JSON!");
 			return json;
 		} catch (e) {
 			console.warn(e.message);
@@ -255,12 +255,12 @@ export class Sidekick {
 			console.log(
 				`Combat Utility Belt - Sidekick | Id ${id} already exists in the provided list of ids. ${
 					i ? `This is attempt ${i} of ${iterations} ` : ""
-				}Trying again...`
+				}Trying again...`,
 			);
 		}
 
 		throw new Error(
-			`Combat Utility Belt - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`
+			`Combat Utility Belt - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`,
 		);
 	}
 
@@ -279,12 +279,12 @@ export class Sidekick {
 	 * @param {*} param2
 	 */
 	static replaceOnDocument(pattern, string, { target = document.body } = {}) {
-		// Handle `string` — see the last section
+		// Handle `string` — see the last section
 		[target, ...target.querySelectorAll("*:not(script):not(noscript):not(style)")].forEach(
 			({ childNodes: [...nodes] }) =>
 				nodes
 					.filter(({ nodeType }) => nodeType === document.TEXT_NODE)
-					.forEach((textNode) => (textNode.textContent = textNode.textContent.replace(pattern, string)))
+					.forEach((textNode) => (textNode.textContent = textNode.textContent.replace(pattern, string))),
 		);
 	}
 

@@ -1,25 +1,40 @@
 {
-	"name": "condition-lab-triggler",
-	"version": "1.10.4",
-	"description": "Combat-focused module for Foundry vtt",
-	"main": "condition-lab-triggler.js",
+	"scripts": {
+		"build": "gulp build",
+		"build:watch": "gulp watch",
+		"link-project": "gulp link",
+		"clean": "gulp clean",
+		"clean:link": "gulp link --clean",
+		"lint": "eslint --ext .js,.cjs,.mjs .",
+		"lint:fix": "eslint --ext .js,.cjs,.mjs --fix .",
+		"format": "prettier --write \"./**/*.(js|cjs|mjs|json|yml|css)\"",
+		"postinstall": "husky install",
+		"docs": "gulp docs"
+	},
 	"devDependencies": {
 		"@pixi/jsdoc-template": "^2.6.0",
 		"gitignore": "^0.6.0",
 		"gulp": "^4.0.2",
-		"jsdoc-to-markdown": "^6.0.1"
+		"jsdoc-to-markdown": "^6.0.1",
+		"@babel/eslint-parser": "^7.22.9",
+		"@rollup/plugin-node-resolve": "^15.1.0",
+		"@rollup/stream": "^3.0.0",
+		"@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
+		"eslint": "^8.44.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-prettier": "^5.0.0",
+		"fs-extra": "^11.1.1",
+		"gulp-sourcemaps": "^3.0.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.3",
+		"prettier": "^3.0.0",
+		"rollup": "^2.79.1",
+		"vinyl-buffer": "^1.0.1",
+		"vinyl-source-stream": "^2.0.0",
+		"yargs": "^17.7.2"
 	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/fvtt-mclemente/condition-lab-triggler.git"
-	},
-	"author": "Evan Clarke",
-	"license": "SEE LICENSE IN LICENSE",
-	"bugs": {
-		"url": "https://github.com/fvtt-mclemente/condition-lab-triggler/issues"
-	},
-	"homepage": "https://github.com/fvtt-mclemente/condition-lab-triggler#readme"
+	"lint-staged": {
+		"*.(js|cjs|mjs)": "eslint --fix",
+		"*.(json|yml|css)": "prettier --write"
+	}
 }

@@ -304,7 +304,7 @@ export class TrigglerForm extends FormApplication {
 		}
 
 		const setting = await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
-		if (!!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
+		if (!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
 
 		this.render();
 	}
@@ -396,7 +396,7 @@ export class TrigglerForm extends FormApplication {
 				onclick: async (ev) => {
 					this._exportToJSON();
 				},
-			}
+			},
 		);
 
 		return buttons;

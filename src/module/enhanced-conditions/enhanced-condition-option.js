@@ -53,14 +53,14 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	/**
 	 * Checkbox change event handler
 	 * @param {*} event
-	 * @returns
+	 * @returns {}
 	 */
 	_onCheckboxChange(event) {
 		if (!event.target?.checked) return;
 		const targetName = event.target?.name;
 		const propertyName = Sidekick.toCamelCase(targetName, "-");
 		const specialStatusEffectsProps = Object.values(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects,
 		).map((k) => k.optionProperty);
 
 		if (!propertyName || !specialStatusEffectsProps) return;
@@ -83,7 +83,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		const existingCondition = game.clt.conditions.find((c) => {
 			const optionValue = foundry.utils.getProperty(
 				c,
-				`options.${Sidekick.toCamelCase(event.detail.statusName, "-")}`
+				`options.${Sidekick.toCamelCase(event.detail.statusName, "-")}`,
 			);
 			return c.id !== event.detail.conditionId && optionValue == true;
 		});
@@ -91,14 +91,14 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 			event.preventDefault();
 			// raise a dialog asking for override
 			const title = game.i18n.localize(
-				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`
+				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`,
 			);
 			const content = game.i18n.format(
 				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`,
 				{
 					existingCondition: existingCondition.name,
 					statusEffect: event.detail.statusLabel ?? event.detail.statusName,
-				}
+				},
 			);
 			const yes = () => {};
 			const no = () => {
@@ -119,7 +119,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	async _updateObject(event, formData) {
 		this.object.options = {};
 		const specialStatusEffectMapping = Sidekick.getSetting(
-			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
+			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
 		);
 		const map = game.clt.conditionLab.map;
 		const newMap = foundry.utils.deepClone(map);
@@ -127,7 +127,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 		for (const field in formData) {
 			const value = formData[field];
-			const element = event.target?.querySelector(`input[name="${field}"]`);
 			const propertyName = Sidekick.toCamelCase(field, "-");
 			const specialStatusEffect = this.getSpecialStatusEffectByField(field);
 
@@ -182,12 +181,12 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	 * @param {*} conditionId
 	 */
 	setSpecialStatusEffectMapping(effect, conditionId = null) {
-		if (!CONFIG.specialStatusEffects.hasOwnProperty(effect)) return;
+		if (!Object.prototype.hasOwnProperty.call(CONFIG.specialStatusEffects, effect)) return;
 
 		CONFIG.specialStatusEffects[effect] = conditionId ? `${BUTLER.NAME}.${conditionId}` : "";
 		Sidekick.setSetting(
 			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
-			CONFIG.specialStatusEffects
+			CONFIG.specialStatusEffects,
 		);
 	}
 }

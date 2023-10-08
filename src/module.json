@@ -16,7 +16,7 @@
 	"readme": "https://github.com/mclemente/fvtt-condition-lab-triggler/wiki",
 	"manifest": "https://github.com/mclemente/fvtt-condition-lab-triggler/releases/latest/download/module.json",
 	"download": "https://github.com/mclemente/fvtt-condition-lab-triggler/releases/latest/download/module.zip",
-	"esmodules": ["condition-lab-triggler.js"],
+	"esmodules": ["module/condition-lab-triggler.js"],
 	"languages": [
 		{
 			"lang": "en",

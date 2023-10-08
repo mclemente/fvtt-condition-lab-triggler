@@ -12,8 +12,8 @@ export class Triggler {
 
 	/**
 	 * Parses triggers JSON and returns triggers
-	 * @param {*} json
-	 * @returns {[{Object}]}
+	 * @param {{}} json
+	 * @returns {Array}
 	 */
 	static triggersFromJson(json) {
 		if (json.system !== game.system.id) {
@@ -55,7 +55,7 @@ export class Triggler {
 
 		if (triggerType === "advanced" && !trigger.advancedName.length) {
 			console.warn(
-				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
+				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`,
 			);
 			return false;
 		}
@@ -117,7 +117,7 @@ export class Triggler {
 		const matchedApplyConditions = conditionMap.filter((m) => m.applyTrigger === trigger.id);
 		const matchedRemoveConditions = conditionMap.filter((m) => m.removeTrigger === trigger.id);
 		const matchedMacros = game.macros.contents.filter(
-			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
+			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id,
 		);
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);

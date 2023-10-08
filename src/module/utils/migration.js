@@ -43,7 +43,7 @@ export default class MigrationHelper {
 								if (status.referenceId.includes("combat-utility-belt")) {
 									status.referenceId = status.referenceId.replace(
 										"combat-utility-belt",
-										`${BUTLER.NAME}`
+										`${BUTLER.NAME}`,
 									);
 								}
 							});

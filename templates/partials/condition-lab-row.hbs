@@ -55,7 +55,8 @@
                                     {{localize "CLT.ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew"}}
                                     {{else if isDefault}}{{localize "CLT.ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault"}}
                                     {{/if}}"
-                                        {{disabled (or condition.isNew isDefault)}}>
+                                        {{disabled (or condition.isNew isDefault)}}
+                                    data-tooltip-direction="UP">
                             <i class="fas fa-hand-sparkles"></i> Active Effect
                         </button>
                         <div class="flex-break"></div>
@@ -82,7 +83,7 @@
                 </div>
                 <div class="remove-row">
                     {{#unless isDefault}}
-                    <a name="remove-row-{{@index}}" class="remove-row" data-tooltip="Delete Row">
+                    <a name="remove-row-{{@index}}" class="remove-row"
                         <i class="fas fa-trash"></i>
                     </a>
                     {{/unless}}

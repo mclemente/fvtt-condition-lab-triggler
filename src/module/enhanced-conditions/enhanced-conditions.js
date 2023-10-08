@@ -917,6 +917,7 @@ export class EnhancedConditions {
 				label: c.name,
 				icon: c.icon,
 				changes: c.activeEffect?.changes || [],
+				description: c.activeEffect?.description || "",
 				duration: c.duration || c.activeEffect?.duration || {},
 				flags: {
 					...c.activeEffect?.flags,

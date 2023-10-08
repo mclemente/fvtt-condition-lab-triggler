@@ -18,7 +18,7 @@ export class EnhancedConditions {
 	 * 4. Override status effects
 	 */
 	static async _onReady() {
-		game.cub.enhancedConditions.supported = false;
+		game.clt.enhancedConditions.supported = false;
 		if (CONFIG.statusEffects.length && typeof CONFIG.statusEffects[0] == "string") {
 			console.warn(game.i18n.localize(`CLT.ENHANCED_CONDITIONS.SimpleIconsNotSupported`));
 			return;
@@ -83,11 +83,11 @@ export class EnhancedConditions {
 		setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
 
 		// Save the active condition map to a convenience property
-		if (game.cub) {
-			game.cub.conditions = conditionMap;
+		if (game.clt) {
+			game.clt.conditions = conditionMap;
 		}
 
-		game.cub.enhancedConditions.supported = true;
+		game.clt.enhancedConditions.supported = true;
 	}
 
 	/**
@@ -1102,13 +1102,13 @@ export class EnhancedConditions {
 	 * @param {Boolean} [options.replaceExisting=false]  whether or not to replace existing Conditions with any duplicates in the `conditionName` parameter. If `allowDuplicates` is true and `replaceExisting` is false then a duplicate condition is created. Has no effect is `keepDuplicates` is `false`
 	 * @example
 	 * // Add the Condition "Blinded" to an Actor named "Bob". Duplicates will not be created.
-	 * game.cub.addCondition("Blinded", game.actors.getName("Bob"));
+	 * game.clt.addCondition("Blinded", game.actors.getName("Bob"));
 	 * @example
 	 * // Add the Condition "Charmed" to the currently controlled Token/s. Duplicates will not be created.
-	 * game.cub.addCondition("Charmed");
+	 * game.clt.addCondition("Charmed");
 	 * @example
 	 * // Add the Conditions "Blinded" and "Charmed" to the targeted Token/s and create duplicates, replacing any existing Conditions of the same names.
-	 * game.cub.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
+	 * game.clt.addCondition(["Blinded", "Charmed"], [...game.user.targets], {allowDuplicates: true, replaceExisting: true});
 	 */
 	static async addCondition(
 		conditionName,
@@ -1271,10 +1271,10 @@ export class EnhancedConditions {
 	 * @returns {Array} entityConditionMap  a mapping of conditions for each provided entity
 	 * @example
 	 * // Get conditions for an Actor named "Bob"
-	 * game.cub.getConditions(game.actors.getName("Bob"));
+	 * game.clt.getConditions(game.actors.getName("Bob"));
 	 * @example
 	 * // Get conditions for the currently controlled Token
-	 * game.cub.getConditions();
+	 * game.clt.getConditions();
 	 */
 	static getConditions(entities = null, { warn = true } = {}) {
 		if (!entities) {
@@ -1430,10 +1430,10 @@ export class EnhancedConditions {
 	 * @returns {Boolean} hasCondition  Returns true if one or more of the provided entities has one or more of the provided conditions
 	 * @example
 	 * // Check for the "Blinded" condition on Actor "Bob"
-	 * game.cub.hasCondition("Blinded", game.actors.getName("Bob"));
+	 * game.clt.hasCondition("Blinded", game.actors.getName("Bob"));
 	 * @example
 	 * // Check for the "Charmed" and "Deafened" conditions on the controlled tokens
-	 * game.cub.hasCondition(["Charmed", "Deafened"]);
+	 * game.clt.hasCondition(["Charmed", "Deafened"]);
 	 */
 	static hasCondition(conditionName, entities = null, { warn = true } = {}) {
 		if (!conditionName) {
@@ -1514,10 +1514,10 @@ export class EnhancedConditions {
 	 * @param {Boolean} options.warn  whether or not to raise warnings on errors
 	 * @example
 	 * // Remove Condition named "Blinded" from an Actor named Bob
-	 * game.cub.removeCondition("Blinded", game.actors.getName("Bob"));
+	 * game.clt.removeCondition("Blinded", game.actors.getName("Bob"));
 	 * @example
 	 * // Remove Condition named "Charmed" from the currently controlled Token, but don't show any warnings if it fails.
-	 * game.cub.removeCondition("Charmed", {warn=false});
+	 * game.clt.removeCondition("Charmed", {warn=false});
 	 */
 	static async removeCondition(conditionName, entities = null, { warn = true } = {}) {
 		if (!entities) {
@@ -1615,10 +1615,10 @@ export class EnhancedConditions {
 	 * @param {Boolean} options.warn  output notifications
 	 * @example
 	 * // Remove all Conditions on an Actor named Bob
-	 * game.cub.removeAllConditions(game.actors.getName("Bob"));
+	 * game.clt.removeAllConditions(game.actors.getName("Bob"));
 	 * @example
 	 * // Remove all Conditions on the currently controlled Token
-	 * game.cub.removeAllConditions();
+	 * game.clt.removeAllConditions();
 	 */
 	static async removeAllConditions(entities = null, { warn = true } = {}) {
 		if (!entities) {
@@ -1666,7 +1666,7 @@ export class EnhancedConditions {
 
 		if (foundry.utils.isNewerVersion(cubVersion, conditionMigrationVersion)) {
 			console.log(`${BUTLER.TITLE} | Performing Enhanced Condition migration...`);
-			EnhancedConditions._migrateConditionIds(game.cub?.conditions);
+			EnhancedConditions._migrateConditionIds(game.clt?.conditions);
 			await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, cubVersion);
 			console.log(`${BUTLER.TITLE} | Enhanced Condition migration complete!`);
 		}

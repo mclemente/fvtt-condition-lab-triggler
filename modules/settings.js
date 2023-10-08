@@ -22,7 +22,7 @@ export function registerSettings() {
 					title: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
 					content: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
 					yes: () => {
-						const newMap = deepClone(game.cub.conditions);
+						const newMap = deepClone(game.clt.conditions);
 						if (!newMap.length) return;
 						newMap.forEach((c) => (c.options.outputChat = true));
 						Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
@@ -160,8 +160,8 @@ export function registerSettings() {
 			await EnhancedConditions._updateStatusEffects(conditionMap);
 
 			// Save the active condition map to a convenience property
-			if (game.cub) {
-				game.cub.conditions = conditionMap;
+			if (game.clt) {
+				game.clt.conditions = conditionMap;
 			}
 		},
 	});

@@ -53,7 +53,7 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 			this.object[`${type}Trigger`] = formData[field];
 		}
 
-		const map = game.cub.conditions;
+		const map = game.clt.conditions;
 		const newMap = foundry.utils.duplicate(map);
 
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);

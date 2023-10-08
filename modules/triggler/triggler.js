@@ -7,7 +7,7 @@ import { Sidekick } from "../sidekick.js";
  */
 export class Triggler {
 	constructor() {
-		game.cub.triggler = this;
+		game.clt.triggler = this;
 	}
 
 	/**

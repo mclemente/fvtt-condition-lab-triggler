@@ -35,7 +35,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 		if (!conditionIdFlag) return;
 
 		// find the matching condition row
-		const map = ui.cub?.conditionLab?.map;
+		const map = ui.clt?.conditionLab?.map;
 
 		if (!map && !map.length) return;
 
@@ -50,10 +50,10 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
 		this.object.updateSource(formData);
 		if (this._state == 2) await this.render();
-		if (ui.cub.conditionLab) {
-			ui.cub.conditionLab.map = ui.cub.conditionLab.updatedMap;
-			//ui.cub.conditionLab.unsaved = true;
-			ui.cub.conditionLab.render();
+		if (ui.clt.conditionLab) {
+			ui.clt.conditionLab.map = ui.clt.conditionLab.updatedMap;
+			//ui.clt.conditionLab.unsaved = true;
+			ui.clt.conditionLab.render();
 		}
 	}
 }

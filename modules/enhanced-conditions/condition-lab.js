@@ -13,8 +13,8 @@ import EnhancedEffectConfig from "./enhanced-effect-config.js";
 export class ConditionLab extends FormApplication {
 	constructor(object, options = {}) {
 		super(object, options);
-		game.cub.conditionLab = this;
-		this.data = (game.cub.conditionLab ? game.cub.conditionLab.data : object) ?? null;
+		game.clt.conditionLab = this;
+		this.data = (game.clt.conditionLab ? game.clt.conditionLab.data : object) ?? null;
 		this.system = game.system.id;
 		this.initialMapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
 		this.mapType = null;
@@ -461,7 +461,7 @@ export class ConditionLab extends FormApplication {
 	 * @param {*} data
 	 */
 	static _onRender(app, html, data) {
-		ui.cub.conditionLab = app;
+		ui.clt.conditionLab = app;
 	}
 
 	/**
@@ -487,7 +487,7 @@ export class ConditionLab extends FormApplication {
 	 */
 	static async _onRenderRestoreDefaultsDialog(app, html, data) {
 		if (
-			game.cub.conditionLab.mapType !==
+			game.clt.conditionLab.mapType !==
 			Sidekick.getKeyByValue(
 				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
 				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default

@@ -80,7 +80,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	 */
 	static async _onSpecialStatusEffectToggle(event) {
 		// is another condition already using this special status effect?
-		const existingCondition = game.cub.conditions.find((c) => {
+		const existingCondition = game.clt.conditions.find((c) => {
 			const optionValue = foundry.utils.getProperty(
 				c,
 				`options.${Sidekick.toCamelCase(event.detail.statusName, "-")}`
@@ -121,7 +121,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		const specialStatusEffectMapping = Sidekick.getSetting(
 			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
 		);
-		const map = game.cub.conditionLab.map;
+		const map = game.clt.conditionLab.map;
 		const newMap = foundry.utils.deepClone(map);
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);
 
@@ -154,7 +154,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		}
 
 		newMap[conditionIndex] = this.object;
-		await game.cub.conditionLab._saveMapping(newMap);
+		await game.clt.conditionLab._saveMapping(newMap);
 		await this.close();
 	}
 

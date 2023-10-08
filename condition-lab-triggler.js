@@ -31,8 +31,8 @@ Handlebars.registerHelper({
 
 Hooks.on("init", () => {
 	// Assign the namespace Object if it already exists or instantiate it as an object if not
-	game.cub = new BUTLER();
-	ui.cub = ui.cub ?? {};
+	game.cub = game.clt = new BUTLER();
+	ui.cub = ui.clt = ui.cub ?? {};
 
 	// Execute housekeeping
 	Sidekick.handlebarsHelpers();

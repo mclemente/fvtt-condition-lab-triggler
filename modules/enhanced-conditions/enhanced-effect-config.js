@@ -1,25 +1,38 @@
 import { Butler as BUTLER } from "../butler.js";
 
 export default class EnhancedEffectConfig extends ActiveEffectConfig {
-	/**
-	 * Get data for template rendering
-	 * @param {*} options
-	 * @inheritdoc
-	 */
-	getData(options) {
-		const effect = this.object.toObject();
-		return {
-			effect: effect, // Backwards compatibility
-			data: this.object.toObject(),
-			// Manually set effect type
+	get title() {
+		const reference = this.document.name ? ` ${game.i18n.localize(this.document.name)}` : "";
+		return `${game.i18n.localize(this.document.constructor.metadata.label)}${reference}`;
+	}
+
+	/** @override */
+	async getData(options = {}) {
+		const context = await DocumentSheet.prototype.getData.call(this, options);
+		context.descriptionHTML = await TextEditor.enrichHTML(this.object.description, {
+			async: true,
+			secrets: this.object.isOwner,
+		});
+		const legacyTransfer = CONFIG.ActiveEffect.legacyTransferral;
+		const labels = {
+			transfer: {
+				name: game.i18n.localize(`EFFECT.Transfer${legacyTransfer ? "Legacy" : ""}`),
+				hint: game.i18n.localize(`EFFECT.TransferHint${legacyTransfer ? "Legacy" : ""}`),
+			},
+		};
+		const data = {
+			labels,
+			effect: this.object, // Backwards compatibility
+			data: this.object,
 			isActorEffect: true,
 			isItemEffect: false,
 			submitText: "EFFECT.Submit",
 			modes: Object.entries(CONST.ACTIVE_EFFECT_MODES).reduce((obj, e) => {
-				obj[e[1]] = game.i18n.localize("EFFECT.MODE_" + e[0]);
+				obj[e[1]] = game.i18n.localize(`EFFECT.MODE_${e[0]}`);
 				return obj;
 			}, {}),
 		};
+		return foundry.utils.mergeObject(context, data);
 	}
 
 	/**

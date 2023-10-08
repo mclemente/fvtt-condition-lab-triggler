@@ -929,7 +929,6 @@ export class EnhancedConditions {
 				flags: {
 					...c.activeEffect?.flags,
 					core: {
-						statusId: longId,
 						[BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false,
 					},
 					[BUTLER.NAME]: {

@@ -79,7 +79,6 @@ export class ConditionLab extends FormApplication {
 		}
 
 		const mapType = (this.mapType = this.mapType || this.initialMapType || "other");
-		const system = this.system || game.system.id;
 		let conditionMap = this.map ? this.map : (this.map = duplicate(this.initialMap));
 		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers).map((t) => {
 			return [t.id, t.text];
@@ -93,6 +92,7 @@ export class ConditionLab extends FormApplication {
 			const entry = conditionMap[i];
 			// Check if the row exists in the saved map
 			const existingEntry = this.initialMap.find((e) => e.id === entry.id) ?? null;
+			entry.name = game.i18n.localize(entry.name);
 			entry.isNew = !existingEntry;
 			entry.isChanged = this._hasEntryChanged(entry, existingEntry, i);
 

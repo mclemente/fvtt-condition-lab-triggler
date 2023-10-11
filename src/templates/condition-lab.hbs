@@ -34,7 +34,7 @@
 
     <ol class="condition-lab list">
         {{#each displayedMap as |condition key|}}
-        {{> "modules/condition-lab-triggler/templates/partials/condition-lab-row.hbs" condition=condition key=key isDefault=../isDefault conditionMapLength=../displayedMap.length sortDirection=../sortDirection}}
+        {{> "modules/condition-lab-triggler/templates/partials/condition-lab-row.hbs" condition=condition key=key isDefault=../isDefault conditionMapLength=../conditionMapLength sortDirection=../sortDirection}}
         {{/each}}
         <div class="flexrow add-row">
             <a name="add-row" data-tooltip="Add Row">

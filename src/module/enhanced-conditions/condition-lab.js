@@ -117,6 +117,7 @@ export class ConditionLab extends FormApplication {
 		}
 
 		const displayedMap = this.displayedMap;
+		const conditionMapLength = displayedMap.length - 1;
 
 		let unsavedMap = false;
 		if (
@@ -137,6 +138,7 @@ export class ConditionLab extends FormApplication {
 			mapType,
 			conditionMap,
 			displayedMap,
+			conditionMapLength,
 			triggers,
 			isDefault,
 			disableChatOutput,

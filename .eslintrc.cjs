@@ -27,7 +27,7 @@ module.exports = {
 	},
 
 	globals: {
-		libWrapper: false,
+		globalThis: false,
 	},
 
 	overrides: [

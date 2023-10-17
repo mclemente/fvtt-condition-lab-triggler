@@ -90,11 +90,9 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		if (existingCondition) {
 			event.preventDefault();
 			// raise a dialog asking for override
-			const title = game.i18n.localize(
-				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title`,
-			);
+			const title = game.i18n.localize("CLT.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Title");
 			const content = game.i18n.format(
-				`${BUTLER.NAME}.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content`,
+				"CLT.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content",
 				{
 					existingCondition: existingCondition.name,
 					statusEffect: event.detail.statusLabel ?? event.detail.statusName,

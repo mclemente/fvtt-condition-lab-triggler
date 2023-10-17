@@ -1,7 +1,7 @@
 /* -------------------------------------------- */
 /*                    Imports                   */
 /* -------------------------------------------- */
-import { Butler as BUTLER } from "./butler.js";
+import { Butler as BUTLER, Butler } from "./butler.js";
 import { libWrapper } from "./libWrapper.js";
 import { registerSettings } from "./settings.js";
 import { Sidekick } from "./sidekick.js";
@@ -16,6 +16,7 @@ import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
 import { TrigglerForm } from "./triggler/triggler-form.js";
 import { Triggler } from "./triggler/triggler.js";
 import MigrationHelper from "./utils/migration.js";
+import API from "./API.js";
 
 /* -------------------------------------------- */
 /*                    System                    */
@@ -102,6 +103,13 @@ Hooks.on("init", () => {
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
 	});
 	postInit();
+});
+
+/* ------------------- Setup ------------------- */
+
+Hooks.on("setup", () => {
+	const data = game.modules.get(Butler.NAME);
+	data.api = API;
 });
 
 function postInit() {

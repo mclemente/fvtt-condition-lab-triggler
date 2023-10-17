@@ -133,20 +133,22 @@ export class Triggler {
 	}
 
 	/**
-	 * Processes an entity update and evaluates triggers
+	 * Prepare an entity update and evaluates triggers
 	 * @param {*} entity
 	 * @param {*} update
 	 * @param {*} entryPoint1
 	 * @param {*} entryPoint2
+	 * @param {*} triggers 
+	 * @return {Array<{trigger:Trigger, entity: Actor|Token|TokenDocument}>}
 	 */
-	static async _processUpdate(entity, update, entryPoint1, entryPoint2) {
+	static async _prepareUpdate(entity, update, entryPoint1, entryPoint2, triggersToCheck) {
 		if (!entity || !update) return;
 
 		// if (entryPoint1 && !hasProperty(update, entryPoint1)) {
 		//     return;
 		// }
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		// const triggersToCheck = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
 		const entityType =
 			entity instanceof Actor
 				? "Actor"
@@ -168,13 +170,15 @@ export class Triggler {
 
 		const hasPlayerOwner = !!(entity.hasPlayerOwner ?? entity.document?.hasPlayerOwner);
 
+		const triggersTotal = [];
+
 		/**
 		 * process each trigger in turn, checking for a match in the update payload,
 		 * if a match is found, then test the values using the appropriate operator,
 		 * if values match, apply any mapped conditions
 		 * @todo reduce this down to just mapped triggers at least
 		 */
-		for (let trigger of triggers) {
+		for (let trigger of triggersToCheck) {
 			const triggerType = trigger.triggerType || "simple";
 			const pcOnly = trigger.pcOnly;
 			const npcOnly = trigger.npcOnly;
@@ -340,6 +344,29 @@ export class Triggler {
 					break;
 			}
 
+			triggersTotal.push(triggers);
+
+			// for (const { trigger, entity } of triggers) {
+			// 	await Triggler._executeTrigger(trigger, entity);
+			// }
+		}
+
+		return triggersTotal;
+	}
+
+	/**
+	 * Processes an entity update and evaluates triggers
+	 * @param {*} entity
+	 * @param {*} update
+	 * @param {*} entryPoint1
+	 * @param {*} entryPoint2
+	 * @param {Array<{trigger:Trigger, entity: Actor|Token|TokenDocument}>|undefined} [triggersExplicit=undefined] 
+	 * @return {Promise<Void>}
+	 */
+	static async _processUpdate(entity, update, entryPoint1, entryPoint2, triggersExplicit = undefined) {
+		const triggersToCheck = triggersExplicit ?? Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = Triggler._prepareUpdate(entity, update, entryPoint1, entryPoint2, triggersToCheck);
+		if(triggers?.length > 0) {
 			for (const { trigger, entity } of triggers) {
 				await Triggler._executeTrigger(trigger, entity);
 			}

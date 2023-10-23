@@ -914,6 +914,7 @@ export class EnhancedConditions {
 			const effect = {
 				id: longId,
 				statuses: [longId],
+				name: c.name,
 				label: c.name,
 				icon: c.icon,
 				changes: c.activeEffect?.changes || [],

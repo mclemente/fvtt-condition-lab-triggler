@@ -42,7 +42,7 @@ Hooks.on("init", () => {
 	registerSettings();
 
 	// Wrappers
-	if (!game.modules.get("status-halo")?.active) {
+	if (!game.modules.get("status-halo")?.active && !game.modules.get("illandril-token-hud-scale")?.active) {
 		libWrapper.register(
 			BUTLER.NAME,
 			"Token.prototype._refreshEffects",

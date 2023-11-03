@@ -170,7 +170,7 @@ export function registerSettings() {
 	/*                 TokenUtility                 */
 	/* -------------------------------------------- */
 
-	if (!game.modules.get("status-halo")?.active) {
+	if (!game.modules.get("status-halo")?.active && !game.modules.get("illandril-token-hud-scale")?.active) {
 		Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
 			name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
 			hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",

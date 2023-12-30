@@ -905,17 +905,14 @@ export class EnhancedConditions {
 
 		const existingIds = conditionMap.filter((c) => c.id).map((c) => c.id);
 
-		const statusEffects = [];
-
-		for (const c of conditionMap) {
-			const id = c.id ?? Sidekick.createId(existingIds);
+		const statusEffects = conditionMap.map((c) => {
+			const id = c.id || Sidekick.createId(existingIds);
 			const longId = `${BUTLER.NAME}.${id}`;
 
-			const effect = {
+			return {
 				id: longId,
 				statuses: [longId],
 				name: c.name,
-				label: c.name,
 				icon: c.icon,
 				changes: c.activeEffect?.changes || [],
 				description: c.activeEffect?.description || "",
@@ -929,12 +926,16 @@ export class EnhancedConditions {
 						[BUTLER.FLAGS.enhancedConditions.conditionId]: id,
 					},
 				},
+				get label() {
+					return this.name;
+				},
+				set label(value) {
+					this.name = value;
+				},
 			};
+		});
 
-			statusEffects.push(effect);
-		}
-
-		return statusEffects.length > 1 ? statusEffects : statusEffects.shift();
+		return statusEffects;
 	}
 
 	/**
@@ -1064,9 +1065,7 @@ export class EnhancedConditions {
 	static buildDefaultMap() {
 		const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
 		const coreEffects = coreEffectsSetting && coreEffectsSetting.length ? coreEffectsSetting : CONFIG.statusEffects;
-		const map = EnhancedConditions._prepareMap(coreEffects);
-
-		return map;
+		return EnhancedConditions._prepareMap(coreEffects);
 	}
 
 	/* -------------------------------------------- */

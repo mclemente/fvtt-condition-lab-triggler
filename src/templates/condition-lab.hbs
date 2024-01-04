@@ -1,48 +1,45 @@
 <form class="condition-lab flexcol" autocomplete="off">
-    <div>
-        <div class="header flexrow">
-            <div class="flexrow condition-list-controls">
-                <div class="sort">
-                    <a class="sort-list" data-tooltip="{{sortTitle}}">
-                        <span class="fa-stack fa-1x">
-                            {{#unless sortDirection}}<i class="fas fa-slash fa-stack-1x"></i>{{/unless}}
-                            {{#if (eq sortDirection "desc")}}<i class="fas fa-sort-alpha-down-alt fa-stack-1x"></i>
-                            {{else}}<i class="fas fa-sort-alpha-down fa-stack-1x"></i>
-                            {{/if}}
-                        </span>
-                    </a>
-                </div>
-                <div class="filter">
-                    <div class="input-wrapper">
-                        <i class="fas fa-filter"></i>
-                        <input type="text" name="filter-list" placeholder="{{filterTitle}}" value="{{filterValue}}" data-dtype="String">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{localize "CLT.ENHANCED_CONDITIONS.Lab.MappingType.Label"}}</label>
-                <select name="map-type" class="map-type">
-                    {{#select mapType}}
-                    {{#each mapTypeChoices as |label name|}}
-                        <option value="{{name}}">{{label}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-        </div>
-
-        <ol class="condition-lab list">
-            {{#each displayedMap as |condition key|}}
-            {{> "modules/condition-lab-triggler/templates/partials/condition-lab-row.hbs" condition=condition key=key isDefault=../isDefault conditionMapLength=../conditionMapLength sortDirection=../sortDirection}}
-            {{/each}}
-            <div class="flexrow add-row">
-                <a name="add-row" data-tooltip="Add Row">
-                    <i class="fas fa-plus"></i> {{#if isDefault}}Add Row (switch to System - Custom){{else}}Add Row{{/if}}
+    <div class="header flexrow">
+        <div class="flexrow condition-list-controls">
+            <div class="sort">
+                <a class="sort-list" data-tooltip="{{sortTitle}}">
+                    <span class="fa-stack fa-1x">
+                        {{#unless sortDirection}}<i class="fas fa-slash fa-stack-1x"></i>{{/unless}}
+                        {{#if (eq sortDirection "desc")}}<i class="fas fa-sort-alpha-down-alt fa-stack-1x"></i>
+                        {{else}}<i class="fas fa-sort-alpha-down fa-stack-1x"></i>
+                        {{/if}}
+                    </span>
                 </a>
             </div>
-        </ol>
-
+            <div class="filter">
+                <div class="input-wrapper">
+                    <i class="fas fa-filter"></i>
+                    <input type="text" name="filter-list" placeholder="{{filterTitle}}" value="{{filterValue}}" data-dtype="String">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>{{localize "CLT.ENHANCED_CONDITIONS.Lab.MappingType.Label"}}</label>
+            <select name="map-type" class="map-type">
+                {{#select mapType}}
+                {{#each mapTypeChoices as |label name|}}
+                    <option value="{{name}}">{{label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
     </div>
+
+    <ol class="condition-lab list">
+        {{#each displayedMap as |condition key|}}
+        {{> "modules/condition-lab-triggler/templates/partials/condition-lab-row.hbs" condition=condition key=key isDefault=../isDefault conditionMapLength=../conditionMapLength sortDirection=../sortDirection}}
+        {{/each}}
+        <div class="flexrow add-row">
+            <a name="add-row" data-tooltip="Add Row">
+                <i class="fas fa-plus"></i> {{#if isDefault}}Add Row (switch to System - Custom){{else}}Add Row{{/if}}
+            </a>
+        </div>
+    </ol>
     <footer class="flexrow">
         <button type="submit" name="submit" data-tooltip="Save mapping form values" {{#if unsavedMap}}class="highlight"{{/if}}>
             <i class="far fa-save"></i> Save Mapping

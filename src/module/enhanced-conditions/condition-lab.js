@@ -34,7 +34,7 @@ export class ConditionLab extends FormApplication {
 			id: "cub-condition-lab",
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.Title"),
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
-			classes: ["sheet"],
+			classes: ["sheet", "condition-lab-form"],
 			width: 780,
 			height: 680,
 			resizable: true,

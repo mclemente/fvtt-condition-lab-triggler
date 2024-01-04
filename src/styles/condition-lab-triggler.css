@@ -70,31 +70,29 @@ a.add-temporary {
 /*                 CONDITION LAB                */
 /* -------------------------------------------- */
 
+#cub-condition-lab {
+	min-height: 510px;
+	min-width: 640px;
+}
+
 #cub-condition-lab .hidden {
 	display: none;
 }
 
 #cub-condition-lab ol.condition-lab {
 	list-style: none;
-	overflow-y: auto;
-	overflow-x: hidden;
-	max-height: 530px;
-	margin: 10px 0px;
-	padding: 0px;
-	border: 2px inset;
-	/* background: url('/ui/denim025.png'); */
+	overflow: hidden auto;
+	margin: 0;
+	padding: 0;
 	background: rgba(0, 0, 0, 0.5);
 }
 
 #cub-condition-lab div.sort {
 	flex: 0 1 20px;
-	margin-right: 3px;
 }
 
 #cub-condition-lab div.filter {
-	margin-left: 25px;
 	max-width: 50%;
-	display: flex;
 }
 
 #cub-condition-lab div.filter div.input-wrapper {
@@ -112,7 +110,7 @@ a.add-temporary {
 }
 
 #cub-condition-lab div.condition-list-controls {
-	flex: 2;
+	column-gap: 3px;
 }
 
 #cub-condition-lab div.condition-list-controls .sort i {
@@ -126,16 +124,24 @@ a.add-temporary {
 	padding: 0px;
 }
 
+.condition-lab-form .window-content {
+	padding: 0;
+}
+
+.condition-lab-form form {
+	height: 100%;
+}
+
 .condition-lab li.row {
 	/* border-bottom: 2px groove beige; */
 	background: url("/ui/parchment.jpg");
 	border-radius: 5px;
 	margin: 5px;
-	min-height: 100px;
+	padding: 3px;
+	column-gap: 3px;
 }
 
 .condition-lab .flexcol {
-	margin: 3px;
 }
 
 .condition-lab .flexcol.grabber {
@@ -146,13 +152,16 @@ a.add-temporary {
 	flex: 4;
 }
 
+.condition-lab .flexcol.content1 .flexrow {
+	column-gap: 3px;
+}
+
 .condition-lab .flexcol.content2 {
 	flex: 3;
-	padding-left: 26px;
 }
 
 .condition-lab .flexcol.text-entry {
-	flex: 8;
+	/* flex: 8; */
 }
 
 .condition-lab .active-effect {
@@ -212,8 +221,13 @@ a.add-temporary {
 	margin: 0px 0px 3px 0px;
 }
 
-.condition-lab .flexrow {
-	justify-content: space-around;
+.condition-lab .header {
+	margin: 0.5rem;
+	flex: 0;
+}
+.condition-lab footer {
+	margin: 1rem;
+    flex: 0;
 }
 
 .condition-lab a.macro {
@@ -361,7 +375,6 @@ a.add-temporary {
 }
 
 #cub-condition-lab .related-buttons button {
-	/* flex: 0; */
 }
 
 .triggler-icon {

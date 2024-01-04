@@ -1044,17 +1044,10 @@ export class ConditionLab extends FormApplication {
 			// If row is new or if its index has changed, it is also changed
 			entry.isChanged = entry.isNew || index != this.initialMap?.indexOf(existingEntry);
 
-			// If it's not changed, test the tracked properties until a change is found
+			// If it's not changed, check if the compared entries are equal
 			if (!entry.isChanged) {
-				// for (const prop of propsToCheck) {
-				//     if (this._hasPropertyChanged(prop, existingEntry, entry)) {
-				//         entry.isChanged = true;
-				//         hasChanged = true;
-				//         break;
-				//     }
-				// }
-				entry.isChanged = foundry.utils.isEmpty(foundry.utils.diffObject(existingEntry, entry));
-				hasChanged = true;
+				entry.isChanged = !foundry.utils.isEmpty(foundry.utils.diffObject(existingEntry, entry));
+				hasChanged ||= entry.isChanged;
 			}
 		});
 
@@ -1110,6 +1103,8 @@ export class ConditionLab extends FormApplication {
 				event.currentTarget.src = path;
 				const iconPath = event.target.closest(".content1").querySelector(".icon-path");
 				iconPath.value = path;
+				this.map = this.updatedMap;
+				if (this._hasMapChanged()) this.render();
 			},
 			top: this.position.top + 40,
 			left: this.position.left + 10,

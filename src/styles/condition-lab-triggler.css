@@ -70,9 +70,16 @@ a.add-temporary {
 /*                 CONDITION LAB                */
 /* -------------------------------------------- */
 
-#cub-condition-lab {
+#cub-condition-lab,
+#cub-triggler-form {
 	min-height: 510px;
 	min-width: 640px;
+}
+
+#cub-triggler-form .triggler-body {
+	overflow: hidden auto;
+	margin: 0;
+	padding: 1rem;
 }
 
 #cub-condition-lab .hidden {
@@ -124,10 +131,12 @@ a.add-temporary {
 	padding: 0px;
 }
 
+.triggler-form .window-content,
 .condition-lab-form .window-content {
 	padding: 0;
 }
 
+.triggler-form form,
 .condition-lab-form form {
 	height: 100%;
 }
@@ -222,9 +231,11 @@ a.add-temporary {
 }
 
 .condition-lab .header {
-	margin: 0.5rem;
+	padding: 1rem 1rem 0.1rem;
 	flex: 0;
 }
+
+.triggler-form footer,
 .condition-lab footer {
 	margin: 1rem;
     flex: 0;

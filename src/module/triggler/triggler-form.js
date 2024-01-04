@@ -17,7 +17,7 @@ export class TrigglerForm extends FormApplication {
 			id: "cub-triggler-form",
 			title: "Triggler",
 			template: BUTLER.DEFAULT_CONFIG.triggler.templates.triggerForm,
-			classes: ["sheet"],
+			classes: ["sheet", "triggler-form"],
 			width: 780,
 			height: 685,
 			resizable: true,

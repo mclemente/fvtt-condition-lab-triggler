@@ -361,9 +361,7 @@ a.add-temporary {
 
 #cub-condition-lab .inset-label {
 	position: absolute;
-	/* background: rgba(0,0,0,0.5); */
-	/* color: white; */
-	background: rgba(0, 0, 0, 0.05);
+	background: rgba(0, 0, 0, 0.15);
 	height: 100%;
 	padding: 4px 2px;
 	font-size: small;

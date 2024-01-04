@@ -1,16 +1,14 @@
 <li class="row flexrow {{hidden condition.hidden}}" data-mapping-row="{{@index}}" data-condition-id="{{condition.id}}" >
-            <!--column 1-->
-
-            <!--column 2-->
             <div class="flexcol content1">
-
-                <!--row 1 icon + text-->
                 <div class="flexrow">
-                    <!--row 1 col 1 icon-->
                     <div class="flexcol icon">
-                        <img name="icon-{{@index}}" src="{{condition.icon}}" class="icon" />
+                        <img
+                            name="icon-{{@index}}"
+                            src="{{condition.icon}}"
+                            {{#unless isDefault}}data-edit="img"{{/unless}}
+                            class="icon" />
+                        <input type="text" name="icon-path-{{@index}}" class="icon-path condition-text-input" value="{{condition.icon}}" placeholder="/icons/example.svg"      data-dtype="String" {{disabled isDefault}} hidden>
                     </div>
-                    <!--row 1 col 2 text-entry-->
                     <div class="flexcol text-entry">
                         <div class="flexrow">
                             <div class="condition">
@@ -29,52 +27,36 @@
                         </div>
                     </div>
                 </div>
-                <!--row 2 reference-->
-                <div class="flexrow path">
-                    <div class="wrapper-rel">
-                        <label for="icon-path-{{@index}}" class="inset-label">{{localize "CLT.WORDS.Icon"}}</label>
-                        <input type="text" name="icon-path-{{@index}}" class="icon-path condition-text-input" value="{{condition.icon}}" placeholder="/icons/example.svg" data-dtype="String" {{disabled isDefault}}>
-                    </div>
-                    <button type="button" name="file-picker-{{@index}}" class="file-picker" data-type="image" data-target="icon-path-{{@index}}" tabindex="-1" {{hidden isDefault}}>
-                            <i class="fas fa-file-import fa-fw"></i>
-                        </button>
-                </div>
             </div>
-            <!--column 3-->
             <div class="flexcol content2">
                 <div class="flexrow related-buttons">
-                    {{!-- <div class="active-effect"> --}}
-                        <button type="button"
-                            name="option-config"
-                            class="option-config">
-                            <i class="fas fa-cog"></i> {{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.Buttons.Options"}}
-                        </button>
-                        <button type="button"
-                                class="active-effect-config"
-                                data-tooltip="{{#if condition.isNew}}
-                                    {{localize "CLT.ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew"}}
-                                    {{else if isDefault}}{{localize "CLT.ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault"}}
-                                    {{/if}}"
-                                        {{disabled (or condition.isNew isDefault)}}
-                                    data-tooltip-direction="UP">
-                            <i class="fas fa-hand-sparkles"></i> Active Effect
-                        </button>
-                        <div class="flex-break"></div>
-                        <button type="button"
-                            class="trigger-config">
-                            {{> "modules/condition-lab-triggler/templates/partials/triggler-icon.hbs"}} Triggers
-                        </button>
-                        <button type="button"
-                            name="macro-config"
-                            class="macro-config">
-                            <i class="fas fa-code"></i> Macros
-                        </button>
-
-
+                    <button type="button"
+                        name="option-config"
+                        class="option-config">
+                        <i class="fas fa-cog"></i> {{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.Buttons.Options"}}
+                    </button>
+                    <button type="button"
+                            class="active-effect-config"
+                            data-tooltip="{{#if condition.isNew}}
+                                {{localize "CLT.ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledNew"}}
+                                {{else if isDefault}}{{localize "CLT.ENHANCED_CONDITIONS.Lab.ActiveEffects.TitleDisabledDefault"}}
+                                {{/if}}"
+                                    {{disabled (or condition.isNew isDefault)}}
+                                data-tooltip-direction="UP">
+                        <i class="fas fa-hand-sparkles"></i> Active Effect
+                    </button>
+                    <div class="flex-break"></div>
+                    <button type="button"
+                        class="trigger-config">
+                        {{> "modules/condition-lab-triggler/templates/partials/triggler-icon.hbs"}} Triggers
+                    </button>
+                    <button type="button"
+                        name="macro-config"
+                        class="macro-config">
+                        <i class="fas fa-code"></i> Macros
+                    </button>
                 </div>
             </div>
-            <!--column 4-->
-            <!--delete row-->
             <div class="flexcol row-controls">
                 <div class="move-up">
                     {{#unless (or sortDirection (eq key 0))}}

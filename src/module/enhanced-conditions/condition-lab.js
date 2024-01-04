@@ -547,6 +547,11 @@ export class ConditionLab extends FormApplication {
 		super.activateListeners(html);
 	}
 
+	_activateCoreListeners(html) {
+		super._activateCoreListeners(html);
+		if (this.isEditable) html.find("img[data-edit]").on("click", this._onEditImage.bind(this));
+	}
+
 	/**
 	 * Input change handler
 	 * @param {*} event
@@ -554,24 +559,10 @@ export class ConditionLab extends FormApplication {
 	 */
 	async _onChangeInputs(event) {
 		const name = event.target.name;
-
-		if (name.startsWith("filter-list")) {
-			return;
-		}
-
+		if (name.startsWith("filter-list")) return;
 		this.map = this.updatedMap;
-
-		if (name.startsWith("icon-path")) {
-			this._onChangeIconPath(event);
-		} else if (name.startsWith("reference-id")) {
-			this._onChangeReferenceId(event);
-		} else {
-			//this.render();
-		}
-
-		const hasChanged = this._hasMapChanged();
-
-		if (hasChanged) return this.render();
+		if (name.startsWith("reference-id")) this._onChangeReferenceId(event);
+		if (this._hasMapChanged()) return this.render();
 	}
 
 	/**
@@ -1108,5 +1099,21 @@ export class ConditionLab extends FormApplication {
 		}
 
 		return propertyChanged;
+	}
+
+	_onEditImage(event) {
+		const current = event.target.getAttribute("src");
+		const fp = new FilePicker({
+			current,
+			type: "image",
+			callback: (path) => {
+				event.currentTarget.src = path;
+				const iconPath = event.target.closest(".content1").querySelector(".icon-path");
+				iconPath.value = path;
+			},
+			top: this.position.top + 40,
+			left: this.position.left + 10,
+		});
+		return fp.browse();
 	}
 }

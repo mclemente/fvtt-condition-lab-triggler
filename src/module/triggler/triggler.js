@@ -187,18 +187,15 @@ export class Triggler {
 			let matchString1, matchString2;
 
 			if (triggerType === "simple") {
-				// example : actorData.system.attributes.hp.value or actorData.data.status.isShaken
-				matchString1 = `${entryPoint1}${entryPoint1 ? `.` : ``}${trigger.category}${
+				const baseMatchString = `${entryPoint1}${entryPoint1 ? `.` : ``}${trigger.category}${
 					trigger.attribute ? `.${trigger.attribute}` : ``
-				}${trigger.property1 ? `.${trigger.property1}` : ``}`;
+				}`;
+				// example : actorData.system.attributes.hp.value or actorData.data.status.isShaken
+				matchString1 = `${baseMatchString}${trigger.property1 ? `.${trigger.property1}` : ``}`;
 
 				// example: actor.system.hp.max -- note this is unlikely to be in the update data
-				matchString2 = `${entryPoint2}${entryPoint2 ? `.` : ``}${trigger.category}${
-					trigger.attribute ? `.${trigger.attribute}` : ``
-				}${trigger.property2 ? `.${trigger.property2}` : ``}`;
-			}
-
-			if (triggerType === "advanced") {
+				matchString2 = `${baseMatchString}${trigger.property2 ? `.${trigger.property2}` : ``}`;
+			} else if (triggerType === "advanced") {
 				// entry point differs based on actor vs token
 				matchString1 = entityType === "Actor" ? trigger?.advancedActorProperty : trigger?.advancedTokenProperty;
 				matchString2 =

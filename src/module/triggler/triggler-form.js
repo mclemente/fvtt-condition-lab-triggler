@@ -19,7 +19,7 @@ export class TrigglerForm extends FormApplication {
 			template: BUTLER.DEFAULT_CONFIG.triggler.templates.triggerForm,
 			classes: ["sheet", "triggler-form"],
 			width: 780,
-			height: 685,
+			height: 735,
 			resizable: true,
 			closeOnSubmit: false,
 		});

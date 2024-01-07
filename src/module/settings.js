@@ -18,7 +18,7 @@ export function registerSettings() {
 		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputChat,
 		onChange: (s) => {
 			if (s === true) {
-				const dialog = Dialog.confirm({
+				Dialog.confirm({
 					title: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
 					content: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
 					yes: () => {
@@ -40,7 +40,6 @@ export function registerSettings() {
 		type: Boolean,
 		config: true,
 		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputCombat,
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects, {
@@ -50,7 +49,7 @@ export function registerSettings() {
 		type: Boolean,
 		config: true,
 		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.removeDefaultEffects,
-		onChange: (s) => {
+		onChange: () => {
 			EnhancedConditions._updateStatusEffects();
 		},
 	});
@@ -63,7 +62,6 @@ export function registerSettings() {
 		config: false,
 		apiOnly: true,
 		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.migrationVersion,
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, {
@@ -73,7 +71,6 @@ export function registerSettings() {
 		type: Boolean,
 		config: true,
 		default: true,
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects, {
@@ -83,7 +80,6 @@ export function registerSettings() {
 		type: Object,
 		default: {},
 		config: false,
-		onChange: () => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, {
@@ -93,7 +89,6 @@ export function registerSettings() {
 		type: Object,
 		default: {},
 		config: false,
-		onChange: () => {},
 	});
 
 	/* -------------------------------------------- */
@@ -116,7 +111,6 @@ export function registerSettings() {
 		type: Object,
 		default: [],
 		config: false,
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
@@ -126,7 +120,6 @@ export function registerSettings() {
 		type: Object,
 		default: [],
 		config: false,
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
@@ -138,7 +131,6 @@ export function registerSettings() {
 		choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
 		config: false,
 		apiOnly: true,
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, {
@@ -147,7 +139,6 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: {},
-		onChange: (s) => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {
@@ -179,7 +170,7 @@ export function registerSettings() {
 			type: String,
 			choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
 			config: true,
-			onChange: (s) => {
+			onChange: () => {
 				canvas.draw();
 			},
 		});
@@ -204,7 +195,7 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: [],
-		onChange: (s) => {},
+		onChange: () => {},
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, {

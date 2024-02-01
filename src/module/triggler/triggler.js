@@ -48,14 +48,14 @@ export class Triggler {
 			property2 = null,
 			triggerType = "simple",
 			id = null,
-			value = null,
+			value = null
 		} = trigger;
 
 		// const triggerType = formData?.triggerType;
 
 		if (triggerType === "advanced" && !trigger.advancedName.length) {
 			console.warn(
-				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`,
+				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
 			);
 			return false;
 		}
@@ -74,7 +74,7 @@ export class Triggler {
 		return {
 			id,
 			...duplicate(trigger),
-			text,
+			text
 		};
 	}
 
@@ -87,9 +87,9 @@ export class Triggler {
 		const operatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.operator];
 		const advancedOperatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
 
-		const pcOnly = parts.pcOnly ? ` (PCs Only)` : "";
-		const npcOnly = parts.npcOnly ? ` (NPCs Only)` : "";
-		const notZero = parts.notZero ? ` (Not 0)` : "";
+		const pcOnly = parts.pcOnly ? " (PCs Only)" : "";
+		const npcOnly = parts.npcOnly ? " (NPCs Only)" : "";
+		const notZero = parts.notZero ? " (Not 0)" : "";
 		if (triggerType === "simple") {
 			const property2 = parts.property2 ? ` ${parts.category}.${parts.attribute}.${parts.property2}` : "";
 			return `${parts.category}.${parts.attribute}.${parts.property1} ${operatorText} ${parts.value}${property2}${pcOnly}${npcOnly}${notZero}`;
@@ -110,22 +110,20 @@ export class Triggler {
 			target instanceof Actor
 				? target
 				: target instanceof TokenDocument || target instanceof Token
-				? target.actor
-				: null;
+					? target.actor
+					: null;
 		const token = target instanceof TokenDocument ? target : target instanceof Token ? target.document : null;
 		const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 		const matchedApplyConditions = conditionMap.filter((m) => m.applyTrigger === trigger.id);
 		const matchedRemoveConditions = conditionMap.filter((m) => m.removeTrigger === trigger.id);
 		const matchedMacros = game.macros.contents.filter(
-			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id,
+			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
 		);
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);
 
-		if (applyConditionNames.length)
-			await EnhancedConditions.addCondition(applyConditionNames, target, { warn: false });
-		if (removeConditionNames.length)
-			await EnhancedConditions.removeCondition(removeConditionNames, target, { warn: false });
+		if (applyConditionNames.length) await EnhancedConditions.addCondition(applyConditionNames, target, { warn: false });
+		if (removeConditionNames.length) await EnhancedConditions.removeCondition(removeConditionNames, target, { warn: false });
 
 		for (const macro of matchedMacros) {
 			await macro.execute({ actor, token });
@@ -151,8 +149,8 @@ export class Triggler {
 			entity instanceof Actor
 				? "Actor"
 				: entity instanceof Token || entity instanceof TokenDocument
-				? "Token"
-				: null;
+					? "Token"
+					: null;
 
 		if (!entityType) {
 			return;
@@ -184,17 +182,18 @@ export class Triggler {
 				continue;
 			}
 
-			let matchString1, matchString2;
+			let matchString1;
+			let matchString2;
 
 			if (triggerType === "simple") {
-				const baseMatchString = `${entryPoint1}${entryPoint1 ? `.` : ``}${trigger.category}${
-					trigger.attribute ? `.${trigger.attribute}` : ``
+				const baseMatchString = `${entryPoint1}${entryPoint1 ? "." : ""}${trigger.category}${
+					trigger.attribute ? `.${trigger.attribute}` : ""
 				}`;
 				// example : actorData.system.attributes.hp.value or actorData.data.status.isShaken
-				matchString1 = `${baseMatchString}${trigger.property1 ? `.${trigger.property1}` : ``}`;
+				matchString1 = `${baseMatchString}${trigger.property1 ? `.${trigger.property1}` : ""}`;
 
 				// example: actor.system.hp.max -- note this is unlikely to be in the update data
-				matchString2 = `${baseMatchString}${trigger.property2 ? `.${trigger.property2}` : ``}`;
+				matchString2 = `${baseMatchString}${trigger.property2 ? `.${trigger.property2}` : ""}`;
 			} else if (triggerType === "advanced") {
 				// entry point differs based on actor vs token
 				matchString1 = entityType === "Actor" ? trigger?.advancedActorProperty : trigger?.advancedTokenProperty;
@@ -231,7 +230,7 @@ export class Triggler {
 
 			// example: "50" -- check if the value can be converted to a number
 			const triggerValue = isPercent
-				? trigger.value.replace("%", "") * 1
+				? Number(trigger.value.replace("%", ""))
 				: Sidekick.coerceType(trigger.value, updateValueType);
 
 			const triggers = [];
@@ -355,8 +354,8 @@ export class Triggler {
 			return;
 		}
 
-		const dataProp = `system`;
-		const dataDataProp = `system`;
+		const dataProp = "system";
+		const dataDataProp = "system";
 
 		Triggler._processUpdate(actor, update, dataProp, dataDataProp);
 	}
@@ -373,8 +372,8 @@ export class Triggler {
 			return;
 		}
 
-		const actorDataProp = `actorData.system`;
-		const actorProp = `actor.system`;
+		const actorDataProp = "actorData.system";
+		const actorProp = "actor.system";
 
 		Triggler._processUpdate(token, update, actorDataProp, actorProp);
 	}
@@ -394,7 +393,7 @@ export class Triggler {
 		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templates.macroTriggerSelect;
 		const triggerData = {
 			flag,
-			triggers,
+			triggers
 		};
 		const triggerSelect = await renderTemplate(triggerSelectTemplate, triggerData);
 

@@ -26,9 +26,6 @@ export class ConditionLab extends FormApplication {
 		this.sortDirection = "";
 	}
 
-	/**
-	 * Get options for the form
-	 */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-condition-lab",
@@ -40,7 +37,7 @@ export class ConditionLab extends FormApplication {
 			resizable: true,
 			closeOnSubmit: false,
 			scrollY: ["ol.condition-lab"],
-			dragDrop: [{ dropSelector: "input[name^='reference-item']" }],
+			dragDrop: [{ dropSelector: "input[name^='reference-item']" }]
 		});
 	}
 
@@ -60,9 +57,9 @@ export class ConditionLab extends FormApplication {
 	async prepareData() {
 		const sortDirection = this.sortDirection;
 		const sortTitle = game.i18n.localize(
-			`CLT.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle.${sortDirection ? sortDirection : "unsorted"}`,
+			`CLT.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle.${sortDirection ? sortDirection : "unsorted"}`
 		);
-		const filterTitle = game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle`);
+		const filterTitle = game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle");
 		const filterValue = this.filterValue;
 
 		const defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
@@ -121,9 +118,9 @@ export class ConditionLab extends FormApplication {
 
 		let unsavedMap = false;
 		if (
-			mapType != this.initialMapType ||
-			conditionMap?.length != this.initialMap?.length ||
-			conditionMap.some((c) => c.isNew || c.isChanged)
+			mapType !== this.initialMapType
+			|| conditionMap?.length !== this.initialMap?.length
+			|| conditionMap.some((c) => c.isNew || c.isChanged)
 		) {
 			unsavedMap = true;
 		}
@@ -142,7 +139,7 @@ export class ConditionLab extends FormApplication {
 			triggers,
 			isDefault,
 			disableChatOutput,
-			unsavedMap,
+			unsavedMap
 		};
 
 		this.data = data;
@@ -178,27 +175,19 @@ export class ConditionLab extends FormApplication {
 		let conditions = [];
 		let icons = [];
 		let references = [];
-		let optionsOverlay = [];
-		let optionsRemove = [];
-		let optionsOutputChat = [];
-		let optionsDefeated = [];
 		let newMap = [];
 		const rows = [];
 		const existingMap = this.map ?? Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
 
-		//need to tighten these up to check for the existence of digits after the word
-		const conditionRegex = new RegExp("condition", "i");
+		// need to tighten these up to check for the existence of digits after the word
+		const conditionRegex = /condition/i;
 		const idRegex = new RegExp(/^id/, "i");
-		const iconRegex = new RegExp("icon", "i");
-		const referenceRegex = new RegExp("reference", "i");
-		const optionsOverlayRegex = new RegExp("options-overlay", "i");
-		const optionsRemoveRegex = new RegExp("options-remove-others", "i");
-		const optionsOutputChatRegex = new RegExp("options-output-chat", "i");
-		const optionsDefeatedRegex = new RegExp("options-mark-defeated", "i");
+		const iconRegex = /icon/i;
+		const referenceRegex = /reference/i;
 		const rowRegex = new RegExp(/\d+$/);
 
-		//write it back to the relevant condition map
-		//@todo: maybe switch to a switch
+		// write it back to the relevant condition map
+		// @todo: maybe switch to a switch
 		for (let e in formData) {
 			const rowMatch = e.match(rowRegex);
 			const row = rowMatch ? rowMatch[0] : null;
@@ -231,7 +220,7 @@ export class ConditionLab extends FormApplication {
 				applyTrigger = null,
 				removeTrigger = null,
 				macros = null,
-				options = {},
+				options = {}
 			} = existingCondition || {};
 
 			const condition = {
@@ -243,7 +232,7 @@ export class ConditionLab extends FormApplication {
 				removeTrigger,
 				activeEffect,
 				macros,
-				options,
+				options
 			};
 
 			newMap.push(condition);
@@ -254,24 +243,22 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Restore defaults for a mapping
+	 * @param root0
+	 * @param root0.clearCache
 	 */
 	async _restoreDefaults({ clearCache = false } = {}) {
 		const system = this.system;
 		let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
 
-		const defaultMapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default,
-		);
 		const otherMapType = Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other,
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other
 		);
 		if (clearCache) {
 			defaultMaps = await EnhancedConditions._loadDefaultMaps();
 			Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
 		}
-		const tempMap = this.mapType != otherMapType && defaultMaps && defaultMaps[system] ? defaultMaps[system] : [];
+		const tempMap = this.mapType !== otherMapType && defaultMaps && defaultMaps[system] ? defaultMaps[system] : [];
 
 		// If the mapType is other then the map should be empty, otherwise it's the default map for the system
 		this.map = tempMap;
@@ -280,16 +267,16 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Take the new map and write it back to settings, overwriting existing
-	 * @param {Object} event
-	 * @param {Object} formData
+	 * @param {object} event
+	 * @param {object} formData
 	 */
 	async _updateObject(event, formData) {
 		const showDialogSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
 
 		if (this.sortDirection && showDialogSetting) {
 			await Dialog.confirm({
-				title: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`),
-				content: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Content`),
+				title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title"),
+				content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Content"),
 				yes: ($html) => {
 					const checkbox = $html[0].querySelector("input[name='dont-show-again']");
 					if (checkbox.checked) {
@@ -297,9 +284,7 @@ export class ConditionLab extends FormApplication {
 					}
 					this._processFormUpdate(formData);
 				},
-				no: () => {
-					return;
-				},
+				no: () => {}
 			});
 		} else {
 			this._processFormUpdate(formData);
@@ -315,7 +300,7 @@ export class ConditionLab extends FormApplication {
 		let newMap = this.updatedMap;
 		const defaultMapType = Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default,
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
 		);
 
 		if (mapType === defaultMapType) {
@@ -361,7 +346,7 @@ export class ConditionLab extends FormApplication {
 		const map = duplicate(this.map);
 		const data = {
 			system: game.system.id,
-			map,
+			map
 		};
 
 		// Trigger file save procedure
@@ -383,14 +368,14 @@ export class ConditionLab extends FormApplication {
 					label: game.i18n.localize("CLT.WORDS.Import"),
 					callback: (html) => {
 						this._processImport(html);
-					},
+					}
 				},
 				no: {
 					icon: '<i class="fas fa-times"></i>',
-					label: game.i18n.localize("Cancel"),
-				},
+					label: game.i18n.localize("Cancel")
+				}
 			},
-			default: "import",
+			default: "import"
 		}).render(true);
 	}
 
@@ -415,7 +400,7 @@ export class ConditionLab extends FormApplication {
 
 		this.mapType = Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other,
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other
 		);
 		this.map = map;
 		this.render();
@@ -434,7 +419,7 @@ export class ConditionLab extends FormApplication {
 				icon: "fas fa-file-import",
 				onclick: async (ev) => {
 					this._importFromJSONDialog();
-				},
+				}
 			},
 			{
 				label: game.i18n.localize("CLT.WORDS.Export"),
@@ -442,8 +427,8 @@ export class ConditionLab extends FormApplication {
 				icon: "fas fa-file-export",
 				onclick: async (ev) => {
 					this._exportToJSON();
-				},
-			},
+				}
+			}
 		);
 
 		return buttons;
@@ -472,7 +457,7 @@ export class ConditionLab extends FormApplication {
 	static async _onRenderSaveDialog(app, html, data) {
 		const contentDiv = html[0].querySelector("div.dialog-content");
 		const checkbox = `<div class="form-group"><label class="dont-show-again-checkbox">${game.i18n.localize(
-			`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText`,
+			"CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText"
 		)}<input type="checkbox" name="dont-show-again"></label></div>`;
 		contentDiv.insertAdjacentHTML("beforeend", checkbox);
 		await app.setPosition({ height: app.position.height + 25 });
@@ -486,10 +471,10 @@ export class ConditionLab extends FormApplication {
 	 */
 	static async _onRenderRestoreDefaultsDialog(app, html, data) {
 		if (
-			game.clt.conditionLab.mapType !==
-			Sidekick.getKeyByValue(
+			game.clt.conditionLab.mapType
+			!== Sidekick.getKeyByValue(
 				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default,
+				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
 			)
 		) {
 			return;
@@ -497,7 +482,7 @@ export class ConditionLab extends FormApplication {
 
 		const contentDiv = html[0].querySelector("div.dialog-content");
 		const checkbox = `<div class="form-group"><label class="clear-cache-checkbox">${game.i18n.localize(
-			`CLT.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText`,
+			"CLT.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText"
 		)}<input type="checkbox" name="clear-cache"></label></div>`;
 		contentDiv.insertAdjacentHTML("beforeend", checkbox);
 		await app.setPosition({ height: app.position.height + 25 });
@@ -567,6 +552,7 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Filter input change handler
+	 * @param event
 	 */
 	_onChangeFilter(event) {
 		const input = event.target;
@@ -590,7 +576,7 @@ export class ConditionLab extends FormApplication {
 	/**
 	 * Filter the given map by the name property using the supplied filter value, marking filtered entries as "hidden"
 	 * @param {Array} map
-	 * @param {String} filter
+	 * @param {string} filter
 	 * @returns filteredMap
 	 */
 	_filterMapByName(map, filter) {
@@ -615,7 +601,7 @@ export class ConditionLab extends FormApplication {
 			}
 
 			case "other": {
-				this.map = this.initialMapType == "other" ? this.initialMap : [];
+				this.map = this.initialMapType === "other" ? this.initialMap : [];
 				break;
 			}
 
@@ -636,8 +622,8 @@ export class ConditionLab extends FormApplication {
 
 		const row = event.target.name.match(/\d+$/)[0];
 
-		//target the icon
-		const icon = $(this.form).find("img[name='icon-" + row);
+		// target the icon
+		const icon = $(this.form).find(`img[name='icon-${row}`);
 		icon.attr("src", event.target.value);
 	}
 
@@ -664,7 +650,7 @@ export class ConditionLab extends FormApplication {
 			setProperty(
 				conditionEffect,
 				`flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`,
-				conditionId,
+				conditionId
 			);
 		}
 
@@ -713,7 +699,7 @@ export class ConditionLab extends FormApplication {
 
 		const data = {
 			id,
-			conditionLabRow,
+			conditionLabRow
 		};
 
 		new TrigglerForm(data, { parent: this }).render(true);
@@ -728,17 +714,17 @@ export class ConditionLab extends FormApplication {
 
 		const existingNewConditions = this.map.filter((m) => m.name.match(/^New Condition \d+$/));
 		const newConditionIndex = existingNewConditions.length
-			? Math.max(...existingNewConditions.map((m) => 1 * m.name.match(/\d+$/g)[0])) + 1
+			? Math.max(...existingNewConditions.map((m) => Number(m.name.match(/\d+$/g)[0]))) + 1
 			: 1;
 		const newConditionName = `New Condition ${newConditionIndex}`;
 		const fdMap = this.updatedMap;
 		const defaultMapType = Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default,
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
 		);
 		const customMapType = Sidekick.getKeyByValue(
 			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom,
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom
 		);
 
 		if (this.mapType === defaultMapType) {
@@ -759,8 +745,8 @@ export class ConditionLab extends FormApplication {
 			referenceId: "",
 			trigger: "",
 			options: {
-				outputChat: outputChatSetting,
-			},
+				outputChat: outputChatSetting
+			}
 		});
 
 		const newMapType = this.mapType === defaultMapType ? customMapType : this.mapType;
@@ -788,22 +774,22 @@ export class ConditionLab extends FormApplication {
 			content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ConfirmDeleteContent"),
 			buttons: {
 				yes: {
-					icon: `<i class="fa fa-check"></i>`,
+					icon: '<i class="fa fa-check"></i>',
 					label: game.i18n.localize("Yes"),
 					callback: async (event) => {
 						const newMap = duplicate(this.map);
 						newMap.splice(row, 1);
 						this.map = newMap;
 						this.render();
-					},
+					}
 				},
 				no: {
-					icon: `<i class="fa fa-times"></i>`,
+					icon: '<i class="fa fa-times"></i>',
 					label: game.i18n.localize("No"),
-					callback: (event) => {},
-				},
+					callback: (event) => {}
+				}
 			},
-			default: "no",
+			default: "no"
 		});
 
 		dialog.render(true);
@@ -850,7 +836,7 @@ export class ConditionLab extends FormApplication {
 	 */
 	_onClickSortButton(event) {
 		const sortDirection = this.sortDirection;
-		//const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
+		// const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
 		switch (sortDirection) {
 			case "":
 				this.sortDirection = "asc";
@@ -897,22 +883,22 @@ export class ConditionLab extends FormApplication {
 			content,
 			buttons: {
 				yes: {
-					icon: `<i class="fas fa-check"></i>`,
+					icon: '<i class="fas fa-check"></i>',
 					label: game.i18n.localize("Yes"),
 					callback: ($html) => {
 						const checkbox = $html[0].querySelector("input[name='clear-cache']");
 						const clearCache = checkbox?.checked;
 						this._restoreDefaults({ clearCache });
-					},
+					}
 				},
 				no: {
-					icon: `<i class="fas fa-times"></i>`,
+					icon: '<i class="fas fa-times"></i>',
 					label: game.i18n.localize("No"),
-					callback: () => {},
-				},
+					callback: () => {}
+				}
 			},
 			default: "no",
-			close: () => {},
+			close: () => {}
 		});
 
 		confirmationDialog.render(true);
@@ -928,20 +914,20 @@ export class ConditionLab extends FormApplication {
 			content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ResetFormContent"),
 			buttons: {
 				yes: {
-					icon: `<i class="fa fa-check"></i>`,
+					icon: '<i class="fa fa-check"></i>',
 					label: game.i18n.localize("Yes"),
 					callback: (event) => {
 						this.map = this.initialMap;
 						this.render();
-					},
+					}
 				},
 				no: {
-					icon: `<i class="fa fa-times"></i>`,
+					icon: '<i class="fa fa-times"></i>',
 					label: game.i18n.localize("No"),
-					callback: (event) => {},
-				},
+					callback: (event) => {}
+				}
 			},
-			default: "no",
+			default: "no"
 		});
 		dialog.render(true);
 	}
@@ -968,9 +954,8 @@ export class ConditionLab extends FormApplication {
 		if (link) {
 			targetInput.value = link;
 			return targetInput.dispatchEvent(new Event("change"));
-		} else {
-			return ui.notifications.error(game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.BadReference`));
 		}
+		return ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.BadReference"));
 	}
 
 	/**
@@ -1018,22 +1003,9 @@ export class ConditionLab extends FormApplication {
 		new EnhancedConditionOptionConfig(condition).render(true);
 	}
 
-	/**
-	 * Checks the updatedMap property against the initial map
-	 */
+	// Checks the updatedMap property against the initial map
 	_hasMapChanged() {
 		let hasChanged = false;
-
-		const propsToCheck = [
-			"name",
-			"icon",
-			"options",
-			"referenceId",
-			"applyTrigger",
-			"removeTrigger",
-			"activeEffect",
-		];
-
 		const conditionMap = this.updatedMap;
 
 		conditionMap.forEach((entry, index, array) => {
@@ -1042,7 +1014,7 @@ export class ConditionLab extends FormApplication {
 			entry.isNew = !existingEntry;
 
 			// If row is new or if its index has changed, it is also changed
-			entry.isChanged = entry.isNew || index != this.initialMap?.indexOf(existingEntry);
+			entry.isChanged = entry.isNew || index !== this.initialMap?.indexOf(existingEntry);
 
 			// If it's not changed, check if the compared entries are equal
 			if (!entry.isChanged) {
@@ -1062,14 +1034,14 @@ export class ConditionLab extends FormApplication {
 			"referenceId",
 			"applyTrigger",
 			"removeTrigger",
-			"activeEffect",
+			"activeEffect"
 		];
 
 		const hasChanged =
-			entry.isNew ||
-			index != this.initialMap?.indexOf(existingEntry) ||
-			//|| !foundry.utils.isObjectEmpty(foundry.utils.diffObject(existingEntry, entry));
-			propsToCheck.some((p) => this._hasPropertyChanged(p, existingEntry, entry));
+			entry.isNew
+			|| index !== this.initialMap?.indexOf(existingEntry)
+			// || !foundry.utils.isObjectEmpty(foundry.utils.diffObject(existingEntry, entry));
+			|| propsToCheck.some((p) => this._hasPropertyChanged(p, existingEntry, entry));
 
 		return hasChanged;
 	}
@@ -1079,14 +1051,14 @@ export class ConditionLab extends FormApplication {
 	 * @param {*} propertyName
 	 * @param {*} original
 	 * @param {*} comparison
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	_hasPropertyChanged(propertyName, original, comparison) {
 		let propertyChanged = false;
 
 		if (
-			(original[propertyName] && !comparison[propertyName]) ||
-			(original && JSON.stringify(original[propertyName]) != JSON.stringify(comparison[[propertyName]]))
+			(original[propertyName] && !comparison[propertyName])
+			|| (original && JSON.stringify(original[propertyName]) !== JSON.stringify(comparison[[propertyName]]))
 		) {
 			propertyChanged = true;
 		}
@@ -1107,7 +1079,7 @@ export class ConditionLab extends FormApplication {
 				if (this._hasMapChanged()) this.render();
 			},
 			top: this.position.top + 40,
-			left: this.position.left + 10,
+			left: this.position.left + 10
 		});
 		return fp.browse();
 	}

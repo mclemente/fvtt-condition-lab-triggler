@@ -23,13 +23,13 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.MacroConfig.Title"),
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.macroConfig,
 			classes: ["sheet"],
-			closeOnSubmit: false,
+			closeOnSubmit: false
 		});
 	}
 
 	/**
 	 * Gets data for template rendering
-	 * @returns {Object} data
+	 * @returns {object} data
 	 */
 	getData() {
 		const conditionMacros = this.object.macros;
@@ -46,7 +46,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 			condition: this.object,
 			applyMacroId,
 			removeMacroId,
-			macroChoices,
+			macroChoices
 		};
 	}
 
@@ -59,7 +59,8 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 		this.object.macros = [];
 
 		for (const field in formData) {
-			const type = field.split("-").slice(-1).pop() ?? "";
+			const type = field.split("-").slice(-1)
+				.pop() ?? "";
 			const tempMacro = { id: formData[field], type: type };
 			this.object.macros.push(tempMacro);
 		}

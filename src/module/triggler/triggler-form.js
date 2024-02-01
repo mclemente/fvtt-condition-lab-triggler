@@ -21,7 +21,7 @@ export class TrigglerForm extends FormApplication {
 			width: 780,
 			height: 735,
 			resizable: true,
-			closeOnSubmit: false,
+			closeOnSubmit: false
 		});
 	}
 
@@ -56,26 +56,26 @@ export class TrigglerForm extends FormApplication {
 			advancedValue = null,
 			pcOnly = null,
 			npcOnly = null,
-			notZero = null,
+			notZero = null
 		} = this.data || {};
 		const isSimpleTrigger = triggerType === "simple";
 		const isAdvancedTrigger = triggerType === "advanced";
 		const actorModel = game.system.model?.Actor;
 		const mergedModel = actorModel
 			? Object.keys(actorModel).reduce((accumulator, key, index) => {
-					return foundry.utils.mergeObject(accumulator, actorModel[key]);
-			  }, {})
+				return foundry.utils.mergeObject(accumulator, actorModel[key]);
+			}, {})
 			: null;
 		const categories = mergedModel ? Object.keys(mergedModel) : null;
 		const attributes = category ? Object.keys(mergedModel[category]) : null;
 		const properties = category && attribute ? Object.keys(mergedModel[category][attribute]) : null;
 		const operators = BUTLER.DEFAULT_CONFIG.triggler.operators;
 
-		const triggerSelected = id && triggers ? true : false;
+		const triggerSelected = !!(id && triggers);
 
 		if (!categories) {
 			ui.notifications.warn("Simple Trigger not supported. Try Advanced Trigger");
-			//return false;
+			// return false;
 		}
 
 		return {
@@ -103,12 +103,13 @@ export class TrigglerForm extends FormApplication {
 			advancedValue,
 			pcOnly,
 			npcOnly,
-			notZero,
+			notZero
 		};
 	}
 
 	/**
 	 *
+	 * @param html
 	 */
 	activateListeners(html) {
 		super.activateListeners(html);
@@ -297,7 +298,7 @@ export class TrigglerForm extends FormApplication {
 			const newTrigger = {
 				id: Sidekick.createId(existingIds),
 				...newData,
-				text,
+				text
 			};
 			updatedTriggers.push(newTrigger);
 			this.data = newTrigger;
@@ -316,7 +317,7 @@ export class TrigglerForm extends FormApplication {
 		const triggers = duplicate(Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers));
 		const data = {
 			system: game.system.id,
-			triggers,
+			triggers
 		};
 
 		// Trigger file save procedure
@@ -331,7 +332,7 @@ export class TrigglerForm extends FormApplication {
 	async _importFromJSONDialog() {
 		new Dialog({
 			title: game.i18n.localize("CLT.TRIGGLER.ImportTitle"),
-			//TODO change
+			// TODO change
 			content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
 			buttons: {
 				import: {
@@ -339,14 +340,14 @@ export class TrigglerForm extends FormApplication {
 					label: game.i18n.localize("CLT.WORDS.Import"),
 					callback: (html) => {
 						this._processImport(html);
-					},
+					}
 				},
 				no: {
 					icon: '<i class="fas fa-times"></i>',
-					label: game.i18n.localize("Cancel"),
-				},
+					label: game.i18n.localize("Cancel")
+				}
 			},
-			default: "import",
+			default: "import"
 		}).render(true);
 	}
 
@@ -387,7 +388,7 @@ export class TrigglerForm extends FormApplication {
 				icon: "fas fa-file-import",
 				onclick: async (ev) => {
 					await this._importFromJSONDialog();
-				},
+				}
 			},
 			{
 				label: game.i18n.localize("CLT.WORDS.Export"),
@@ -395,8 +396,8 @@ export class TrigglerForm extends FormApplication {
 				icon: "fas fa-file-export",
 				onclick: async (ev) => {
 					this._exportToJSON();
-				},
-			},
+				}
+			}
 		);
 
 		return buttons;

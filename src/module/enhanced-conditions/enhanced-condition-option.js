@@ -23,18 +23,18 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.optionConfig,
 			classes: ["sheet"],
 			closeOnSubmit: false,
-			width: 500,
+			width: 500
 		});
 	}
 
 	/**
 	 * Gets data for template rendering
-	 * @returns {Object} data
+	 * @returns {object} data
 	 */
 	getData() {
 		return {
 			condition: this.object,
-			optionData: this.object.options,
+			optionData: this.object.options
 		};
 	}
 
@@ -60,7 +60,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		const targetName = event.target?.name;
 		const propertyName = Sidekick.toCamelCase(targetName, "-");
 		const specialStatusEffectsProps = Object.values(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects,
+			BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects
 		).map((k) => k.optionProperty);
 
 		if (!propertyName || !specialStatusEffectsProps) return;
@@ -83,7 +83,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		const existingCondition = game.clt.conditions.find((c) => {
 			const optionValue = foundry.utils.getProperty(
 				c,
-				`options.${Sidekick.toCamelCase(event.detail.statusName, "-")}`,
+				`options.${Sidekick.toCamelCase(event.detail.statusName, "-")}`
 			);
 			return c.id !== event.detail.conditionId && optionValue == true;
 		});
@@ -95,8 +95,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 				"CLT.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffectOverride.Content",
 				{
 					existingCondition: existingCondition.name,
-					statusEffect: event.detail.statusLabel ?? event.detail.statusName,
-				},
+					statusEffect: event.detail.statusLabel ?? event.detail.statusName
+				}
 			);
 			const yes = () => {};
 			const no = () => {
@@ -117,7 +117,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	async _updateObject(event, formData) {
 		this.object.options = {};
 		const specialStatusEffectMapping = Sidekick.getSetting(
-			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
+			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
 		);
 		const map = game.clt.conditionLab.map;
 		const newMap = foundry.utils.deepClone(map);
@@ -158,7 +158,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	/**
 	 * Get the enum for a special status effect based on the field name
 	 * @param {*} field
-	 * @returns {String} enum for the special status effect
+	 * @returns {string} enum for the special status effect
 	 */
 	getSpecialStatusEffectByField(field) {
 		switch (field) {
@@ -184,7 +184,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		CONFIG.specialStatusEffects[effect] = conditionId ? `${BUTLER.NAME}.${conditionId}` : "";
 		Sidekick.setSetting(
 			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
-			CONFIG.specialStatusEffects,
+			CONFIG.specialStatusEffects
 		);
 	}
 }

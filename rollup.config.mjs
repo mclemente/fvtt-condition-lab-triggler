@@ -10,7 +10,7 @@ export default () => ({
 	output: {
 		dir: "dist/module",
 		format: "es",
-		sourcemap: true,
+		sourcemap: true
 	},
-	plugins: [nodeResolve()],
+	plugins: [nodeResolve()]
 });

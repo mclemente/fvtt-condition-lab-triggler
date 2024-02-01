@@ -4,6 +4,9 @@ import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js
 import { Sidekick } from "./sidekick.js";
 import { TrigglerForm } from "./triggler/triggler-form.js";
 
+/**
+ *
+ */
 export function registerSettings() {
 	/* -------------------------------------------- */
 	/*            Setting Configuration             */
@@ -19,18 +22,18 @@ export function registerSettings() {
 		onChange: (s) => {
 			if (s === true) {
 				Dialog.confirm({
-					title: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Title`),
-					content: game.i18n.localize(`CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Content`),
+					title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Title"),
+					content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Content"),
 					yes: () => {
 						const newMap = deepClone(game.clt.conditions);
 						if (!newMap.length) return;
 						newMap.forEach((c) => (c.options.outputChat = true));
 						Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
 					},
-					no: () => {},
+					no: () => {}
 				});
 			}
-		},
+		}
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputCombat, {
@@ -39,7 +42,7 @@ export function registerSettings() {
 		scope: "world",
 		type: Boolean,
 		config: true,
-		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputCombat,
+		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputCombat
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects, {
@@ -51,44 +54,44 @@ export function registerSettings() {
 		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.removeDefaultEffects,
 		onChange: () => {
 			EnhancedConditions._updateStatusEffects();
-		},
+		}
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, {
-		name: `CLT.SETTINGS.EnhancedConditions.MigrationVersionN`,
-		hint: `CLT.SETTINGS.EnhancedConditions.MigrationVersionH`,
+		name: "CLT.SETTINGS.EnhancedConditions.MigrationVersionN",
+		hint: "CLT.SETTINGS.EnhancedConditions.MigrationVersionH",
 		scope: "world",
 		type: String,
 		config: false,
 		apiOnly: true,
-		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.migrationVersion,
+		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.migrationVersion
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, {
-		name: `CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogN`,
-		hint: `CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogH`,
+		name: "CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogN",
+		hint: "CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogH",
 		scope: "world",
 		type: Boolean,
 		config: true,
-		default: true,
+		default: true
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects, {
-		name: `CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsN`,
-		hint: `CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsH`,
+		name: "CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsN",
+		hint: "CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsH",
 		scope: "world",
 		type: Object,
 		default: {},
-		config: false,
+		config: false
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, {
-		name: `CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingN`,
-		hint: `CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingH`,
+		name: "CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingN",
+		hint: "CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingH",
 		scope: "world",
 		type: Object,
 		default: {},
-		config: false,
+		config: false
 	});
 
 	/* -------------------------------------------- */
@@ -101,7 +104,7 @@ export function registerSettings() {
 		hint: "CLT.ENHANCED_CONDITIONS.Lab.Hint",
 		icon: "fas fa-flask",
 		type: ConditionLab,
-		restricted: true,
+		restricted: true
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreIcons, {
@@ -110,7 +113,7 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: [],
-		config: false,
+		config: false
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
@@ -119,7 +122,7 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: [],
-		config: false,
+		config: false
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
@@ -130,7 +133,7 @@ export function registerSettings() {
 		default: "",
 		choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
 		config: false,
-		apiOnly: true,
+		apiOnly: true
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, {
@@ -138,7 +141,7 @@ export function registerSettings() {
 		hint: "CLT.SETTINGS.EnhancedConditions.DefaultMapsH",
 		scope: "world",
 		type: Object,
-		default: {},
+		default: {}
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {
@@ -154,7 +157,7 @@ export function registerSettings() {
 			if (game.clt) {
 				game.clt.conditions = conditionMap;
 			}
-		},
+		}
 	});
 
 	/* -------------------------------------------- */
@@ -172,7 +175,7 @@ export function registerSettings() {
 			config: true,
 			onChange: () => {
 				canvas.draw();
-			},
+			}
 		});
 	}
 
@@ -186,7 +189,7 @@ export function registerSettings() {
 		hint: "CLT.SETTINGS.Triggler.TriggersH",
 		icon: "fas fa-exclamation",
 		type: TrigglerForm,
-		restricted: true,
+		restricted: true
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.triggler.triggers, {
@@ -195,13 +198,13 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: [],
-		onChange: () => {},
+		onChange: () => {}
 	});
 
 	Sidekick.registerSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, {
 		scope: "world",
 		type: Boolean,
-		default: false,
+		default: false
 	});
 
 	/* -------------------------------------------- */
@@ -213,6 +216,6 @@ export function registerSettings() {
 		type: Boolean,
 		default: false,
 		config: true,
-		requiresReload: true,
+		requiresReload: true
 	});
 }

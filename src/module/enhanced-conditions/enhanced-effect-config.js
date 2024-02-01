@@ -11,14 +11,14 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 		const context = await DocumentSheet.prototype.getData.call(this, options);
 		context.descriptionHTML = await TextEditor.enrichHTML(this.object.description, {
 			async: true,
-			secrets: this.object.isOwner,
+			secrets: this.object.isOwner
 		});
 		const legacyTransfer = CONFIG.ActiveEffect.legacyTransferral;
 		const labels = {
 			transfer: {
 				name: game.i18n.localize(`EFFECT.Transfer${legacyTransfer ? "Legacy" : ""}`),
-				hint: game.i18n.localize(`EFFECT.TransferHint${legacyTransfer ? "Legacy" : ""}`),
-			},
+				hint: game.i18n.localize(`EFFECT.TransferHint${legacyTransfer ? "Legacy" : ""}`)
+			}
 		};
 		const data = {
 			labels,
@@ -30,7 +30,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 			modes: Object.entries(CONST.ACTIVE_EFFECT_MODES).reduce((obj, e) => {
 				obj[e[1]] = game.i18n.localize(`EFFECT.MODE_${e[0]}`);
 				return obj;
-			}, {}),
+			}, {})
 		};
 		return foundry.utils.mergeObject(context, data);
 	}
@@ -43,7 +43,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	async _updateObject(event, formData) {
 		const conditionIdFlag = getProperty(
 			this.object.flags,
-			`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`,
+			`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`
 		);
 		if (!conditionIdFlag) return;
 
@@ -65,7 +65,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 		if (this._state == 2) await this.render();
 		if (ui.clt.conditionLab) {
 			ui.clt.conditionLab.map = ui.clt.conditionLab.updatedMap;
-			//ui.clt.conditionLab.unsaved = true;
+			// ui.clt.conditionLab.unsaved = true;
 			ui.clt.conditionLab.render();
 		}
 	}

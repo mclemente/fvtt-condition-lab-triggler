@@ -3,6 +3,7 @@ import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js
 export class Butler {
 	/** Flags */
 	static NAME = "condition-lab-triggler";
+
 	/** Message output */
 	static TITLE = "Condition Lab & Triggler";
 
@@ -19,29 +20,29 @@ export class Butler {
 				mapTypes: {
 					default: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.default"),
 					custom: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom"),
-					other: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.other"),
+					other: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.other")
 				},
 				referenceTypes: [
 					{
 						id: "journalEntry",
 						name: "Journal",
-						icon: `fas fa-book-open`,
+						icon: "fas fa-book-open"
 					},
 					{
 						id: "compendium.journalEntry",
 						name: "Journal (C)",
-						icon: `fas fa-atlas`,
+						icon: "fas fa-atlas"
 					},
 					{
 						id: "item",
 						name: "Item",
-						icon: `fas fa-suitcase`,
+						icon: "fas fa-suitcase"
 					},
 					{
 						id: "compendium.item",
 						name: "Item (C)",
-						icon: `fas fa-suitcase`,
-					},
+						icon: "fas fa-suitcase"
+					}
 				],
 				templates: {
 					conditionLab: `${this.PATH}/templates/condition-lab.hbs`,
@@ -50,17 +51,17 @@ export class Butler {
 					importDialog: `${this.PATH}/templates/import-conditions.html`,
 					macroConfig: `${this.PATH}/templates/enhanced-condition-macro-config.hbs`,
 					triggerConfig: `${this.PATH}/templates/enhanced-condition-trigger-config.hbs`,
-					optionConfig: `${this.PATH}/templates/enhanced-condition-option-config.hbs`,
+					optionConfig: `${this.PATH}/templates/enhanced-condition-option-config.hbs`
 				},
 				migrationVersion: "",
 				specialStatusEffects: {
 					blinded: {
-						optionProperty: "blindToken",
+						optionProperty: "blindToken"
 					},
 					invisible: {
-						optionProperty: "markInvisible",
-					},
-				},
+						optionProperty: "markInvisible"
+					}
+				}
 			},
 			tokenUtility: {
 				autoRollHP: false,
@@ -68,31 +69,31 @@ export class Butler {
 				effectSize: {
 					xLarge: {
 						multiplier: 5,
-						divisor: 2,
+						divisor: 2
 					},
 					large: {
 						multiplier: 3.3,
-						divisor: 3,
+						divisor: 3
 					},
 					medium: {
 						multiplier: 2.5,
-						divisor: 4,
+						divisor: 4
 					},
 					small: {
 						multiplier: 2,
-						divisor: 5,
-					},
+						divisor: 5
+					}
 				},
 				effectSizeChoices: {
 					small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
 					medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
 					large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
-					xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge"),
-				},
+					xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge")
+				}
 			},
 			triggler: {
 				flags: {
-					macro: "macroTrigger",
+					macro: "macroTrigger"
 				},
 				operators: {
 					eq: "=",
@@ -100,29 +101,29 @@ export class Butler {
 					lt: "<",
 					lteq: "≤",
 					gt: ">",
-					gteq: "≥",
+					gteq: "≥"
 				},
 				options: {
-					percent: "%",
+					percent: "%"
 				},
 				templates: {
 					triggerForm: `${this.PATH}/templates/triggler-form.html`,
-					macroTriggerSelect: `${this.PATH}/templates/trigger-select.html`,
-				},
-			},
+					macroTriggerSelect: `${this.PATH}/templates/trigger-select.html`
+				}
+			}
 		};
 	}
 
 	static FLAGS = {
 		enhancedConditions: {
 			conditionId: "conditionId",
-			overlay: "overlay",
-		},
+			overlay: "overlay"
+		}
 	};
 
 	static SETTING_KEYS = {
 		migration: {
-			hasRunMigration: "hasRunMigration",
+			hasRunMigration: "hasRunMigration"
 		},
 		enhancedConditions: {
 			menu: "enchantedConditionsMenu",
@@ -137,16 +138,16 @@ export class Butler {
 			migrationVersion: "enhancedConditionsMigrationVersion",
 			showSortDirectionDialog: "showSortDirectionDialog",
 			defaultSpecialStatusEffects: "defaultSpecialStatusEffects",
-			specialStatusEffectMapping: "specialStatusEffectMapping",
+			specialStatusEffectMapping: "specialStatusEffectMapping"
 		},
 		tokenUtility: {
-			effectSize: "effectSize",
+			effectSize: "effectSize"
 		},
 		triggler: {
 			menu: "trigglerMenu",
-			triggers: "storedTriggers",
+			triggers: "storedTriggers"
 		},
-		sceneControls: "sceneControls",
+		sceneControls: "sceneControls"
 	};
 
 	// Instantiate gadget classes
@@ -154,11 +155,18 @@ export class Butler {
 
 	// Expose API methods
 	getCondition = EnhancedConditions.getCondition;
+
 	getConditions = EnhancedConditions.getConditions;
+
 	getConditionEffects = EnhancedConditions.getConditionEffects;
+
 	hasCondition = EnhancedConditions.hasCondition;
+
 	applyCondition = EnhancedConditions.applyCondition;
+
 	addCondition = EnhancedConditions.addCondition;
+
 	removeCondition = EnhancedConditions.removeCondition;
+
 	removeAllConditions = EnhancedConditions.removeAllConditions;
 }

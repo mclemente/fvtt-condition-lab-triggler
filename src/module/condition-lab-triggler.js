@@ -27,7 +27,7 @@ import MigrationHelper from "./utils/migration.js";
 Handlebars.registerHelper({
 	hidden(value) {
 		return value ? "hidden" : "";
-	},
+	}
 });
 
 Hooks.on("init", () => {
@@ -59,7 +59,8 @@ Hooks.on("init", () => {
 				const rows = Math.floor(this.document.height * divisor);
 
 				// Unchanged
-				const bg = this.effects.bg.clear().beginFill(0x000000, 0.4).lineStyle(1.0, 0x000000);
+				const bg = this.effects.bg.clear().beginFill(0x000000, 0.4)
+					.lineStyle(1.0, 0x000000);
 				for (const effect of this.effects.children) {
 					if (effect === bg) continue;
 
@@ -80,7 +81,7 @@ Hooks.on("init", () => {
 					}
 				}
 			},
-			"OVERRIDE",
+			"OVERRIDE"
 		);
 	}
 
@@ -91,7 +92,7 @@ Hooks.on("init", () => {
 			new ConditionLab().render(true);
 		},
 		restricted: false,
-		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
 	});
 	game.keybindings.register(BUTLER.NAME, "openTriggler", {
 		name: "CLT.KEYBINDINGS.openTriggler.name",
@@ -99,11 +100,14 @@ Hooks.on("init", () => {
 			new TrigglerForm().render(true);
 		},
 		restricted: false,
-		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
 	});
 	postInit();
 });
 
+/**
+ *
+ */
 function postInit() {
 	/* -------------------------------------------- */
 	/*                    System                    */
@@ -171,21 +175,21 @@ function postInit() {
 					title: "CLT.ENHANCED_CONDITIONS.Lab.Title",
 					icon: "fas fa-flask",
 					button: true,
-					onClick: async () => new ConditionLab().render(true),
+					onClick: async () => new ConditionLab().render(true)
 				});
 				hud.tools.push({
 					name: "Triggler",
 					title: "Triggler",
 					icon: "fas fa-exclamation",
 					button: true,
-					onClick: async () => new TrigglerForm().render(true),
+					onClick: async () => new TrigglerForm().render(true)
 				});
 			}
 		}
 	});
 
 	Hooks.on("renderSceneControls", (app, html, data) => {
-		const trigglerButton = html.find(`li[data-tool="Triggler"]`)[0];
+		const trigglerButton = html.find('li[data-tool="Triggler"]')[0];
 		if (trigglerButton) {
 			trigglerButton.style.display = "inline-block";
 			const exclamationMark = trigglerButton.children[0];
@@ -233,11 +237,11 @@ function postInit() {
 
 	Hooks.on("renderDialog", (app, html, data) => {
 		switch (app.title) {
-			case game.i18n.localize(`CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title`):
+			case game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.Title"):
 				ConditionLab._onRenderSaveDialog(app, html, data);
 				break;
 
-			case game.i18n.localize(`CLT.ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle`):
+			case game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.RestoreDefaultsTitle"):
 				ConditionLab._onRenderRestoreDefaultsDialog(app, html, data);
 				break;
 

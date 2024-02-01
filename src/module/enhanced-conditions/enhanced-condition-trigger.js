@@ -23,20 +23,20 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.triggerConfig,
 			classes: ["sheet"],
 			closeOnSubmit: false,
-			width: 500,
+			width: 500
 		});
 	}
 
 	/**
 	 * Gets data for template rendering
-	 * @returns {Object} data
+	 * @returns {object} data
 	 */
 	getData() {
 		return {
 			condition: this.object,
 			applyTriggerId: this.object.applyTrigger,
 			removeTriggerId: this.object.removeTrigger,
-			triggerChoices: Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers) ?? [],
+			triggerChoices: Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers) ?? []
 		};
 	}
 
@@ -49,7 +49,8 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 		this.object.macros = [];
 
 		for (const field in formData) {
-			const type = field.split("-").slice(-1).pop() ?? "";
+			const type = field.split("-").slice(-1)
+				.pop() ?? "";
 			this.object[`${type}Trigger`] = formData[field];
 		}
 

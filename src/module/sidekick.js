@@ -6,7 +6,7 @@ export class Sidekick {
 	/**
 	 * Get a single setting using the provided key
 	 * @param {*} key
-	 * @returns {Object} setting
+	 * @returns {object} setting
 	 */
 	static getSetting(key) {
 		return game.settings.get(BUTLER.NAME, key);
@@ -97,7 +97,7 @@ export class Sidekick {
 			const json = await jsonFile.json();
 			if (!(json instanceof Object)) throw new Error("Not a valid JSON!");
 			return json;
-		} catch (e) {
+		} catch(e) {
 			console.warn(e.message);
 			return null;
 		}
@@ -105,8 +105,8 @@ export class Sidekick {
 
 	/**
 	 * Validate that an object is actually an object
-	 * @param {Object} object
-	 * @returns {Boolean}
+	 * @param {object} object
+	 * @returns {boolean}
 	 */
 	static validateObject(object) {
 		return !!(object instanceof Object);
@@ -122,7 +122,7 @@ export class Sidekick {
 
 	/**
 	 * Retrieves a key using the given value
-	 * @param {Object} object -- the object that contains the key/value
+	 * @param {object} object the object that contains the key/value
 	 * @param {*} value
 	 */
 	static getKeyByValue(object, value) {
@@ -131,6 +131,7 @@ export class Sidekick {
 
 	/**
 	 * Inverts the key and value in a map
+	 * @param map
 	 * @todo: rework
 	 */
 	static getInverseMap(map) {
@@ -160,7 +161,9 @@ export class Sidekick {
 	 */
 	static jQueryHelpers() {
 		jQuery.expr[":"].icontains = function (a, i, m) {
-			return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+			return jQuery(a).text()
+				.toUpperCase()
+				.indexOf(m[3].toUpperCase()) >= 0;
 		};
 	}
 
@@ -186,8 +189,8 @@ export class Sidekick {
 
 	/**
 	 * Escapes regex special chars
-	 * @param {String} string
-	 * @return {String} escapedString
+	 * @param {string} string
+	 * @returns {string} escapedString
 	 */
 	static escapeRegExp(string) {
 		return string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&");
@@ -196,13 +199,14 @@ export class Sidekick {
 	/**
 	 * Attempts to coerce a target value into the exemplar's type
 	 * @param {*} target
+	 * @param value
 	 * @param {*} type
 	 * @returns {*} coercedValue
 	 */
 	static coerceType(value, type) {
 		switch (type) {
 			case "number":
-				return value * 1;
+				return Number(value);
 
 			case "string":
 				return value.toString();
@@ -211,8 +215,8 @@ export class Sidekick {
 				return value.toString().toLowerCase() === "true"
 					? true
 					: value.toString().toLowerCase() === "false"
-					? false
-					: value;
+						? false
+						: value;
 
 			default:
 				return value;
@@ -243,6 +247,9 @@ export class Sidekick {
 	/**
 	 * Get a random unique Id, checking an optional supplied array of ids for a match
 	 * @param {*} existingIds
+	 * @param root0
+	 * @param root0.iterations
+	 * @param root0.length
 	 */
 	static createId(existingIds = [], { iterations = 10000, length = 16 } = {}) {
 		let i = 0;
@@ -255,12 +262,12 @@ export class Sidekick {
 			console.log(
 				`Combat Utility Belt - Sidekick | Id ${id} already exists in the provided list of ids. ${
 					i ? `This is attempt ${i} of ${iterations} ` : ""
-				}Trying again...`,
+				}Trying again...`
 			);
 		}
 
 		throw new Error(
-			`Combat Utility Belt - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`,
+			`Combat Utility Belt - Sidekick | Tried to create a unique id over ${iterations} iterations and failed.`
 		);
 	}
 
@@ -284,7 +291,7 @@ export class Sidekick {
 			({ childNodes: [...nodes] }) =>
 				nodes
 					.filter(({ nodeType }) => nodeType === document.TEXT_NODE)
-					.forEach((textNode) => (textNode.textContent = textNode.textContent.replace(pattern, string))),
+					.forEach((textNode) => (textNode.textContent = textNode.textContent.replace(pattern, string)))
 		);
 	}
 
@@ -321,13 +328,15 @@ export class Sidekick {
 
 	/**
 	 * For a given file path, find the filename and then apply title case
-	 * @param {String} path
-	 * @returns {String}
+	 * @param {string} path
+	 * @returns {string}
 	 */
 	static getNameFromFilePath(path) {
 		if (!path) return null;
 
-		const file = path.split("\\").pop().split("/").pop();
+		const file = path.split("\\").pop()
+			.split("/")
+			.pop();
 
 		if (!file) return null;
 
@@ -351,7 +360,7 @@ export class Sidekick {
 
 	/**
 	 * Checks if the current user is the first active GM
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	static isFirstGM() {
 		return game.user.id === this.getFirstGM()?.id;
@@ -376,16 +385,15 @@ export class Sidekick {
 	 * Returns true for each array element that is a duplicate based on the property specified
 	 * @param {*} arrayToCheck
 	 * @param {*} filterProperty
-	 * @returns {Boolean}
+	 * @returns {boolean}
 	 */
 	static identifyArrayDuplicatesByProperty(arrayToCheck, filterProperty) {
 		const seen = new Set();
 		return arrayToCheck.map((e) => {
 			if (seen.size === seen.add(e[filterProperty]).size) {
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 		});
 	}
 
@@ -396,7 +404,7 @@ export class Sidekick {
 		const templates = [
 			`${BUTLER.PATH}/templates/partials/chat-card-condition-list.hbs`,
 			`${BUTLER.PATH}/templates/partials/condition-lab-row.hbs`,
-			`${BUTLER.PATH}/templates/partials/triggler-icon.hbs`,
+			`${BUTLER.PATH}/templates/partials/triggler-icon.hbs`
 		];
 		await loadTemplates(templates);
 	}
@@ -427,8 +435,8 @@ export class Sidekick {
 
 	/**
 	 * Converts the given string to camelCase using the provided delimiter to break up words
-	 * @param {String} string
-	 * @param {String} delimiter
+	 * @param {string} string
+	 * @param {string} delimiter
 	 * @returns the converted string
 	 * @example Sidekick.toCamelCase("my-cool-string", "-") // returns "myCoolString"
 	 */
@@ -436,8 +444,8 @@ export class Sidekick {
 		const stringParts = string.split(delimiter);
 		return stringParts instanceof Array
 			? stringParts.reduce((camelString, part, index) => {
-					return (camelString += index > 0 ? Sidekick.toTitleCase(part) : part);
-			  }, "")
+				return (camelString += index > 0 ? Sidekick.toTitleCase(part) : part);
+			}, "")
 			: stringParts;
 	}
 }

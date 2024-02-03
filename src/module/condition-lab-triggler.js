@@ -166,9 +166,7 @@ function postInit() {
 	/* -------------- Scene Controls -------------- */
 	Hooks.on("getSceneControlButtons", function (hudButtons) {
 		if (game.user.isGM && game.settings.get(BUTLER.NAME, "sceneControls")) {
-			let hud = hudButtons.find((val) => {
-				return val.name == "token";
-			});
+			let hud = hudButtons.find((val) => val.name === "token");
 			if (hud) {
 				hud.tools.push({
 					name: "CLT.ENHANCED_CONDITIONS.Lab.Title",

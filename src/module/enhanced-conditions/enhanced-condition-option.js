@@ -114,9 +114,9 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 			if (specialStatusEffect) {
 				const existingMapping = foundry.utils.getProperty(specialStatusEffectMapping, specialStatusEffect);
-				if (existingMapping === `${BUTLER.NAME}.${this.object.id}` && value === false) {
+				if (existingMapping === this.object.id && value === false) {
 					this.setSpecialStatusEffectMapping(specialStatusEffect);
-				} else if (existingMapping !== `${BUTLER.NAME}.${this.object.id}` && value === true) {
+				} else if (existingMapping !== this.object.id && value === true) {
 					this.setSpecialStatusEffectMapping(specialStatusEffect, this.object.id);
 					if (existingMapping) {
 						const existingId = existingMapping.replace(`${BUTLER.NAME}.`, "");
@@ -165,7 +165,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	setSpecialStatusEffectMapping(effect, conditionId = null) {
 		if (!Object.prototype.hasOwnProperty.call(CONFIG.specialStatusEffects, effect)) return;
 
-		CONFIG.specialStatusEffects[effect] = conditionId ? `${BUTLER.NAME}.${conditionId}` : "";
+		CONFIG.specialStatusEffects[effect] = conditionId ?? "";
 		Sidekick.setSetting(
 			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
 			CONFIG.specialStatusEffects

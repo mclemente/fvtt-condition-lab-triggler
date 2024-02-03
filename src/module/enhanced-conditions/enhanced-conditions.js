@@ -595,6 +595,7 @@ export class EnhancedConditions {
 				c.id = Sidekick.createId(existingIds);
 				console.log(`${BUTLER.TITLE} | New id:`, c.id);
 			}
+			c.id = c.id.replace(/${BUTLER.NAME}/, "");
 			processedIds.push(c.id);
 		});
 		await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
@@ -861,11 +862,10 @@ export class EnhancedConditions {
 
 		const statusEffects = conditionMap.map((c) => {
 			const id = c.id || Sidekick.createId(existingIds);
-			const longId = `${BUTLER.NAME}.${id}`;
 
 			return {
-				id: longId,
-				statuses: [longId],
+				id,
+				statuses: [id],
 				name: c.name,
 				icon: c.icon,
 				changes: c.activeEffect?.changes || [],

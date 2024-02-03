@@ -9,9 +9,6 @@ export class TrigglerForm extends FormApplication {
 		this.parent = options.parent || null;
 	}
 
-	/**
-	 *
-	 */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
@@ -25,9 +22,6 @@ export class TrigglerForm extends FormApplication {
 		});
 	}
 
-	/**
-	 * Get data for the triggler form
-	 */
 	getData() {
 		const id = this.data.id;
 		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
@@ -107,10 +101,6 @@ export class TrigglerForm extends FormApplication {
 		};
 	}
 
-	/**
-	 *
-	 * @param html
-	 */
 	activateListeners(html) {
 		super.activateListeners(html);
 
@@ -258,11 +248,6 @@ export class TrigglerForm extends FormApplication {
 		});
 	}
 
-	/**
-	 * Update the Trigger object
-	 * @param {*} event
-	 * @param {*} formData
-	 */
 	async _updateObject(event, formData) {
 		if (!formData.category && !formData.advancedActorProperty && !formData.advancedTokenProperty) {
 			return;

@@ -13,9 +13,6 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 		this.initialObject = foundry.utils.duplicate(this.object);
 	}
 
-	/**
-	 * defaultOptions
-	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-trigger-config",
@@ -27,10 +24,6 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 		});
 	}
 
-	/**
-	 * Gets data for template rendering
-	 * @returns {object} data
-	 */
 	getData() {
 		return {
 			condition: this.object,

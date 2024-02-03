@@ -13,9 +13,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		this.initialObject = foundry.utils.duplicate(this.object);
 	}
 
-	/**
-	 * defaultOptions
-	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-option-config",
@@ -27,10 +24,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		});
 	}
 
-	/**
-	 * Gets data for template rendering
-	 * @returns {object} data
-	 */
 	getData() {
 		return {
 			condition: this.object,
@@ -38,10 +31,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		};
 	}
 
-	/**
-	 * Application listeners
-	 * @param {jQuery} html
-	 */
 	activateListeners(html) {
 		const checkboxes = html.find("input[type='checkbox']");
 
@@ -109,11 +98,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		return event;
 	}
 
-	/**
-	 * Update Object on Form Submission
-	 * @param {*} event
-	 * @param {*} formData
-	 */
 	async _updateObject(event, formData) {
 		this.object.options = {};
 		const specialStatusEffectMapping = Sidekick.getSetting(

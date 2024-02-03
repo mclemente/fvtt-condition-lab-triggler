@@ -14,9 +14,6 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 		this.initialObject = foundry.utils.duplicate(this.object);
 	}
 
-	/**
-	 * defaultOptions
-	 */
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-macro-config",
@@ -27,10 +24,6 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 		});
 	}
 
-	/**
-	 * Gets data for template rendering
-	 * @returns {object} data
-	 */
 	getData() {
 		const conditionMacros = this.object.macros;
 		const applyMacroId = conditionMacros.find((m) => m.type === "apply")?.id;
@@ -50,11 +43,6 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 		};
 	}
 
-	/**
-	 * Update Object on Form Submission
-	 * @param {*} event
-	 * @param {*} formData
-	 */
 	async _updateObject(event, formData) {
 		this.object.macros = [];
 

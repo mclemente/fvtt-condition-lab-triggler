@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { EnhancedConditions } from "../enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "../sidekick.js";
 

@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 
 /**

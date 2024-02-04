@@ -30,6 +30,27 @@ Hooks.on("init", () => {
 
 	// Execute housekeeping
 	Sidekick.loadTemplates();
+
+	// Keybinds
+	game.keybindings.register("condition-lab-triggler", "openConditionLab", {
+		name: "CLT.KEYBINDINGS.openConditionLab.name",
+		onDown: () => {
+			new ConditionLab().render(true);
+		},
+		restricted: true,
+		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
+	});
+	game.keybindings.register("condition-lab-triggler", "openTriggler", {
+		name: "CLT.KEYBINDINGS.openTriggler.name",
+		onDown: () => {
+			new TrigglerForm().render(true);
+		},
+		restricted: true,
+		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
+	});
+});
+
+Hooks.on("i18nInit", () => {
 	registerSettings();
 
 	// Wrappers
@@ -89,24 +110,6 @@ Hooks.on("init", () => {
 			"OVERRIDE"
 		);
 	}
-
-	// Keybinds
-	game.keybindings.register("condition-lab-triggler", "openConditionLab", {
-		name: "CLT.KEYBINDINGS.openConditionLab.name",
-		onDown: () => {
-			new ConditionLab().render(true);
-		},
-		restricted: true,
-		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
-	});
-	game.keybindings.register("condition-lab-triggler", "openTriggler", {
-		name: "CLT.KEYBINDINGS.openTriggler.name",
-		onDown: () => {
-			new TrigglerForm().render(true);
-		},
-		restricted: true,
-		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
-	});
 });
 
 Hooks.on("ready", () => {

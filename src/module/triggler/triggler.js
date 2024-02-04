@@ -41,19 +41,7 @@ export class Triggler {
 	 * @param {*} trigger
 	 */
 	static _prepareTrigger(trigger) {
-		const {
-			attribute = null,
-			category = null,
-			notZero = false,
-			npcOnly = false,
-			operator = null,
-			pcOnly = false,
-			property1 = null,
-			property2 = null,
-			triggerType = "simple",
-			id = null,
-			value = null
-		} = trigger;
+		const { triggerType = "simple", id = null } = trigger;
 
 		// const triggerType = formData?.triggerType;
 
@@ -65,7 +53,6 @@ export class Triggler {
 		}
 
 		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
-		const existingIds = triggers ? triggers.map((t) => t.id) : null;
 		const text = triggerType === "simple" ? Triggler._constructString(trigger) : trigger.advancedName;
 
 		if (!text) return false;
@@ -126,8 +113,12 @@ export class Triggler {
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);
 
-		if (applyConditionNames.length) await EnhancedConditions.addCondition(applyConditionNames, target, { warn: false });
-		if (removeConditionNames.length) await EnhancedConditions.removeCondition(removeConditionNames, target, { warn: false });
+		if (applyConditionNames.length) {
+			await EnhancedConditions.addCondition(applyConditionNames, target, { warn: false });
+		}
+		if (removeConditionNames.length) {
+			await EnhancedConditions.removeCondition(removeConditionNames, target, { warn: false });
+		}
 
 		for (const macro of matchedMacros) {
 			await macro.execute({ actor, token });

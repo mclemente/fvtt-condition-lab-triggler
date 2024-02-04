@@ -76,10 +76,18 @@ a.add-temporary {
 	min-width: 640px;
 }
 
+#cub-triggler-form {
+	min-height: 325px;
+}
+
 #cub-triggler-form .triggler-body {
 	overflow: hidden auto;
 	margin: 0;
-	padding: 1rem;
+	padding: 1rem 1rem 0;
+}
+
+#cub-triggler-form fieldset legend {
+	font-size: 1.25em;
 }
 
 #cub-condition-lab .hidden {

@@ -15,7 +15,7 @@ export class TrigglerForm extends FormApplication {
 			template: "modules/condition-lab-triggler/templates/triggler-form.html",
 			classes: ["sheet", "triggler-form"],
 			width: 780,
-			height: 735,
+			height: "auto",
 			resizable: true,
 			closeOnSubmit: false
 		});
@@ -53,13 +53,19 @@ export class TrigglerForm extends FormApplication {
 		} = this.data || {};
 		const isSimpleTrigger = triggerType === "simple";
 		const isAdvancedTrigger = triggerType === "advanced";
-		const actorModel = game.system.model?.Actor;
-		const mergedModel = actorModel
-			? Object.keys(actorModel).reduce((accumulator, key, index) => {
-				return foundry.utils.mergeObject(accumulator, actorModel[key]);
-			}, {})
-			: null;
-		const categories = mergedModel ? Object.keys(mergedModel) : null;
+		let actorModel = game.system.model?.Actor ?? {};
+		const isEmpty = Object.values(actorModel).every((obj) => Object.keys(obj).length === 0);
+		let mergedModel = null;
+		if (isEmpty) {
+			actorModel = CONFIG.Actor.dataModels ?? {};
+			mergedModel = Object.keys(actorModel)
+				.reduce((obj, key) =>
+					foundry.utils.mergeObject(obj, new CONFIG.Actor.documentClass({ name: "CLT Actor", type: key }).toObject().system), {});
+		} else {
+			mergedModel = Object.keys(actorModel)
+				.reduce((accumulator, key) => foundry.utils.mergeObject(accumulator, actorModel[key]), {});
+		}
+		const categories = mergedModel ? Object.keys(mergedModel).sort() : null;
 		const attributes = category ? Object.keys(mergedModel[category]) : null;
 		const properties = category && attribute ? Object.keys(mergedModel[category][attribute]) : null;
 		const operators = Triggler.OPERATORS;

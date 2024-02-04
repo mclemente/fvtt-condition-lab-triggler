@@ -228,6 +228,7 @@
 			"TriggerMismatch": "These triggers do not match your game system and may not work as expected.",
 			"App": {
 				"Labels": {
+					"Type": "Type",
 					"Triggers": "Existing Triggers",
 					"Category": "Category",
 					"Attribute": "Attribute",
@@ -260,7 +261,7 @@
 						"Hint": "The path to the updated property to listen for. The Actor and Token Entry Point values tell Triggler where to look for each entity type"
 					},
 					"OperatorValue": {
-						"Heading": "Operator/Value",
+						"Heading": "Operator & Value",
 						"Note": "Always required. The operator and value apply to both Actor and Token Properties set above"
 					},
 					"Name": {

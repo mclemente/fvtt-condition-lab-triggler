@@ -12,6 +12,7 @@ import EnhancedEffectConfig from "./enhanced-effect-config.js";
 export class ConditionLab extends FormApplication {
 	constructor(object, options = {}) {
 		super(object, options);
+		game.clt.conditionLab = this;
 		this.data = (game.clt.conditionLab ? game.clt.conditionLab.data : object) ?? null;
 		this.system = game.system.id;
 		this.initialMapType = game.settings.get("condition-lab-triggler", "conditionMapType");

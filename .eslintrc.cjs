@@ -15,6 +15,8 @@ module.exports = {
 
 	plugins: ["@stylistic/js", "jsdoc"],
 
+	ignorePatterns: ["foundry"],
+
 	rules: {
 		"array-bracket-spacing": ["warn", "never"],
 		"array-callback-return": "warn",

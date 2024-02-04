@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { Triggler } from "./triggler.js";
 
@@ -13,7 +12,7 @@ export class TrigglerForm extends FormApplication {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
 			title: "Triggler",
-			template: BUTLER.DEFAULT_CONFIG.triggler.templates.triggerForm,
+			template: "modules/condition-lab-triggler/templates/triggler-form.html",
 			classes: ["sheet", "triggler-form"],
 			width: 780,
 			height: 735,
@@ -63,7 +62,7 @@ export class TrigglerForm extends FormApplication {
 		const categories = mergedModel ? Object.keys(mergedModel) : null;
 		const attributes = category ? Object.keys(mergedModel[category]) : null;
 		const properties = category && attribute ? Object.keys(mergedModel[category][attribute]) : null;
-		const operators = BUTLER.DEFAULT_CONFIG.triggler.operators;
+		const operators = Triggler.OPERATORS;
 
 		const triggerSelected = !!(id && triggers);
 

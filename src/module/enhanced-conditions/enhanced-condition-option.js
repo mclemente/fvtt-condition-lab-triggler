@@ -46,9 +46,10 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		if (!event.target?.checked) return;
 		const targetName = event.target?.name;
 		const propertyName = Sidekick.toCamelCase(targetName, "-");
-		const specialStatusEffectsProps = Object.values(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.specialStatusEffects
-		).map((k) => k.optionProperty);
+		const specialStatusEffectsProps = Object.values({
+			blinded: { optionProperty: "blindToken" },
+			invisible: { optionProperty: "markInvisible" }
+		}).map((k) => k.optionProperty);
 
 		if (!propertyName || !specialStatusEffectsProps) return;
 

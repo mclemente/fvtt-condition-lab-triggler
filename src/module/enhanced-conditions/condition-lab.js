@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { TrigglerForm } from "../triggler/triggler-form.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
@@ -13,7 +12,6 @@ import EnhancedEffectConfig from "./enhanced-effect-config.js";
 export class ConditionLab extends FormApplication {
 	constructor(object, options = {}) {
 		super(object, options);
-		game.clt.conditionLab = this;
 		this.data = (game.clt.conditionLab ? game.clt.conditionLab.data : object) ?? null;
 		this.system = game.system.id;
 		this.initialMapType = game.settings.get("condition-lab-triggler", "conditionMapType");
@@ -64,7 +62,7 @@ export class ConditionLab extends FormApplication {
 
 		const defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
 		const mappedSystems = Object.keys(defaultMaps) || [];
-		const mapTypeChoices = BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes;
+		const mapTypeChoices = game.settings.settings.get("condition-lab-triggler.conditionMapType").choices;
 
 		// If there's no default map for this system don't provide the "default" choice
 		if (!mappedSystems.includes(game.system.id)) {

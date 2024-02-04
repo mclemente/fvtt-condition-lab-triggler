@@ -6,9 +6,14 @@ import { Sidekick } from "../sidekick.js";
  * Handles triggers for other gadgets in the module... or does it?!
  */
 export class Triggler {
-	constructor() {
-		game.clt.triggler = this;
-	}
+	static OPERATORS = {
+		eq: "=",
+		ne: "≠",
+		lt: "<",
+		lteq: "≤",
+		gt: ">",
+		gteq: "≥"
+	};
 
 	/**
 	 * Parses triggers JSON and returns triggers
@@ -84,8 +89,8 @@ export class Triggler {
 	 */
 	static _constructString(parts) {
 		const triggerType = parts.triggerType;
-		const operatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.operator];
-		const advancedOperatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
+		const operatorText = Triggler.OPERATORS[parts.operator];
+		const advancedOperatorText = Triggler.OPERATORS[parts.advancedOperator];
 
 		const pcOnly = parts.pcOnly ? " (PCs Only)" : "";
 		const npcOnly = parts.npcOnly ? " (NPCs Only)" : "";
@@ -117,7 +122,7 @@ export class Triggler {
 		const matchedApplyConditions = conditionMap.filter((m) => m.applyTrigger === trigger.id);
 		const matchedRemoveConditions = conditionMap.filter((m) => m.removeTrigger === trigger.id);
 		const matchedMacros = game.macros.contents.filter(
-			(m) => m.getFlag("condition-lab-triggler", BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
+			(m) => m.getFlag("condition-lab-triggler", "macroTrigger") === trigger.id
 		);
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);
@@ -223,7 +228,7 @@ export class Triggler {
 			const updateValueType = typeof updateValue;
 
 			// example: "="
-			const operator = BUTLER.DEFAULT_CONFIG.triggler.operators[trigger.operator];
+			const operator = Triggler.OPERATORS[trigger.operator];
 
 			// percent requires whole different handling
 			const isPercent = trigger.value.endsWith("%");
@@ -241,7 +246,7 @@ export class Triggler {
 			 * @todo bulkify refactor this to add matched triggers to an array then execut the array at the end
 			 */
 			switch (operator) {
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.eq:
+				case Triggler.OPERATORS.eq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -257,7 +262,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.gt:
+				case Triggler.OPERATORS.gt:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -272,7 +277,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.gteq:
+				case Triggler.OPERATORS.gteq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -287,7 +292,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.lt:
+				case Triggler.OPERATORS.lt:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -302,7 +307,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.lteq:
+				case Triggler.OPERATORS.lteq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -317,7 +322,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.ne:
+				case Triggler.OPERATORS.ne:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -387,10 +392,10 @@ export class Triggler {
 	static async _onRenderMacroConfig(app, html, data) {
 		const typeSelect = html.find("select[name='type']");
 		const typeSelectDiv = typeSelect.closest("div");
-		const flag = app.object.getFlag("condition-lab-triggler", BUTLER.DEFAULT_CONFIG.triggler.flags.macro);
+		const flag = app.object.getFlag("condition-lab-triggler", "macroTrigger");
 		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 
-		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templates.macroTriggerSelect;
+		const triggerSelectTemplate = "modules/condition-lab-triggler/templates/trigger-select.html";
 		const triggerData = {
 			flag,
 			triggers

@@ -34,15 +34,6 @@ export class Sidekick {
 	}
 
 	/**
-	 * Retrieves a key using the given value
-	 * @param {object} object the object that contains the key/value
-	 * @param {*} value
-	 */
-	static getKeyByValue(object, value) {
-		return Object.keys(object).find((key) => key === value);
-	}
-
-	/**
 	 * Attempts to coerce a target value into the exemplar's type
 	 * @param {*} target
 	 * @param value

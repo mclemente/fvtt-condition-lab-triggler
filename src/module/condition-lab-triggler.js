@@ -96,7 +96,7 @@ Hooks.on("init", () => {
 		onDown: () => {
 			new ConditionLab().render(true);
 		},
-		restricted: false,
+		restricted: true,
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
 	});
 	game.keybindings.register("condition-lab-triggler", "openTriggler", {
@@ -104,7 +104,7 @@ Hooks.on("init", () => {
 		onDown: () => {
 			new TrigglerForm().render(true);
 		},
-		restricted: false,
+		restricted: true,
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
 	});
 });

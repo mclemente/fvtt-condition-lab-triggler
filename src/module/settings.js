@@ -1,7 +1,5 @@
-import { Butler as BUTLER } from "./butler.js";
 import { ConditionLab } from "./enhanced-conditions/condition-lab.js";
 import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js";
-import { Sidekick } from "./sidekick.js";
 import { TrigglerForm } from "./triggler/triggler-form.js";
 
 /**
@@ -12,13 +10,13 @@ export function registerSettings() {
 	/*            Setting Configuration             */
 	/* -------------------------------------------- */
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat, {
+	game.settings.register("condition-lab-triggler", "conditionsOutputToChat", {
 		name: "CLT.SETTINGS.EnhancedConditions.OutputChatN",
 		hint: "CLT.SETTINGS.EnhancedConditions.OutputChatH",
 		scope: "world",
 		type: Boolean,
 		config: true,
-		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputChat,
+		default: false,
 		onChange: (s) => {
 			if (s === true) {
 				Dialog.confirm({
@@ -28,7 +26,7 @@ export function registerSettings() {
 						const newMap = deepClone(game.clt.conditions);
 						if (!newMap.length) return;
 						newMap.forEach((c) => (c.options.outputChat = true));
-						Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
+						game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);
 					},
 					no: () => {}
 				});
@@ -36,38 +34,38 @@ export function registerSettings() {
 		}
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputCombat, {
+	game.settings.register("condition-lab-triggler", "conditionsOutputDuringCombat", {
 		name: "CLT.SETTINGS.EnhancedConditions.OutputCombatN",
 		hint: "CLT.SETTINGS.EnhancedConditions.OutputCombatH",
 		scope: "world",
 		type: Boolean,
 		config: true,
-		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.outputCombat
+		default: false
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects, {
+	game.settings.register("condition-lab-triggler", "removeDefaultEffects", {
 		name: "CLT.SETTINGS.EnhancedConditions.RemoveDefaultEffectsN",
 		hint: "CLT.SETTINGS.EnhancedConditions.RemoveDefaultEffectsH",
 		scope: "world",
 		type: Boolean,
 		config: true,
-		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.removeDefaultEffects,
+		default: false,
 		onChange: () => {
 			EnhancedConditions._updateStatusEffects();
 		}
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, {
+	game.settings.register("condition-lab-triggler", "enhancedConditionsMigrationVersion", {
 		name: "CLT.SETTINGS.EnhancedConditions.MigrationVersionN",
 		hint: "CLT.SETTINGS.EnhancedConditions.MigrationVersionH",
 		scope: "world",
 		type: String,
 		config: false,
 		apiOnly: true,
-		default: BUTLER.DEFAULT_CONFIG.enhancedConditions.migrationVersion
+		default: ""
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, {
+	game.settings.register("condition-lab-triggler", "showSortDirectionDialog", {
 		name: "CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogN",
 		hint: "CLT.SETTINGS.EnhancedConditions.ShowSortDirectionDialogH",
 		scope: "world",
@@ -76,7 +74,7 @@ export function registerSettings() {
 		default: true
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects, {
+	game.settings.register("condition-lab-triggler", "defaultSpecialStatusEffects", {
 		name: "CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsN",
 		hint: "CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsH",
 		scope: "world",
@@ -85,7 +83,7 @@ export function registerSettings() {
 		config: false
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping, {
+	game.settings.register("condition-lab-triggler", "specialStatusEffectMapping", {
 		name: "CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingN",
 		hint: "CLT.SETTINGS.EnhancedConditions.SpecialStatusEffectMappingH",
 		scope: "world",
@@ -98,7 +96,7 @@ export function registerSettings() {
 	/*              EnhancedConditions              */
 	/* -------------------------------------------- */
 
-	Sidekick.registerMenu(BUTLER.SETTING_KEYS.enhancedConditions.menu, {
+	game.settings.registerMenu("condition-lab-triggler", "enchantedConditionsMenu", {
 		name: "CLT.ENHANCED_CONDITIONS.Lab.Title",
 		label: "CLT.ENHANCED_CONDITIONS.Lab.Title",
 		hint: "CLT.ENHANCED_CONDITIONS.Lab.Hint",
@@ -107,7 +105,7 @@ export function registerSettings() {
 		restricted: true
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreIcons, {
+	game.settings.register("condition-lab-triggler", "coreStatusIcons", {
 		name: "CLT.SETTINGS.EnhancedConditions.CoreIconsN",
 		hint: "CLT.SETTINGS.EnhancedConditions.CoreIconsH",
 		scope: "world",
@@ -116,7 +114,7 @@ export function registerSettings() {
 		config: false
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, {
+	game.settings.register("condition-lab-triggler", "coreStatusEffects", {
 		name: "CLT.SETTINGS.EnhancedConditions.CoreEffectsN",
 		hint: "CLT.SETTINGS.EnhancedConditions.CoreEffectsH",
 		scope: "world",
@@ -125,18 +123,22 @@ export function registerSettings() {
 		config: false
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, {
+	game.settings.register("condition-lab-triggler", "conditionMapType", {
 		name: "CLT.SETTINGS.EnhancedConditions.MapTypeN",
 		hint: "CLT.SETTINGS.EnhancedConditions.MapTypeH",
 		scope: "world",
 		type: String,
 		default: "",
-		choices: BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
+		choices: {
+			default: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.default"),
+			custom: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom"),
+			other: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.other")
+		},
 		config: false,
 		apiOnly: true
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, {
+	game.settings.register("condition-lab-triggler", "defaultConditionMaps", {
 		name: "CLT.SETTINGS.EnhancedConditions.DefaultMapsN",
 		hint: "CLT.SETTINGS.EnhancedConditions.DefaultMapsH",
 		scope: "world",
@@ -144,7 +146,7 @@ export function registerSettings() {
 		default: {}
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, {
+	game.settings.register("condition-lab-triggler", "activeConditionMap", {
 		name: "CLT.SETTINGS.EnhancedConditions.ActiveConditionMapN",
 		hint: "CLT.SETTINGS.EnhancedConditions.ActiveConditionMapH",
 		scope: "world",
@@ -165,13 +167,18 @@ export function registerSettings() {
 	/* -------------------------------------------- */
 
 	if (!game.modules.get("status-halo")?.active && !game.modules.get("illandril-token-hud-scale")?.active) {
-		Sidekick.registerSetting(BUTLER.SETTING_KEYS.tokenUtility.effectSize, {
+		game.settings.register("condition-lab-triggler", "effectSize", {
 			name: "CLT.SETTINGS.TokenUtility.TokenEffectSizeN",
 			hint: "CLT.SETTINGS.TokenUtility.TokenEffectSizeH",
 			default: "small",
 			scope: "client",
 			type: String,
-			choices: BUTLER.DEFAULT_CONFIG.tokenUtility.effectSizeChoices,
+			choices: {
+				small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
+				medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
+				large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
+				xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge")
+			},
 			config: true,
 			onChange: () => {
 				canvas.draw();
@@ -183,7 +190,7 @@ export function registerSettings() {
 	/*                    Triggler                  */
 	/* -------------------------------------------- */
 
-	Sidekick.registerMenu(BUTLER.SETTING_KEYS.triggler.menu, {
+	game.settings.registerMenu("condition-lab-triggler", "trigglerMenu", {
 		name: "CLT.SETTINGS.Triggler.TriggersN",
 		label: "CLT.SETTINGS.Triggler.TriggersN",
 		hint: "CLT.SETTINGS.Triggler.TriggersH",
@@ -192,7 +199,7 @@ export function registerSettings() {
 		restricted: true
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.triggler.triggers, {
+	game.settings.register("condition-lab-triggler", "storedTriggers", {
 		name: "CLT.SETTINGS.Triggler.TriggersN",
 		hint: "CLT.SETTINGS.Triggler.TriggersH",
 		scope: "world",
@@ -201,7 +208,7 @@ export function registerSettings() {
 		onChange: () => {}
 	});
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, {
+	game.settings.register("condition-lab-triggler", "hasRunMigration", {
 		scope: "world",
 		type: Boolean,
 		default: false
@@ -209,7 +216,7 @@ export function registerSettings() {
 
 	/* -------------------------------------------- */
 
-	Sidekick.registerSetting(BUTLER.SETTING_KEYS.sceneControls, {
+	game.settings.register("condition-lab-triggler", "sceneControls", {
 		name: "CLT.SETTINGS.SceneControls.Name",
 		hint: "CLT.SETTINGS.SceneControls.Hint",
 		scope: "world",

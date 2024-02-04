@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { Triggler } from "./triggler.js";
 
@@ -13,10 +12,10 @@ export class TrigglerForm extends FormApplication {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
 			title: "Triggler",
-			template: BUTLER.DEFAULT_CONFIG.triggler.templates.triggerForm,
+			template: "modules/condition-lab-triggler/templates/triggler-form.html",
 			classes: ["sheet", "triggler-form"],
 			width: 780,
-			height: 735,
+			height: "auto",
 			resizable: true,
 			closeOnSubmit: false
 		});
@@ -24,7 +23,7 @@ export class TrigglerForm extends FormApplication {
 
 	getData() {
 		const id = this.data.id;
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 
 		if (this.noMerge) {
 			this.noMerge = false;
@@ -54,16 +53,22 @@ export class TrigglerForm extends FormApplication {
 		} = this.data || {};
 		const isSimpleTrigger = triggerType === "simple";
 		const isAdvancedTrigger = triggerType === "advanced";
-		const actorModel = game.system.model?.Actor;
-		const mergedModel = actorModel
-			? Object.keys(actorModel).reduce((accumulator, key, index) => {
-				return foundry.utils.mergeObject(accumulator, actorModel[key]);
-			}, {})
-			: null;
-		const categories = mergedModel ? Object.keys(mergedModel) : null;
+		let actorModel = game.system.model?.Actor ?? {};
+		const isEmpty = Object.values(actorModel).every((obj) => Object.keys(obj).length === 0);
+		let mergedModel = null;
+		if (isEmpty) {
+			actorModel = CONFIG.Actor.dataModels ?? {};
+			mergedModel = Object.keys(actorModel)
+				.reduce((obj, key) =>
+					foundry.utils.mergeObject(obj, new CONFIG.Actor.documentClass({ name: "CLT Actor", type: key }).toObject().system), {});
+		} else {
+			mergedModel = Object.keys(actorModel)
+				.reduce((accumulator, key) => foundry.utils.mergeObject(accumulator, actorModel[key]), {});
+		}
+		const categories = mergedModel ? Object.keys(mergedModel).sort() : null;
 		const attributes = category ? Object.keys(mergedModel[category]) : null;
 		const properties = category && attribute ? Object.keys(mergedModel[category][attribute]) : null;
-		const operators = BUTLER.DEFAULT_CONFIG.triggler.operators;
+		const operators = Triggler.OPERATORS;
 
 		const triggerSelected = !!(id && triggers);
 
@@ -99,6 +104,20 @@ export class TrigglerForm extends FormApplication {
 			npcOnly,
 			notZero
 		};
+	}
+
+	async _render(force, options) {
+		await super._render(force, options);
+		this._originalTop = this.element[0].style.top;
+		if (this._reposition && !this._repositioned) {
+			this._repositioned = true;
+
+			const el = this.element[0];
+			const scaledHeight = el.offsetHeight;
+			const tarT = (window.innerHeight - scaledHeight) / 2;
+			const maxT = Math.max(window.innerHeight - scaledHeight, 0);
+			this.setPosition({ top: Math.clamped(tarT, 0, maxT) });
+		}
 	}
 
 	activateListeners(html) {
@@ -142,7 +161,7 @@ export class TrigglerForm extends FormApplication {
 			this.render();
 		});
 		deleteTrigger.on("click", async (event) => {
-			const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+			const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 			const triggerIndex = triggers.findIndex((t) => t.id === this.data.id);
 			if (triggerIndex === undefined) {
 				return;
@@ -151,7 +170,7 @@ export class TrigglerForm extends FormApplication {
 
 			updatedTriggers.splice(triggerIndex, 1);
 
-			await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
+			await game.settings.set("condition-lab-triggler", "storedTriggers", updatedTriggers);
 			this.data = {};
 			this.render();
 		});
@@ -196,6 +215,11 @@ export class TrigglerForm extends FormApplication {
 		// Simple/Advanced Toggle
 		triggerTypeRadio.on("change", (event) => {
 			this.data.triggerType = event.currentTarget.value;
+			if (event.currentTarget.value === "advanced"
+				&& this._originalTop === this.element[0].style.top
+				&& !this._reposition) {
+				this._reposition = true;
+			}
 			this.render();
 		});
 
@@ -260,7 +284,7 @@ export class TrigglerForm extends FormApplication {
 			return false;
 		}
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const existingIds = triggers ? triggers.map((t) => t.id) : null;
 		const text = triggerType === "simple" ? Triggler._constructString(formData) : formData.advancedName;
 
@@ -289,7 +313,7 @@ export class TrigglerForm extends FormApplication {
 			this.data = newTrigger;
 		}
 
-		const setting = await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
+		const setting = await game.settings.set("condition-lab-triggler", "storedTriggers", updatedTriggers);
 		if (!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
 
 		this.render();
@@ -299,7 +323,7 @@ export class TrigglerForm extends FormApplication {
 	 * Exports the current map to JSON
 	 */
 	_exportToJSON() {
-		const triggers = duplicate(Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers));
+		const triggers = duplicate(game.settings.get("condition-lab-triggler", "storedTriggers"));
 		const data = {
 			system: game.system.id,
 			triggers
@@ -318,7 +342,7 @@ export class TrigglerForm extends FormApplication {
 		new Dialog({
 			title: game.i18n.localize("CLT.TRIGGLER.ImportTitle"),
 			// TODO change
-			content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
+			content: await renderTemplate("modules/condition-lab-triggler/templates/import-conditions.html", {}),
 			buttons: {
 				import: {
 					icon: '<i class="fas fa-file-import"></i>',
@@ -355,8 +379,8 @@ export class TrigglerForm extends FormApplication {
 			return;
 		}
 
-		const originalTriggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
-		await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, originalTriggers.concat(triggers));
+		const originalTriggers = game.settings.get("condition-lab-triggler", "storedTriggers");
+		await game.settings.set("condition-lab-triggler", "storedTriggers", originalTriggers.concat(triggers));
 		this.render();
 	}
 

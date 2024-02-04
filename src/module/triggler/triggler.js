@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { EnhancedConditions } from "../enhanced-conditions/enhanced-conditions.js";
 import { Sidekick } from "../sidekick.js";
 
@@ -6,9 +5,14 @@ import { Sidekick } from "../sidekick.js";
  * Handles triggers for other gadgets in the module... or does it?!
  */
 export class Triggler {
-	constructor() {
-		game.clt.triggler = this;
-	}
+	static OPERATORS = {
+		eq: "=",
+		ne: "≠",
+		lt: "<",
+		lteq: "≤",
+		gt: ">",
+		gteq: "≥"
+	};
 
 	/**
 	 * Parses triggers JSON and returns triggers
@@ -37,38 +41,25 @@ export class Triggler {
 	 * @param {*} trigger
 	 */
 	static _prepareTrigger(trigger) {
-		const {
-			attribute = null,
-			category = null,
-			notZero = false,
-			npcOnly = false,
-			operator = null,
-			pcOnly = false,
-			property1 = null,
-			property2 = null,
-			triggerType = "simple",
-			id = null,
-			value = null
-		} = trigger;
+		const { triggerType = "simple", id = null } = trigger;
 
 		// const triggerType = formData?.triggerType;
 
 		if (triggerType === "advanced" && !trigger.advancedName.length) {
 			console.warn(
-				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
+				`CLT | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
 			);
 			return false;
 		}
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
-		const existingIds = triggers ? triggers.map((t) => t.id) : null;
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const text = triggerType === "simple" ? Triggler._constructString(trigger) : trigger.advancedName;
 
 		if (!text) return false;
 
 		const existingTrigger = triggers.find((t) => t.id === id);
 		if (existingTrigger) {
-			console.warn(`${BUTLER.TITLE} | Trigger with ID "${id} already exists.`);
+			console.warn(`CLT | Trigger with ID "${id} already exists.`);
 			return false;
 		}
 		return {
@@ -84,8 +75,8 @@ export class Triggler {
 	 */
 	static _constructString(parts) {
 		const triggerType = parts.triggerType;
-		const operatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.operator];
-		const advancedOperatorText = BUTLER.DEFAULT_CONFIG.triggler.operators[parts.advancedOperator];
+		const operatorText = Triggler.OPERATORS[parts.operator];
+		const advancedOperatorText = Triggler.OPERATORS[parts.advancedOperator];
 
 		const pcOnly = parts.pcOnly ? " (PCs Only)" : "";
 		const npcOnly = parts.npcOnly ? " (NPCs Only)" : "";
@@ -113,17 +104,21 @@ export class Triggler {
 					? target.actor
 					: null;
 		const token = target instanceof TokenDocument ? target : target instanceof Token ? target.document : null;
-		const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 		const matchedApplyConditions = conditionMap.filter((m) => m.applyTrigger === trigger.id);
 		const matchedRemoveConditions = conditionMap.filter((m) => m.removeTrigger === trigger.id);
 		const matchedMacros = game.macros.contents.filter(
-			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
+			(m) => m.getFlag("condition-lab-triggler", "macroTrigger") === trigger.id
 		);
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);
 
-		if (applyConditionNames.length) await EnhancedConditions.addCondition(applyConditionNames, target, { warn: false });
-		if (removeConditionNames.length) await EnhancedConditions.removeCondition(removeConditionNames, target, { warn: false });
+		if (applyConditionNames.length) {
+			await EnhancedConditions.addCondition(applyConditionNames, target, { warn: false });
+		}
+		if (removeConditionNames.length) {
+			await EnhancedConditions.removeCondition(removeConditionNames, target, { warn: false });
+		}
 
 		for (const macro of matchedMacros) {
 			await macro.execute({ actor, token });
@@ -144,7 +139,7 @@ export class Triggler {
 		//     return;
 		// }
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const entityType =
 			entity instanceof Actor
 				? "Actor"
@@ -223,7 +218,7 @@ export class Triggler {
 			const updateValueType = typeof updateValue;
 
 			// example: "="
-			const operator = BUTLER.DEFAULT_CONFIG.triggler.operators[trigger.operator];
+			const operator = Triggler.OPERATORS[trigger.operator];
 
 			// percent requires whole different handling
 			const isPercent = trigger.value.endsWith("%");
@@ -241,7 +236,7 @@ export class Triggler {
 			 * @todo bulkify refactor this to add matched triggers to an array then execut the array at the end
 			 */
 			switch (operator) {
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.eq:
+				case Triggler.OPERATORS.eq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -257,7 +252,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.gt:
+				case Triggler.OPERATORS.gt:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -272,7 +267,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.gteq:
+				case Triggler.OPERATORS.gteq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -287,7 +282,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.lt:
+				case Triggler.OPERATORS.lt:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -302,7 +297,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.lteq:
+				case Triggler.OPERATORS.lteq:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -317,7 +312,7 @@ export class Triggler {
 					}
 					break;
 
-				case BUTLER.DEFAULT_CONFIG.triggler.operators.ne:
+				case Triggler.OPERATORS.ne:
 					if (isPercent) {
 						// example: (50 / 100) = 0.5;
 						const divisor = triggerValue / 100;
@@ -387,10 +382,10 @@ export class Triggler {
 	static async _onRenderMacroConfig(app, html, data) {
 		const typeSelect = html.find("select[name='type']");
 		const typeSelectDiv = typeSelect.closest("div");
-		const flag = app.object.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro);
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const flag = app.object.getFlag("condition-lab-triggler", "macroTrigger");
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 
-		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templates.macroTriggerSelect;
+		const triggerSelectTemplate = "modules/condition-lab-triggler/templates/trigger-select.html";
 		const triggerData = {
 			flag,
 			triggers

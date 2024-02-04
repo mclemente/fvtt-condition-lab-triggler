@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 import { TrigglerForm } from "../triggler/triggler-form.js";
 import EnhancedConditionMacroConfig from "./enhanced-condition-macro.js";
@@ -16,12 +15,12 @@ export class ConditionLab extends FormApplication {
 		game.clt.conditionLab = this;
 		this.data = (game.clt.conditionLab ? game.clt.conditionLab.data : object) ?? null;
 		this.system = game.system.id;
-		this.initialMapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
+		this.initialMapType = game.settings.get("condition-lab-triggler", "conditionMapType");
 		this.mapType = null;
-		this.initialMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		this.initialMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 		this.map = null;
 		this.displayedMap = null;
-		this.maps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
+		this.maps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
 		this.filterValue = "";
 		this.sortDirection = "";
 	}
@@ -30,7 +29,7 @@ export class ConditionLab extends FormApplication {
 		return mergeObject(super.defaultOptions, {
 			id: "cub-condition-lab",
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.Title"),
-			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.conditionLab,
+			template: "modules/condition-lab-triggler/templates/condition-lab.hbs",
 			classes: ["sheet", "condition-lab-form"],
 			width: 780,
 			height: 680,
@@ -52,9 +51,9 @@ export class ConditionLab extends FormApplication {
 	}
 
 	/**
-	 * Prepare data for form rendering
+	 * Gets data for the template render
 	 */
-	async prepareData() {
+	async getData() {
 		const sortDirection = this.sortDirection;
 		const sortTitle = game.i18n.localize(
 			`CLT.ENHANCED_CONDITIONS.ConditionLab.SortAnchorTitle.${sortDirection ? sortDirection : "unsorted"}`
@@ -62,9 +61,9 @@ export class ConditionLab extends FormApplication {
 		const filterTitle = game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.FilterInputTitle");
 		const filterValue = this.filterValue;
 
-		const defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
+		const defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
 		const mappedSystems = Object.keys(defaultMaps) || [];
-		const mapTypeChoices = BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes;
+		const mapTypeChoices = game.settings.settings.get("condition-lab-triggler.conditionMapType").choices;
 
 		// If there's no default map for this system don't provide the "default" choice
 		if (!mappedSystems.includes(game.system.id)) {
@@ -77,12 +76,12 @@ export class ConditionLab extends FormApplication {
 
 		const mapType = (this.mapType = this.mapType || this.initialMapType || "other");
 		let conditionMap = this.map ? this.map : (this.map = duplicate(this.initialMap));
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers).map((t) => {
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers").map((t) => {
 			return [t.id, t.text];
 		});
 
 		const isDefault = this.mapType === "default";
-		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
+		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 		const disableChatOutput = isDefault || !outputChatSetting;
 
 		for (let i = 0; i < conditionMap.length; i++) {
@@ -147,13 +146,6 @@ export class ConditionLab extends FormApplication {
 	}
 
 	/**
-	 * Gets data for the template render
-	 */
-	async getData() {
-		return await this.prepareData();
-	}
-
-	/**
 	 * Enriches submit data with existing map to ensure continuity
 	 */
 	_buildSubmitData() {
@@ -177,7 +169,7 @@ export class ConditionLab extends FormApplication {
 		let references = [];
 		let newMap = [];
 		const rows = [];
-		const existingMap = this.map ?? Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const existingMap = this.map ?? game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		// need to tighten these up to check for the existence of digits after the word
 		const conditionRegex = /condition/i;
@@ -248,17 +240,13 @@ export class ConditionLab extends FormApplication {
 	 */
 	async _restoreDefaults({ clearCache = false } = {}) {
 		const system = this.system;
-		let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
+		let defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
 
-		const otherMapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other
-		);
 		if (clearCache) {
 			defaultMaps = await EnhancedConditions._loadDefaultMaps();
-			Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
+			game.settings.set("condition-lab-triggler", "defaultConditionMaps", defaultMaps);
 		}
-		const tempMap = this.mapType !== otherMapType && defaultMaps && defaultMaps[system] ? defaultMaps[system] : [];
+		const tempMap = this.mapType !== "other" && defaultMaps && defaultMaps[system] ? defaultMaps[system] : [];
 
 		// If the mapType is other then the map should be empty, otherwise it's the default map for the system
 		this.map = tempMap;
@@ -271,7 +259,7 @@ export class ConditionLab extends FormApplication {
 	 * @param {object} formData
 	 */
 	async _updateObject(event, formData) {
-		const showDialogSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog);
+		const showDialogSetting = game.settings.get("condition-lab-triggler", "showSortDirectionDialog");
 
 		if (this.sortDirection && showDialogSetting) {
 			await Dialog.confirm({
@@ -280,7 +268,7 @@ export class ConditionLab extends FormApplication {
 				yes: ($html) => {
 					const checkbox = $html[0].querySelector("input[name='dont-show-again']");
 					if (checkbox.checked) {
-						Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.showSortDirectionDialog, false);
+						game.settings.set("condition-lab-triggler", "showSortDirectionDialog", false);
 					}
 					this._processFormUpdate(formData);
 				},
@@ -298,12 +286,8 @@ export class ConditionLab extends FormApplication {
 	async _processFormUpdate(formData) {
 		const mapType = formData["map-type"];
 		let newMap = this.updatedMap;
-		const defaultMapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
-		);
 
-		if (mapType === defaultMapType) {
+		if (mapType === "default") {
 			const defaultMap = EnhancedConditions.getDefaultMap(this.system);
 			newMap = mergeObject(newMap, defaultMap);
 		}
@@ -320,8 +304,8 @@ export class ConditionLab extends FormApplication {
 		this.mapType = this.initialMapType = mapType;
 		const preparedMap = EnhancedConditions._prepareMap(newMap);
 
-		await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, mapType, true);
-		await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, preparedMap, true);
+		await game.settings.set("condition-lab-triggler", "conditionMapType", mapType);
+		await game.settings.set("condition-lab-triggler", "activeConditionMap", preparedMap);
 
 		this._finaliseSave(preparedMap);
 	}
@@ -361,7 +345,7 @@ export class ConditionLab extends FormApplication {
 	async _importFromJSONDialog() {
 		new Dialog({
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.ImportTitle"),
-			content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
+			content: await renderTemplate("modules/condition-lab-triggler/templates/import-conditions.html", {}),
 			buttons: {
 				import: {
 					icon: '<i class="fas fa-file-import"></i>',
@@ -398,10 +382,7 @@ export class ConditionLab extends FormApplication {
 			return;
 		}
 
-		this.mapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.other
-		);
+		this.mapType = "other";
 		this.map = map;
 		this.render();
 	}
@@ -470,15 +451,7 @@ export class ConditionLab extends FormApplication {
 	 * @param {*} data
 	 */
 	static async _onRenderRestoreDefaultsDialog(app, html, data) {
-		if (
-			game.clt.conditionLab.mapType
-			!== Sidekick.getKeyByValue(
-				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-				BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
-			)
-		) {
-			return;
-		}
+		if (game.clt.conditionLab.mapType !== "default") return;
 
 		const contentDiv = html[0].querySelector("div.dialog-content");
 		const checkbox = `<div class="form-group"><label class="clear-cache-checkbox">${game.i18n.localize(
@@ -637,7 +610,7 @@ export class ConditionLab extends FormApplication {
 
 		if (!conditionId) return;
 
-		const conditions = this.map ?? Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const conditions = this.map ?? game.settings.get("condition-lab-triggler", "activeConditionMap");
 		const condition = conditions.length ? conditions.find((c) => c.id === conditionId) : null;
 
 		if (!condition) return;
@@ -646,10 +619,10 @@ export class ConditionLab extends FormApplication {
 
 		if (!conditionEffect) return;
 
-		if (!hasProperty(conditionEffect, `flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`)) {
+		if (!hasProperty(conditionEffect, `flags.condition-lab-triggler.${"conditionId"}`)) {
 			setProperty(
 				conditionEffect,
-				`flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`,
+				`flags.condition-lab-triggler.${"conditionId"}`,
 				conditionId
 			);
 		}
@@ -718,16 +691,8 @@ export class ConditionLab extends FormApplication {
 			: 1;
 		const newConditionName = `New Condition ${newConditionIndex}`;
 		const fdMap = this.updatedMap;
-		const defaultMapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
-		);
-		const customMapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.custom
-		);
 
-		if (this.mapType === defaultMapType) {
+		if (this.mapType === "default") {
 			const defaultMap = EnhancedConditions.getDefaultMap(this.system);
 			this.map = mergeObject(fdMap, defaultMap);
 		} else {
@@ -736,7 +701,7 @@ export class ConditionLab extends FormApplication {
 
 		const newMap = duplicate(this.map);
 		const exisitingIds = this.map.filter((c) => c.id).map((c) => c.id);
-		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
+		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 
 		newMap.push({
 			id: Sidekick.createId(exisitingIds),
@@ -749,7 +714,7 @@ export class ConditionLab extends FormApplication {
 			}
 		});
 
-		const newMapType = this.mapType === defaultMapType ? customMapType : this.mapType;
+		const newMapType = this.mapType === "default" ? "custom" : this.mapType;
 
 		this.mapType = newMapType;
 		this.map = newMap;
@@ -1000,7 +965,9 @@ export class ConditionLab extends FormApplication {
 
 		const condition = this.map.find((c) => c.id === conditionId);
 
-		new EnhancedConditionOptionConfig(condition).render(true);
+		const config = new EnhancedConditionOptionConfig(condition);
+		config.parent = this;
+		config.render(true);
 	}
 
 	// Checks the updatedMap property against the initial map

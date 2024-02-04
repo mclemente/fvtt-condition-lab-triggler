@@ -1,4 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
 import { Sidekick } from "../sidekick.js";
 
 /**
@@ -24,14 +23,10 @@ export class EnhancedConditions {
 			return;
 		}
 
-		let defaultMaps = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
-		let conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		let defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
+		let conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
-		const mapType = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType);
-		const defaultMapType = Sidekick.getKeyByValue(
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes,
-			BUTLER.DEFAULT_CONFIG.enhancedConditions.mapTypes.default
-		);
+		const mapType = game.settings.get("condition-lab-triggler", "conditionMapType");
 
 		// If there's no defaultMaps or defaultMaps doesn't include game system, check storage then set appropriately
 		if (
@@ -41,13 +36,13 @@ export class EnhancedConditions {
 		) {
 			if (game.user.isGM) {
 				defaultMaps = await EnhancedConditions._loadDefaultMaps();
-				Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps, defaultMaps);
+				game.settings.set("condition-lab-triggler", "defaultConditionMaps", defaultMaps);
 			}
 		}
 
 		// If map type is not set and a default map exists for the system, set maptype to default
 		if (!mapType && defaultMaps instanceof Object && Object.keys(defaultMaps).includes(game.system.id)) {
-			Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
+			game.settings.set("condition-lab-triggler", "conditionMapType", "default");
 		}
 
 		// If there's no condition map, get the default one
@@ -60,14 +55,14 @@ export class EnhancedConditions {
 
 				if (preparedMap?.length) {
 					conditionMap = preparedMap?.length ? preparedMap : conditionMap;
-					Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, preparedMap);
+					game.settings.set("condition-lab-triggler", "activeConditionMap", preparedMap);
 				}
 			}
 		}
 
 		// If map type is not set, now set to default
 		if (!mapType && conditionMap.length) {
-			Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.mapType, defaultMapType);
+			game.settings.set("condition-lab-triggler", "conditionMapType", "default");
 		}
 
 		// Update status icons accordingly
@@ -75,8 +70,8 @@ export class EnhancedConditions {
 			EnhancedConditions._backupCoreEffects();
 			EnhancedConditions._backupCoreSpecialStatusEffects();
 		}
-		const specialStatusEffectMap = Sidekick.getSetting(
-			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
+		const specialStatusEffectMap = game.settings.get("condition-lab-triggler",
+			"specialStatusEffectMapping"
 		);
 		if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
 		if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
@@ -92,7 +87,7 @@ export class EnhancedConditions {
 
 	static _onPreUpdateToken(token, update, options, userId) {
 		// If the update includes effect data, add an `option` for the update hook handler to look for
-		const cubOption = (options[BUTLER.NAME] = options[BUTLER.NAME] ?? {});
+		const cubOption = (options["condition-lab-triggler"] = options["condition-lab-triggler"] ?? {});
 
 		if (hasProperty(update, "actorData.effects")) {
 			cubOption.existingEffects = token.actorData.effects ?? [];
@@ -113,9 +108,9 @@ export class EnhancedConditions {
 		}
 
 		// If the update includes effects, calls the journal entry lookup
-		if (!hasProperty(options, `${BUTLER.NAME}`)) return;
+		if (!hasProperty(options, "condition-lab-triggler")) return;
 
-		const cubOption = options[BUTLER.NAME];
+		const cubOption = options["condition-lab-triggler"];
 		const addUpdate = cubOption ? cubOption?.updateEffects?.length > cubOption?.existingEffects?.length : false;
 		const removeUpdate = cubOption ? cubOption?.existingEffects?.length > cubOption?.updateEffects?.length : false;
 		const updateEffects = [];
@@ -145,8 +140,8 @@ export class EnhancedConditions {
 			// based on the type, get the condition
 			if (effect.type === "overlay") condition = EnhancedConditions.getConditionsByIcon(effect.effect);
 			else if (effect.type === "effect") {
-				if (!hasProperty(effect, `effect.flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`)) continue;
-				const effectId = effect.effect.flags[BUTLER.NAME][BUTLER.FLAGS.enhancedConditions.conditionId];
+				if (!hasProperty(effect, `effect.flags.condition-lab-triggler.${"conditionId"}`)) continue;
+				const effectId = effect.effect.flags["condition-lab-triggler"].conditionId;
 				condition = EnhancedConditions.lookupEntryMapping(effectId);
 			}
 
@@ -158,7 +153,7 @@ export class EnhancedConditions {
 
 		if (!addConditions.length && !removeConditions.length) return;
 
-		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
+		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 
 		// If any of the addConditions Marks Defeated, mark the token's combatants defeated
 		if (addConditions.some((c) => c?.options?.markDefeated)) {
@@ -212,8 +207,8 @@ export class EnhancedConditions {
 	}
 
 	static _onUpdateCombat(combat, update, options, userId) {
-		const enableOutputCombat = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputCombat);
-		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
+		const enableOutputCombat = game.settings.get("condition-lab-triggler", "conditionsOutputDuringCombat");
+		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 		const combatant = combat.combatant;
 
 		if (
@@ -340,7 +335,7 @@ export class EnhancedConditions {
 	static _processActiveEffectChange(effect, type = "create") {
 		if (!(effect instanceof ActiveEffect)) return;
 
-		const effectId = effect.getFlag(`${BUTLER.NAME}`, `${BUTLER.FLAGS.enhancedConditions.conditionId}`);
+		const effectId = effect.getFlag("condition-lab-triggler", `${"conditionId"}`);
 		if (!effectId) return;
 
 		const condition = EnhancedConditions.lookupEntryMapping(effectId);
@@ -348,7 +343,7 @@ export class EnhancedConditions {
 		if (!condition) return;
 
 		const shouldOutput =
-			Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat) && condition.options.outputChat;
+			game.settings.get("condition-lab-triggler", "conditionsOutputToChat") && condition.options.outputChat;
 		const outputType = type === "delete" ? "removed" : "added";
 		const actor = effect.parent;
 
@@ -388,7 +383,7 @@ export class EnhancedConditions {
 		}
 
 		if (!map.length) {
-			map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+			map = game.settings.get("condition-lab-triggler", "activeConditionMap");
 			if (!map.length) return null;
 		}
 
@@ -476,14 +471,14 @@ export class EnhancedConditions {
 			: lastMessageSpeaker?.token === speaker.token;
 
 		// hard code the recent timestamp to 30s for now
-		const recentTimestamp = Date.now() <= lastMessage?.timestamp + 30000;
+		const recentTimestamp = Date.now() <= (lastMessage.timestamp ?? 0) + 30000;
 		const enhancedConditionsDiv = lastMessage?.content.match("enhanced-conditions");
 
 		if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp) {
 			let newContent = "";
 			for (const condition of entries) {
 				const newRow = await renderTemplate(
-					BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatConditionsPartial,
+					"modules/condition-lab-triggler/templates/partials/chat-card-condition-list.hbs",
 					{ condition, type, timestamp }
 				);
 				newContent += newRow;
@@ -497,7 +492,7 @@ export class EnhancedConditions {
 			ui.chat.scrollBottom();
 		} else {
 			const content = await renderTemplate(
-				BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.chatOutput,
+				"modules/condition-lab-triggler/templates/chat-conditions.hbs",
 				templateData
 			);
 
@@ -591,14 +586,14 @@ export class EnhancedConditions {
 		const newMap = foundry.utils.deepClone(conditionMap);
 		newMap.forEach((c) => {
 			if (processedIds.includes(c.id)) {
-				console.log(`${BUTLER.TITLE} | Duplicate Condition found:`, c);
+				console.log("CLT | Duplicate Condition found:", c);
 				c.id = Sidekick.createId(existingIds);
-				console.log(`${BUTLER.TITLE} | New id:`, c.id);
+				console.log("CLT | New id:", c.id);
 			}
-			c.id = c.id.replace(/${BUTLER.NAME}/, "");
+			c.id = c.id.replace(/condition-lab-triggler/, "");
 			processedIds.push(c.id);
 		});
-		await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
+		await game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);
 	}
 
 	/**
@@ -648,7 +643,7 @@ export class EnhancedConditions {
 	//                 const newFlags = foundry.utils.duplicate(matchingEffect.data.flags);
 	//                 foundry.utils.mergeObject(newFlags, {
 	//                     "core.statusId": newId,
-	//                     [`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`]: newId
+	//                     [`condition-lab-triggler.${"conditionId"}`]: newId
 	//                 });
 	//                 const update = {_id: matchingEffect.id, flags: newFlags};
 
@@ -689,7 +684,7 @@ export class EnhancedConditions {
 	 * @todo: map to entryId and then rebuild on import
 	 */
 	static async _loadDefaultMaps() {
-		const path = BUTLER.DEFAULT_CONFIG.enhancedConditions.conditionMapsPath;
+		const path = "modules/condition-lab-triggler/condition-maps";
 		const jsons = await Sidekick.fetchJsons("data", path);
 
 		const defaultMaps = jsons
@@ -714,7 +709,7 @@ export class EnhancedConditions {
 			return preparedMap;
 		}
 
-		const outputChatSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.outputChat);
+		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 
 		// Map existing ids for ease of access
 		const existingIds = conditionMap.filter((c) => c.id).map((c) => c.id);
@@ -758,7 +753,7 @@ export class EnhancedConditions {
 		if (!Object.isFrozen(CONFIG.defaultStatusEffects)) {
 			Object.freeze(CONFIG.defaultStatusEffects);
 		}
-		Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects, CONFIG.defaultStatusEffects);
+		game.settings.set("condition-lab-triggler", "coreStatusEffects", CONFIG.defaultStatusEffects);
 	}
 
 	/**
@@ -770,8 +765,8 @@ export class EnhancedConditions {
 		if (!Object.isFrozen(CONFIG.defaultSpecialStatusEffects)) {
 			Object.freeze(CONFIG.defaultSpecialStatusEffects);
 		}
-		Sidekick.setSetting(
-			BUTLER.SETTING_KEYS.enhancedConditions.defaultSpecialStatusEffects,
+		game.settings.set("condition-lab-triggler",
+			"defaultSpecialStatusEffects",
 			CONFIG.defaultSpecialStatusEffects
 		);
 	}
@@ -804,7 +799,7 @@ export class EnhancedConditions {
 
 		conditionName = conditionName instanceof Array ? conditionName : [conditionName];
 
-		if (!map) map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		if (!map) map = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		const conditions = map.filter((c) => conditionName.includes(c.name)) ?? [];
 
@@ -818,15 +813,15 @@ export class EnhancedConditions {
 	 * @param {*} conditionMap
 	 */
 	static _updateStatusEffects(conditionMap) {
-		const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
+		const coreEffectsSetting = game.settings.get("condition-lab-triggler", "coreStatusEffects");
 
 		// save the original icons
 		if (!coreEffectsSetting.length) {
 			EnhancedConditions._backupCoreEffects();
 		}
 
-		const removeDefaultEffects = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.removeDefaultEffects);
-		const activeConditionMap = conditionMap || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const removeDefaultEffects = game.settings.get("condition-lab-triggler", "removeDefaultEffects");
+		const activeConditionMap = conditionMap || game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		if (!removeDefaultEffects && !activeConditionMap) {
 			return;
@@ -841,7 +836,7 @@ export class EnhancedConditions {
 		if (activeConditionMap instanceof Array) {
 			// add the icons from the condition map to the status effects array
 			const coreEffects =
-				CONFIG.defaultStatusEffects || Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
+				CONFIG.defaultStatusEffects || game.settings.get("condition-lab-triggler", "coreStatusEffects");
 
 			// Create a Set based on the core status effects and the Enhanced Condition effects. Using a Set ensures unique icons only
 			return (CONFIG.statusEffects = coreEffects.concat(activeConditionEffects));
@@ -874,10 +869,10 @@ export class EnhancedConditions {
 				flags: {
 					...c.activeEffect?.flags,
 					core: {
-						[BUTLER.FLAGS.enhancedConditions.overlay]: c?.options?.overlay ?? false
+						overlay: c?.options?.overlay ?? false
 					},
-					[BUTLER.NAME]: {
-						[BUTLER.FLAGS.enhancedConditions.conditionId]: id
+					"condition-lab-triggler": {
+						conditionId: id
 					}
 				},
 				get label() {
@@ -900,7 +895,7 @@ export class EnhancedConditions {
 		if (!effects) return;
 
 		for (const effect of effects) {
-			const overlay = getProperty(effect, `flags.${BUTLER.NAME}.core.overlay`);
+			const overlay = getProperty(effect, "flags.condition-lab-triggler.core.overlay");
 			// If the parent Condition for the ActiveEffect defines it as an overlay, mark the ActiveEffect as an overlay
 			if (overlay) {
 				effect.flags.core.overlay = overlay;
@@ -921,7 +916,7 @@ export class EnhancedConditions {
 		}
 
 		if (Object.keys(conditionMap).length === 0) {
-			conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+			conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 			if (!conditionMap || Object.keys(conditionMap).length === 0) {
 				return [];
@@ -942,7 +937,7 @@ export class EnhancedConditions {
 	 * @param root0.firstOnly
 	 */
 	static getIconsByCondition(condition, { firstOnly = false } = {}) {
-		const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		if (!conditionMap || !condition) {
 			return;
@@ -967,7 +962,7 @@ export class EnhancedConditions {
 	 * @param root0.firstOnly
 	 */
 	static getConditionsByIcon(icon, { firstOnly = false } = {}) {
-		const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		if (!conditionMap || !icon) {
 			return;
@@ -1008,7 +1003,7 @@ export class EnhancedConditions {
 		defaultMaps =
 			defaultMaps instanceof Object
 				? defaultMaps
-				: Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.defaultMaps);
+				: game.settings.get("condition-lab-triggler", "defaultConditionMaps");
 		let defaultMap = defaultMaps[system] || [];
 
 		if (!defaultMap.length) {
@@ -1023,7 +1018,7 @@ export class EnhancedConditions {
 	 * @todo #281 update for active effects
 	 */
 	static buildDefaultMap() {
-		const coreEffectsSetting = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.coreEffects);
+		const coreEffectsSetting = game.settings.get("condition-lab-triggler", "coreStatusEffects");
 		const coreEffects = coreEffectsSetting && coreEffectsSetting.length ? coreEffectsSetting : CONFIG.statusEffects;
 		return EnhancedConditions._prepareMap(coreEffects);
 	}
@@ -1039,9 +1034,6 @@ export class EnhancedConditions {
 	 * @see EnhancedConditions#addCondition
 	 */
 	static async applyCondition(...params) {
-		Sidekick.consoleMessage("warn", "Enhanced Conditions", {
-			message: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Warnings.ApplyCondition")
-		});
 		return EnhancedConditions.addCondition(...params);
 	}
 
@@ -1163,10 +1155,10 @@ export class EnhancedConditions {
 
 					const conditionId = getProperty(
 						effect,
-						`flags.${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`
+						`flags.condition-lab-triggler.${"conditionId"}`
 					);
 					const matchedConditionEffects = existingConditionEffects.filter(
-						(e) => e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId) === conditionId
+						(e) => e.getFlag("condition-lab-triggler", "conditionId") === conditionId
 					);
 
 					// Scenario 2: if duplicates are allowed, and existing conditions should be replaced, add any existing conditions to update
@@ -1209,7 +1201,7 @@ export class EnhancedConditions {
 			if (warn) ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
 		}
 
-		if (!map) map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		if (!map) map = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		return EnhancedConditions._lookupConditionByName(conditionName, map);
 	}
@@ -1244,7 +1236,7 @@ export class EnhancedConditions {
 			return;
 		}
 
-		const map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const map = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		if (!map || !map.length) {
 			if (warn) ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetConditions.Failed.NoCondition"));
@@ -1276,8 +1268,8 @@ export class EnhancedConditions {
 
 			const effectIds =
 				effects instanceof Array
-					? effects.map((e) => e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId))
-					: effects.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId);
+					? effects.map((e) => e.getFlag("condition-lab-triggler", "conditionId"))
+					: effects.getFlag("condition-lab-triggler", "conditionId");
 
 			if (!effectIds.length) continue;
 
@@ -1338,7 +1330,7 @@ export class EnhancedConditions {
 
 		entities = entities instanceof Array ? entities : [entities];
 
-		if (!map) map = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		if (!map) map = game.settings.get("condition-lab-triggler", "activeConditionMap");
 
 		let results = new Collection();
 
@@ -1354,7 +1346,7 @@ export class EnhancedConditions {
 			if (!activeEffects.length) continue;
 
 			const conditionEffects = activeEffects.filter((ae) =>
-				ae.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId)
+				ae.getFlag("condition-lab-triggler", "conditionId")
 			);
 
 			if (!conditionEffects.length) continue;
@@ -1439,8 +1431,8 @@ export class EnhancedConditions {
 			const conditionEffect = actor.effects.contents.some((ae) => {
 				return conditions.some(
 					(e) =>
-						e?.flags[BUTLER.NAME][BUTLER.FLAGS.enhancedConditions.conditionId]
-						=== ae.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId)
+						e?.flags["condition-lab-triggler"].conditionId
+						=== ae.getFlag("condition-lab-triggler", "conditionId")
 				);
 			});
 
@@ -1526,8 +1518,8 @@ export class EnhancedConditions {
 						: null;
 			const activeEffects = actor.effects.contents.filter((e) =>
 				effects
-					.map((e) => e.flags[BUTLER.NAME].conditionId)
-					.includes(e.getFlag(BUTLER.NAME, BUTLER.FLAGS.enhancedConditions.conditionId))
+					.map((e) => e.flags["condition-lab-triggler"].conditionId)
+					.includes(e.getFlag("condition-lab-triggler", "conditionId"))
 			);
 
 			if (!activeEffects || (activeEffects && !activeEffects.length)) {
@@ -1602,13 +1594,13 @@ export class EnhancedConditions {
 	}
 
 	static async _migrationHelper(cubVersion) {
-		const conditionMigrationVersion = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion);
+		const conditionMigrationVersion = game.settings.get("condition-lab-triggler", "enhancedConditionsMigrationVersion");
 
 		if (foundry.utils.isNewerVersion(cubVersion, conditionMigrationVersion)) {
-			console.log(`${BUTLER.TITLE} | Performing Enhanced Condition migration...`);
+			console.log("CLT | Performing Enhanced Condition migration...");
 			EnhancedConditions._migrateConditionIds(game.clt?.conditions);
-			await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.migrationVersion, cubVersion);
-			console.log(`${BUTLER.TITLE} | Enhanced Condition migration complete!`);
+			await game.settings.set("condition-lab-triggler", "enhancedConditionsMigrationVersion", cubVersion);
+			console.log("CLT | Enhanced Condition migration complete!");
 		}
 	}
 }

@@ -106,6 +106,20 @@ export class TrigglerForm extends FormApplication {
 		};
 	}
 
+	async _render(force, options) {
+		await super._render(force, options);
+		this._originalTop = this.element[0].style.top;
+		if (this._reposition && !this._repositioned) {
+			this._repositioned = true;
+
+			const el = this.element[0];
+			const scaledHeight = el.offsetHeight;
+			const tarT = (window.innerHeight - scaledHeight) / 2;
+			const maxT = Math.max(window.innerHeight - scaledHeight, 0);
+			this.setPosition({ top: Math.clamped(tarT, 0, maxT) });
+		}
+	}
+
 	activateListeners(html) {
 		super.activateListeners(html);
 
@@ -201,6 +215,11 @@ export class TrigglerForm extends FormApplication {
 		// Simple/Advanced Toggle
 		triggerTypeRadio.on("change", (event) => {
 			this.data.triggerType = event.currentTarget.value;
+			if (event.currentTarget.value === "advanced"
+				&& this._originalTop === this.element[0].style.top
+				&& !this._reposition) {
+				this._reposition = true;
+			}
 			this.render();
 		});
 

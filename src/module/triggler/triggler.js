@@ -55,12 +55,12 @@ export class Triggler {
 
 		if (triggerType === "advanced" && !trigger.advancedName.length) {
 			console.warn(
-				`${BUTLER.TITLE} | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
+				`CLT | Trigger with ID "${id} is defined as an Advanced Trigger but has no Trigger Name.`
 			);
 			return false;
 		}
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const existingIds = triggers ? triggers.map((t) => t.id) : null;
 		const text = triggerType === "simple" ? Triggler._constructString(trigger) : trigger.advancedName;
 
@@ -68,7 +68,7 @@ export class Triggler {
 
 		const existingTrigger = triggers.find((t) => t.id === id);
 		if (existingTrigger) {
-			console.warn(`${BUTLER.TITLE} | Trigger with ID "${id} already exists.`);
+			console.warn(`CLT | Trigger with ID "${id} already exists.`);
 			return false;
 		}
 		return {
@@ -113,11 +113,11 @@ export class Triggler {
 					? target.actor
 					: null;
 		const token = target instanceof TokenDocument ? target : target instanceof Token ? target.document : null;
-		const conditionMap = Sidekick.getSetting(BUTLER.SETTING_KEYS.enhancedConditions.map);
+		const conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
 		const matchedApplyConditions = conditionMap.filter((m) => m.applyTrigger === trigger.id);
 		const matchedRemoveConditions = conditionMap.filter((m) => m.removeTrigger === trigger.id);
 		const matchedMacros = game.macros.contents.filter(
-			(m) => m.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
+			(m) => m.getFlag("condition-lab-triggler", BUTLER.DEFAULT_CONFIG.triggler.flags.macro) === trigger.id
 		);
 		const applyConditionNames = matchedApplyConditions.map((c) => c.name);
 		const removeConditionNames = matchedRemoveConditions.map((c) => c.name);
@@ -144,7 +144,7 @@ export class Triggler {
 		//     return;
 		// }
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const entityType =
 			entity instanceof Actor
 				? "Actor"
@@ -387,8 +387,8 @@ export class Triggler {
 	static async _onRenderMacroConfig(app, html, data) {
 		const typeSelect = html.find("select[name='type']");
 		const typeSelectDiv = typeSelect.closest("div");
-		const flag = app.object.getFlag(BUTLER.NAME, BUTLER.DEFAULT_CONFIG.triggler.flags.macro);
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const flag = app.object.getFlag("condition-lab-triggler", BUTLER.DEFAULT_CONFIG.triggler.flags.macro);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 
 		const triggerSelectTemplate = BUTLER.DEFAULT_CONFIG.triggler.templates.macroTriggerSelect;
 		const triggerData = {

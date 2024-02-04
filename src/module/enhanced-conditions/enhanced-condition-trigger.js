@@ -1,6 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
-import { Sidekick } from "../sidekick.js";
-
 /**
  * Enhanced Condition Trigger Config Application
  */
@@ -17,7 +14,7 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-trigger-config",
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.TriggerConfig.Title"),
-			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.triggerConfig,
+			template: "modules/condition-lab-triggler/templates/enhanced-condition-trigger-config.hbs",
 			classes: ["sheet"],
 			closeOnSubmit: false,
 			width: 500
@@ -29,7 +26,7 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 			condition: this.object,
 			applyTriggerId: this.object.applyTrigger,
 			removeTriggerId: this.object.removeTrigger,
-			triggerChoices: Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers) ?? []
+			triggerChoices: game.settings.get("condition-lab-triggler", "storedTriggers") ?? []
 		};
 	}
 
@@ -52,7 +49,7 @@ export default class EnhancedConditionTriggerConfig extends FormApplication {
 
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);
 		newMap[conditionIndex] = this.object;
-		Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
+		game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);
 		this.close();
 	}
 }

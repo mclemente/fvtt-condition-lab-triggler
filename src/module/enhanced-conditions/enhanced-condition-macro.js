@@ -1,6 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
-import { Sidekick } from "../sidekick.js";
-
 /**
  * Enhanced Condition Macro Config Application
  */
@@ -18,7 +15,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-macro-config",
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.MacroConfig.Title"),
-			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.macroConfig,
+			template: "modules/condition-lab-triggler/templates/enhanced-condition-macro-config.hbs",
 			classes: ["sheet"],
 			closeOnSubmit: false
 		});
@@ -58,7 +55,7 @@ export default class EnhancedConditionMacroConfig extends FormApplication {
 
 		let conditionIndex = newMap.findIndex((c) => c.id === this.object.id);
 		newMap[conditionIndex] = this.object;
-		await Sidekick.setSetting(BUTLER.SETTING_KEYS.enhancedConditions.map, newMap);
+		await game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);
 		this.close();
 	}
 }

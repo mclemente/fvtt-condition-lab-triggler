@@ -1,5 +1,3 @@
-import { Butler as BUTLER } from "../butler.js";
-
 export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	get title() {
 		const reference = this.document.name ? ` ${game.i18n.localize(this.document.name)}` : "";
@@ -43,7 +41,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	async _updateObject(event, formData) {
 		const conditionIdFlag = getProperty(
 			this.object.flags,
-			`${BUTLER.NAME}.${BUTLER.FLAGS.enhancedConditions.conditionId}`
+			`condition-lab-triggler.${"conditionId"}`
 		);
 		if (!conditionIdFlag) return;
 
@@ -52,7 +50,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
 		if (!map && !map.length) return;
 
-		const conditionId = conditionIdFlag.replace(`${BUTLER.NAME}.`, "");
+		const conditionId = conditionIdFlag.replace("condition-lab-triggler.", "");
 		const condition = map.find((c) => c.id === conditionId);
 
 		if (!condition) return;
@@ -62,7 +60,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 		condition.activeEffect = condition.activeEffect ? mergeObject(condition.activeEffect, formData) : formData;
 
 		this.object.updateSource(formData);
-		if (this._state == 2) await this.render();
+		if (this._state === 2) await this.render();
 		if (ui.clt.conditionLab) {
 			ui.clt.conditionLab.map = ui.clt.conditionLab.updatedMap;
 			// ui.clt.conditionLab.unsaved = true;

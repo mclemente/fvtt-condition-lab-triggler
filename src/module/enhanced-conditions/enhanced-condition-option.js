@@ -8,8 +8,6 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	constructor(object, options) {
 		super(object, options);
 
-		this.object = this.object ?? {};
-
 		this.initialObject = foundry.utils.duplicate(this.object);
 	}
 
@@ -17,7 +15,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-enhanced-condition-option-config",
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.OptionConfig.Title"),
-			template: BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.optionConfig,
+			template: "modules/condition-lab-triggler/templates/enhanced-condition-option-config.hbs",
 			classes: ["sheet"],
 			closeOnSubmit: false,
 			width: 500
@@ -74,7 +72,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 				c,
 				`options.${Sidekick.toCamelCase(event.detail.statusName, "-")}`
 			);
-			return c.id !== event.detail.conditionId && optionValue == true;
+			return c.id !== event.detail.conditionId && optionValue;
 		});
 		if (existingCondition) {
 			event.preventDefault();
@@ -100,8 +98,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 	async _updateObject(event, formData) {
 		this.object.options = {};
-		const specialStatusEffectMapping = Sidekick.getSetting(
-			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping
+		const specialStatusEffectMapping = game.settings.get("condition-lab-triggler",
+			"specialStatusEffectMapping"
 		);
 		const map = game.clt.conditionLab.map;
 		const newMap = foundry.utils.deepClone(map);
@@ -119,7 +117,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 				} else if (existingMapping !== this.object.id && value === true) {
 					this.setSpecialStatusEffectMapping(specialStatusEffect, this.object.id);
 					if (existingMapping) {
-						const existingId = existingMapping.replace(`${BUTLER.NAME}.`, "");
+						const existingId = existingMapping.replace("condition-lab-triggler.", "");
 						const existingConditionIndex = newMap.findIndex((c) => c.id === existingId);
 						if (existingConditionIndex !== -1) {
 							const existingCondition = newMap[existingConditionIndex];
@@ -166,8 +164,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 		if (!Object.prototype.hasOwnProperty.call(CONFIG.specialStatusEffects, effect)) return;
 
 		CONFIG.specialStatusEffects[effect] = conditionId ?? "";
-		Sidekick.setSetting(
-			BUTLER.SETTING_KEYS.enhancedConditions.specialStatusEffectMapping,
+		game.settings.set("condition-lab-triggler",
+			"specialStatusEffectMapping",
 			CONFIG.specialStatusEffects
 		);
 	}

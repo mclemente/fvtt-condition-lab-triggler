@@ -1,10 +1,8 @@
-import { Butler as BUTLER } from "../butler.js";
 import { EnhancedConditions } from "../enhanced-conditions/enhanced-conditions.js";
-import { Sidekick } from "../sidekick.js";
 
 export default class MigrationHelper {
 	static async _onReady() {
-		const cubVersion = game.modules.get(BUTLER.NAME)?.version;
+		const cubVersion = game.modules.get("condition-lab-triggler")?.version;
 
 		await EnhancedConditions._migrationHelper(cubVersion);
 	}
@@ -12,7 +10,7 @@ export default class MigrationHelper {
 	static _importFromCUB() {
 		if (
 			game.user.isGM
-			&& !Sidekick.getSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration)
+			&& !game.settings.get("condition-lab-triggler", "hasRunMigration")
 			&& (game.modules.has("combat-utility-belt")
 				|| game.settings.storage.get("world").find((setting) => setting.key.includes("combat-utility-belt")))
 		) {
@@ -30,7 +28,7 @@ export default class MigrationHelper {
 					if (CUB_SETTINGS.activeConditionMap) {
 						CUB_SETTINGS.activeConditionMap.forEach((status) => {
 							if (status.icon.includes("/combat-utility-belt/")) {
-								status.icon = status.icon.replace("/combat-utility-belt/", `/${BUTLER.NAME}/`);
+								status.icon = status.icon.replace("/combat-utility-belt/", "/condition-lab-triggler/");
 							}
 						});
 					}
@@ -38,12 +36,12 @@ export default class MigrationHelper {
 						Object.keys(CUB_SETTINGS.defaultConditionMaps).forEach((map) => {
 							CUB_SETTINGS.defaultConditionMaps[map].forEach((status) => {
 								if (status.icon.includes("/combat-utility-belt/")) {
-									status.icon = status.icon.replace("/combat-utility-belt/", `/${BUTLER.NAME}/`);
+									status.icon = status.icon.replace("/combat-utility-belt/", "/condition-lab-triggler/");
 								}
 								if (status.referenceId.includes("combat-utility-belt")) {
 									status.referenceId = status.referenceId.replace(
 										"combat-utility-belt",
-										`${BUTLER.NAME}`
+										"condition-lab-triggler"
 									);
 								}
 							});
@@ -65,12 +63,12 @@ export default class MigrationHelper {
 						"storedTriggers"
 					];
 					listOfSettings.forEach((setting) => {
-						if (CUB_SETTINGS[setting]) Sidekick.setSetting(setting, CUB_SETTINGS[setting]);
+						if (CUB_SETTINGS[setting]) game.settings.set("condition-lab-triggler", setting, CUB_SETTINGS[setting]);
 					});
-					Sidekick.setSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, true);
+					game.settings.set("condition-lab-triggler", "hasRunMigration");
 				},
 				no: () => {
-					Sidekick.setSetting(BUTLER.SETTING_KEYS.migration.hasRunMigration, true);
+					game.settings.set("condition-lab-triggler", "hasRunMigration");
 				}
 			});
 		}

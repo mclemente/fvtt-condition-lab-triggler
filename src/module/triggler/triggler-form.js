@@ -24,7 +24,7 @@ export class TrigglerForm extends FormApplication {
 
 	getData() {
 		const id = this.data.id;
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 
 		if (this.noMerge) {
 			this.noMerge = false;
@@ -142,7 +142,7 @@ export class TrigglerForm extends FormApplication {
 			this.render();
 		});
 		deleteTrigger.on("click", async (event) => {
-			const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+			const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 			const triggerIndex = triggers.findIndex((t) => t.id === this.data.id);
 			if (triggerIndex === undefined) {
 				return;
@@ -151,7 +151,7 @@ export class TrigglerForm extends FormApplication {
 
 			updatedTriggers.splice(triggerIndex, 1);
 
-			await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
+			await game.settings.set("condition-lab-triggler", "storedTriggers", updatedTriggers);
 			this.data = {};
 			this.render();
 		});
@@ -260,7 +260,7 @@ export class TrigglerForm extends FormApplication {
 			return false;
 		}
 
-		const triggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
+		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const existingIds = triggers ? triggers.map((t) => t.id) : null;
 		const text = triggerType === "simple" ? Triggler._constructString(formData) : formData.advancedName;
 
@@ -289,7 +289,7 @@ export class TrigglerForm extends FormApplication {
 			this.data = newTrigger;
 		}
 
-		const setting = await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, updatedTriggers);
+		const setting = await game.settings.set("condition-lab-triggler", "storedTriggers", updatedTriggers);
 		if (!setting) ui.notifications.info(game.i18n.localize("CLT.TRIGGLER.App.SaveSuccessful"));
 
 		this.render();
@@ -299,7 +299,7 @@ export class TrigglerForm extends FormApplication {
 	 * Exports the current map to JSON
 	 */
 	_exportToJSON() {
-		const triggers = duplicate(Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers));
+		const triggers = duplicate(game.settings.get("condition-lab-triggler", "storedTriggers"));
 		const data = {
 			system: game.system.id,
 			triggers
@@ -318,7 +318,7 @@ export class TrigglerForm extends FormApplication {
 		new Dialog({
 			title: game.i18n.localize("CLT.TRIGGLER.ImportTitle"),
 			// TODO change
-			content: await renderTemplate(BUTLER.DEFAULT_CONFIG.enhancedConditions.templates.importDialog, {}),
+			content: await renderTemplate("modules/condition-lab-triggler/templates/import-conditions.html", {}),
 			buttons: {
 				import: {
 					icon: '<i class="fas fa-file-import"></i>',
@@ -355,8 +355,8 @@ export class TrigglerForm extends FormApplication {
 			return;
 		}
 
-		const originalTriggers = Sidekick.getSetting(BUTLER.SETTING_KEYS.triggler.triggers);
-		await Sidekick.setSetting(BUTLER.SETTING_KEYS.triggler.triggers, originalTriggers.concat(triggers));
+		const originalTriggers = game.settings.get("condition-lab-triggler", "storedTriggers");
+		await game.settings.set("condition-lab-triggler", "storedTriggers", originalTriggers.concat(triggers));
 		this.render();
 	}
 

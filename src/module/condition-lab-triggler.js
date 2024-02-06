@@ -28,6 +28,13 @@ Hooks.on("init", () => {
 	game.clt = new BUTLER();
 	ui.clt = {};
 
+	Object.defineProperty(game, "cub", {
+		get() {
+			console.warn("CLT | game.cub is deprecated since v1.5. Please use game.clt instead.");
+			return this.clt;
+		}
+	});
+
 	// Execute housekeeping
 	Sidekick.loadTemplates();
 

@@ -65,10 +65,10 @@ export default class MigrationHelper {
 					listOfSettings.forEach((setting) => {
 						if (CUB_SETTINGS[setting]) game.settings.set("condition-lab-triggler", setting, CUB_SETTINGS[setting]);
 					});
-					game.settings.set("condition-lab-triggler", "hasRunMigration");
+					game.settings.set("condition-lab-triggler", "hasRunMigration", true);
 				},
 				no: () => {
-					game.settings.set("condition-lab-triggler", "hasRunMigration");
+					game.settings.set("condition-lab-triggler", "hasRunMigration", true);
 				}
 			});
 		}

@@ -435,13 +435,13 @@ export class ConditionLab extends FormApplication {
 	 * @param {jQuery} html
 	 * @param {*} data
 	 */
-	static async _onRenderSaveDialog(app, html, data) {
+	static _onRenderSaveDialog(app, html, data) {
 		const contentDiv = html[0].querySelector("div.dialog-content");
 		const checkbox = `<div class="form-group"><label class="dont-show-again-checkbox">${game.i18n.localize(
 			"CLT.ENHANCED_CONDITIONS.ConditionLab.SortDirectionSave.CheckboxText"
 		)}<input type="checkbox" name="dont-show-again"></label></div>`;
 		contentDiv.insertAdjacentHTML("beforeend", checkbox);
-		await app.setPosition({ height: app.position.height + 25 });
+		app.setPosition({ height: app.position.height + 32 });
 	}
 
 	/**
@@ -450,15 +450,16 @@ export class ConditionLab extends FormApplication {
 	 * @param {*} html
 	 * @param {*} data
 	 */
-	static async _onRenderRestoreDefaultsDialog(app, html, data) {
+	static _onRenderRestoreDefaultsDialog(app, html, data) {
 		if (game.clt.conditionLab.mapType !== "default") return;
 
 		const contentDiv = html[0].querySelector("div.dialog-content");
-		const checkbox = `<div class="form-group"><label class="clear-cache-checkbox">${game.i18n.localize(
-			"CLT.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText"
-		)}<input type="checkbox" name="clear-cache"></label></div>`;
+		const checkbox = `<div class="form-group">
+		<label>${game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.RestoreDefaultClearCache.CheckboxText")}</label>
+		<input type="checkbox" name="clear-cache">
+		</div>`;
 		contentDiv.insertAdjacentHTML("beforeend", checkbox);
-		await app.setPosition({ height: app.position.height + 25 });
+		app.setPosition({ height: app.position.height + 32 });
 	}
 
 	/* -------------------------------------------- */

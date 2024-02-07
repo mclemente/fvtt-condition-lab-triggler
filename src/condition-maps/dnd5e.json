@@ -2,113 +2,142 @@
 	"system": "dnd5e",
 	"map": [
 		{
-			"name": "Blinded",
-			"icon": "modules/condition-lab-triggler/icons/blinded.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.0b8N4FymGGfbZGpJ]{Blinded}",
+		  "name": "Dead",
+		  "icon": "systems/dnd5e/icons/svg/statuses/dead.svg"
+		},
+		{
+		  "name": "Bleeding",
+		  "icon": "systems/dnd5e/icons/svg/statuses/bleeding.svg"
+		},
+		{
+		  "name": "Blinded",
+		  "icon": "systems/dnd5e/icons/svg/statuses/blinded.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.0b8N4FymGGfbZGpJ]{Blinded}",
 			"options": {
 				"blindToken": true
 			}
 		},
 		{
-			"name": "Charmed",
-			"icon": "modules/condition-lab-triggler/icons/charmed.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.zZaEBrKkr66OWJvD]{Charmed}"
+		  "name": "Burrowing",
+		  "icon": "icons/svg/cave.svg"
 		},
 		{
-			"name": "Concentrating",
-			"icon": "modules/condition-lab-triggler/icons/concentrating.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.QvPDSUsAiEn3hD8s.JournalEntryPage.wre9ECSVuEyJBYhr#concentration]{Concentration}"
+		  "name": "Charmed",
+		  "icon": "systems/dnd5e/icons/svg/statuses/charmed.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.zZaEBrKkr66OWJvD]{Charmed}"
 		},
 		{
-			"name": "Deafened",
-			"icon": "modules/condition-lab-triggler/icons/deafened.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.6G8JSjhn701cBITY]{Deafened}"
+		  "name": "Concentrating",
+		  "icon": "systems/dnd5e/icons/svg/statuses/concentrating.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.QvPDSUsAiEn3hD8s.JournalEntryPage.wre9ECSVuEyJBYhr#concentration]{Concentration}"
 		},
 		{
-			"name": "Exhaustion 1",
-			"icon": "modules/condition-lab-triggler/icons/exhaustion1.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv]{Exhaustion}"
+		  "name": "Cursed",
+		  "icon": "icons/svg/sun.svg"
 		},
 		{
-			"name": "Exhaustion 2",
-			"icon": "modules/condition-lab-triggler/icons/exhaustion2.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv]{Exhaustion 2}"
+		  "name": "Deafened",
+		  "icon": "systems/dnd5e/icons/svg/statuses/deafened.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.6G8JSjhn701cBITY]{Deafened}"
 		},
 		{
-			"name": "Exhaustion 3",
-			"icon": "modules/condition-lab-triggler/icons/exhaustion3.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv]{Exhaustion 3}"
+		  "name": "Diseased",
+		  "icon": "icons/svg/biohazard.svg"
 		},
 		{
-			"name": "Exhaustion 4",
-			"icon": "modules/condition-lab-triggler/icons/exhaustion4.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv]{Exhaustion 4}"
+		  "name": "Dodging",
+		  "icon": "systems/dnd5e/icons/svg/statuses/dodging.svg"
 		},
 		{
-			"name": "Exhaustion 5",
-			"icon": "modules/condition-lab-triggler/icons/exhaustion5.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv]{Exhaustion 5}"
+		  "name": "Exhaustion",
+		  "icon": "systems/dnd5e/icons/svg/statuses/exhaustion.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cspWveykstnu3Zcv]{Exhaustion}"
 		},
 		{
-			"name": "Frightened",
-			"icon": "modules/condition-lab-triggler/icons/frightened.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij]{Frightened}"
+		  "name": "Flying",
+		  "icon": "icons/svg/wing.svg"
 		},
 		{
-			"name": "Grappled",
-			"icon": "modules/condition-lab-triggler/icons/grappled.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.gYDAhd02ryUmtwZn]{Grappled}"
+		  "name": "Frightened",
+		  "icon": "systems/dnd5e/icons/svg/statuses/frightened.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.oreoyaFKnvZCrgij]{Frightened}"
 		},
 		{
-			"name": "Incapacitated",
-			"icon": "modules/condition-lab-triggler/icons/incapacitated.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.TpkZgLfxCmSndmpb]{Incapacitated}"
+		  "name": "Grappled",
+		  "icon": "systems/dnd5e/icons/svg/statuses/grappled.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.gYDAhd02ryUmtwZn]{Grappled}"
 		},
 		{
-			"name": "Invisible",
-			"icon": "modules/condition-lab-triggler/icons/invisible.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u]{Invisible}",
-			"options": {
-				"markInvisible": true
-			}
+		  "name": "Hidden",
+		  "icon": "icons/svg/cowled.svg"
 		},
 		{
-			"name": "Paralyzed",
-			"icon": "modules/condition-lab-triggler/icons/paralyzed.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.xnSV5hLJIMaTABXP]{Paralyzed}"
+		  "name": "Incapacitated",
+		  "icon": "systems/dnd5e/icons/svg/statuses/incapacitated.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.TpkZgLfxCmSndmpb]{Incapacitated}"
 		},
 		{
-			"name": "Petrified",
-			"icon": "modules/condition-lab-triggler/icons/petrified.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.xaNDaW6NwQTgHSmi]{Petrified}"
+		  "name": "Invisible",
+		  "icon": "systems/dnd5e/icons/svg/statuses/invisible.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.3UU5GCTVeRDbZy9u]{Invisible}",
+		  "options": {
+			  "markInvisible": true
+		  }
 		},
 		{
-			"name": "Poisoned",
-			"icon": "modules/condition-lab-triggler/icons/poisoned.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.lq3TRI6ZlED8ABMx]{Poisoned}"
+		  "name": "Marked",
+		  "icon": "systems/dnd5e/icons/svg/statuses/marked.svg"
 		},
 		{
-			"name": "Prone",
-			"icon": "modules/condition-lab-triggler/icons/prone.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.y0TkcdyoZlOTmAFT]{Prone}"
+		  "name": "Paralyzed",
+		  "icon": "systems/dnd5e/icons/svg/statuses/paralyzed.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.xnSV5hLJIMaTABXP]{Paralyzed}"
 		},
 		{
-			"name": "Restrained",
-			"icon": "modules/condition-lab-triggler/icons/restrained.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cSVcyZyNe2iG1fIc]{Restrained}"
+		  "name": "Petrified",
+		  "icon": "systems/dnd5e/icons/svg/statuses/petrified.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.xaNDaW6NwQTgHSmi]{Petrified}"
 		},
 		{
-			"name": "Stunned",
-			"icon": "modules/condition-lab-triggler/icons/stunned.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.ZyZMUwA2rboh4ObS]{Stunned}"
+		  "name": "Poisoned",
+		  "icon": "systems/dnd5e/icons/svg/statuses/poisoned.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.lq3TRI6ZlED8ABMx]{Poisoned}"
 		},
 		{
-			"name": "Unconscious",
-			"icon": "icons/svg/unconscious.svg",
-			"referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.UWw13ISmMxDzmwbd]{Unconscious}",
-			"options": {
-				"overlay": true
-			}
+		  "name": "Prone",
+		  "icon": "systems/dnd5e/icons/svg/statuses/prone.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.y0TkcdyoZlOTmAFT]{Prone}"
+		},
+		{
+		  "name": "Restrained",
+		  "icon": "systems/dnd5e/icons/svg/statuses/restrained.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.cSVcyZyNe2iG1fIc]{Restrained}"
+		},
+		{
+		  "name": "Silenced",
+		  "icon": "systems/dnd5e/icons/svg/statuses/silenced.svg"
+		},
+		{
+		  "name": "Sleeping",
+		  "icon": "icons/svg/sleep.svg"
+		},
+		{
+		  "name": "Stunned",
+		  "icon": "systems/dnd5e/icons/svg/statuses/stunned.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.ZyZMUwA2rboh4ObS]{Stunned}"
+		},
+		{
+		  "name": "Surprised",
+		  "icon": "systems/dnd5e/icons/svg/statuses/surprised.svg"
+		},
+		{
+		  "name": "Transformed",
+		  "icon": "icons/svg/pawprint.svg"
+		},
+		{
+		  "name": "Unconscious",
+		  "icon": "systems/dnd5e/icons/svg/statuses/unconscious.svg",
+		  "referenceId": "@UUID[Compendium.dnd5e.rules.w7eitkpD7QQTB6j0.JournalEntryPage.UWw13ISmMxDzmwbd]{Unconscious}"
 		}
 	]
 }

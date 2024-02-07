@@ -620,10 +620,10 @@ export class ConditionLab extends FormApplication {
 
 		if (!conditionEffect) return;
 
-		if (!hasProperty(conditionEffect, `flags.condition-lab-triggler.${"conditionId"}`)) {
+		if (!hasProperty(conditionEffect, `flags.condition-lab-triggler.conditionId`)) {
 			setProperty(
 				conditionEffect,
-				`flags.condition-lab-triggler.${"conditionId"}`,
+				`flags.condition-lab-triggler.conditionId`,
 				conditionId
 			);
 		}

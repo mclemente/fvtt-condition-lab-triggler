@@ -335,7 +335,7 @@ export class EnhancedConditions {
 	static _processActiveEffectChange(effect, type = "create") {
 		if (!(effect instanceof ActiveEffect)) return;
 
-		const effectId = effect.getFlag("condition-lab-triggler", `${"conditionId"}`);
+		const effectId = effect.getFlag("condition-lab-triggler", "conditionId");
 		if (!effectId) return;
 
 		const condition = EnhancedConditions.lookupEntryMapping(effectId);

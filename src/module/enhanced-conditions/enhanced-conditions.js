@@ -471,7 +471,7 @@ export class EnhancedConditions {
 			: lastMessageSpeaker?.token === speaker.token;
 
 		// hard code the recent timestamp to 30s for now
-		const recentTimestamp = Date.now() <= (lastMessage.timestamp ?? 0) + 30000;
+		const recentTimestamp = Date.now() <= (lastMessage?.timestamp ?? 0) + 30000;
 		const enhancedConditionsDiv = lastMessage?.content.match("enhanced-conditions");
 
 		if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp) {

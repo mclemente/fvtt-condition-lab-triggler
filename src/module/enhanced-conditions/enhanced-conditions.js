@@ -792,17 +792,17 @@ export class EnhancedConditions {
 	/**
 	 * Gets one or more conditions from the map by their name
 	 * @param {string} conditionName  the condition to get
-	 * @param {Array} map  the condition map to search
 	 */
-	static _lookupConditionByName(conditionName, map = null) {
+	static _lookupConditionByName(conditionName) {
 		if (!conditionName) return;
 
 		conditionName = conditionName instanceof Array ? conditionName : [conditionName];
 
-		if (!map) map = game.settings.get("condition-lab-triggler", "activeConditionMap");
-
-		const conditions = map.filter((c) => conditionName.includes(c.name)) ?? [];
-
+		let conditions = game.settings.get("condition-lab-triggler", "activeConditionMap");
+		if (!game.settings.get("condition-lab-triggler", "removeDefaultEffects")) {
+			conditions = conditions.concat(game.settings.get("condition-lab-triggler", "coreStatusEffects"));
+		}
+		conditions = conditions.filter((c) => conditionName.includes(c.name)) ?? [];
 		if (!conditions.length) return null;
 
 		return conditions.length > 1 ? conditions : conditions.shift();
@@ -1193,7 +1193,6 @@ export class EnhancedConditions {
 	/**
 	 * Gets a condition by name from the Condition Map
 	 * @param {*} conditionName
-	 * @param {*} map
 	 * @param {*} options.warn
 	 */
 	static getCondition(conditionName, map = null, { warn = false } = {}) {
@@ -1201,9 +1200,7 @@ export class EnhancedConditions {
 			if (warn) ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.GetCondition.Failed.NoCondition"));
 		}
 
-		if (!map) map = game.settings.get("condition-lab-triggler", "activeConditionMap");
-
-		return EnhancedConditions._lookupConditionByName(conditionName, map);
+		return EnhancedConditions._lookupConditionByName(conditionName);
 	}
 
 	/**

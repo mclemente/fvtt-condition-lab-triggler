@@ -704,7 +704,7 @@ Builds a mapping between status icons and journal entries that represent conditi
     * [.buildDefaultMap()](#EnhancedConditions.buildDefaultMap)
     * ~~[.applyCondition(...params)](#EnhancedConditions.applyCondition)~~
     * [.addCondition(conditionName, [entities])](#EnhancedConditions.addCondition)
-    * [.getCondition(conditionName, map)](#EnhancedConditions.getCondition)
+    * [.getCondition(conditionName)](#EnhancedConditions.getCondition)
     * [.getConditions(entities)](#EnhancedConditions.getConditions) ⇒ <code>Array</code>
     * [.getActiveEffect(condition)](#EnhancedConditions.getActiveEffect)
     * [.getConditionEffects(entities, map, warn)](#EnhancedConditions.getConditionEffects) ⇒ <code>Map</code> \| <code>Object</code>

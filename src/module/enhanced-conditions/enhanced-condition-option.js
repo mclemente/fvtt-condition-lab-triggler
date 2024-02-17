@@ -163,7 +163,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	setSpecialStatusEffectMapping(effect, conditionId = null) {
 		if (!Object.prototype.hasOwnProperty.call(CONFIG.specialStatusEffects, effect)) return;
 
-		CONFIG.specialStatusEffects[effect] = conditionId ?? "";
+		CONFIG.specialStatusEffects[effect] = conditionId ?? CONFIG.defaultSpecialStatusEffects[effect];
 		game.settings.set("condition-lab-triggler",
 			"specialStatusEffectMapping",
 			CONFIG.specialStatusEffects

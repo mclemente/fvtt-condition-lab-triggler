@@ -28,7 +28,7 @@ export function registerSettings() {
 						newMap.forEach((c) => (c.options.outputChat = true));
 						game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);
 					},
-					no: () => {}
+					no: () => { }
 				});
 			}
 		}
@@ -53,6 +53,15 @@ export function registerSettings() {
 		onChange: () => {
 			EnhancedConditions._updateStatusEffects();
 		}
+	});
+
+	game.settings.register("condition-lab-triggler", "defaultConditionsOutputToChat", {
+		name: "CLT.SETTINGS.EnhancedConditions.DefaultOutputChatN",
+		hint: "CLT.SETTINGS.EnhancedConditions.DefaultOutputChatH",
+		scope: "world",
+		type: Boolean,
+		config: true,
+		default: false
 	});
 
 	game.settings.register("condition-lab-triggler", "enhancedConditionsMigrationVersion", {
@@ -205,7 +214,7 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: [],
-		onChange: () => {}
+		onChange: () => { }
 	});
 
 	game.settings.register("condition-lab-triggler", "hasRunMigration", {

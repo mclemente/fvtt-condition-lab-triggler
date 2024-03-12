@@ -80,6 +80,8 @@
 				"DefaultMapsH": "あらかじめ読み込む状態マッピングを選択します。",
 				"RemoveDefaultEffectsN": "既存アイコンを消去する",
 				"RemoveDefaultEffectsH": "コマの状態メニューから、既存のアイコンを消去します。",
+				"DefaultOutputChatN": "デフォルト条件をチャットに出力",
+				"DefaultOutputChatH": "すべてのデフォルト条件をチャットに出力します",
 				"MapTypeN": "アクティブな状態マッッピング",
 				"MapTypeH": "現在使用されている状態マッッピング（既存、カスタム、その他など）。",
 				"ActiveConditionMapN": "状態マッピングを保存する",

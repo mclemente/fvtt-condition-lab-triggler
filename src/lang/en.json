@@ -28,8 +28,8 @@
 				}
 			},
 			"ChatCard": {
-				"Heading": "Enhanced Condition Changes",
-				"HeadingActive": "Active Enhanced Conditions",
+				"Heading": "Condition Changes",
+				"HeadingActive": "Active Conditions",
 				"Title": {
 					"Active": "Active Conditions",
 					"Added": "Added Conditions",
@@ -183,6 +183,8 @@
 				"DefaultMapsH": "Module-provided maps of conditions to icons",
 				"RemoveDefaultEffectsN": "Remove Default Status Effects",
 				"RemoveDefaultEffectsH": "Remove existing status effect icons from token HUD",
+				"DefaultOutputChatN": "Output Default Conditions to Chat",
+				"DefaultOutputChatH": "Output all default conditions to chat",
 				"MapTypeN": "Active Condition Map Type",
 				"MapTypeH": "Condition map type currently in use -- default, custom or other",
 				"MapType": {

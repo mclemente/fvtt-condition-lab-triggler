@@ -139,6 +139,8 @@
 				"DefaultMapsH": "Vom Modul bereitgestellte Zuordnungen von Zuständen zu Icons",
 				"RemoveDefaultEffectsN": "Standard-Zustandseffekte entfernen",
 				"RemoveDefaultEffectsH": "Vorhandene Status-Effekt-Icons aus dem Spielfigur-HUD entfernen",
+				"DefaultOutputChatN": "Standardbedingungen für den Chat ausgeben",
+				"DefaultOutputChatH": "Geben Sie alle Standardbedingungen an den Chat aus",
 				"MapTypeN": "Aktive Zustandszuordnungsart",
 				"MapTypeH": "Derzeit verwendeter Zustandszuordnungsart - Default, Custom oder Other",
 				"ActiveConditionMapN": "Aktive Zustandszuordnung",

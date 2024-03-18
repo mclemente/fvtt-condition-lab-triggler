@@ -130,9 +130,9 @@ export function registerSettings() {
 		type: String,
 		default: "",
 		choices: {
-			default: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.default"),
-			custom: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom"),
-			other: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.other")
+			default: "CLT.SETTINGS.EnhancedConditions.MapType.Choices.default",
+			custom: "CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom",
+			other: "CLT.SETTINGS.EnhancedConditions.MapType.Choices.other"
 		},
 		config: false,
 		apiOnly: true

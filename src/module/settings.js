@@ -174,10 +174,10 @@ export function registerSettings() {
 			scope: "client",
 			type: String,
 			choices: {
-				small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
-				medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
-				large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
-				xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge")
+				small: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small",
+				medium: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium",
+				large: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large",
+				xLarge: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge"
 			},
 			config: true,
 			onChange: () => {

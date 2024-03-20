@@ -1434,8 +1434,8 @@ export class EnhancedConditions {
 
 	/**
 	 * Removes one or more named conditions from an Entity (Actor/Token)
-	 * @param {Actor | Token} entities  One or more Actors or Tokens
 	 * @param {string} conditionName  the name of the Condition to remove
+	 * @param {Actor | Token} entities  One or more Actors or Tokens
 	 * @param {object} options  options for removal
 	 * @param {boolean} options.warn  whether or not to raise warnings on errors
 	 * @example
@@ -1506,7 +1506,7 @@ export class EnhancedConditions {
 					: entity instanceof Token || entity instanceof TokenDocument
 						? entity.actor
 						: null;
-			const activeEffects = entity.effects;
+			const activeEffects = actor.appliedEffects;
 
 			if (!activeEffects || (activeEffects && !activeEffects.length)) {
 				if (warn) ui.notifications.warn(

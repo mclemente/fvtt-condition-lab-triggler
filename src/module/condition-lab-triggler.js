@@ -55,9 +55,7 @@ Hooks.on("init", () => {
 		restricted: true,
 		precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL
 	});
-});
 
-Hooks.on("i18nInit", () => {
 	registerSettings();
 
 	// Wrappers

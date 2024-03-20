@@ -139,9 +139,9 @@ export function registerSettings() {
 		type: String,
 		default: "",
 		choices: {
-			default: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.default"),
-			custom: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom"),
-			other: game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.other")
+			default: "CLT.SETTINGS.EnhancedConditions.MapType.Choices.default",
+			custom: "CLT.SETTINGS.EnhancedConditions.MapType.Choices.custom",
+			other: "CLT.SETTINGS.EnhancedConditions.MapType.Choices.other"
 		},
 		config: false,
 		apiOnly: true
@@ -183,10 +183,10 @@ export function registerSettings() {
 			scope: "client",
 			type: String,
 			choices: {
-				small: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small"),
-				medium: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium"),
-				large: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large"),
-				xLarge: game.i18n.localize("CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge")
+				small: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.small",
+				medium: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.medium",
+				large: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.large",
+				xLarge: "CLT.SETTINGS.TokenUtility.TokenEffectSize.choices.xLarge"
 			},
 			config: true,
 			onChange: () => {

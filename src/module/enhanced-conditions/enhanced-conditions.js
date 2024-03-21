@@ -332,23 +332,31 @@ export class EnhancedConditions {
 	/**
 	 * Process the addition/removal of an Active Effect
 	 * @param {ActiveEffect} effect  the effect
-	 * @param {string} type  the type of change to process
+	 * @param {"create"|"delete"} type  the type of change to process
 	 */
 	static _processActiveEffectChange(effect, type = "create") {
 		if (!(effect instanceof ActiveEffect)) return;
 
-		const effectId = effect.getFlag("condition-lab-triggler", "conditionId");
+		const conditionId = effect.getFlag("condition-lab-triggler", "conditionId");
+		const isDefault = !conditionId;
+		const effectIds = conditionId ? [conditionId] : Array.from(effect.statuses);
 
-		const condition = EnhancedConditions.lookupEntryMapping(effectId);
+		const conditions = effectIds.map((effectId) => ({
+			...EnhancedConditions.lookupEntryMapping(effectId),
+			effectId
+		}));
 
-		const shouldOutput = (!condition && game.settings.get("condition-lab-triggler", "defaultConditionsOutputToChat"))
-			|| (game.settings.get("condition-lab-triggler", "conditionsOutputToChat") && condition?.options?.outputChat);
-		const outputType = type === "delete" ? "removed" : "added";
+		const toOutput = conditions.filter((condition) => (isDefault && game.settings.get("condition-lab-triggler", "defaultConditionsOutputToChat"))
+			|| (game.settings.get("condition-lab-triggler", "conditionsOutputToChat") && condition?.options?.outputChat));
 		const actor = effect.parent;
 
-		if (shouldOutput) EnhancedConditions.outputChatMessage(actor, condition || effect, { type: outputType });
+		if (toOutput.length) {
+			EnhancedConditions.outputChatMessage(actor, toOutput, { type: type === "delete" ? "removed" : "added" });
+		}
 
-		if (!condition) return;
+		if (isDefault) return;
+		// If not default we only have one condition.
+		const condition = conditions[0];
 		let macros = [];
 
 		switch (type) {
@@ -1088,7 +1096,7 @@ export class EnhancedConditions {
 		conditions = conditions instanceof Array ? conditions : [conditions];
 		const conditionNames = conditions.map((c) => c.name);
 
-		let effects = EnhancedConditions.getActiveEffect(conditions);
+		let effects = EnhancedConditions.getActiveEffects(conditions);
 
 		if (!effects) {
 			ui.notifications.error(
@@ -1287,11 +1295,11 @@ export class EnhancedConditions {
 	}
 
 	/**
-	 * Gets the Active Effect data (if any) for the given condition
-	 * @param {*} condition
+	 * Gets the Active Effect data (if any) for the given conditions
+	 * @param {Array<Condition>} conditions
 	 */
-	static getActiveEffect(condition) {
-		return EnhancedConditions._prepareStatusEffects(condition);
+	static getActiveEffects(conditions) {
+		return EnhancedConditions._prepareStatusEffects(conditions);
 	}
 
 	/**
@@ -1482,7 +1490,7 @@ export class EnhancedConditions {
 			return;
 		}
 
-		let effects = EnhancedConditions.getActiveEffect(conditions);
+		let effects = EnhancedConditions.getActiveEffects(conditions);
 
 		if (!effects) {
 			if (warn) ui.notifications.error(game.i18n.localize("ENHANCED_CONDTIONS.RemoveCondition.Failed.NoEffect"));

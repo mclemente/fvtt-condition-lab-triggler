@@ -1197,6 +1197,9 @@ export class EnhancedConditions {
 	 * Gets a condition by name from the Condition Map
 	 * @param {*} conditionName
 	 * @param {*} options.warn
+	 * @param map
+	 * @param root0
+	 * @param root0.warn
 	 */
 	static getCondition(conditionName, map = null, { warn = false } = {}) {
 		if (!conditionName) {

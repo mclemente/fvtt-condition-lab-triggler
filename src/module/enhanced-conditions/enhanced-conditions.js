@@ -602,14 +602,17 @@ export class EnhancedConditions {
 	 * @param {*} entity
 	 */
 	static async _processMacros(macroIds, entity = null) {
-		const isToken = entity instanceof Token || entity instanceof TokenDocument;
-		const isActor = entity instanceof Actor;
+		const scope = {};
+		if (entity instanceof Token || entity instanceof TokenDocument) {
+			scope.token = entity;
+		} else if (entity instanceof Actor) {
+			scope.actor = entity;
+		}
 
 		for (const macroId of macroIds) {
 			const macro = game.macros.get(macroId);
 			if (!macro) continue;
 
-			const scope = isToken ? { token: entity } : isActor ? { actor: entity } : null;
 			await macro.execute(scope);
 		}
 	}

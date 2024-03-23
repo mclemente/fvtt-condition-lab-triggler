@@ -42,6 +42,7 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Get updated map by combining existing in-memory map with current formdata
+	 * @returns {object[]}
 	 */
 	get updatedMap() {
 		const submitData = this._buildSubmitData();
@@ -52,6 +53,7 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Gets data for the template render
+	 * @returns {object}
 	 */
 	async getData() {
 		const sortDirection = this.sortDirection;
@@ -147,6 +149,7 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Enriches submit data with existing map to ensure continuity
+	 * @returns {object}
 	 */
 	_buildSubmitData() {
 		const map = this.sortDirection ? this._sortMapByName(this.map) : this.map;
@@ -160,7 +163,8 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Processes the Form Data and builds a usable Condition Map
-	 * @param {*} formData
+	 * @param {object} formData
+	 * @returns {object}
 	 */
 	_processFormData(formData) {
 		let ids = [];
@@ -235,8 +239,8 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Restore defaults for a mapping
-	 * @param root0
-	 * @param root0.clearCache
+	 * @param {object} options
+	 * @param {boolean} options.clearCache
 	 */
 	async _restoreDefaults({ clearCache = false } = {}) {
 		const system = this.system;
@@ -366,6 +370,7 @@ export class ConditionLab extends FormApplication {
 	/**
 	 * Process a Condition Map Import
 	 * @param {*} html
+	 * @returns {*}
 	 */
 	async _processImport(html) {
 		const form = html.find("form")[0];
@@ -387,9 +392,7 @@ export class ConditionLab extends FormApplication {
 		this.render();
 	}
 
-	/**
-	 * Override the header buttons method
-	 */
+	/** @override */
 	_getHeaderButtons() {
 		let buttons = super._getHeaderButtons();
 
@@ -466,10 +469,7 @@ export class ConditionLab extends FormApplication {
 	/*                Event Handlers                */
 	/* -------------------------------------------- */
 
-	/**
-	 * Activate app listeners
-	 * @param {*} html
-	 */
+	/** @override */
 	activateListeners(html) {
 		const inputs = html.find("input");
 		const mapTypeSelector = html.find("select[class='map-type']");
@@ -506,6 +506,7 @@ export class ConditionLab extends FormApplication {
 		super.activateListeners(html);
 	}
 
+	/** @override */
 	_activateCoreListeners(html) {
 		super._activateCoreListeners(html);
 		if (this.isEditable) html.find("img[data-edit]").on("click", this._onEditImage.bind(this));
@@ -526,7 +527,7 @@ export class ConditionLab extends FormApplication {
 
 	/**
 	 * Filter input change handler
-	 * @param event
+	 * @param {*} event
 	 */
 	_onChangeFilter(event) {
 		const input = event.target;
@@ -551,7 +552,7 @@ export class ConditionLab extends FormApplication {
 	 * Filter the given map by the name property using the supplied filter value, marking filtered entries as "hidden"
 	 * @param {Array} map
 	 * @param {string} filter
-	 * @returns filteredMap
+	 * @returns {object[]} filteredMap
 	 */
 	_filterMapByName(map, filter) {
 		return map.map((c) => ({ ...c, hidden: !c.label.toLowerCase().includes(filter.toLowerCase()) }));
@@ -799,6 +800,7 @@ export class ConditionLab extends FormApplication {
 	/**
 	 * Sort button handler
 	 * @param {*} event
+	 * @returns {Application}                 The rendered Application instance
 	 */
 	_onClickSortButton(event) {
 		const sortDirection = this.sortDirection;
@@ -837,7 +839,7 @@ export class ConditionLab extends FormApplication {
 	}
 
 	/**
-	 *
+	 * Opens dialog to reset to default values.
 	 * @param {*} event
 	 */
 	_onRestoreDefaults(event) {

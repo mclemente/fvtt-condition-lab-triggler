@@ -3,7 +3,7 @@ import { EnhancedConditions } from "./enhanced-conditions/enhanced-conditions.js
 import { TrigglerForm } from "./triggler/triggler-form.js";
 
 /**
- *
+ * Registers the module's settings.
  */
 export function registerSettings() {
 	/* -------------------------------------------- */

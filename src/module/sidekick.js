@@ -6,7 +6,7 @@ export class Sidekick {
 	 * Use FilePicker to browse then Fetch one or more JSONs and return them
 	 * @param {string} source
 	 * @param {string} path
-	 * @returns {JSON[]}
+	 * @returns {Promise<JSON[]>}
 	 */
 	static async fetchJsons(source, path) {
 		const extensions = [".json"];
@@ -20,7 +20,7 @@ export class Sidekick {
 	/**
 	 * Fetch a JSON from a given file
 	 * @param {File} file
-	 * @returns {JSON | null}
+	 * @returns {Promise<JSON> | null}
 	 */
 	static async fetchJson(file) {
 		try {

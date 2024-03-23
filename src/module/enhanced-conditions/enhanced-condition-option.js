@@ -39,7 +39,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	/**
 	 * Checkbox change event handler
 	 * @param {*} event
-	 * @returns {}
+	 * @returns {*}
 	 */
 	_onCheckboxChange(event) {
 		if (!event.target?.checked) return;
@@ -64,6 +64,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	/**
 	 * Special Status Effect toggle handler
 	 * @param {*} event
+	 * @returns {*}
 	 */
 	static async _onSpecialStatusEffectToggle(event) {
 		// is another condition already using this special status effect?

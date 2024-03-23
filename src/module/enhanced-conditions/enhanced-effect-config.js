@@ -35,6 +35,7 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
 	/**
 	 * Override default update object behaviour
+	 * @param {*} event
 	 * @param {*} formData
 	 * @override
 	 */

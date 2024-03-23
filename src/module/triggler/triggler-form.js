@@ -363,6 +363,7 @@ export class TrigglerForm extends FormApplication {
 	/**
 	 * Process a Condition Map Import
 	 * @param {*} html
+	 * @returns {*}
 	 */
 	async _processImport(html) {
 		const form = html.find("form")[0];
@@ -384,9 +385,7 @@ export class TrigglerForm extends FormApplication {
 		this.render();
 	}
 
-	/**
-	 * Override the header buttons method
-	 */
+	/** @override */
 	_getHeaderButtons() {
 		let buttons = super._getHeaderButtons();
 

@@ -39,6 +39,7 @@ export class Triggler {
 	/**
 	 * Parse the provided Condition Map and prepare it for storage, validating and correcting bad or missing data where possible
 	 * @param {*} trigger
+	 * @returns {boolean | object}
 	 */
 	static _prepareTrigger(trigger) {
 		const { triggerType = "simple", id = null } = trigger;
@@ -72,6 +73,7 @@ export class Triggler {
 	/**
 	 * Construct a string based on trigger parts
 	 * @param {*} parts
+	 * @returns {string}
 	 */
 	static _constructString(parts) {
 		const triggerType = parts.triggerType;
@@ -88,7 +90,7 @@ export class Triggler {
 			const advancedProperty2 = parts.advancedProperty2 ? ` ${parts.advancedProperty2}` : "";
 			return `${parts.advancedProperty} ${advancedOperatorText} ${parts.advancedValue}${advancedProperty2}${pcOnly}${npcOnly}${notZero}`;
 		}
-		return null;
+		return "";
 	}
 
 	/**
@@ -374,7 +376,7 @@ export class Triggler {
 	}
 
 	/**
-	 *
+	 * Adds a select to the Macro Config window.
 	 * @param {*} app
 	 * @param {*} html
 	 * @param {*} data

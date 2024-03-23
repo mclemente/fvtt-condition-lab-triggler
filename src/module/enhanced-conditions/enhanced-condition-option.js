@@ -139,8 +139,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 	/**
 	 * Get the enum for a special status effect based on the field name
-	 * @param {*} field
-	 * @returns {"BLIND" | "INVISIBLE"  | "DEFEATED" | undefined} enum for the special status effect
+	 * @param {string} field
+	 * @returns {string | undefined} BLIND, INVISIBLE, or DEFEATED
 	 */
 	getSpecialStatusEffectByField(field) {
 		switch (field) {
@@ -157,7 +157,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 	/**
 	 * Sets the special status effect to the provided condition Id
-	 * @param {"BLIND" | "INVISIBLE" | "DEFEATED"} effect
+	 * @param {string} effect	Either BLIND, INVISIBLE, or DEFEATED
 	 * @param {string} conditionId
 	 */
 	setSpecialStatusEffectMapping(effect, conditionId = null) {

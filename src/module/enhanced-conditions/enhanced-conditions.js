@@ -327,7 +327,7 @@ export class EnhancedConditions {
 	/**
 	 * Process the addition/removal of an Active Effect
 	 * @param {ActiveEffect} effect  the effect
-	 * @param {"create"|"delete"} type  the type of change to process
+	 * @param {string} type  the type of change to process. "create" or "delete"
 	 */
 	static _processActiveEffectChange(effect, type = "create") {
 		if (!(effect instanceof ActiveEffect)) return;
@@ -399,7 +399,7 @@ export class EnhancedConditions {
 	 * @param {Actor|Token} entity
 	 * @param {Array<Condition>} entries
 	 * @param {object} options
-	 * @param {"added"|"removed"|"active"} options.type
+	 * @param {string} options.type	"added", "removed", or "active"
 	 * @todo refactor to use actor or token
 	 */
 	static async outputChatMessage(entity, entries, options = { type: "active" }) {

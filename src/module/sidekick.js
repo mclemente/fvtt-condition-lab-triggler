@@ -4,8 +4,9 @@
 export class Sidekick {
 	/**
 	 * Use FilePicker to browse then Fetch one or more JSONs and return them
-	 * @param {*} source
-	 * @param {*} path
+	 * @param {string} source
+	 * @param {string} path
+	 * @returns {JSON[]}
 	 */
 	static async fetchJsons(source, path) {
 		const extensions = [".json"];
@@ -19,7 +20,7 @@ export class Sidekick {
 	/**
 	 * Fetch a JSON from a given file
 	 * @param {File} file
-	 * @returns JSON | null
+	 * @returns {JSON | null}
 	 */
 	static async fetchJson(file) {
 		try {
@@ -35,10 +36,9 @@ export class Sidekick {
 
 	/**
 	 * Attempts to coerce a target value into the exemplar's type
-	 * @param {*} target
-	 * @param value
-	 * @param {*} type
-	 * @returns {*} coercedValue
+	 * @param {string} value
+	 * @param {string} type
+	 * @returns {number | string | boolean} coercedValue
 	 */
 	static coerceType(value, type) {
 		switch (type) {
@@ -62,10 +62,11 @@ export class Sidekick {
 
 	/**
 	 * Get a random unique Id, checking an optional supplied array of ids for a match
-	 * @param {*} existingIds
-	 * @param root0
-	 * @param root0.iterations
-	 * @param root0.length
+	 * @param {string[]} existingIds
+	 * @param {object} root0
+	 * @param {number} root0.iterations
+	 * @param {number} root0.length
+	 * @returns {string}
 	 */
 	static createId(existingIds = [], { iterations = 10000, length = 16 } = {}) {
 		for (let attempt = 0; attempt < iterations; attempt++) {
@@ -82,8 +83,9 @@ export class Sidekick {
 
 	/**
 	 * For a given string generate a slug, optionally checking a list of existing Ids for uniqueness
-	 * @param {*} string
-	 * @param {*} idList
+	 * @param {string} string
+	 * @param {string[]} idList
+	 * @returns {string}
 	 */
 	static generateUniqueSlugId(string, idList = []) {
 		let slug = string.slugify();
@@ -136,7 +138,7 @@ export class Sidekick {
 	 * Converts the given string to camelCase using the provided delimiter to break up words
 	 * @param {string} string
 	 * @param {string} delimiter
-	 * @returns the converted string
+	 * @returns {string} the converted string
 	 * @example Sidekick.toCamelCase("my-cool-string", "-") // returns "myCoolString"
 	 */
 	static toCamelCase(string, delimiter) {

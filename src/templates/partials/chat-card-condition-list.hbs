@@ -1,33 +1,47 @@
-<li class="flexrow" id="condition-{{@index}}" data-condition-name="{{condition.name}}" data-condition-id="{{condition.id}}" data-timestamp={{timestamp}} data-change-type="{{type.title}}">
-    {{#if type.active}}
-    {{else}}
-    <div class="add-remove">
-        <span class="add-remove-icon" data-tooltip="{{type.title}} {{timeSince timestamp}}">
-            {{#if type.removed}}<i class="fas fa-minus"></i>
-            {{else if type.added}}<span class="added"><i class="fas fa-plus"></i>
-            {{/if}}
-        </span>
-    </div>
-    {{/if}}
-    <div class="condition-icon">
-        <img src="{{condition.icon}}" class="condition-icon chat-message" data-tooltip="{{condition.name}}">
-    </div>
-    {{#if condition.hasReference}}
-    <div class="condition-reference">
-        {{condition.referenceId}}
-    </div>
-    {{else}}
-    <div class="condition-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
-        {{condition.name}}
-    </div>
-    {{/if}}
-    {{#if type.removed}}
-    <div class="undo-remove">
-        <a name="undo-remove" data-tooltip="{{localize "CLT.ENHANCED_CONDITIONS.ChatCard.Buttons.Undo"}}"><i class="fas fa-undo"></i></a>
-    </div>
-    {{else}}
-    <div class="remove-row">
-        <a name="remove-row" data-tooltip="{{localize "CLT.ENHANCED_CONDITIONS.ChatCard.Buttons.Remove"}}"><i class="fas fa-times"></i></a>
-    </div>
-    {{/if}}
+<li
+	class="flexrow"
+	id="condition-{{@index}}"
+	data-condition-name="{{condition.name}}"
+	data-condition-id="{{condition.id}}"
+	data-condition-_id="{{condition._id}}"
+	data-condition-isdefault="{{condition.isDefault}}"
+	data-timestamp={{timestamp}}
+	data-change-type="{{type.title}}"
+>
+	{{#if type.active}}{{else}}
+		<div class="add-remove">
+			<span class="add-remove-icon" data-tooltip="{{type.title}} {{timeSince timestamp}}">
+				{{#if type.removed}}<i class="fas fa-minus"></i>
+				{{else if type.added}}<span class="added" /><i class="fas fa-plus"></i>
+				{{/if}}
+			</span>
+		</div>
+	{{/if}}
+	<div class="condition-icon">
+		<img src="{{condition.icon}}" class="condition-icon chat-message" data-tooltip="{{condition.name}}" />
+	</div>
+	{{#if condition.hasReference}}
+		<div class="condition-reference">
+			{{condition.referenceId}}
+		</div>
+	{{else}}
+		<div class="condition-name" style="flex: 2; margin: 3px 0px 0px 0px" height="20px">
+			{{condition.name}}
+		</div>
+	{{/if}}
+	{{#if condition.hasButtons}}
+		{{#if type.removed}}
+			<div class="undo-remove">
+				<a name="undo-remove" data-tooltip="{{localize 'CLT.ENHANCED_CONDITIONS.ChatCard.Buttons.Undo'}}">
+					<i class="fas fa-undo"></i>
+				</a>
+			</div>
+		{{else}}
+			<div class="remove-row">
+				<a name="remove-row" data-tooltip="{{localize 'CLT.ENHANCED_CONDITIONS.ChatCard.Buttons.Remove'}}">
+					<i class="fas fa-times"></i>
+				</a>
+			</div>
+		{{/if}}
+	{{/if}}
 </li>

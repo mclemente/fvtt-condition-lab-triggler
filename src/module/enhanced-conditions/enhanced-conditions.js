@@ -255,11 +255,6 @@ export class EnhancedConditions {
 		const removeConditionAnchor = html.find("a[name='remove-row']");
 		const undoRemoveAnchor = html.find("a[name='undo-remove']");
 
-		if (!game.user.isGM) {
-			removeConditionAnchor.parent().hide();
-			undoRemoveAnchor.parent().hide();
-		}
-
 		/**
 		 * @todo #284 move to chatlog listener instead
 		 */
@@ -401,9 +396,10 @@ export class EnhancedConditions {
 
 	/**
 	 * Output one or more condition entries to chat
-	 * @param entity
-	 * @param entries
-	 * @param options
+	 * @param {Actor|Token} entity
+	 * @param {Array<Condition>} entries
+	 * @param {object} options
+	 * @param {"added"|"removed"|"active"} options.type
 	 * @todo refactor to use actor or token
 	 */
 	static async outputChatMessage(entity, entries, options = { type: "active" }) {
@@ -441,30 +437,24 @@ export class EnhancedConditions {
 			: ChatMessage.getSpeaker({ token: entity });
 		const timestamp = type.active ? null : Date.now();
 
-		// iterate over the entries and mark any with references for use in the template
-		entries.forEach((v, i, a) => {
-			if (v.referenceId) {
-				if (!v.referenceId.match(/\{.+\}/)) {
-					v.referenceId += `{${v.name}}`;
-				}
-
-				a[i].hasReference = true;
+		// iterate over the entries and mark any with references and flags for use in the template
+		const conditions = entries.map(({ reference, referenceId: rId, ...e }) => {
+			let referenceId = rId;
+			if (!rId && reference) {
+				referenceId = `@UUID[${reference}]`;
 			}
+			if (referenceId && !referenceId.match(/\{.+\}/)) {
+				referenceId = `${referenceId}{${e.name}}`;
+			}
+			const isDefault = !e.options;
+			return ({
+				...e,
+				referenceId,
+				hasReference: !!referenceId,
+				hasButtons: !isDefault
+					&& game.user.isGM
+			});
 		});
-
-		const chatCardHeading = game.i18n.localize(
-			type.active ? "CLT.ENHANCED_CONDITIONS.ChatCard.HeadingActive" : "CLT.ENHANCED_CONDITIONS.ChatCard.Heading"
-		);
-
-		const templateData = {
-			chatCardHeading,
-			type,
-			timestamp,
-			entityId: entity.id,
-			alias: speaker.alias,
-			conditions: entries,
-			isOwner: entity.isOwner || game.user.isGM
-		};
 
 		// if the last message Enhanced conditions, append instead of making a new one
 		const lastMessage = game.messages.contents[game.messages.contents.length - 1];
@@ -479,7 +469,7 @@ export class EnhancedConditions {
 
 		if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp) {
 			let newContent = "";
-			for (const condition of entries) {
+			for (const condition of conditions) {
 				const newRow = await renderTemplate(
 					"modules/condition-lab-triggler/templates/partials/chat-card-condition-list.hbs",
 					{ condition, type, timestamp }
@@ -494,6 +484,20 @@ export class EnhancedConditions {
 			EnhancedConditions.updateConditionTimestamps();
 			ui.chat.scrollBottom();
 		} else {
+			const chatCardHeading = game.i18n.localize(
+				type.active ? "CLT.ENHANCED_CONDITIONS.ChatCard.HeadingActive" : "CLT.ENHANCED_CONDITIONS.ChatCard.Heading"
+			);
+
+			const templateData = {
+				chatCardHeading,
+				type,
+				timestamp,
+				entityId: entity.id,
+				alias: speaker.alias,
+				conditions,
+				isOwner: entity.isOwner || game.user.isGM
+			};
+
 			const content = await renderTemplate(
 				"modules/condition-lab-triggler/templates/chat-conditions.hbs",
 				templateData
@@ -1210,7 +1214,6 @@ export class EnhancedConditions {
 	 * Retrieves all active conditions for one or more given entities (Actors or Tokens)
 	 * @param {Actor | Token} entities  one or more Actors or Tokens to get Conditions from
 	 * @param {boolean} options.warn  output notifications
-	 * @returns {Array|undefined} entityConditionMap  a mapping of conditions for each provided entity
 	 * @example
 	 * // Get conditions for an Actor named "Bob"
 	 * game.clt.getConditions(game.actors.getName("Bob"));
@@ -1296,7 +1299,8 @@ export class EnhancedConditions {
 
 	/**
 	 * Gets the Active Effect data (if any) for the given conditions
-	 * @param {Array<Condition>} conditions
+	 * @param {Array} conditions
+	 * @returns {Array} statusEffects
 	 */
 	static getActiveEffects(conditions) {
 		return EnhancedConditions._prepareStatusEffects(conditions);
@@ -1307,7 +1311,7 @@ export class EnhancedConditions {
 	 * @param {string} entities  the entities to check
 	 * @param {Array} map  the Condition map to check (optional)
 	 * @param {boolean} warn  output notifications
-	 * @returns {Map | object} A Map containing the Actor Id and the Condition Active Effect instances if any
+	 * @returns {Map | object | undefined} A Map containing the Actor Id and the Condition Active Effect instances if any
 	 */
 	static getConditionEffects(entities, map = null, { warn = true } = {}) {
 		if (!entities) {
@@ -1514,9 +1518,9 @@ export class EnhancedConditions {
 					: entity instanceof Token || entity instanceof TokenDocument
 						? entity.actor
 						: null;
-			const activeEffects = actor.appliedEffects;
+			const toRemove = actor.appliedEffects?.filter((e) => effects.find((r) => e.statuses.has(r.id)));
 
-			if (!activeEffects || (activeEffects && !activeEffects.length)) {
+			if (!toRemove || (toRemove && !toRemove.length)) {
 				if (warn) ui.notifications.warn(
 					`${conditionName} ${game.i18n.localize(
 						"CLT.ENHANCED_CONDITIONS.RemoveCondition.Failed.NotActive"
@@ -1530,9 +1534,7 @@ export class EnhancedConditions {
 				return;
 			}
 
-			const effectIds = activeEffects.map((e) => e.id);
-
-			await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
+			await actor.deleteEmbeddedDocuments("ActiveEffect", toRemove.map((e) => e.id));
 		}
 	}
 

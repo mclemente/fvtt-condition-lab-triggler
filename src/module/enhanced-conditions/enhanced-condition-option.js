@@ -85,7 +85,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 					statusEffect: event.detail.statusLabel ?? event.detail.statusName
 				}
 			);
-			const yes = () => {};
+			const yes = () => { };
 			const no = () => {
 				return (event.target.checked = false);
 			};
@@ -140,7 +140,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	/**
 	 * Get the enum for a special status effect based on the field name
 	 * @param {*} field
-	 * @returns {string} enum for the special status effect
+	 * @returns {"BLIND" | "INVISIBLE"  | "DEFEATED" | undefined} enum for the special status effect
 	 */
 	getSpecialStatusEffectByField(field) {
 		switch (field) {
@@ -157,8 +157,8 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 
 	/**
 	 * Sets the special status effect to the provided condition Id
-	 * @param {*} effect
-	 * @param {*} conditionId
+	 * @param {"BLIND" | "INVISIBLE" | "DEFEATED"} effect
+	 * @param {string} conditionId
 	 */
 	setSpecialStatusEffectMapping(effect, conditionId = null) {
 		if (!Object.prototype.hasOwnProperty.call(CONFIG.specialStatusEffects, effect)) return;

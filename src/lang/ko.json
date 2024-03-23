@@ -80,6 +80,8 @@
 				"DefaultMapsH": "모듈에서 제공하는 상태 아이콘을 사용합니다.",
 				"RemoveDefaultEffectsN": "기본 상태 효과 제거",
 				"RemoveDefaultEffectsH": "토큰 HUD로부터 기본 상태 효과 아이콘들을 제거합니다.",
+				"DefaultOutputChatN": "채팅에 기본 조건 출력",
+				"DefaultOutputChatH": "모든 기본 조건을 채팅에 출력",
 				"MapTypeN": "상태 맵 타입 활성화",
 				"MapTypeH": "현재 사용하는 상태 맵 타입 -- 기본, 커스텀 혹은 기타",
 				"ActiveConditionMapN": "상태 맵 활성화",

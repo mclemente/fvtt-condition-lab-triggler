@@ -72,6 +72,8 @@
 				"DefaultMapsH": "MOD-提供的状态到图标的映射",
 				"RemoveDefaultEffectsN": "移除默认状态效果",
 				"RemoveDefaultEffectsH": "从指示物的HUD中移除已存在的状态效果图标",
+				"DefaultOutputChatN": "输出默认条件到聊天",
+				"DefaultOutputChatH": "输出所有默认条件进行聊天",
 				"MapTypeN": "激活的状态映射类型",
 				"MapTypeH": "当前使用的状态映射类型 -- 默认值, 自定义或其他",
 				"ActiveConditionMapN": "激活的状态映射",

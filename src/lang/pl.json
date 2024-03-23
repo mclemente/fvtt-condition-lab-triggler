@@ -68,6 +68,8 @@
 				"DefaultMapsH": "Zapewniane przez moduł mapy stanów na ikony",
 				"RemoveDefaultEffectsN": "Usuń Domyślne Efekty Statusu",
 				"RemoveDefaultEffectsH": "Usuń istniejące ikony efektów statusu z interfejsu żetonu",
+				"DefaultOutputChatN": "Wyprowadź Domyślne Warunki na Czacie",
+				"DefaultOutputChatH": "Wyprowadź wszystkie domyślne warunki na czacie",
 				"MapTypeN": "Typ Aktywnej Mapy Stanów",
 				"MapTypeH": "Obecnie używana Mapa Stanów -- domyślna, własna lub inna",
 				"ActiveConditionMapN": "Aktywna Mapa Stanów",

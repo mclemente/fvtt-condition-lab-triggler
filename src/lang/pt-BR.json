@@ -1,291 +1,293 @@
 {
-  "CLT": {
-    "ENHANCED_CONDITIONS": {
-      "OutputChatConfirm": {
-        "Title": "Ativar saída para chat para todas as condições?",
-        "Content": "Clique em 'Sim' para ativar 'Saída para chat' em todas as condições"
-      },
-      "ConditionLab": {
-        "NoReference": "--Sem entrada de referência-- (Arraste um Diário, Item, Ator, etc. para este campo para definir)",
-        "FilterInputTitle": "Filtrar por nome",
-        "FilterButtonTitle": "Aplicar filtro",
-        "SortAnchorTitle": {
-          "asc": "A a Z",
-          "desc": "Z a A",
-          "unsorted": "Não Classificado"
-        },
-        "SortDirectionSave": {
-          "Title": "Salvar mapeamento com Direção de Classificação?",
-          "Content": "<p>Clique em 'Sim' para salvar o mapa do Laboratório de Condição com a Direção de Classificação atual. Clique em 'Não' para cancelar o salvamento.</p>",
-          "CheckboxText": "Não mostrar isso novamente"
-        },
-        "BadReference": "Não foi possível criar um link para o conteúdo (ator, item, diário, etc.)",
-        "RestoreDefaultClearCache": {
-          "CheckboxText": "Limpar o cache e recarregar os padrões da pasta do módulo?"
-        },
-        "Buttons": {
-          "Options": "Opções"
-        }
-      },
-      "ChatCard": {
-        "Heading": "Alterações de condição aprimoradas",
-        "HeadingActive": "Condições aprimoradas ativas",
-        "Title": {
-          "Active": "Condições ativas",
-          "Added": "Condições adicionadas",
-          "Removed": "Condições removidas"
-        },
-        "Buttons": {
-          "Undo": "Desfazer remoção de condição",
-          "Remove": "Remover condição"
-        }
-      },
-      "MacroConfig": {
-        "Title": "Configuração de macro",
-        "Heading": "Macros para Executar",
-        "ApplyHeading": "Macro ao Aplicar",
-        "RemoveHeading": "Macro ao remover",
-        "Description": "Selecione uma macro para executar quando esta condição for adicionada ou removida de um token ou ator",
-        "NoTriggerSet": "--Sem Gatilho Definido--",
-        "SelectNone": "--Sem Macro--"
-      },
-      "TriggerConfig": {
-        "Title": "Configuração do gatilho",
-        "Heading": "Gatilhos",
-        "ApplyHeading": "Aplicar gatilho",
-        "RemoveHeading": "Remover gatilho",
-        "Description": "Gatilhos que aplicam ou removem esta condição",
-        "SelectNone": "--Sem gatilho--"
-      },
-      "OptionConfig": {
-        "Title": "Configuração de opção",
-        "Heading": "Opções",
-        "Description": "Opções gerais para esta condição",
-        "SpecialStatusEffects": {
-          "Heading": "Efeitos especiais de estado",
-          "Description": "Efeitos especiais aplicados usando a funcionalidade nativa do Foundry."
-        },
-        "BlindToken": {
-          "Label": "Token Cego",
-          "Notes": "Quando aplicada, esta Condição também fará com que o token fique cego"
-        },
-        "MarkInvisible": {
-          "Label": "Marcar Invisível",
-          "Notes": "Quando aplicada, esta Condição fará com que o Token afetado seja marcado como Invisível"
-        },
-        "SpecialStatusEffectOverride": {
-          "Title": "Substituir condição existente para este efeito de status?",
-          "Content": "Outra Condição ({existingCondition}) já está configurada para aplicar este Efeito de Status especial: {statusEffect}. <p>Se você clicar em 'Sim' e salvar as opções desta condição, substituirá o mapeamento existente.</p>"
-        },
-        "SaveNote": "Nota: Clicar em Salvar salvará o mapeamento do laboratório de condições"
-      },
-      "Warnings": {
-        "ApplyCondition": "applyCondition foi substituído por addCondition. Atualize seu código."
-      },
-      "SimpleIconsNotSupported": "O CLT Enhanced Conditions não oferece suporte a sistemas de jogo que usam ícones de efeito de estado simples.",
-      "MapMismatch": "Este mapa não corresponde ao seu sistema de jogo e pode não funcionar como esperado.",
-      "ApplyCondition": {
-        "Failed": {
-          "NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
-          "NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
-          "NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
-          "AlreadyActive": "já está ativo. Falha ao aplicar condição"
-        }
-      },
-      "GetConditions": {
-        "Failed": {
-          "NoToken": "Obter condições falhou. Nenhuma entidade fornecida e nenhuma foi encontrada automaticamente",
-          "NoCondition": "Obter condições falhou. Nenhum mapa de condição encontrado",
-          "NoResults": "Obter condições falhou. Nenhuma condição encontrada no ator/token"
-        }
-      },
-      "RemoveCondition": {
-        "Failed": {
-          "NoToken": "Falha na remoção da condição. Nenhum token fornecido",
-          "NoCondition": "Falha na remoção da condição. Não foi possível encontrar a condição com o nome:",
-          "NoIcon": "Falha na remoção da condição. Não foi possível encontrar o ícone",
-          "NotActive": "não está ativo no token. Falha na remoção da condição."
-        }
-      },
-      "RemoveAllConditions": {
-        "Failed": {
-          "NoToken": "Falha ao remover condições. Nenhum token fornecido",
-          "NoCondition": "Falha ao remover condições. Não há nenhum mapa de condição ativo"
-        }
-      },
-      "Lab": {
-        "Title": "Laboratório de Condição",
-        "Hint": "Fornece a capacidade de mapear condições para ícones de efeito de status",
-        "MappingType": {
-          "Label": "Tipo de Mapeamento",
-          "Unsaved": "(alterações não salvas)"
-        },
-        "ActiveEffects": {
-          "Title": "Configuração de efeito ativo",
-          "TitleDisabledNew": "Desativado - Salve o mapeamento primeiro",
-          "TitleDisabledDefault": "Desativado - Não é possível editar o mapeamento padrão"
-        },
-        "Import": {
-          "NoFile": "Você não carregou um arquivo de dados!"
-        },
-        "ConfirmDeleteTitle": "Confirmar exclusão de linha",
-        "ConfirmDeleteContent": "Tem certeza de que deseja excluir esta linha?",
-        "RestoreDefaultsTitle": "Restaurar padrões?",
-        "RestoreDefaultsContent": "<p>Tem certeza de que deseja restaurar este mapeamento para os padrões?</p> <strong> Se você salvar, esta alteração será permanente.</strong>",
-        "ResetFormTitle": "Redefinir formulário?",
-        "ResetFormContent": "<p> Tem certeza de que deseja redefinir o formulário?</p> <p><strong>Você perderá todas as alterações não salvas.</strong></p>",
-        "SaveFailed": "Lab de condição falhou ao salvar e fechar",
-        "SaveSuccess": "Mapeamento do Laboratório de Condições salvo!",
-        "ImportTitle": "Importar Mapa de Condições",
-        "ExportTitle": "Exportar Mapa de Condições",
-        "Options": {
-          "Title": "Opções:",
-          "Overlay.Label": "Sobrepor",
-          "RemoveOthers.Label": "Remover os Outros",
-          "OutputChat.Label": "Exibir no Bate-papo",
-          "MarkDefeated.Label": "Marcar como Derrotado",
-          "Overlay.Title": "A Condição é Sobreposta",
-          "RemoveOthers.Title": "Remova outras condições quando esta for aplicada",
-          "MarkDefeated.Title": "Marcar combatentes correspondentes como derrotados quando esta condição for aplicada",
-          "OutputChat.Title": "Envie esta condição para o bate-papo quando adicionado/removido"
-        }
-      }
-    },
-    "GAME_SYSTEMS": {
-      "other": "Outro",
-      "custom": "Personalizado/Outro",
-      "unknown": "--Desconhecido--"
-    },
-    "KEYBINDINGS": {
-      "openConditionLab": {
-        "name": "Abrir Laboratório de Condição"
-      },
-      "openTriggler": {
-        "name": "Abrir Triggler"
-      }
-    },
-    "MIGRATION": {
-      "Title": "CLT: Migração de Configurações do CUB",
-      "Content": "Configurações do CUB foram detectadas, você gostaria de importar essas configurações? Esta escolha substituirá as configurações do CLT. Suas configurações CUB não serão afetadas."
-    },
-    "SETTINGS": {
-      "EnhancedConditions": {
-        "CoreIconsN": "Ícones Principais de Estatus",
-        "CoreIconsH": "Uma cópia dos principais ícones de estatus",
-        "SystemN": "Sistema de Jogo",
-        "SystemH": "Uma referência ao sistema do jogo. O padrão é outro se não for conhecido pelo módulo",
-        "OutputChatN": "Saída para bate-papo",
-        "OutputChatH": "Saída correspondente às condições para o bate-papo",
-        "OutputCombatN": "Saída durante o combate",
-        "OutputCombatH": "Em cada rodada de combate, exiba quaisquer condições para o combatente atual no bate-papo",
-        "DefaultMapsN": "Mapas de Condição Padrão",
-        "DefaultMapsH": "Mapas de condições fornecidos pelo módulo para ícones",
-        "RemoveDefaultEffectsN": "Remover os Efeitos de Estatus Padrão",
-        "RemoveDefaultEffectsH": "Remova os ícones de efeito de status existentes da HUD do token",
-        "MapTypeN": "Tipo de Mapa de Condição Ativo",
-        "MapTypeH": "Tipo de mapa de condições atualmente em uso -- padrão, personalizado ou outro",
-        "MapType": {
-          "Choices": {
-            "inferred": "Sistema - Inferido",
-            "default": "Sistema padrão",
-            "custom": "Sistema - Personalizado",
-            "other": "Outro/Importado"
-          }
-        },
-        "ActiveConditionMapN": "Mapa de Condição Ativo",
-        "ActiveConditionMapH": "Armazena o mapa de condições ativo",
-        "SuppressPreventativeSaveReminderN": "Suprimir lembrete de salvamento preventivo",
-        "SuppressPreventativeSaveReminderH": "Suprima o lembrete para salvar o Laboratório de Condições para evitar problemas (por exemplo, se o usuário já tiver feito isso)",
-        "MigrationVersionN": "Versão de Migração",
-        "MigrationVersionH": "Versão do CLT para a qual a migração foi realizada pela última vez",
-        "ShowSortDirectionDialogN": "Mostrar Diálogo de Salvamento de Direção de Classificação do Laboratório de Condição",
-        "ShowSortDirectionDialogH": "Se deve ou não mostrar a caixa de diálogo de confirmação para salvar a direção da classificação."
-      },
-      "TokenUtility": {
-        "TokenEffectSizeN": "Tamanho do ícone de efeito de token",
-        "TokenEffectSizeH": "Define o tamanho dos ícones de efeito do token. Padrão: Pequeno",
-        "TokenEffectSize": {
-          "choices": {
-            "small": "Pequeno (Padrão) - 5x5",
-            "medium": "Médio - 4x4",
-            "large": "Grande - 3x3",
-            "xLarge": "Extra Grande - 2x2"
-          }
-        }
-      },
-      "Triggler": {
-        "TriggersN": "Triggler",
-        "TriggersH": "Armazena os gatilhos do Triggler"
-      },
-      "SceneControls": {
-        "Name": "Atalhos de Controles de Cena",
-        "Hint": "Adiciona dois botões aos Controles de Token para abrir as janelas Condition Lab ou Triggler. Note que você também pode abri-los definindo combinações de teclas em vez de usar essa configuração."
-      }
-    },
-    "TRIGGLER": {
-      "ImportTitle": "Importar gatilhos",
-      "TriggerMismatch": "Esses gatilhos não correspondem ao seu sistema de jogo e podem não funcionar conforme o esperado.",
-      "App": {
-        "Labels": {
-          "Triggers": "Gatilhos existentes",
-          "Category": "Categoria",
-          "Attribute": "Atributo",
-          "Property": "Propriedade {number}",
-          "Operator": "Operador",
-          "Value": "Valor"
-        },
-        "AdvancedTrigger": {
-          "ActorProperty": {
-            "Label": "Propriedade de atualização do ator",
-            "Note": "Defina o caminho da propriedade a ser usado para atualizações do Ator. O caminho é relativo ao objeto de atualização passado para o hook updateActor. Note que isso é necessário se a propriedade de atualização de token não estiver definida.",
-            "Placeholder": "por exemplo: system.attributes.hp.value"
-          },
-          "ActorProperty2": {
-            "Label": "Propriedade de comparação de atores",
-            "Note": "Opcionalmente, defina uma segunda propriedade para comparar com a primeira -- esse caminho é relativo ao próprio objeto Actor",
-            "Placeholder": "por exemplo: system.attributes.hp.max (opcional)"
-          },
-          "TokenProperty": {
-            "Label": "Propriedade de atualização de token",
-            "Note": "Defina o caminho da propriedade a ser usado para atualizações de Token--o caminho é relativo ao objeto de atualização passado para o hook updateToken. Note que isso é necessário se a Propriedade de atualização do ator não estiver definida.",
-            "Placeholder": "por exemplo: actor.system.attributes.hp.value"
-          },
-          "TokenProperty2": {
-            "Label": "Propriedade de comparação de token",
-            "Note": "Opcionalmente, defina uma segunda propriedade para comparar com a primeira -- esse caminho é relativo ao próprio objeto Token",
-            "Placeholder": "por exemplo: ator.system.attributes.hp.max (opcional)"
-          },
-          "Property": {
-            "Hint": "O caminho para a propriedade atualizada a ser atendida. Os valores de entrada do Ator ou Token informam ao Triggler onde procurar cada tipo de entidade"
-          },
-          "OperatorValue": {
-            "Heading": "Operador/Valor",
-            "Note": "Sempre necessário. O operador e o valor se aplicam às propriedades de ator ou token definidas acima"
-          },
-          "Name": {
-            "Label": "Nome do gatilho",
-            "Warning": "O nome é necessário para gatilhos avançados!"
-          }
-        },
-        "TriggerType": {
-          "Simple": {
-            "Label": "Gatilho Simples"
-          },
-          "Advanced": {
-            "Label": "Gatilho Avançado"
-          }
-        },
-        "Options": {
-          "Title": "Opções"
-        },
-        "SaveSuccessful": "Gatilho salvo com sucesso!"
-      }
-    },
-    "WORDS": {
-      "Icon": "Ícone",
-      "Reference": "Referência",
-      "Import": "Importar",
-      "Export": "Exportar"
-    }
-  }
+	"CLT": {
+		"ENHANCED_CONDITIONS": {
+			"OutputChatConfirm": {
+				"Title": "Ativar saída para chat para todas as condições?",
+				"Content": "Clique em 'Sim' para ativar 'Saída para chat' em todas as condições"
+			},
+			"ConditionLab": {
+				"NoReference": "--Sem entrada de referência-- (Arraste um Diário, Item, Ator, etc. para este campo para definir)",
+				"FilterInputTitle": "Filtrar por nome",
+				"FilterButtonTitle": "Aplicar filtro",
+				"SortAnchorTitle": {
+					"asc": "A a Z",
+					"desc": "Z a A",
+					"unsorted": "Não Classificado"
+				},
+				"SortDirectionSave": {
+					"Title": "Salvar mapeamento com Direção de Classificação?",
+					"Content": "<p>Clique em 'Sim' para salvar o mapa do Laboratório de Condição com a Direção de Classificação atual. Clique em 'Não' para cancelar o salvamento.</p>",
+					"CheckboxText": "Não mostrar isso novamente"
+				},
+				"BadReference": "Não foi possível criar um link para o conteúdo (ator, item, diário, etc.)",
+				"RestoreDefaultClearCache": {
+					"CheckboxText": "Limpar o cache e recarregar os padrões da pasta do módulo?"
+				},
+				"Buttons": {
+					"Options": "Opções"
+				}
+			},
+			"ChatCard": {
+				"Heading": "Alterações de condição aprimoradas",
+				"HeadingActive": "Condições aprimoradas ativas",
+				"Title": {
+					"Active": "Condições ativas",
+					"Added": "Condições adicionadas",
+					"Removed": "Condições removidas"
+				},
+				"Buttons": {
+					"Undo": "Desfazer remoção de condição",
+					"Remove": "Remover condição"
+				}
+			},
+			"MacroConfig": {
+				"Title": "Configuração de macro",
+				"Heading": "Macros para Executar",
+				"ApplyHeading": "Macro ao Aplicar",
+				"RemoveHeading": "Macro ao remover",
+				"Description": "Selecione uma macro para executar quando esta condição for adicionada ou removida de um token ou ator",
+				"NoTriggerSet": "--Sem Gatilho Definido--",
+				"SelectNone": "--Sem Macro--"
+			},
+			"TriggerConfig": {
+				"Title": "Configuração do gatilho",
+				"Heading": "Gatilhos",
+				"ApplyHeading": "Aplicar gatilho",
+				"RemoveHeading": "Remover gatilho",
+				"Description": "Gatilhos que aplicam ou removem esta condição",
+				"SelectNone": "--Sem gatilho--"
+			},
+			"OptionConfig": {
+				"Title": "Configuração de opção",
+				"Heading": "Opções",
+				"Description": "Opções gerais para esta condição",
+				"SpecialStatusEffects": {
+					"Heading": "Efeitos especiais de estado",
+					"Description": "Efeitos especiais aplicados usando a funcionalidade nativa do Foundry."
+				},
+				"BlindToken": {
+					"Label": "Token Cego",
+					"Notes": "Quando aplicada, esta Condição também fará com que o token fique cego"
+				},
+				"MarkInvisible": {
+					"Label": "Marcar Invisível",
+					"Notes": "Quando aplicada, esta Condição fará com que o Token afetado seja marcado como Invisível"
+				},
+				"SpecialStatusEffectOverride": {
+					"Title": "Substituir condição existente para este efeito de status?",
+					"Content": "Outra Condição ({existingCondition}) já está configurada para aplicar este Efeito de Status especial: {statusEffect}. <p>Se você clicar em 'Sim' e salvar as opções desta condição, substituirá o mapeamento existente.</p>"
+				},
+				"SaveNote": "Nota: Clicar em Salvar salvará o mapeamento do laboratório de condições"
+			},
+			"Warnings": {
+				"ApplyCondition": "applyCondition foi substituído por addCondition. Atualize seu código."
+			},
+			"SimpleIconsNotSupported": "O CLT Enhanced Conditions não oferece suporte a sistemas de jogo que usam ícones de efeito de estado simples.",
+			"MapMismatch": "Este mapa não corresponde ao seu sistema de jogo e pode não funcionar como esperado.",
+			"ApplyCondition": {
+				"Failed": {
+					"NoToken": "Falha ao aplicar condição. Nenhum token fornecido",
+					"NoCondition": "Falha ao aplicar condição. Não foi possível encontrar a condição:",
+					"NoIcon": "Falha ao aplicar condição. Não foi possível encontrar o ícone.",
+					"AlreadyActive": "já está ativo. Falha ao aplicar condição"
+				}
+			},
+			"GetConditions": {
+				"Failed": {
+					"NoToken": "Obter condições falhou. Nenhuma entidade fornecida e nenhuma foi encontrada automaticamente",
+					"NoCondition": "Obter condições falhou. Nenhum mapa de condição encontrado",
+					"NoResults": "Obter condições falhou. Nenhuma condição encontrada no ator/token"
+				}
+			},
+			"RemoveCondition": {
+				"Failed": {
+					"NoToken": "Falha na remoção da condição. Nenhum token fornecido",
+					"NoCondition": "Falha na remoção da condição. Não foi possível encontrar a condição com o nome:",
+					"NoIcon": "Falha na remoção da condição. Não foi possível encontrar o ícone",
+					"NotActive": "não está ativo no token. Falha na remoção da condição."
+				}
+			},
+			"RemoveAllConditions": {
+				"Failed": {
+					"NoToken": "Falha ao remover condições. Nenhum token fornecido",
+					"NoCondition": "Falha ao remover condições. Não há nenhum mapa de condição ativo"
+				}
+			},
+			"Lab": {
+				"Title": "Laboratório de Condição",
+				"Hint": "Fornece a capacidade de mapear condições para ícones de efeito de status",
+				"MappingType": {
+					"Label": "Tipo de Mapeamento",
+					"Unsaved": "(alterações não salvas)"
+				},
+				"ActiveEffects": {
+					"Title": "Configuração de efeito ativo",
+					"TitleDisabledNew": "Desativado - Salve o mapeamento primeiro",
+					"TitleDisabledDefault": "Desativado - Não é possível editar o mapeamento padrão"
+				},
+				"Import": {
+					"NoFile": "Você não carregou um arquivo de dados!"
+				},
+				"ConfirmDeleteTitle": "Confirmar exclusão de linha",
+				"ConfirmDeleteContent": "Tem certeza de que deseja excluir esta linha?",
+				"RestoreDefaultsTitle": "Restaurar padrões?",
+				"RestoreDefaultsContent": "<p>Tem certeza de que deseja restaurar este mapeamento para os padrões?</p> <strong> Se você salvar, esta alteração será permanente.</strong>",
+				"ResetFormTitle": "Redefinir formulário?",
+				"ResetFormContent": "<p> Tem certeza de que deseja redefinir o formulário?</p> <p><strong>Você perderá todas as alterações não salvas.</strong></p>",
+				"SaveFailed": "Lab de condição falhou ao salvar e fechar",
+				"SaveSuccess": "Mapeamento do Laboratório de Condições salvo!",
+				"ImportTitle": "Importar Mapa de Condições",
+				"ExportTitle": "Exportar Mapa de Condições",
+				"Options": {
+					"Title": "Opções:",
+					"Overlay.Label": "Sobrepor",
+					"RemoveOthers.Label": "Remover os Outros",
+					"OutputChat.Label": "Exibir no Bate-papo",
+					"MarkDefeated.Label": "Marcar como Derrotado",
+					"Overlay.Title": "A Condição é Sobreposta",
+					"RemoveOthers.Title": "Remova outras condições quando esta for aplicada",
+					"MarkDefeated.Title": "Marcar combatentes correspondentes como derrotados quando esta condição for aplicada",
+					"OutputChat.Title": "Envie esta condição para o bate-papo quando adicionado/removido"
+				}
+			}
+		},
+		"GAME_SYSTEMS": {
+			"other": "Outro",
+			"custom": "Personalizado/Outro",
+			"unknown": "--Desconhecido--"
+		},
+		"KEYBINDINGS": {
+			"openConditionLab": {
+				"name": "Abrir Laboratório de Condição"
+			},
+			"openTriggler": {
+				"name": "Abrir Triggler"
+			}
+		},
+		"MIGRATION": {
+			"Title": "CLT: Migração de Configurações do CUB",
+			"Content": "Configurações do CUB foram detectadas, você gostaria de importar essas configurações? Esta escolha substituirá as configurações do CLT. Suas configurações CUB não serão afetadas."
+		},
+		"SETTINGS": {
+			"EnhancedConditions": {
+				"CoreIconsN": "Ícones Principais de Estatus",
+				"CoreIconsH": "Uma cópia dos principais ícones de estatus",
+				"SystemN": "Sistema de Jogo",
+				"SystemH": "Uma referência ao sistema do jogo. O padrão é outro se não for conhecido pelo módulo",
+				"OutputChatN": "Saída para bate-papo",
+				"OutputChatH": "Saída correspondente às condições para o bate-papo",
+				"OutputCombatN": "Saída durante o combate",
+				"OutputCombatH": "Em cada rodada de combate, exiba quaisquer condições para o combatente atual no bate-papo",
+				"DefaultMapsN": "Mapas de Condição Padrão",
+				"DefaultMapsH": "Mapas de condições fornecidos pelo módulo para ícones",
+				"RemoveDefaultEffectsN": "Remover os Efeitos de Estatus Padrão",
+				"RemoveDefaultEffectsH": "Remova os ícones de efeito de status existentes da HUD do token",
+				"DefaultOutputChatN": "Condições padrão de saída para bate-papo",
+				"DefaultOutputChatH": "Envie todas as condições padrão para bate-papo",
+				"MapTypeN": "Tipo de Mapa de Condição Ativo",
+				"MapTypeH": "Tipo de mapa de condições atualmente em uso -- padrão, personalizado ou outro",
+				"MapType": {
+					"Choices": {
+						"inferred": "Sistema - Inferido",
+						"default": "Sistema padrão",
+						"custom": "Sistema - Personalizado",
+						"other": "Outro/Importado"
+					}
+				},
+				"ActiveConditionMapN": "Mapa de Condição Ativo",
+				"ActiveConditionMapH": "Armazena o mapa de condições ativo",
+				"SuppressPreventativeSaveReminderN": "Suprimir lembrete de salvamento preventivo",
+				"SuppressPreventativeSaveReminderH": "Suprima o lembrete para salvar o Laboratório de Condições para evitar problemas (por exemplo, se o usuário já tiver feito isso)",
+				"MigrationVersionN": "Versão de Migração",
+				"MigrationVersionH": "Versão do CLT para a qual a migração foi realizada pela última vez",
+				"ShowSortDirectionDialogN": "Mostrar Diálogo de Salvamento de Direção de Classificação do Laboratório de Condição",
+				"ShowSortDirectionDialogH": "Se deve ou não mostrar a caixa de diálogo de confirmação para salvar a direção da classificação."
+			},
+			"TokenUtility": {
+				"TokenEffectSizeN": "Tamanho do ícone de efeito de token",
+				"TokenEffectSizeH": "Define o tamanho dos ícones de efeito do token. Padrão: Pequeno",
+				"TokenEffectSize": {
+					"choices": {
+						"small": "Pequeno (Padrão) - 5x5",
+						"medium": "Médio - 4x4",
+						"large": "Grande - 3x3",
+						"xLarge": "Extra Grande - 2x2"
+					}
+				}
+			},
+			"Triggler": {
+				"TriggersN": "Triggler",
+				"TriggersH": "Armazena os gatilhos do Triggler"
+			},
+			"SceneControls": {
+				"Name": "Atalhos de Controles de Cena",
+				"Hint": "Adiciona dois botões aos Controles de Token para abrir as janelas Condition Lab ou Triggler. Note que você também pode abri-los definindo combinações de teclas em vez de usar essa configuração."
+			}
+		},
+		"TRIGGLER": {
+			"ImportTitle": "Importar gatilhos",
+			"TriggerMismatch": "Esses gatilhos não correspondem ao seu sistema de jogo e podem não funcionar conforme o esperado.",
+			"App": {
+				"Labels": {
+					"Triggers": "Gatilhos existentes",
+					"Category": "Categoria",
+					"Attribute": "Atributo",
+					"Property": "Propriedade {number}",
+					"Operator": "Operador",
+					"Value": "Valor"
+				},
+				"AdvancedTrigger": {
+					"ActorProperty": {
+						"Label": "Propriedade de atualização do ator",
+						"Note": "Defina o caminho da propriedade a ser usado para atualizações do Ator. O caminho é relativo ao objeto de atualização passado para o hook updateActor. Note que isso é necessário se a propriedade de atualização de token não estiver definida.",
+						"Placeholder": "por exemplo: system.attributes.hp.value"
+					},
+					"ActorProperty2": {
+						"Label": "Propriedade de comparação de atores",
+						"Note": "Opcionalmente, defina uma segunda propriedade para comparar com a primeira -- esse caminho é relativo ao próprio objeto Actor",
+						"Placeholder": "por exemplo: system.attributes.hp.max (opcional)"
+					},
+					"TokenProperty": {
+						"Label": "Propriedade de atualização de token",
+						"Note": "Defina o caminho da propriedade a ser usado para atualizações de Token--o caminho é relativo ao objeto de atualização passado para o hook updateToken. Note que isso é necessário se a Propriedade de atualização do ator não estiver definida.",
+						"Placeholder": "por exemplo: actor.system.attributes.hp.value"
+					},
+					"TokenProperty2": {
+						"Label": "Propriedade de comparação de token",
+						"Note": "Opcionalmente, defina uma segunda propriedade para comparar com a primeira -- esse caminho é relativo ao próprio objeto Token",
+						"Placeholder": "por exemplo: ator.system.attributes.hp.max (opcional)"
+					},
+					"Property": {
+						"Hint": "O caminho para a propriedade atualizada a ser atendida. Os valores de entrada do Ator ou Token informam ao Triggler onde procurar cada tipo de entidade"
+					},
+					"OperatorValue": {
+						"Heading": "Operador/Valor",
+						"Note": "Sempre necessário. O operador e o valor se aplicam às propriedades de ator ou token definidas acima"
+					},
+					"Name": {
+						"Label": "Nome do gatilho",
+						"Warning": "O nome é necessário para gatilhos avançados!"
+					}
+				},
+				"TriggerType": {
+					"Simple": {
+						"Label": "Gatilho Simples"
+					},
+					"Advanced": {
+						"Label": "Gatilho Avançado"
+					}
+				},
+				"Options": {
+					"Title": "Opções"
+				},
+				"SaveSuccessful": "Gatilho salvo com sucesso!"
+			}
+		},
+		"WORDS": {
+			"Icon": "Ícone",
+			"Reference": "Referência",
+			"Import": "Importar",
+			"Export": "Exportar"
+		}
+	}
 }

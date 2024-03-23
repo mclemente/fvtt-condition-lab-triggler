@@ -72,6 +72,8 @@
 				"DefaultMapsH": "Mapear las condiciones incluídas en el módulo a los iconos",
 				"RemoveDefaultEffectsN": "Quitar los estados alterados predefinidos",
 				"RemoveDefaultEffectsH": "Quitar los iconos de estados alterados predefinidos de la interfaz de iconos del token",
+				"DefaultOutputChatN": "Condiciones predeterminadas de salida para chatear",
+				"DefaultOutputChatH": "Genera todas las condiciones predeterminadas para chatear",
 				"MapTypeN": "Tipo de mapeo de la condición activa",
 				"MapTypeH": "Tipo de mapeo de condiciones activo -- predefinido, personalizado u otro",
 				"ActiveConditionMapN": "Mapeo de condiciones activo",

@@ -26,7 +26,7 @@ If applicable, add screenshots to help explain your problem.
 **Environment Info (please complete the following information):**
  - Foundry Version: [e.g. 0.5.5]
  - Game System / Version: [e.g. dnd5e 1.0.0]
- - CUB Version [e.g. 1.3.0]
+ - CLT Version [e.g. 1.3.0]
  - Browser [e.g. chrome, safari]
  - OS [e.g. Windows 10]
 

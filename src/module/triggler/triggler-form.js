@@ -172,7 +172,7 @@ export class TrigglerForm extends FormApplication {
 			if (triggerIndex === undefined) {
 				return;
 			}
-			const updatedTriggers = duplicate(triggers);
+			const updatedTriggers = foundry.utils.duplicate(triggers);
 
 			updatedTriggers.splice(triggerIndex, 1);
 
@@ -297,10 +297,10 @@ export class TrigglerForm extends FormApplication {
 		if (!text) return false;
 
 		const id = this.data.id;
-		const newData = duplicate(formData);
+		const newData = foundry.utils.duplicate(formData);
 		delete newData.triggers;
 
-		const updatedTriggers = duplicate(triggers);
+		const updatedTriggers = foundry.utils.duplicate(triggers);
 		const existingTrigger = triggers.find((t) => t.id === id);
 		const isNew = existingTrigger ? triggerType === "simple" || existingTrigger.advancedName !== text : true;
 
@@ -329,7 +329,7 @@ export class TrigglerForm extends FormApplication {
 	 * Exports the current map to JSON
 	 */
 	_exportToJSON() {
-		const triggers = duplicate(game.settings.get("condition-lab-triggler", "storedTriggers"));
+		const triggers = foundry.utils.duplicate(game.settings.get("condition-lab-triggler", "storedTriggers"));
 		const data = {
 			system: game.system.id,
 			triggers

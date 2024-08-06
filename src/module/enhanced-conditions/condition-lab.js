@@ -329,7 +329,7 @@ export class ConditionLab extends FormApplication {
 	 * Exports the current map to JSON
 	 */
 	_exportToJSON() {
-		const map = duplicate(this.map);
+		const map = foundry.utils.duplicate(this.map);
 		const data = {
 			system: game.system.id,
 			map
@@ -673,7 +673,7 @@ export class ConditionLab extends FormApplication {
 			this.map = fdMap;
 		}
 
-		const newMap = duplicate(this.map);
+		const newMap = foundry.utils.duplicate(this.map);
 		const exisitingIds = this.map.filter((c) => c.id).map((c) => c.id);
 		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 
@@ -716,7 +716,7 @@ export class ConditionLab extends FormApplication {
 					icon: '<i class="fa fa-check"></i>',
 					label: game.i18n.localize("Yes"),
 					callback: async (event) => {
-						const newMap = duplicate(this.map);
+						const newMap = foundry.utils.duplicate(this.map);
 						newMap.splice(row, 1);
 						this.map = newMap;
 						this.render();

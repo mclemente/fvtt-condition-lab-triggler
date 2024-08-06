@@ -487,7 +487,7 @@ export class EnhancedConditions {
 		if (!effects) return [];
 
 		for (const effect of effects) {
-			const overlay = getProperty(effect, "flags.condition-lab-triggler.core.overlay");
+			const overlay = foundry.utils.getProperty(effect, "flags.condition-lab-triggler.core.overlay");
 			// If the parent Condition for the ActiveEffect defines it as an overlay, mark the ActiveEffect as an overlay
 			if (overlay) {
 				effect.flags.core.overlay = overlay;
@@ -697,7 +697,7 @@ export class EnhancedConditions {
 						continue;
 					}
 
-					const conditionId = getProperty(effect, `flags.condition-lab-triggler.${"conditionId"}`);
+					const conditionId = foundry.utils.getProperty(effect, `flags.condition-lab-triggler.${"conditionId"}`);
 					const matchedConditionEffects = existingConditionEffects.filter(
 						(e) => e.getFlag("condition-lab-triggler", "conditionId") === conditionId
 					);

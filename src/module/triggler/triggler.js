@@ -65,7 +65,7 @@ export class Triggler {
 		}
 		return {
 			id,
-			...duplicate(trigger),
+			...foundry.utils.duplicate(trigger),
 			text
 		};
 	}
@@ -201,7 +201,7 @@ export class Triggler {
 			}
 
 			// Get a value from the update that matches the 1st property in the trigger
-			const updateValue = getProperty(update, matchString1);
+			const updateValue = foundry.utils.getProperty(update, matchString1);
 
 			// If the trigger is not allowed to run when value is zero, skip
 			if (updateValue === 0 && notZero) {
@@ -209,7 +209,7 @@ export class Triggler {
 			}
 
 			// Get a value from the entity that matches the 2nd property in the trigger (if any)
-			const property2Value = getProperty(entity, matchString2);
+			const property2Value = foundry.utils.getProperty(entity, matchString2);
 
 			// We need the type later
 			const updateValueType = typeof updateValue;

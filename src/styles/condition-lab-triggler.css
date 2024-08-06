@@ -158,9 +158,6 @@ a.add-temporary {
 	column-gap: 3px;
 }
 
-.condition-lab .flexcol {
-}
-
 .condition-lab .flexcol.grabber {
 	flex: 0;
 }
@@ -171,14 +168,6 @@ a.add-temporary {
 
 .condition-lab .flexcol.content1 .flexrow {
 	column-gap: 3px;
-}
-
-.condition-lab .flexcol.content2 {
-	flex: 3;
-}
-
-.condition-lab .flexcol.text-entry {
-	/* flex: 8; */
 }
 
 .condition-lab .active-effect {
@@ -259,11 +248,6 @@ a.add-temporary {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.condition-lab a.trash {
-	/* flex: none;
-    margin: 6px 3px 3px 3px; */
-}
-
 .condition-lab div.journal-icon {
 	flex: 0 0 25px;
 	text-align: center;
@@ -278,12 +262,6 @@ a.add-temporary {
 	padding: 0 0 0 3px;
 }
 
-.condition-lab .trash {
-	/* flex: 0 0 20px;
-    line-height: 60px;
-    text-align: center; */
-}
-
 .condition-lab .add-row {
 	color: white;
 	border-style: dotted;
@@ -296,12 +274,6 @@ a.add-temporary {
 	flex: 0 0 60px;
 	width: 60px;
 	height: 60px;
-}
-
-.condition-lab .trash button {
-	/* flex: 0 0 30px;
-    width: 30px;
-    line-height: 60px; */
 }
 
 .condition-lab .grabber {
@@ -327,22 +299,6 @@ a.add-temporary {
 
 .condition-lab .row-controls div.move-down {
 	align-items: flex-end;
-}
-
-.condition-lab .row-controls a {
-	/* position: absolute; */
-}
-
-.condition-lab .row-controls a.move-up {
-	/* top: 20%; */
-}
-
-.condition-lab .row-controls a.move-down {
-	/* bottom: 20%; */
-}
-
-.condition-lab .options {
-	/* padding: 0 0 0 26px; */
 }
 
 .condition-lab .tooltip {
@@ -375,23 +331,8 @@ a.add-temporary {
 	font-size: small;
 }
 
-#cub-condition-lab .condition-text-input {
-	padding-left: 45px;
-}
-
-#cub-condition-lab .reference input {
-	padding-left: 70px;
-}
-
-#cub-condition-lab .icon-path {
-	padding-left: 35px;
-}
-
 #cub-condition-lab .related-buttons {
 	justify-content: start;
-}
-
-#cub-condition-lab .related-buttons button {
 }
 
 .triggler-icon {

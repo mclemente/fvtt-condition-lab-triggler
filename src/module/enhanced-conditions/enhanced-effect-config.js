@@ -58,7 +58,9 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 
 		// update the effect data
 
-		condition.activeEffect = condition.activeEffect ? mergeObject(condition.activeEffect, formData) : formData;
+		condition.activeEffect = condition.activeEffect
+			? foundry.utils.mergeObject(condition.activeEffect, formData)
+			: formData;
 
 		this.object.updateSource(formData);
 		if (this._state === 2) await this.render();

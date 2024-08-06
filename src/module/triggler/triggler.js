@@ -132,14 +132,9 @@ export class Triggler {
 	 * @param {*} entity
 	 * @param {*} update
 	 * @param {*} entryPoint1
-	 * @param {*} entryPoint2
 	 */
-	static async _processUpdate(entity, update, entryPoint1, entryPoint2) {
+	static async _processUpdate(entity, update, entryPoint1) {
 		if (!entity || !update) return;
-
-		// if (entryPoint1 && !hasProperty(update, entryPoint1)) {
-		//     return;
-		// }
 
 		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
 		const entityType =
@@ -201,7 +196,7 @@ export class Triggler {
 			}
 
 			// If the update doesn't have a value that matches the 1st property this trigger should be skipped
-			if (!hasProperty(update, matchString1)) {
+			if (!foundry.utils.hasProperty(update, matchString1)) {
 				continue;
 			}
 
@@ -347,14 +342,7 @@ export class Triggler {
 	 * @param {*} userId
 	 */
 	static _onUpdateActor(actor, update, options, userId) {
-		if (game.userId !== userId) {
-			return;
-		}
-
-		const dataProp = "system";
-		const dataDataProp = "system";
-
-		Triggler._processUpdate(actor, update, dataProp, dataDataProp);
+		if (game.userId === userId) Triggler._processUpdate(actor, update, "system");
 	}
 
 	/**
@@ -365,35 +353,6 @@ export class Triggler {
 	 * @param {*} userId
 	 */
 	static _onUpdateToken(token, update, options, userId) {
-		if (game.userId !== userId) {
-			return;
-		}
-
-		const actorDataProp = "actorData.system";
-		const actorProp = "actor.system";
-
-		Triggler._processUpdate(token, update, actorDataProp, actorProp);
-	}
-
-	/**
-	 * Adds a select to the Macro Config window.
-	 * @param {*} app
-	 * @param {*} html
-	 * @param {*} data
-	 */
-	static async _onRenderMacroConfig(app, html, data) {
-		const typeSelect = html.find("select[name='type']");
-		const typeSelectDiv = typeSelect.closest("div");
-		const flag = app.object.getFlag("condition-lab-triggler", "macroTrigger");
-		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
-
-		const triggerSelectTemplate = "modules/condition-lab-triggler/templates/trigger-select.html";
-		const triggerData = {
-			flag,
-			triggers
-		};
-		const triggerSelect = await renderTemplate(triggerSelectTemplate, triggerData);
-
-		typeSelectDiv.after(triggerSelect);
+		if (game.userId === userId) Triggler._processUpdate(token, update, "actorData.system");
 	}
 }

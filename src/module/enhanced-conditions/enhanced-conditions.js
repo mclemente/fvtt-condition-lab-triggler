@@ -4,320 +4,12 @@ import { Sidekick } from "../sidekick.js";
  * Builds a mapping between status icons and journal entries that represent conditions
  */
 export class EnhancedConditions {
-	/* -------------------------------------------- */
-	/*                   Handlers                   */
-	/* -------------------------------------------- */
+	conditions = null;
 
-	/**
-	 * Ready Hook handler
-	 * Steps:
-	 * 1. Get default maps
-	 * 2. Get mapType
-	 * 3. Get Condition Map
-	 * 4. Override status effects
-	 */
-	static async _onReady() {
-		game.clt.enhancedConditions.supported = false;
-		if (CONFIG.statusEffects.length && typeof CONFIG.statusEffects[0] == "string") {
-			console.warn(game.i18n.localize("CLT.ENHANCED_CONDITIONS.SimpleIconsNotSupported"));
-			return;
-		}
+	conditionMapType = "default";
 
-		let defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
-		let conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");
-
-		const mapType = game.settings.get("condition-lab-triggler", "conditionMapType");
-
-		// If there's no defaultMaps or defaultMaps doesn't include game system, check storage then set appropriately
-		if (
-			!defaultMaps
-			|| Object.keys(defaultMaps).length === 0
-			|| !Object.keys(defaultMaps).includes(game.system.id)
-		) {
-			if (game.user.isGM) {
-				defaultMaps = await EnhancedConditions._loadDefaultMaps();
-				game.settings.set("condition-lab-triggler", "defaultConditionMaps", defaultMaps);
-			}
-		}
-
-		// If map type is not set and a default map exists for the system, set maptype to default
-		if (!mapType && defaultMaps instanceof Object && Object.keys(defaultMaps).includes(game.system.id)) {
-			game.settings.set("condition-lab-triggler", "conditionMapType", "default");
-		}
-
-		// If there's no condition map, get the default one
-		if (!conditionMap.length) {
-			// Pass over defaultMaps since the storage version is still empty
-			conditionMap = EnhancedConditions.getDefaultMap(defaultMaps);
-
-			if (game.user.isGM) {
-				const preparedMap = EnhancedConditions._prepareMap(conditionMap);
-
-				if (preparedMap?.length) {
-					conditionMap = preparedMap?.length ? preparedMap : conditionMap;
-					game.settings.set("condition-lab-triggler", "activeConditionMap", preparedMap);
-				}
-			}
-		}
-
-		// If map type is not set, now set to default
-		if (!mapType && conditionMap.length) {
-			game.settings.set("condition-lab-triggler", "conditionMapType", "default");
-		}
-
-		// Update status icons accordingly
-		if (game.user.isGM) {
-			EnhancedConditions._backupCoreEffects();
-			EnhancedConditions._backupCoreSpecialStatusEffects();
-		}
-		const specialStatusEffectMap = game.settings.get("condition-lab-triggler", "specialStatusEffectMapping");
-		if (conditionMap.length) EnhancedConditions._updateStatusEffects(conditionMap);
-		if (specialStatusEffectMap) foundry.utils.mergeObject(CONFIG.specialStatusEffects, specialStatusEffectMap);
-		setInterval(EnhancedConditions.updateConditionTimestamps, 15000);
-
-		// Save the active condition map to a convenience property
-		if (game.clt) {
-			game.clt.conditions = conditionMap;
-		}
-
-		game.clt.enhancedConditions.supported = true;
-	}
-
-	static _onPreUpdateToken(token, update, options, userId) {
-		// If the update includes effect data, add an `option` for the update hook handler to look for
-		const cubOption = (options["condition-lab-triggler"] = options["condition-lab-triggler"] ?? {});
-
-		if (hasProperty(update, "actorData.effects")) {
-			cubOption.existingEffects = token.actorData.effects ?? [];
-			cubOption.updateEffects = update.actorData.effects ?? [];
-		}
-
-		if (hasProperty(update, "overlayEffect")) {
-			cubOption.existingOverlay = token.overlayEffect ?? null;
-			cubOption.updateOverlay = update.overlayEffect ?? null;
-		}
-
-		return true;
-	}
-
-	static _onUpdateToken(token, update, options, userId) {
-		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
-			return;
-		}
-
-		// If the update includes effects, calls the journal entry lookup
-		if (!hasProperty(options, "condition-lab-triggler")) return;
-
-		const cubOption = options["condition-lab-triggler"];
-		const addUpdate = cubOption ? cubOption?.updateEffects?.length > cubOption?.existingEffects?.length : false;
-		const removeUpdate = cubOption ? cubOption?.existingEffects?.length > cubOption?.updateEffects?.length : false;
-		const updateEffects = [];
-
-		if (addUpdate) {
-			for (const e of cubOption.updateEffects) {
-				if (!cubOption.existingEffects.find((x) => x._id === e._id)) updateEffects.push({ effect: e, type: "effect", changeType: "add" });
-			}
-		}
-
-		if (removeUpdate) {
-			for (const e of cubOption.existingEffects) {
-				if (!cubOption.updateEffects.find((u) => u._id === e._id)) updateEffects.push({ effect: e, type: "effect", changeType: "remove" });
-			}
-		}
-
-		if (!cubOption.existingOverlay && cubOption.updateOverlay) updateEffects.push({ effect: cubOption.updateOverlay, type: "overlay", changeType: "add" });
-		else if (cubOption.existingOverlay && !cubOption.updateOverlay) updateEffects.push({ effect: cubOption.existingOverlay, type: "overlay", changeType: "remove" });
-
-		if (!updateEffects.length) return;
-
-		const addConditions = [];
-		const removeConditions = [];
-
-		for (const effect of updateEffects) {
-			let condition = null;
-			// based on the type, get the condition
-			if (effect.type === "overlay") condition = EnhancedConditions.getConditionsByIcon(effect.effect);
-			else if (effect.type === "effect") {
-				if (!hasProperty(effect, `effect.flags.condition-lab-triggler.${"conditionId"}`)) continue;
-				const effectId = effect.effect.flags["condition-lab-triggler"].conditionId;
-				condition = EnhancedConditions.lookupEntryMapping(effectId);
-			}
-
-			if (!condition) continue;
-
-			if (effect.changeType === "add") addConditions.push(condition);
-			else if (effect.changeType === "remove") removeConditions.push(condition);
-		}
-
-		if (!addConditions.length && !removeConditions.length) return;
-
-		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
-
-		// If any of the addConditions Marks Defeated, mark the token's combatants defeated
-		if (addConditions.some((c) => c?.options?.markDefeated)) {
-			EnhancedConditions._toggleDefeated(token);
-		}
-
-		// If any of the removeConditions Marks Defeated, remove the defeated from the token's combatants
-		if (removeConditions.some((c) => c?.options?.markDefeated)) {
-			EnhancedConditions._toggleDefeated(token, { markDefeated: false });
-		}
-
-		// If any of the conditions Removes Others, remove the other Conditions
-		addConditions.some((c) => {
-			if (c?.options?.removeOthers) {
-				EnhancedConditions._removeOtherConditions(token, c.id);
-				return true;
-			}
-			return false;
-		});
-
-		const chatAddConditions = addConditions.filter((c) => outputChatSetting && c.options?.outputChat);
-		const chatRemoveConditions = removeConditions.filter((c) => outputChatSetting && c.options?.outputChat);
-
-		// If there's any conditions to output to chat, do so
-		if (chatAddConditions.length) EnhancedConditions.outputChatMessage(token, chatAddConditions, { type: "added" });
-		if (chatRemoveConditions.length) EnhancedConditions.outputChatMessage(token, chatRemoveConditions, { type: "removed" });
-
-		// process macros
-		const addMacroIds = addConditions.flatMap((c) =>
-			c.macros?.filter((m) => m.id && m.type === "apply").map((m) => m.id)
-		);
-		const removeMacroIds = removeConditions.flatMap((c) =>
-			c.macros?.filter((m) => m.id && m.type === "remove").map((m) => m.id)
-		);
-		const macroIds = [...addMacroIds, ...removeMacroIds];
-		if (macroIds.length) EnhancedConditions._processMacros(macroIds, token);
-	}
-
-	static _onCreateActiveEffect(effect, options, userId) {
-		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
-			return;
-		}
-		EnhancedConditions._processActiveEffectChange(effect, "create");
-	}
-
-	static _onDeleteActiveEffect(effect, options, userId) {
-		if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
-			return;
-		}
-		EnhancedConditions._processActiveEffectChange(effect, "delete");
-	}
-
-	static _onUpdateCombat(combat, update, options, userId) {
-		const enableOutputCombat = game.settings.get("condition-lab-triggler", "conditionsOutputDuringCombat");
-		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
-		const combatant = combat.combatant;
-
-		if (
-			!hasProperty(update, "turn")
-			|| !combatant
-			|| !outputChatSetting
-			|| !enableOutputCombat
-			|| !game.user.isGM
-		) {
-			return;
-		}
-
-		const token = combatant.token;
-
-		if (!token) return;
-
-		const tokenConditions = EnhancedConditions.getConditions(token, { warn: false });
-		let conditions = tokenConditions && tokenConditions.conditions ? tokenConditions.conditions : [];
-		conditions = conditions instanceof Array ? conditions : [conditions];
-
-		if (!conditions.length) return;
-
-		const chatConditions = conditions.filter((c) => c.options?.outputChat);
-
-		if (!chatConditions.length) return;
-
-		EnhancedConditions.outputChatMessage(token, chatConditions, { type: "active" });
-	}
-
-	/**
-	 * Render Chat Message handler
-	 * @param {*} app
-	 * @param {*} html
-	 * @param {*} data
-	 * @todo move to chatlog render?
-	 */
-	static async _onRenderChatMessage(app, html, data) {
-		if (data.message.content && !data.message.content.match("enhanced-conditions")) {
-			return;
-		}
-
-		const speaker = data.message.speaker;
-
-		if (!speaker) return;
-
-		const removeConditionAnchor = html.find("a[name='remove-row']");
-		const undoRemoveAnchor = html.find("a[name='undo-remove']");
-
-		/**
-		 * @todo #284 move to chatlog listener instead
-		 */
-		removeConditionAnchor.on("click", (event) => {
-			const conditionListItem = event.target.closest("li");
-			const conditionName = conditionListItem.dataset.conditionName;
-			const messageListItem = conditionListItem?.parentElement?.closest("li");
-			const messageId = messageListItem?.dataset?.messageId;
-			const message = messageId ? game.messages.get(messageId) : null;
-
-			if (!message) return;
-
-			const token = canvas.tokens.get(speaker.token);
-			const actor = game.actors.get(speaker.actor);
-			const entity = token ?? actor;
-
-			if (!entity) return;
-
-			EnhancedConditions.removeCondition(conditionName, entity, { warn: false });
-		});
-
-		undoRemoveAnchor.on("click", (event) => {
-			const conditionListItem = event.target.closest("li");
-			const conditionName = conditionListItem.dataset.conditionName;
-			const messageListItem = conditionListItem?.parentElement?.closest("li");
-			const messageId = messageListItem?.dataset?.messageId;
-			const message = messageId ? game.messages.get(messageId) : null;
-
-			if (!message) return;
-
-			const speaker = message?.speaker;
-
-			if (!speaker) return;
-
-			const token = canvas.tokens.get(speaker.token);
-			const actor = game.actors.get(speaker.actor);
-			const entity = token ?? actor;
-
-			if (!entity) return;
-
-			EnhancedConditions.addCondition(conditionName, entity);
-		});
-	}
-
-	static async _onRenderChatLog(app, html, data) {
-		EnhancedConditions.updateConditionTimestamps();
-	}
-
-	static async _onRenderCombatTracker(app, html, data) {
-		const effectIcons = html.find("img[class='token-effect']");
-
-		effectIcons.each((index, element) => {
-			const url = new URL(element.src);
-			const path = url?.pathname?.substring(1);
-			const conditions = EnhancedConditions.getConditionsByIcon(path);
-			const statusEffect = CONFIG.statusEffects.find((e) => e.icon === path);
-
-			if (conditions?.length) {
-				element.title = conditions[0];
-			} else if (statusEffect?.label) {
-				element.title = game.i18n.localize(statusEffect.label);
-			}
-		});
+	get enhancedConditions() {
+		return this;
 	}
 
 	/* -------------------------------------------- */
@@ -584,28 +276,6 @@ export class EnhancedConditions {
 	}
 
 	/**
-	 * Migrates Condition Ids to be truly unique-ish
-	 * @param {*} conditionMap
-	 */
-	static async _migrateConditionIds(conditionMap) {
-		if (!conditionMap?.length) return;
-
-		const existingIds = conditionMap.filter((c) => c.id).map((c) => c.id);
-		const processedIds = [];
-		const newMap = foundry.utils.deepClone(conditionMap);
-		newMap.forEach((c) => {
-			if (processedIds.includes(c.id)) {
-				console.log("CLT | Duplicate Condition found:", c);
-				c.id = Sidekick.createId(existingIds);
-				console.log("CLT | New id:", c.id);
-			}
-			c.id = c.id.replace(/condition-lab-triggler/, "");
-			processedIds.push(c.id);
-		});
-		await game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);
-	}
-
-	/**
 	 * Process macros based on given Ids
 	 * @param {*} macroIds
 	 * @param {*} entity
@@ -643,28 +313,6 @@ export class EnhancedConditions {
 		}
 	}
 
-	// !! TODO: reassess this -- will it replace valid status effects because the duplicate id matches the remaining unique id???
-	// static async _migrateActiveEffectConditionId(oldId, newId) {
-	//     const updates = [];
-
-	//     for (const scene of game.scenes) {
-	//         const sceneTokens = scene.data?.tokens?.contents;
-	//         for (const token of sceneTokens) {
-	//             const matchingEffect = token.actor?.effects?.contents?.find(e => e.getFlag('core', 'statusId') === oldId);
-	//             if (matchingEffect) {
-	//                 const newFlags = foundry.utils.duplicate(matchingEffect.data.flags);
-	//                 foundry.utils.mergeObject(newFlags, {
-	//                     "core.statusId": newId,
-	//                     [`condition-lab-triggler.${"conditionId"}`]: newId
-	//                 });
-	//                 const update = {_id: matchingEffect.id, flags: newFlags};
-
-	//                 await token.actor.updateEmbeddedDocuments("ActiveEffect", update);
-	//             }
-	//         }
-	//     }
-	// }
-
 	/* -------------------------------------------- */
 	/*                    Helpers                   */
 	/* -------------------------------------------- */
@@ -672,7 +320,7 @@ export class EnhancedConditions {
 	/**
 	 * Returns the default maps supplied with the module
 	 * @todo: map to entryId and then rebuild on import
-	 * @returns {object[]}
+	 * @returns {Promise<object[]>}
 	 */
 	static async _loadDefaultMaps() {
 		const path = "modules/condition-lab-triggler/condition-maps";
@@ -701,62 +349,16 @@ export class EnhancedConditions {
 		}
 
 		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
-
-		// Map existing ids for ease of access
-		const existingIds = conditionMap.filter((c) => c.id).map((c) => c.id);
-		const processedIds = [];
+		conditionMap = conditionMap.filter((c) => c.name && c.id);
 
 		// Iterate through the map validating/preparing the data
-		for (let i = 0; i < conditionMap.length; i++) {
-			let condition = duplicate(conditionMap[i]);
-
-			// Delete falsy values
-			if (!condition) preparedMap.splice(i, 1);
-
-			// Convert string values (eg. icon path) to condition/effect object
-			// @todo #580 Consider re-adding support for systems that use simple icons for status effects
-			// condition = typeof condition == "string" ? {icon: condition} : condition;
-			if (typeof condition == "string") continue;
-
-			if (!condition.name) {
-				condition.name =
-					condition.label ?? (condition.icon ? Sidekick.getNameFromFilePath(condition.icon) : "");
-			}
-
-			// If conditionId doesn't exist, or is a duplicate, create a new Id
-			condition.id =
-				!condition.id || processedIds.includes(condition.id) ? Sidekick.createId(existingIds) : condition.id;
-			processedIds.push(condition.id);
-
+		for (const condition of conditionMap) {
 			condition.options = condition.options || {};
 			if (condition.options.outputChat === undefined) condition.options.outputChat = outputChatSetting;
 			preparedMap.push(condition);
 		}
 
 		return preparedMap;
-	}
-
-	/**
-	 * Duplicate the core status icons, freeze the duplicate then store a copy in settings
-	 */
-	static _backupCoreEffects() {
-		CONFIG.defaultStatusEffects = CONFIG.defaultStatusEffects || duplicate(CONFIG.statusEffects);
-		if (!Object.isFrozen(CONFIG.defaultStatusEffects)) {
-			Object.freeze(CONFIG.defaultStatusEffects);
-		}
-		game.settings.set("condition-lab-triggler", "coreStatusEffects", CONFIG.defaultStatusEffects);
-	}
-
-	/**
-	 * Duplicate the core special status effect mappings, freeze the duplicate then store a copy in settings
-	 */
-	static _backupCoreSpecialStatusEffects() {
-		CONFIG.defaultSpecialStatusEffects =
-			CONFIG.defaultSpecialStatusEffects || foundry.utils.duplicate(CONFIG.specialStatusEffects);
-		if (!Object.isFrozen(CONFIG.defaultSpecialStatusEffects)) {
-			Object.freeze(CONFIG.defaultSpecialStatusEffects);
-		}
-		game.settings.set("condition-lab-triggler", "defaultSpecialStatusEffects", CONFIG.defaultSpecialStatusEffects);
 	}
 
 	/**
@@ -781,7 +383,7 @@ export class EnhancedConditions {
 	static getConditionsMap() {
 		let conditions = game.settings.get("condition-lab-triggler", "activeConditionMap");
 		if (!game.settings.get("condition-lab-triggler", "removeDefaultEffects")) {
-			conditions = conditions.concat(game.settings.get("condition-lab-triggler", "coreStatusEffects"));
+			conditions = conditions.concat(game.clt.CoreStatusEffects);
 		}
 		return conditions;
 	}
@@ -807,13 +409,6 @@ export class EnhancedConditions {
 	 * @param {*} conditionMap
 	 */
 	static _updateStatusEffects(conditionMap) {
-		const coreEffectsSetting = game.settings.get("condition-lab-triggler", "coreStatusEffects");
-
-		// save the original icons
-		if (!coreEffectsSetting.length) {
-			EnhancedConditions._backupCoreEffects();
-		}
-
 		const removeDefaultEffects = game.settings.get("condition-lab-triggler", "removeDefaultEffects");
 		const activeConditionMap = conditionMap || game.settings.get("condition-lab-triggler", "activeConditionMap");
 
@@ -828,7 +423,7 @@ export class EnhancedConditions {
 		} else if (activeConditionMap instanceof Array) {
 			// add the icons from the condition map to the status effects array
 			const coreEffects =
-				CONFIG.defaultStatusEffects || game.settings.get("condition-lab-triggler", "coreStatusEffects");
+				CONFIG.defaultStatusEffects || game.clt.CoreStatusEffects;
 
 			// Create a Set based on the core status effects and the Enhanced Condition effects. Using a Set ensures unique icons only
 			CONFIG.statusEffects = coreEffects.concat(activeConditionEffects);
@@ -848,23 +443,27 @@ export class EnhancedConditions {
 
 		const statusEffects = conditionMap.map((c) => {
 			const id = c.id || Sidekick.createId(existingIds);
+			const { activeEffect, duration, img, name, options } = c;
 
 			return {
 				id,
 				statuses: [id],
-				name: c.name,
-				icon: c.icon,
-				changes: c.activeEffect?.changes || [],
-				description: c.activeEffect?.description || "",
-				duration: c.duration || c.activeEffect?.duration || {},
+				name,
+				img,
+				changes: activeEffect?.changes || [],
+				description: activeEffect?.description || "",
+				duration: duration || activeEffect?.duration || {},
 				flags: {
-					...c.activeEffect?.flags,
+					...activeEffect?.flags,
 					core: {
-						overlay: c?.options?.overlay ?? false
+						overlay: options?.overlay ?? false
 					},
 					"condition-lab-triggler": {
 						conditionId: id
 					}
+				},
+				get icon() {
+					return this.img;
 				},
 				get label() {
 					return this.name;
@@ -962,8 +561,10 @@ export class EnhancedConditions {
 	 * @returns {object[]}
 	 */
 	static buildDefaultMap() {
-		const coreEffectsSetting = game.settings.get("condition-lab-triggler", "coreStatusEffects");
-		const coreEffects = coreEffectsSetting && coreEffectsSetting.length ? coreEffectsSetting : CONFIG.statusEffects;
+		const coreEffectsSetting = game.clt.CoreStatusEffects;
+		const coreEffects = coreEffectsSetting && coreEffectsSetting.length
+			? coreEffectsSetting
+			: foundry.utils.duplicate(CONFIG.statusEffects);
 		return EnhancedConditions._prepareMap(coreEffects);
 	}
 
@@ -1525,20 +1126,6 @@ export class EnhancedConditions {
 			const effectIds = actorConditionEffects.map((ace) => ace.id);
 
 			await actor.deleteEmbeddedDocuments("ActiveEffect", effectIds);
-		}
-	}
-
-	static async _migrationHelper(cubVersion) {
-		const conditionMigrationVersion = game.settings.get(
-			"condition-lab-triggler",
-			"enhancedConditionsMigrationVersion"
-		);
-
-		if (foundry.utils.isNewerVersion(cubVersion, conditionMigrationVersion)) {
-			console.log("CLT | Performing Enhanced Condition migration...");
-			EnhancedConditions._migrateConditionIds(game.clt?.conditions);
-			await game.settings.set("condition-lab-triggler", "enhancedConditionsMigrationVersion", cubVersion);
-			console.log("CLT | Enhanced Condition migration complete!");
 		}
 	}
 }

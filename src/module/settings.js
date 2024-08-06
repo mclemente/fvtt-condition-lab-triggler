@@ -88,7 +88,7 @@ export function registerSettings() {
 		hint: "CLT.SETTINGS.EnhancedConditions.DefaultSpecialStatusEffectsH",
 		scope: "world",
 		type: Object,
-		default: {},
+		default: CONFIG.specialStatusEffects,
 		config: false
 	});
 
@@ -117,15 +117,6 @@ export function registerSettings() {
 	game.settings.register("condition-lab-triggler", "coreStatusIcons", {
 		name: "CLT.SETTINGS.EnhancedConditions.CoreIconsN",
 		hint: "CLT.SETTINGS.EnhancedConditions.CoreIconsH",
-		scope: "world",
-		type: Object,
-		default: [],
-		config: false
-	});
-
-	game.settings.register("condition-lab-triggler", "coreStatusEffects", {
-		name: "CLT.SETTINGS.EnhancedConditions.CoreEffectsN",
-		hint: "CLT.SETTINGS.EnhancedConditions.CoreEffectsH",
 		scope: "world",
 		type: Object,
 		default: [],
@@ -161,13 +152,11 @@ export function registerSettings() {
 		scope: "world",
 		type: Object,
 		default: [],
-		onChange: async (conditionMap) => {
-			await EnhancedConditions._updateStatusEffects(conditionMap);
+		onChange: (conditionMap) => {
+			EnhancedConditions._updateStatusEffects(conditionMap);
 
 			// Save the active condition map to a convenience property
-			if (game.clt) {
-				game.clt.conditions = conditionMap;
-			}
+			if (game.clt) game.clt.conditions = conditionMap;
 		}
 	});
 

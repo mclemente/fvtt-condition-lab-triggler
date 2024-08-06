@@ -6,7 +6,7 @@
             <label for="trigger-select-apply">{{localize "CLT.ENHANCED_CONDITIONS.TriggerConfig.ApplyHeading"}}</label>
             <select name="trigger-select-apply" class="trigger-select">
                 <option value="">{{localize "CLT.ENHANCED_CONDITIONS.TriggerConfig.SelectNone"}}</option>
-                {{selectOptions triggerChoices selected=applyTriggerId nameAttr="id" labelAttr="text" localize=true}}
+                {{selectOptions triggerChoices selected=applyTriggerId valueAttr="id" labelAttr="text" localize=true}}
             </select>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <label for="trigger-select-remove">{{localize "CLT.ENHANCED_CONDITIONS.TriggerConfig.RemoveHeading"}}</label>
             <select name="trigger-select-remove" class="trigger-select">
                 <option value="">{{localize "CLT.ENHANCED_CONDITIONS.TriggerConfig.SelectNone"}}</option>
-                {{selectOptions triggerChoices selected=removeTriggerId nameAttr="id" labelAttr="text" localize=true}}
+                {{selectOptions triggerChoices selected=removeTriggerId valueAttr="id" labelAttr="text" localize=true}}
             </select>
         </div>
     </div>

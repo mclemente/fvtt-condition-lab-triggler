@@ -24,16 +24,17 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	getData() {
 		return {
 			condition: this.object,
-			optionData: this.object.options
+			optionData: this.object.options,
+			specialStatus: CONFIG.specialStatusEffects
 		};
 	}
 
 	activateListeners(html) {
 		const checkboxes = html.find("input[type='checkbox']");
 
-		for (const checkbox of checkboxes) {
-			checkbox.addEventListener("change", (event) => this._onCheckboxChange(event));
-		}
+		// for (const checkbox of checkboxes) {
+		checkboxes.on("change", (event) => this._onCheckboxChange(event));
+		// }
 	}
 
 	/**
@@ -164,7 +165,7 @@ export default class EnhancedConditionOptionConfig extends FormApplication {
 	setSpecialStatusEffectMapping(effect, conditionId = null) {
 		if (!Object.prototype.hasOwnProperty.call(CONFIG.specialStatusEffects, effect)) return;
 
-		CONFIG.specialStatusEffects[effect] = conditionId ?? CONFIG.defaultSpecialStatusEffects[effect];
+		CONFIG.specialStatusEffects[effect] = conditionId;
 		game.settings.set("condition-lab-triggler",
 			"specialStatusEffectMapping",
 			CONFIG.specialStatusEffects

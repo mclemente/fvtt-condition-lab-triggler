@@ -4,26 +4,28 @@
                     <div class="flexcol icon">
                         <img
                             name="icon-{{@index}}"
-                            src="{{condition.icon}}"
+                            src="{{condition.img}}"
                             {{#unless isDefault}}data-edit="img"{{/unless}}
                             class="icon" />
-                        <input type="text" name="icon-path-{{@index}}" class="icon-path condition-text-input" value="{{condition.icon}}" placeholder="/icons/example.svg"      data-dtype="String" {{disabled isDefault}} hidden>
+                        <input type="text" name="icon-path-{{@index}}" class="icon-path condition-text-input" value="{{condition.img}}" data-dtype="String" {{disabled isDefault}} hidden>
                     </div>
                     <div class="flexcol text-entry">
                         <div class="flexrow">
                             <div class="condition">
                                 <div class="wrapper-rel">
-                                    <label for="condition-{{@index}}" class="inset-label">{{localize "Name"}}</label>
-                                    <input type="text" name="condition-{{@index}}" value="{{condition.label}}" class="condition condition-text-input" data-dtype="String" {{disabled isDefault}}>
+                                    <input type="text" name="condition-{{@index}}" value="{{condition.name}}" class="condition condition-text-input" data-dtype="String" placeholder="{{localize "Name"}}" {{disabled isDefault}}>
                                 </div>
                             </div>
                         </div>
                         <div class="flexrow condition-lab text-entry reference">
                             <div class="wrapper-rel">
-                                <label for="reference-item-{{@index}}" class="inset-label">{{localize "CLT.WORDS.Reference"}}</label>
-                                <input type="text" name="reference-item-{{@index}}" value="{{condition.referenceId}}" placeholder="{{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.NoReference"}}" {{disabled isDefault}}>
+                                <input type="text" name="reference-item-{{@index}}" value="{{condition.reference}}" hidden>
+                                {{#if condition.enrichedReference}}
+                                <div class="enriched-link">{{{condition.enrichedReference}}}</div>
+                                {{else}}
+                                <div>{{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.NoReference"}}</div>
+                                {{/if}}
                             </div>
-                            <div class="enriched-link">{{{condition.enrichedReference}}}</div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +35,7 @@
                     <button type="button"
                         name="option-config"
                         class="option-config">
-                        <i class="fas fa-cog"></i> {{localize "CLT.ENHANCED_CONDITIONS.ConditionLab.Buttons.Options"}}
+                        <i class="fas fa-cog"></i>
                     </button>
                     <button type="button"
                             class="active-effect-config"
@@ -43,17 +45,17 @@
                                 {{/if}}"
                                     {{disabled (or condition.isNew isDefault)}}
                                 data-tooltip-direction="UP">
-                        <i class="fas fa-hand-sparkles"></i> Active Effect
+                        <i class="fas fa-hand-sparkles"></i>
                     </button>
                     <div class="flex-break"></div>
                     <button type="button"
                         class="trigger-config">
-                        {{> "modules/condition-lab-triggler/templates/partials/triggler-icon.hbs"}} Triggers
+                        {{> "modules/condition-lab-triggler/templates/partials/triggler-icon.hbs"}}
                     </button>
                     <button type="button"
                         name="macro-config"
                         class="macro-config">
-                        <i class="fas fa-code"></i> Macros
+                        <i class="fas fa-code"></i>
                     </button>
                 </div>
             </div>

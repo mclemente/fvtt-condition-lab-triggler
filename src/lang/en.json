@@ -1,12 +1,13 @@
 {
 	"CLT": {
+		"Trigger": "Trigger",
 		"ENHANCED_CONDITIONS": {
 			"OutputChatConfirm": {
 				"Title": "Enable Output to Chat for All Conditions?",
 				"Content": "Click 'Yes' to enable 'Output to Chat' on all Conditions"
 			},
 			"ConditionLab": {
-				"NoReference": "--No Reference Entry-- (Drag a Journal, Item, Actor, etc. into this field to set)",
+				"NoReference": "--No Reference Entry-- (Drag a Document into this field to set)",
 				"FilterInputTitle": "Filter by Name",
 				"FilterButtonTitle": "Apply Filter",
 				"SortAnchorTitle": {
@@ -21,7 +22,7 @@
 				},
 				"BadReference": "Could not build a link to the dropped content (actor, item, journal etc)",
 				"RestoreDefaultClearCache": {
-					"CheckboxText": "Clear cache and reload defaults from module folder?"
+					"CheckboxText": "Clear cache"
 				},
 				"Buttons": {
 					"Options": "Options"
@@ -82,8 +83,6 @@
 			"Warnings": {
 				"ApplyCondition": "applyCondition was replaced with addCondition. Please update your code."
 			},
-
-			"SimpleIconsNotSupported": "CUB Enhanced Conditions does not support game systems that use simple status effect icons.",
 			"MapMismatch": "This map does not match your game system and may not work as expected.",
 			"ApplyCondition": {
 				"Failed": {
@@ -123,8 +122,8 @@
 				},
 				"ActiveEffects": {
 					"Title": "Active Effect Config",
-					"TitleDisabledNew": "Disabled - Save Mapping First",
-					"TitleDisabledDefault": "Disabled - Cannot Edit Default Mapping"
+					"TitleDisabledNew": "Save Mapping First",
+					"TitleDisabledDefault": "Cannot Edit Default Mapping"
 				},
 				"Import": {
 					"NoFile": "You did not upload a data file!"

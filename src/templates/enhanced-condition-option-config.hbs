@@ -1,7 +1,6 @@
 <form data-condition-id="{{condition.id}}">
-    <h2>{{condition.name}} - {{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.Heading"}}</h2>
     <p class="notes">{{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.Description"}}</p>
-    {{!-- <div class="flexrow options"> --}}
+    <div class="options">
         <div class="form-group">
             <input type="checkbox" name="overlay" {{checked condition.options.overlay}} {{#if ../isDefault}}disabled{{/if}}>
             <label for="overlay">
@@ -34,28 +33,18 @@
             </label>
             <p class="notes">{{localize "CLT.ENHANCED_CONDITIONS.Lab.Options.MarkDefeated.Title"}}</p>
         </div>
+    </div>
+    <div>
         <h3>{{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffects.Heading"}}</h3>
         <p class="notes">{{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.SpecialStatusEffects.Description"}}</p>
+        {{#each specialStatus}}
         <div class="form-group">
-            <input type="checkbox" name="blind-token" {{checked condition.options.blindToken}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="blind-token">
-                {{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.BlindToken.Notes"}}</p>
+            <input type="checkbox" name="{{this}}" {{checked (lookup ../condition.options this)}} {{disabled ../isDefault}}>
+            <label style="text-transform: capitalize;">{{this}}</label>
         </div>
-        <div class="form-group">
-            <input type="checkbox" name="mark-invisible" {{checked condition.options.markInvisible}} {{#if ../isDefault}}disabled{{/if}}>
-            <label for="mark-invisible">
-                {{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Label"}}
-                {{!-- <span class="tooltip"><i class="fas fa-question-circle"></i></span> --}}
-            </label>
-            <p class="notes">{{localize "CLT.ENHANCED_CONDITIONS.OptionConfig.MarkInvisible.Notes"}}</p>
-        </div>
-    {{!-- </div> --}}
-    <br/>
+        {{/each}}
+    </div>
     <div class="footer">
-        {{canSave}}
         <button name="save" class="save" type="submit">
             <i class="fas fa-save"></i>&nbsp;{{localize "Save"}}
         </button>

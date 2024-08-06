@@ -9,7 +9,7 @@ export class TrigglerForm extends FormApplication {
 	}
 
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-triggler-form",
 			title: "Triggler",
 			template: "modules/condition-lab-triggler/templates/triggler-form.html",
@@ -29,7 +29,7 @@ export class TrigglerForm extends FormApplication {
 			this.noMerge = false;
 		} else if (id && triggers) {
 			const trigger = triggers.find((t) => t.id === id);
-			mergeObject(this.data, trigger);
+			foundry.utils.mergeObject(this.data, trigger);
 		}
 
 		const {
@@ -53,7 +53,7 @@ export class TrigglerForm extends FormApplication {
 		} = this.data || {};
 		const isSimpleTrigger = triggerType === "simple";
 		const isAdvancedTrigger = triggerType === "advanced";
-		let actorModel = game.system.model?.Actor ?? {};
+		let actorModel = game.model.Actor ?? {};
 		const isEmpty = Object.values(actorModel).every((obj) => Object.keys(obj).length === 0);
 		let mergedModel = null;
 		if (isEmpty) {
@@ -65,9 +65,15 @@ export class TrigglerForm extends FormApplication {
 			mergedModel = Object.keys(actorModel)
 				.reduce((accumulator, key) => foundry.utils.mergeObject(accumulator, actorModel[key]), {});
 		}
-		const categories = mergedModel ? Object.keys(mergedModel).sort() : null;
-		const attributes = category ? Object.keys(mergedModel[category]) : null;
-		const properties = category && attribute ? Object.keys(mergedModel[category][attribute]) : null;
+		const arrayToObj = (arr) => {
+			return arr.reduce((obj, key) => {
+				obj[key] = key;
+				return obj;
+			}, {});
+		};
+		const categories = mergedModel ? arrayToObj(Object.keys(mergedModel).sort()) : {};
+		const attributes = category ? arrayToObj(Object.keys(mergedModel[category])) : {};
+		const properties = category && attribute ? arrayToObj(Object.keys(mergedModel[category][attribute])) : {};
 		const operators = Triggler.OPERATORS;
 
 		const triggerSelected = !!(id && triggers);
@@ -116,7 +122,7 @@ export class TrigglerForm extends FormApplication {
 			const scaledHeight = el.offsetHeight;
 			const tarT = (window.innerHeight - scaledHeight) / 2;
 			const maxT = Math.max(window.innerHeight - scaledHeight, 0);
-			this.setPosition({ top: Math.clamped(tarT, 0, maxT) });
+			this.setPosition({ top: Math.clamp(tarT, 0, maxT) });
 		}
 	}
 
@@ -299,7 +305,7 @@ export class TrigglerForm extends FormApplication {
 		const isNew = existingTrigger ? triggerType === "simple" || existingTrigger.advancedName !== text : true;
 
 		if (!isNew) {
-			const updatedTrigger = mergeObject(existingTrigger, newData);
+			const updatedTrigger = foundry.utils.mergeObject(existingTrigger, newData);
 			updatedTrigger.text = text;
 			updatedTriggers[triggers.indexOf(existingTrigger)] = updatedTrigger;
 			this.data = updatedTrigger;

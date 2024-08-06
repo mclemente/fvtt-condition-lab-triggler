@@ -26,7 +26,7 @@ export class ConditionLab extends FormApplication {
 	}
 
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "cub-condition-lab",
 			title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.Title"),
 			template: "modules/condition-lab-triggler/templates/condition-lab.hbs",
@@ -36,7 +36,7 @@ export class ConditionLab extends FormApplication {
 			resizable: true,
 			closeOnSubmit: false,
 			scrollY: ["ol.condition-lab"],
-			dragDrop: [{ dropSelector: "input[name^='reference-item']" }]
+			dragDrop: [{ dropSelector: "div.text-entry.reference" }]
 		});
 	}
 
@@ -47,8 +47,7 @@ export class ConditionLab extends FormApplication {
 	get updatedMap() {
 		const submitData = this._buildSubmitData();
 		const mergedMap = this._processFormData(submitData);
-		const updatedMap = EnhancedConditions._prepareMap(mergedMap);
-		return updatedMap;
+		return EnhancedConditions._prepareMap(mergedMap);
 	}
 
 	/**
@@ -64,20 +63,21 @@ export class ConditionLab extends FormApplication {
 		const filterValue = this.filterValue;
 
 		const defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
-		const mappedSystems = Object.keys(defaultMaps) || [];
+		// const mappedSystems = Object.keys(defaultMaps) || [];
+		const mappedSystems = [];
 		const mapTypeChoices = game.settings.settings.get("condition-lab-triggler.conditionMapType").choices;
 
 		// If there's no default map for this system don't provide the "default" choice
 		if (!mappedSystems.includes(game.system.id)) {
-			if (this.initialMap) {
+			if (this.initialMap.length) {
 				mapTypeChoices.default = game.i18n.localize("CLT.SETTINGS.EnhancedConditions.MapType.Choices.inferred");
 			} else {
 				delete mapTypeChoices.default;
 			}
 		}
 
-		const mapType = (this.mapType = this.mapType || this.initialMapType || "other");
-		let conditionMap = this.map ? this.map : (this.map = duplicate(this.initialMap));
+		this.mapType ||= this.initialMapType || "other";
+		const conditionMap = (this.map ||= foundry.utils.duplicate(this.initialMap));
 		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers").map((t) => {
 			return [t.id, t.text];
 		});
@@ -86,22 +86,20 @@ export class ConditionLab extends FormApplication {
 		const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
 		const disableChatOutput = isDefault || !outputChatSetting;
 
-		for (let i = 0; i < conditionMap.length; i++) {
-			const entry = conditionMap[i];
+		for (const condition of conditionMap) {
 			// Check if the row exists in the saved map
-			const existingEntry = this.initialMap.find((e) => e.id === entry.id) ?? null;
-			entry.label = game.i18n.localize(entry.name);
-			entry.isNew = !existingEntry;
-			entry.isChanged = this._hasEntryChanged(entry, existingEntry, i);
+			const existingEntry = this.initialMap.find((e) => e.id === condition.id) ?? null;
+			condition.isNew = !existingEntry;
+			condition.isChanged = condition.isNew || this._hasEntryChanged(condition, existingEntry);
 
 			// Set the Output to Chat checkbox
-			entry.options = entry.options ?? {};
-			entry.enrichedReference = entry.referenceId
-				? await TextEditor.enrichHTML(entry.referenceId, { async: true, documents: true })
+			condition.options = condition.options ?? {};
+			condition.enrichedReference = condition.reference
+				? await TextEditor.enrichHTML(`@UUID[${condition.reference}]`, { documents: true })
 				: "";
 
 			// Default all entries to show
-			entry.hidden = entry.hidden ?? false;
+			condition.hidden = condition.hidden ?? false;
 		}
 
 		// Pre-apply any filter value
@@ -119,7 +117,7 @@ export class ConditionLab extends FormApplication {
 
 		let unsavedMap = false;
 		if (
-			mapType !== this.initialMapType
+			this.mapType !== this.initialMapType
 			|| conditionMap?.length !== this.initialMap?.length
 			|| conditionMap.some((c) => c.isNew || c.isChanged)
 		) {
@@ -133,7 +131,7 @@ export class ConditionLab extends FormApplication {
 			filterTitle,
 			filterValue,
 			mapTypeChoices,
-			mapType,
+			mapType: this.mapType,
 			conditionMap,
 			displayedMap,
 			conditionMapLength,
@@ -222,8 +220,8 @@ export class ConditionLab extends FormApplication {
 			const condition = {
 				id,
 				name,
-				icon: icons[i],
-				referenceId: references[i],
+				img: icons[i],
+				reference: references[i],
 				applyTrigger,
 				removeTrigger,
 				activeEffect,
@@ -293,7 +291,7 @@ export class ConditionLab extends FormApplication {
 
 		if (mapType === "default") {
 			const defaultMap = EnhancedConditions.getDefaultMap(this.system);
-			newMap = mergeObject(newMap, defaultMap);
+			newMap = foundry.utils.mergeObject(newMap, defaultMap);
 		}
 
 		this._saveMapping(newMap, mapType);
@@ -480,7 +478,6 @@ export class ConditionLab extends FormApplication {
 		const changeOrderAnchor = html.find(".row-controls a.move-up, .row-controls a.move-down");
 		const restoreDefaultsButton = html.find("button[class='restore-defaults']");
 		const resetFormButton = html.find("button[name='reset']");
-		const saveCloseButton = html.find("button[name='save-close']");
 		const filterInput = html.find("input[name='filter-list']");
 		const sortButton = html.find("a.sort-list");
 		const macroConfigButton = html.find("button.macro-config");
@@ -496,7 +493,6 @@ export class ConditionLab extends FormApplication {
 		changeOrderAnchor.on("click", (event) => this._onChangeSortOrder(event));
 		restoreDefaultsButton.on("click", async (event) => this._onRestoreDefaults(event));
 		resetFormButton.on("click", (event) => this._onResetForm(event));
-		saveCloseButton.on("click", (event) => this._onSaveClose(event));
 		filterInput.on("input", (event) => this._onChangeFilter(event));
 		sortButton.on("click", (event) => this._onClickSortButton(event));
 		macroConfigButton.on("click", (event) => this._onClickMacroConfig(event));
@@ -521,7 +517,8 @@ export class ConditionLab extends FormApplication {
 		const name = event.target.name;
 		if (name.startsWith("filter-list")) return;
 		this.map = this.updatedMap;
-		if (name.startsWith("reference-id")) this._onChangeReferenceId(event);
+		if (!this.map.length) return;
+		if (name.startsWith("reference")) this._onChangeReferenceId(event);
 		if (this._hasMapChanged()) return this.render();
 	}
 
@@ -555,7 +552,7 @@ export class ConditionLab extends FormApplication {
 	 * @returns {object[]} filteredMap
 	 */
 	_filterMapByName(map, filter) {
-		return map.map((c) => ({ ...c, hidden: !c.label.toLowerCase().includes(filter.toLowerCase()) }));
+		return map.map((c) => ({ ...c, hidden: !c.name.toLowerCase().includes(filter.toLowerCase()) }));
 	}
 
 	/**
@@ -589,20 +586,6 @@ export class ConditionLab extends FormApplication {
 	}
 
 	/**
-	 * Handle icon path change
-	 * @param {*} event
-	 */
-	_onChangeIconPath(event) {
-		event.preventDefault();
-
-		const row = event.target.name.match(/\d+$/)[0];
-
-		// target the icon
-		const icon = $(this.form).find(`img[name='icon-${row}`);
-		icon.attr("src", event.target.value);
-	}
-
-	/**
 	 * Handle click Active Effect Config button
 	 * @param {*} event
 	 */
@@ -621,7 +604,7 @@ export class ConditionLab extends FormApplication {
 
 		if (!conditionEffect) return;
 
-		if (!hasProperty(conditionEffect, "flags.condition-lab-triggler.conditionId")) {
+		if (!foundry.utils.hasProperty(conditionEffect, "flags.condition-lab-triggler.conditionId")) {
 			setProperty(
 				conditionEffect,
 				"flags.condition-lab-triggler.conditionId",
@@ -646,19 +629,8 @@ export class ConditionLab extends FormApplication {
 	 */
 	async _onChangeReferenceId(event) {
 		event.preventDefault();
-
 		const input = event.currentTarget ?? event.target;
-
-		// Update the enriched link
-		const $linkDiv = $(input.parentElement.nextElementSibling);
-		const $link = $linkDiv.first();
-		const newLink = await TextEditor.enrichHTML(input.value, { async: true, documents: true });
-
-		if (!$link.length) {
-			$linkDiv.append(newLink);
-		} else {
-			$linkDiv.html(newLink);
-		}
+		input.nextElementSibling.innerHTML = await TextEditor.enrichHTML(input.value, { documents: true });
 	}
 
 	/**
@@ -696,7 +668,7 @@ export class ConditionLab extends FormApplication {
 
 		if (this.mapType === "default") {
 			const defaultMap = EnhancedConditions.getDefaultMap(this.system);
-			this.map = mergeObject(fdMap, defaultMap);
+			this.map = foundry.utils.mergeObject(fdMap, defaultMap);
 		} else {
 			this.map = fdMap;
 		}
@@ -708,8 +680,8 @@ export class ConditionLab extends FormApplication {
 		newMap.push({
 			id: Sidekick.createId(exisitingIds),
 			name: newConditionName,
-			icon: "icons/svg/d20-black.svg",
-			referenceId: "",
+			img: "icons/svg/d20-black.svg",
+			reference: "",
 			trigger: "",
 			options: {
 				outputChat: outputChatSetting
@@ -900,27 +872,13 @@ export class ConditionLab extends FormApplication {
 		dialog.render(true);
 	}
 
-	/**
-	 * Save and Close handler
-	 * @param {*} event
-	 */
-	_onSaveClose(event) {
-		this.submit()
-			.then((result) => {
-				this.close();
-			})
-			.catch((reject) => {
-				ui.notifications.warn(game.i18n.localize("CLT.ENHANCED_CONDITIONS.Lab.SaveFailed"));
-			});
-	}
-
 	async _onDrop(event) {
 		event.preventDefault();
 		const eventData = TextEditor.getDragEventData(event);
 		const link = await TextEditor.getContentLink(eventData);
-		const targetInput = event.currentTarget;
 		if (link) {
-			targetInput.value = link;
+			const targetInput = event.currentTarget.querySelector("input");
+			targetInput.value = eventData.uuid;
 			return targetInput.dispatchEvent(new Event("change"));
 		}
 		return ui.notifications.error(game.i18n.localize("CLT.ENHANCED_CONDITIONS.ConditionLab.BadReference"));
@@ -996,24 +954,17 @@ export class ConditionLab extends FormApplication {
 		return hasChanged;
 	}
 
-	_hasEntryChanged(entry, existingEntry, index) {
+	_hasEntryChanged(entry, existingEntry) {
 		const propsToCheck = [
 			"name",
-			"icon",
+			"img",
 			"options",
-			"referenceId",
+			"reference",
 			"applyTrigger",
 			"removeTrigger",
 			"activeEffect"
 		];
-
-		const hasChanged =
-			entry.isNew
-			|| index !== this.initialMap?.indexOf(existingEntry)
-			// || !foundry.utils.isObjectEmpty(foundry.utils.diffObject(existingEntry, entry));
-			|| propsToCheck.some((p) => this._hasPropertyChanged(p, existingEntry, entry));
-
-		return hasChanged;
+		return propsToCheck.some((p) => this._hasPropertyChanged(p, existingEntry, entry));
 	}
 
 	/**
@@ -1024,16 +975,10 @@ export class ConditionLab extends FormApplication {
 	 * @returns {boolean}
 	 */
 	_hasPropertyChanged(propertyName, original, comparison) {
-		let propertyChanged = false;
-
-		if (
-			(original[propertyName] && !comparison[propertyName])
-			|| (original && JSON.stringify(original[propertyName]) !== JSON.stringify(comparison[[propertyName]]))
-		) {
-			propertyChanged = true;
-		}
-
-		return propertyChanged;
+		const originalValue = original?.[propertyName];
+		const comparisonValue = comparison?.[propertyName];
+		return (originalValue && !comparisonValue)
+			|| (original && JSON.stringify(originalValue) !== JSON.stringify(comparisonValue));
 	}
 
 	_onEditImage(event) {

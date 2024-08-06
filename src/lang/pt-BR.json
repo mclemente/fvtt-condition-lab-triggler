@@ -6,7 +6,7 @@
 				"Content": "Clique em 'Sim' para ativar 'Saída para chat' em todas as condições"
 			},
 			"ConditionLab": {
-				"NoReference": "--Sem entrada de referência-- (Arraste um Diário, Item, Ator, etc. para este campo para definir)",
+				"NoReference": "--Sem entrada de referência-- (Arraste um Documento para este campo para defini-lo)",
 				"FilterInputTitle": "Filtrar por nome",
 				"FilterButtonTitle": "Aplicar filtro",
 				"SortAnchorTitle": {
@@ -21,7 +21,7 @@
 				},
 				"BadReference": "Não foi possível criar um link para o conteúdo (ator, item, diário, etc.)",
 				"RestoreDefaultClearCache": {
-					"CheckboxText": "Limpar o cache e recarregar os padrões da pasta do módulo?"
+					"CheckboxText": "Limpar o cache"
 				},
 				"Buttons": {
 					"Options": "Opções"
@@ -41,7 +41,7 @@
 				}
 			},
 			"MacroConfig": {
-				"Title": "Configuração de macro",
+				"Title": "Configuração de Macro",
 				"Heading": "Macros para Executar",
 				"ApplyHeading": "Macro ao Aplicar",
 				"RemoveHeading": "Macro ao remover",
@@ -50,7 +50,7 @@
 				"SelectNone": "--Sem Macro--"
 			},
 			"TriggerConfig": {
-				"Title": "Configuração do gatilho",
+				"Title": "Configuração do Gatilho",
 				"Heading": "Gatilhos",
 				"ApplyHeading": "Aplicar gatilho",
 				"RemoveHeading": "Remover gatilho",
@@ -58,7 +58,7 @@
 				"SelectNone": "--Sem gatilho--"
 			},
 			"OptionConfig": {
-				"Title": "Configuração de opção",
+				"Title": "Configuração de Opção",
 				"Heading": "Opções",
 				"Description": "Opções gerais para esta condição",
 				"SpecialStatusEffects": {
@@ -170,8 +170,8 @@
 		},
 		"SETTINGS": {
 			"EnhancedConditions": {
-				"CoreIconsN": "Ícones Principais de Estatus",
-				"CoreIconsH": "Uma cópia dos principais ícones de estatus",
+				"CoreIconsN": "Ícones Principais de Condições",
+				"CoreIconsH": "Uma cópia dos principais ícones de condições",
 				"SystemN": "Sistema de Jogo",
 				"SystemH": "Uma referência ao sistema do jogo. O padrão é outro se não for conhecido pelo módulo",
 				"OutputChatN": "Saída para bate-papo",
@@ -180,7 +180,7 @@
 				"OutputCombatH": "Em cada rodada de combate, exiba quaisquer condições para o combatente atual no bate-papo",
 				"DefaultMapsN": "Mapas de Condição Padrão",
 				"DefaultMapsH": "Mapas de condições fornecidos pelo módulo para ícones",
-				"RemoveDefaultEffectsN": "Remover os Efeitos de Estatus Padrão",
+				"RemoveDefaultEffectsN": "Remover os Efeitos de Condições Padrão",
 				"RemoveDefaultEffectsH": "Remova os ícones de efeito de status existentes da HUD do token",
 				"DefaultOutputChatN": "Condições padrão de saída para bate-papo",
 				"DefaultOutputChatH": "Envie todas as condições padrão para bate-papo",

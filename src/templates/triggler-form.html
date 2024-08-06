@@ -3,11 +3,7 @@
 		<div class="form-group triggler">
 			<label>{{localize "CLT.TRIGGLER.App.Labels.Triggers"}}</label>
 			<select name="triggers">
-				{{#select id}}
-				<option value=""></option>
-				{{#each triggers as |trigger key|}}
-				<option value="{{trigger.id}}">{{trigger.text}}</option>
-				{{/each}} {{/select}}
+				{{selectOptions triggers selected=id valueAttr="id" labelAttr="text" blank="" }}
 			</select>
 			{{#if triggerSelected}}
 			<a class="delete"><i class="fas fa-trash"></i></a>
@@ -57,40 +53,20 @@
 			</div>
 			<div class="flexrow">
 				<select name="category" {{disabled (not isSimpleTrigger)}}>
-					{{#select category}}
-					<option value=""></option>
-					{{#each categories}}
-					<option value="{{this}}">{{this}}</option>
-					{{/each}} {{/select}}
+					{{selectOptions categories selected=category blank="" }}
 				</select>
 				<select name="attribute" {{disabled (not isSimpleTrigger)}}>
-					{{#select attribute}}
-					<option value=""></option>
-					{{#each attributes}}
-					<option value="{{this}}">{{this}}</option>
-					{{/each}} {{/select}}
+					{{selectOptions attributes selected=attribute blank="" }}
 				</select>
 				<select name="property1" {{disabled (not isSimpleTrigger)}}>
-					{{#select property1}}
-					<option value=""></option>
-					{{#each properties}}
-					<option value="{{this}}">{{this}}</option>
-					{{/each}} {{/select}}
+					{{selectOptions properties selected=property1 blank="" }}
 				</select>
 				<select name="operator" {{disabled (not isSimpleTrigger)}}>
-					{{#select operator}}
-					<option value=""></option>
-					{{#each operators as |name key|}}
-					<option value="{{key}}">{{name}}</option>
-					{{/each}} {{/select}}
+					{{selectOptions operators selected=operator blank="" }}
 				</select>
 				<input type="text" name="value" class="value" value="{{value}}" {{disabled (not isSimpleTrigger)}} />
 				<select name="property2" {{disabled (not isSimpleTrigger)}}>
-					{{#select property2}}
-					<option value=""></option>
-					{{#each properties}}
-					<option value="{{this}}">{{this}}</option>
-					{{/each}} {{/select}}
+					{{selectOptions properties selected=property2 blank="" }}
 				</select>
 			</div>
 		</fieldset>
@@ -158,20 +134,14 @@
 				<p class="notes">{{localize "CLT.TRIGGLER.App.AdvancedTrigger.OperatorValue.Note"}}</p>
 				<div class="flexrow">
 					<select name="advancedOperator" class="advanced-trigger-operator" {{disabled (not isAdvancedTrigger)}}>
-						{{#select advancedOperator}}
-						<option value=""></option>
-						{{#each operators as |name key|}}
-						<option value="{{key}}">{{name}}</option>
-						{{/each}} {{/select}}
+						{{selectOptions operators selected=advancedOperator blank="" }}
 					</select>
 					<input
 						type="text"
 						name="advancedValue"
 						class="advanced-trigger-value"
 						value="{{advancedValue}}"
-						{{disabled
-						(not
-						isAdvancedTrigger)}}
+						{{disabled (not isAdvancedTrigger)}}
 					/>
 				</div>
 			</fieldset>

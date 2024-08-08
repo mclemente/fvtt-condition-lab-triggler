@@ -142,12 +142,12 @@
           "Title": "Opções:",
           "Overlay.Label": "Sobrepor",
           "RemoveOthers.Label": "Remover os Outros",
-          "OutputChat.Label": "Exibir no Bate-papo",
+          "OutputChat.Label": "Exibir no chat",
           "MarkDefeated.Label": "Marcar como Derrotado",
           "Overlay.Title": "A Condição é Sobreposta",
           "RemoveOthers.Title": "Remova outras condições quando esta for aplicada",
           "MarkDefeated.Title": "Marcar combatentes correspondentes como derrotados quando esta condição for aplicada",
-          "OutputChat.Title": "Envie esta condição para o bate-papo quando adicionado/removido"
+          "OutputChat.Title": "Posta esta condição no chat quando for adicionada ou removida"
         }
       }
     },
@@ -174,16 +174,16 @@
         "CoreIconsH": "Uma cópia dos principais ícones de condições",
         "SystemN": "Sistema de Jogo",
         "SystemH": "Uma referência ao sistema do jogo. O padrão é outro se não for conhecido pelo módulo",
-        "OutputChatN": "Saída para bate-papo",
-        "OutputChatH": "Saída correspondente às condições para o bate-papo",
-        "OutputCombatN": "Saída durante o combate",
-        "OutputCombatH": "Em cada rodada de combate, exiba quaisquer condições para o combatente atual no bate-papo",
+        "OutputChatN": "Postar no Chat",
+        "OutputChatH": "Posta as condições quando forem adicionadas ou removidas",
+        "OutputCombatN": "Postar durante o combate",
+        "OutputCombatH": "Em cada rodada, posta as condições do combatente atual no chat",
         "DefaultMapsN": "Mapas de Condição Padrão",
         "DefaultMapsH": "Mapas de condições fornecidos pelo módulo para ícones",
         "RemoveDefaultEffectsN": "Remover os Efeitos de Condições Padrão",
         "RemoveDefaultEffectsH": "Remova os ícones de efeito de status existentes da HUD do token",
-        "DefaultOutputChatN": "Condições padrão de saída para bate-papo",
-        "DefaultOutputChatH": "Envie todas as condições padrão para bate-papo",
+        "DefaultOutputChatN": "Postar Condições padrão no chat",
+        "DefaultOutputChatH": "Posta todas as condições padrão no chat",
         "MapTypeN": "Tipo de Mapa de Condição Ativo",
         "MapTypeH": "Tipo de mapa de condições atualmente em uso -- padrão, personalizado ou outro",
         "MapType": {

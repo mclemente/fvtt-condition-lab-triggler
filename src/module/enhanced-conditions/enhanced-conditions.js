@@ -124,7 +124,7 @@ export class EnhancedConditions {
 
 		const chatUser = game.userId;
 		// const token = token || this.currentToken;
-		const chatType = CONST.CHAT_MESSAGE_TYPES.OTHER;
+		const chatType = CONST.CHAT_MESSAGE_STYLES.OTHER;
 		const speaker = isActorEntity
 			? ChatMessage.getSpeaker({ actor: entity })
 			: ChatMessage.getSpeaker({ token: entity });

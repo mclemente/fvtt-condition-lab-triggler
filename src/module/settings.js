@@ -23,7 +23,7 @@ export function registerSettings() {
 					title: game.i18n.localize("CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Title"),
 					content: game.i18n.localize("CLT.ENHANCED_CONDITIONS.OutputChatConfirm.Content"),
 					yes: () => {
-						const newMap = deepClone(game.clt.conditions);
+						const newMap = foundry.utils.deepClone(game.clt.conditions);
 						if (!newMap.length) return;
 						newMap.forEach((c) => (c.options.outputChat = true));
 						game.settings.set("condition-lab-triggler", "activeConditionMap", newMap);

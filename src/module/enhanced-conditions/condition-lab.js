@@ -745,7 +745,7 @@ export class ConditionLab extends FormApplication {
 		const liRow = anchor?.closest("li");
 		const rowNumber = parseInt(liRow?.dataset.mappingRow);
 		const type = anchor?.className;
-		const newMap = deepClone(this.map);
+		const newMap = foundry.utils.deepClone(this.map);
 		const mappingRow = newMap?.splice(rowNumber, 1) ?? [];
 		let newIndex = -1;
 

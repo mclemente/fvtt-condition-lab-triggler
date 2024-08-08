@@ -87,6 +87,7 @@ export class ConditionLab extends FormApplication {
 		const disableChatOutput = isDefault || !outputChatSetting;
 
 		for (const condition of conditionMap) {
+			condition.name = game.i18n.localize(condition.name);
 			// Check if the row exists in the saved map
 			const existingEntry = this.initialMap.find((e) => e.id === condition.id) ?? null;
 			condition.isNew = !existingEntry;

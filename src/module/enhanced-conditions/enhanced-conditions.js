@@ -163,6 +163,7 @@ export class EnhancedConditions {
 		if (!type.active && enhancedConditionsDiv && sameSpeaker && recentTimestamp) {
 			let newContent = "";
 			for (const condition of conditions) {
+				condition.name = game.i18n.localize(condition.name);
 				const newRow = await renderTemplate(
 					"modules/condition-lab-triggler/templates/partials/chat-card-condition-list.hbs",
 					{ condition, type, timestamp }

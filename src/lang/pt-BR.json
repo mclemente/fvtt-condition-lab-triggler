@@ -200,7 +200,7 @@
         "SuppressPreventativeSaveReminderH": "Suprima o lembrete para salvar o Laboratório de Condições para evitar problemas (por exemplo, se o usuário já tiver feito isso)",
         "MigrationVersionN": "Versão de Migração",
         "MigrationVersionH": "Versão do CLT para a qual a migração foi realizada pela última vez",
-        "ShowSortDirectionDialogN": "Mostrar Diálogo de Salvamento de Direção de Classificação do Laboratório de Condição",
+        "ShowSortDirectionDialogN": "Exibir Janela para salvar Direção de Classificação",
         "ShowSortDirectionDialogH": "Se deve ou não mostrar a caixa de diálogo de confirmação para salvar a direção da classificação."
       },
       "TokenUtility": {

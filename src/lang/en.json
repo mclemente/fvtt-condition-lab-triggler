@@ -200,7 +200,7 @@
 				"SuppressPreventativeSaveReminderH": "Suppress the reminder to save the Condition Lab to prevent issues (eg. if user has already done so)",
 				"MigrationVersionN": "Migration Version",
 				"MigrationVersionH": "Version of CUB for which migration was last performed",
-				"ShowSortDirectionDialogN": "Show Condition Lab Sort Direction Save Dialog",
+				"ShowSortDirectionDialogN": "Prompt Saving Sort Direction",
 				"ShowSortDirectionDialogH": "Whether or not to show the confirmation dialog for saving the sort direction."
 			},
 			"TokenUtility": {

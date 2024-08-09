@@ -172,139 +172,20 @@ Hooks.on("ready", async () => {
 
 Hooks.on("updateActor", (actor, updateData, options, userId) => {
 	// Workaround for actor array returned in hook for non triggering clients
-	if (actor instanceof Collection) {
-		actor = actor.contents.find((a) => a.id === updateData.id);
-	}
-	Triggler._onUpdateActor(actor, updateData, options, userId);
+	if (game.userId !== userId) return;
+	Triggler._processUpdate(actor, updateData, "system");
 });
 
 /* --------------- Active Effect -------------- */
 
 Hooks.on("createActiveEffect", (effect, options, userId) => {
-	if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
-		return;
-	}
+	if (!game.user.isGM || game.userId !== userId) return;
 	EnhancedConditions._processActiveEffectChange(effect, "create");
 });
 
 Hooks.on("deleteActiveEffect", (effect, options, userId) => {
-	if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
-		return;
-	}
+	if (!game.user.isGM || game.userId !== userId) return;
 	EnhancedConditions._processActiveEffectChange(effect, "delete");
-});
-
-/* ------------------- Token ------------------ */
-
-Hooks.on("preUpdateToken", (token, update, options, userId) => {
-	// If the update includes effect data, add an `option` for the update hook handler to look for
-	const cubOption = (options["condition-lab-triggler"] = options["condition-lab-triggler"] ?? {});
-
-	if (foundry.utils.hasProperty(update, "actorData.effects")) {
-		cubOption.existingEffects = token.actorData.effects ?? [];
-		cubOption.updateEffects = update.actorData.effects ?? [];
-	}
-
-	if (foundry.utils.hasProperty(update, "overlayEffect")) {
-		cubOption.existingOverlay = token.overlayEffect ?? null;
-		cubOption.updateOverlay = update.overlayEffect ?? null;
-	}
-
-	return true;
-});
-
-Hooks.on("updateToken", (token, update, options, userId) => {
-	if (!game.user.isGM || (game.users.get(userId).isGM && game.userId !== userId)) {
-		return;
-	}
-
-	// If the update includes effects, calls the journal entry lookup
-	if (!foundry.utils.hasProperty(options, "condition-lab-triggler")) return;
-
-	const cubOption = options["condition-lab-triggler"];
-	const addUpdate = cubOption ? cubOption?.updateEffects?.length > cubOption?.existingEffects?.length : false;
-	const removeUpdate = cubOption ? cubOption?.existingEffects?.length > cubOption?.updateEffects?.length : false;
-	const updateEffects = [];
-
-	if (addUpdate) {
-		for (const e of cubOption.updateEffects) {
-			if (!cubOption.existingEffects.find((x) => x._id === e._id)) updateEffects.push({ effect: e, type: "effect", changeType: "add" });
-		}
-	}
-
-	if (removeUpdate) {
-		for (const e of cubOption.existingEffects) {
-			if (!cubOption.updateEffects.find((u) => u._id === e._id)) updateEffects.push({ effect: e, type: "effect", changeType: "remove" });
-		}
-	}
-
-	if (!cubOption.existingOverlay && cubOption.updateOverlay) updateEffects.push({ effect: cubOption.updateOverlay, type: "overlay", changeType: "add" });
-	else if (cubOption.existingOverlay && !cubOption.updateOverlay) updateEffects.push({ effect: cubOption.existingOverlay, type: "overlay", changeType: "remove" });
-
-	if (!updateEffects.length) return;
-
-	const addConditions = [];
-	const removeConditions = [];
-
-	for (const effect of updateEffects) {
-		let condition = null;
-		// based on the type, get the condition
-		if (effect.type === "overlay") condition = EnhancedConditions.getConditionsByIcon(effect.effect);
-		else if (effect.type === "effect") {
-			if (!foundry.utils.hasProperty(effect, `effect.flags.condition-lab-triggler.${"conditionId"}`)) continue;
-			const effectId = effect.effect.flags["condition-lab-triggler"].conditionId;
-			condition = EnhancedConditions.lookupEntryMapping(effectId);
-		}
-
-		if (!condition) continue;
-
-		if (effect.changeType === "add") addConditions.push(condition);
-		else if (effect.changeType === "remove") removeConditions.push(condition);
-	}
-
-	if (!addConditions.length && !removeConditions.length) return;
-
-	const outputChatSetting = game.settings.get("condition-lab-triggler", "conditionsOutputToChat");
-
-	// If any of the addConditions Marks Defeated, mark the token's combatants defeated
-	if (addConditions.some((c) => c?.options?.markDefeated)) {
-		EnhancedConditions._toggleDefeated(token);
-	}
-
-	// If any of the removeConditions Marks Defeated, remove the defeated from the token's combatants
-	if (removeConditions.some((c) => c?.options?.markDefeated)) {
-		EnhancedConditions._toggleDefeated(token, { markDefeated: false });
-	}
-
-	// If any of the conditions Removes Others, remove the other Conditions
-	addConditions.some((c) => {
-		if (c?.options?.removeOthers) {
-			EnhancedConditions._removeOtherConditions(token, c.id);
-			return true;
-		}
-		return false;
-	});
-
-	const chatAddConditions = addConditions.filter((c) => outputChatSetting && c.options?.outputChat);
-	const chatRemoveConditions = removeConditions.filter((c) => outputChatSetting && c.options?.outputChat);
-
-	// If there's any conditions to output to chat, do so
-	if (chatAddConditions.length) EnhancedConditions.outputChatMessage(token, chatAddConditions, { type: "added" });
-	if (chatRemoveConditions.length) EnhancedConditions.outputChatMessage(token, chatRemoveConditions, { type: "removed" });
-
-	// process macros
-	const addMacroIds = addConditions.flatMap((c) =>
-		c.macros?.filter((m) => m.id && m.type === "apply").map((m) => m.id)
-	);
-	const removeMacroIds = removeConditions.flatMap((c) =>
-		c.macros?.filter((m) => m.id && m.type === "remove").map((m) => m.id)
-	);
-	const macroIds = [...addMacroIds, ...removeMacroIds];
-	if (macroIds.length) EnhancedConditions._processMacros(macroIds, token);
-});
-
-Hooks.on("updateToken", (tokenDocument, updateData, options, userId) => {
-	Triggler._onUpdateToken(tokenDocument, updateData, options, userId);
 });
 
 /* ------------------ Combat ------------------ */

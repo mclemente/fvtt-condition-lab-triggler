@@ -229,6 +229,18 @@ export class ConditionLab extends FormApplication {
 				macros,
 				options
 			};
+			for (const [oldKey, newKey] of Object.entries({ label: "name", icon: "img" })) {
+				Object.defineProperty(condition, oldKey, {
+					get() {
+						return this[newKey];
+					},
+					set(value) {
+						this[newKey] = value;
+					},
+					enumerable: false,
+					configurable: true
+				});
+			}
 
 			newMap.push(condition);
 		}

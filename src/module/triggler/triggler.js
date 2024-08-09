@@ -137,26 +137,16 @@ export class Triggler {
 		if (!entity || !update) return;
 
 		const triggers = game.settings.get("condition-lab-triggler", "storedTriggers");
-		const entityType =
-			entity instanceof Actor
-				? "Actor"
-				: entity instanceof Token || entity instanceof TokenDocument
-					? "Token"
-					: null;
-
-		if (!entityType) {
-			return;
-		}
 
 		/**
 		 * Avoid issues with Multi-Level Tokens by ignoring clone tokens
 		 * @see Issue #491
 		 */
-		if (entity.flags && "multilevel-tokens" in entity.flags && "stoken" in entity.flags["multilevel-tokens"]) {
+		if (foundry.utils.getProperty(entity, "flags.multilevel-tokens.stoken")) {
 			return;
 		}
 
-		const hasPlayerOwner = !!(entity.hasPlayerOwner ?? entity.document?.hasPlayerOwner);
+		const hasPlayerOwner = entity.hasPlayerOwner;
 
 		/**
 		 * process each trigger in turn, checking for a match in the update payload,
@@ -181,16 +171,15 @@ export class Triggler {
 				const baseMatchString = `${entryPoint1}${entryPoint1 ? "." : ""}${trigger.category}${
 					trigger.attribute ? `.${trigger.attribute}` : ""
 				}`;
-				// example : actorData.system.attributes.hp.value or actorData.data.status.isShaken
+				// example : actor.system.attributes.hp.value or actor.data.status.isShaken
 				matchString1 = `${baseMatchString}${trigger.property1 ? `.${trigger.property1}` : ""}`;
 
 				// example: actor.system.hp.max -- note this is unlikely to be in the update data
 				matchString2 = `${baseMatchString}${trigger.property2 ? `.${trigger.property2}` : ""}`;
 			} else if (triggerType === "advanced") {
 				// entry point differs based on actor vs token
-				matchString1 = entityType === "Actor" ? trigger?.advancedActorProperty : trigger?.advancedTokenProperty;
-				matchString2 =
-					entityType === "Actor" ? trigger?.advancedActorProperty2 : trigger?.advancedTokenProperty2;
+				matchString1 = trigger?.advancedActorProperty;
+				matchString2 = trigger?.advancedActorProperty2;
 				trigger.value = trigger.advancedValue;
 				trigger.operator = trigger.advancedOperator;
 			}
@@ -332,27 +321,5 @@ export class Triggler {
 				await Triggler._executeTrigger(trigger, entity);
 			}
 		}
-	}
-
-	/**
-	 * Update Actor handler
-	 * @param {*} actor
-	 * @param {*} update
-	 * @param {*} options
-	 * @param {*} userId
-	 */
-	static _onUpdateActor(actor, update, options, userId) {
-		if (game.userId === userId) Triggler._processUpdate(actor, update, "system");
-	}
-
-	/**
-	 * Update token handler
-	 * @param {Token} token
-	 * @param {*} update
-	 * @param {*} options
-	 * @param {*} userId
-	 */
-	static _onUpdateToken(token, update, options, userId) {
-		if (game.userId === userId) Triggler._processUpdate(token, update, "actorData.system");
 	}
 }

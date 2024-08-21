@@ -88,6 +88,7 @@ export class ConditionLab extends FormApplication {
 
 		for (const condition of conditionMap) {
 			condition.name = game.i18n.localize(condition.name);
+			condition.img ??= condition.icon;
 			// Check if the row exists in the saved map
 			const existingEntry = this.initialMap.find((e) => e.id === condition.id) ?? null;
 			condition.isNew = !existingEntry;

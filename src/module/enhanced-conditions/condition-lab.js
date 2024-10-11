@@ -231,11 +231,14 @@ export class ConditionLab extends FormApplication {
 				options
 			};
 			for (const [oldKey, newKey] of Object.entries({ label: "name", icon: "img" })) {
+				const msg = `StatusEffectConfig#${oldKey} has been deprecated in favor of StatusEffectConfig#${newKey}`;
 				Object.defineProperty(condition, oldKey, {
 					get() {
+						foundry.utils.logCompatibilityWarning(msg, { since: 12, until: 14, once: true });
 						return this[newKey];
 					},
 					set(value) {
+						foundry.utils.logCompatibilityWarning(msg, { since: 12, until: 14, once: true });
 						this[newKey] = value;
 					},
 					enumerable: false,

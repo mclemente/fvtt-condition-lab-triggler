@@ -108,8 +108,27 @@ Hooks.on("i18nInit", () => {
 });
 
 Hooks.on("ready", async () => {
-	game.clt.CoreStatusEffects = Object.freeze(CONFIG.statusEffects);
-	game.clt.CoreSpecialStatusEffects = Object.freeze(CONFIG.specialStatusEffects);
+	game.clt.CoreStatusEffects = foundry.utils.deepClone(CONFIG.statusEffects)
+		.map((status) => {
+			/** @deprecated since v12 */
+			for (const [oldKey, newKey] of Object.entries({ label: "name", icon: "img" })) {
+				const msg = `StatusEffectConfig#${oldKey} has been deprecated in favor of StatusEffectConfig#${newKey}`;
+				Object.defineProperty(status, oldKey, {
+					get() {
+						foundry.utils.logCompatibilityWarning(msg, { since: 12, until: 14, once: true });
+						return this[newKey];
+					},
+					set(value) {
+						foundry.utils.logCompatibilityWarning(msg, { since: 12, until: 14, once: true });
+						this[newKey] = value;
+					},
+					enumerable: false,
+					configurable: true
+				});
+			}
+			return status;
+		});
+	game.clt.CoreSpecialStatusEffects = foundry.utils.deepClone(CONFIG.specialStatusEffects);
 	game.clt.supported = false;
 	let defaultMaps = game.settings.get("condition-lab-triggler", "defaultConditionMaps");
 	let conditionMap = game.settings.get("condition-lab-triggler", "activeConditionMap");

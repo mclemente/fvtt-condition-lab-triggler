@@ -39,10 +39,9 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 	 * @param {*} formData
 	 * @override
 	 */
-	async _updateObject(event, formData) {
-		const conditionIdFlag = foundry.utils.getProperty(
-			this.object.flags,
-			`condition-lab-triggler.${"conditionId"}`
+	async _processSubmitData(_event, form, data) {
+		const conditionIdFlag = this.document.getFlag(
+			"condition-lab-triggler", "conditionId"
 		);
 		if (!conditionIdFlag) return;
 
@@ -59,10 +58,10 @@ export default class EnhancedEffectConfig extends ActiveEffectConfig {
 		// update the effect data
 
 		condition.activeEffect = condition.activeEffect
-			? foundry.utils.mergeObject(condition.activeEffect, formData)
-			: formData;
+			? foundry.utils.mergeObject(condition.activeEffect, data)
+			: data;
 
-		this.object.updateSource(formData);
+		this.document.updateSource(data);
 		if (this._state === 2) await this.render();
 		if (ui.clt.conditionLab) {
 			ui.clt.conditionLab.map = ui.clt.conditionLab.updatedMap;

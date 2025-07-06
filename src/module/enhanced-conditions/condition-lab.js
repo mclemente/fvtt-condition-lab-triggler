@@ -291,7 +291,7 @@ export class ConditionLab extends FormApplication {
 					}
 					this._processFormUpdate(formData);
 				},
-				no: () => {}
+				no: () => { }
 			});
 		} else {
 			this._processFormUpdate(formData);
@@ -632,7 +632,13 @@ export class ConditionLab extends FormApplication {
 		// Build a fake effect object for the ActiveEffectConfig sheet
 		// @todo #544 make Conditions an ActiveEffect extension?
 		delete conditionEffect.id;
-		const effect = new ActiveEffect(conditionEffect);
+		if (!conditionEffect.name) {
+			conditionEffect.name = condition.name;
+		}
+		const effect = new ActiveEffect(conditionEffect, {
+			// Build a dummy parent so dialog can be rendered.
+			parent: new Item({ name: "Global", type: "base" })
+		});
 		effect.testUserPermission = (...args) => {
 			return true;
 		};
@@ -742,7 +748,7 @@ export class ConditionLab extends FormApplication {
 				no: {
 					icon: '<i class="fa fa-times"></i>',
 					label: game.i18n.localize("No"),
-					callback: (event) => {}
+					callback: (event) => { }
 				}
 			},
 			default: "no"
@@ -851,11 +857,11 @@ export class ConditionLab extends FormApplication {
 				no: {
 					icon: '<i class="fas fa-times"></i>',
 					label: game.i18n.localize("No"),
-					callback: () => {}
+					callback: () => { }
 				}
 			},
 			default: "no",
-			close: () => {}
+			close: () => { }
 		});
 
 		confirmationDialog.render(true);
@@ -881,7 +887,7 @@ export class ConditionLab extends FormApplication {
 				no: {
 					icon: '<i class="fa fa-times"></i>',
 					label: game.i18n.localize("No"),
-					callback: (event) => {}
+					callback: (event) => { }
 				}
 			},
 			default: "no"

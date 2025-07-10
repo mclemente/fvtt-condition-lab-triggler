@@ -286,10 +286,9 @@ Hooks.on("renderSettingsConfig", (app, html, data, ...others) => {
 	const trigglerMenu = $(html).find("button[data-key=\"condition-lab-triggler.trigglerMenu\"]")[0];
 	if (trigglerMenu) {
 		const exclamationMark = trigglerMenu.children[0];
-		exclamationMark.style.marginRight = "0px";
+		exclamationMark.style.margin = "0 -6px";
 		const rightChevron = document.createElement("i");
 		rightChevron.classList.add("fas", "fa-angle-right");
-		rightChevron.style.marginRight = "0px";
 		trigglerMenu.insertBefore(rightChevron, exclamationMark);
 		const leftChevron = document.createElement("i");
 		leftChevron.classList.add("fas", "fa-angle-left");
